@@ -527,13 +527,23 @@ const stats = [
     // ── 히어로 글자 폭발 (스크롤 시 사방으로 날아감) ─────────────────────
     const SplitType = (window as any).SplitType;
     if (SplitType) {
-      const heroTitle = document.getElementById('hero-title');
-      if (heroTitle) {
-        const split = new SplitType(heroTitle, { types: 'chars' });
-        const chars = split.chars as HTMLElement[];
-        chars.forEach(c => { (c as HTMLElement).style.display = 'inline-block'; });
+      // overflow:hidden 래퍼 제거 (클리핑 방지)
+      document.querySelectorAll<HTMLElement>('#hero-title > div').forEach(d => {
+        d.style.overflow = 'visible';
+      });
+      // 각 span에 SplitType 적용
+      const spans = document.querySelectorAll<HTMLElement>('#hero-title span.title-slide-up');
+      const allChars: HTMLElement[] = [];
+      spans.forEach(span => {
+        // 그라디언트 텍스트(투명fill) → 흰색으로 변경해야 글자 보임
+        span.style.webkitTextFillColor = 'white';
+        span.style.background = 'none';
+        const split = new SplitType(span, { types: 'chars' });
+        (split.chars as HTMLElement[]).forEach(c => allChars.push(c));
+      });
 
-        gsap.to(chars, {
+      if (allChars.length > 0) {
+        gsap.to(allChars, {
           x: () => (Math.random() - 0.5) * window.innerWidth * 2.4,
           y: () => (Math.random() - 0.5) * window.innerHeight * 2.4,
           rotation: () => Math.random() * 800 - 400,
