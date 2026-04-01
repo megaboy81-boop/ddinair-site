@@ -8,36 +8,36 @@ const description = '남양주·다산신도시 에어컨 전문 설치 업체. 
 const storyPanels = [
   {
     bg: `${base}/images/bg/h1.jpg`,
-    eyebrow: 'Namyangju HVAC Specialist · Est. 2019',
+    eyebrow: '남양주 시스템에어컨 전문 시공팀 · 자체 기술팀 직영',
     title: 'DD',
     titleSub: '에어컨',
     titleItalic: true,
-    desc: '남양주·구리·의정부 시스템에어컨 전문',
+    desc: '정확한 설계 · 깔끔한 배관 · 섬세한 마감',
     isHero: true,
   },
   {
     bg: `${base}/images/bg/h2.jpg`,
-    eyebrow: 'Specialty Service',
-    title: '시스템에어컨\n설치 전문',
-    desc: '천장형 4WAY, 스탠드형, 벽걸이형 전문 시공. LG·삼성·캐리어 공식 대리점 수준 시공 품질.',
+    eyebrow: 'System AC Installation',
+    title: '시스템에어컨\n직영 시공',
+    desc: '천장형 4WAY·스탠드·벽걸이 전 기종 설치. LG·삼성·캐리어·위니아 전 브랜드 취급. 자체 기술팀 직영시공으로 책임 시공을 보장합니다.',
     stat: '70+',
     statLabel: '시공 실적',
   },
   {
     bg: `${base}/images/bg/h3.jpg`,
-    eyebrow: 'Maintenance & Repair',
-    title: '청소·수리\n당일 처리',
-    desc: '에어컨 분해청소, 가스충전, 부품 교체. 냄새·이상 소음 전문 진단. 빠른 AS 보장.',
+    eyebrow: 'Cleaning · Repair · Relocation',
+    title: '청소·수리·\n이전설치',
+    desc: '에어컨 분해청소, 냉매충전, 부품 교체. 소음·냄새·누수 원인 정밀 진단 후 즉시 처리. 이전설치 배관 재정리까지 원스톱.',
     stat: '100%',
     statLabel: 'AS 보장',
   },
   {
     bg: `${base}/images/bg/h4.jpg`,
-    eyebrow: 'Fast Response Service',
-    title: '당일 출장',
-    desc: '남양주·구리·하남·의정부·노원·서울 전역. 전화 한 통으로 바로 연결됩니다.',
+    eyebrow: 'Same-Day Field Service',
+    title: '당일\n출장 가능',
+    desc: '남양주·구리·하남·의정부·수원·용인 등 경기 전역. 전화 한 통으로 당일 연결. 이전설치·배관 정리·냉매 충전 현장 즉시 처리.',
     stat: '1일',
-    statLabel: '출장 응대',
+    statLabel: '당일 출장',
   },
 ];
 
@@ -54,22 +54,22 @@ const galleryItems = [
 
 const reviews = [
   {
-    text: '시공이 깔끔하고 빠르게 완료됐어요. 천장형 설치인데 마감까지 완벽했습니다.',
-    name: '남양주 원룸 사장님',
-    date: '2025년 11월 시공',
-    img: `${base}/images/gallery/case01.jpg`,
-  },
-  {
-    text: '다산신도시 식당 4WAY 설치했는데 정말 꼼꼼하게 해주셨어요. 추천합니다.',
-    name: '다산 식당 사장님',
-    date: '2025년 8월 시공',
+    text: '천장형 4WAY 설치인데 배관 정리랑 마감이 정말 깔끔했어요. 개업 전 일정에 맞춰 당일 완료해 주셔서 감사합니다.',
+    name: '성수 셀렉샵 사장님',
+    date: '2026년 2월 시공',
     img: `${base}/images/gallery/case02.jpg`,
   },
   {
-    text: '급하게 연락했는데 당일 출장 와주셨어요. 가격도 합리적이고 친절했습니다.',
-    name: '의정부 헤어샵',
-    date: '2025년 6월 시공',
-    img: `${base}/images/gallery/case03.jpg`,
+    text: '치과 특성상 환자 환경이 중요한데, 현장 진단부터 시공까지 전문적으로 처리해 주셨어요. 소음도 없고 마감도 완벽합니다.',
+    name: '강변 치과·피부과',
+    date: '2026년 2월 시공',
+    img: `${base}/images/gallery/case05.jpg`,
+  },
+  {
+    text: '이전설치라 걱정했는데 배관 재정리부터 냉매 충전까지 하루 만에 깔끔하게 끝냈습니다. 역시 전문 시공팀이네요.',
+    name: '수원 인계동 카페',
+    date: '2026년 1월 시공',
+    img: `${base}/images/gallery/case04.jpg`,
   },
 ];
 
@@ -123,12 +123,12 @@ const stats = [
               <span style="font-size:10px;letter-spacing:0.55em;text-transform:uppercase;color:rgba(255,255,255,0.45);opacity:0;transition:opacity 0.8s ease 0.9s;" id="eyebrow-text">{panel.eyebrow}</span>
             </div>
             <!-- 히어로 타이틀 -->
-            <h1 id="hero-title" class="font-display" style="font-size:clamp(68px,12vw,148px);font-weight:300;color:white;line-height:0.88;letter-spacing:0.02em;margin-bottom:30px;">
+            <h1 id="hero-title" style="font-size:clamp(72px,13vw,160px);line-height:0.9;letter-spacing:-0.01em;margin-bottom:30px;">
               <div style="overflow:hidden;display:block;">
-                <span class="title-slide-up" style="display:block;animation-delay:0.4s;">{panel.title}</span>
+                <span class="title-slide-up font-bebas" style="display:block;animation-delay:0.4s;color:white;font-weight:400;">{panel.title}</span>
               </div>
               <div style="overflow:hidden;display:block;">
-                <span class="title-slide-up blue-gradient" style="display:block;font-style:italic;animation-delay:0.65s;">{panel.titleSub}</span>
+                <span class="title-slide-up font-impact blue-gradient" style="display:block;animation-delay:0.65s;">{panel.titleSub}</span>
               </div>
             </h1>
             <!-- 서브타이틀 -->
@@ -191,13 +191,14 @@ const stats = [
     <!-- 콘텐츠 -->
     <div style="max-width:760px;padding:0 8vw;position:relative;z-index:1;">
       <p id="sub-eyebrow" style="font-size:10px;letter-spacing:0.55em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-bottom:20px;opacity:0;transform:translateY(16px);">2026 KEPCO Support Program</p>
-      <h2 id="sub-title" class="font-display" style="font-size:clamp(38px,6vw,72px);font-weight:300;color:white;line-height:1;letter-spacing:0.04em;margin-bottom:20px;opacity:0;transform:translateY(32px);">
-        한전 고효율기기<br/>지원사업
+      <h2 id="sub-title" class="font-impact" style="font-size:clamp(38px,6vw,72px);color:white;line-height:1.15;letter-spacing:0.02em;margin-bottom:20px;opacity:0;transform:translateY(32px);">
+        <span style="display:block;">한전 고효율기기</span>
+        <span style="display:block;">지원사업</span>
       </h2>
       <div id="sub-line" style="width:0;height:1px;background:rgba(255,255,255,0.35);margin:22px auto 24px;"></div>
       <p id="sub-desc" style="font-size:clamp(15px,1.8vw,19px);color:rgba(255,255,255,0.75);font-weight:300;line-height:1.8;margin-bottom:40px;opacity:0;transform:translateY(20px);">
-        2026년 참여 업체 — 에어컨 교체 시<br/>
-        <strong style="color:#81D4FA;font-weight:500;">최대 40% 환급</strong> 혜택을 받으세요.
+        1등급 에어컨 설치 시 구매가의<br/>
+        <strong style="color:#81D4FA;font-weight:600;">40% 현금 환급 · 최대 160만원</strong>
       </p>
       <div id="sub-btns" style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;opacity:0;transform:translateY(20px);">
         <a href={`${base}/contact`}
@@ -264,7 +265,7 @@ const stats = [
 <div class="marquee-outer" style="position:relative;z-index:2;">
   <div class="marquee-track">
     {[1,2].map(() => (
-      ['DD에어컨','남양주 에어컨','SINCE 2019','70건+ 시공','당일 출장 가능','시스템에어컨','NAMYANGJU HVAC','한전 지원사업'].map(t => (
+      ['DD에어컨','천장형 4WAY 전문','직영 시공팀','70건+ 시공','당일 출장 가능','이전설치 1등','NAMYANGJU HVAC','한전 지원사업 160만원'].map(t => (
         <span class="marquee-item">{t} ·</span>
       ))
     ))}

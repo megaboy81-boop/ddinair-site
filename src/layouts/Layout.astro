@@ -59,7 +59,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
   <link rel='preconnect' href='https://fonts.googleapis.com' />
   <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin />
-  <link href='https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap' rel='stylesheet' />
+  <link href='https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Black+Han+Sans&family=Bebas+Neue&display=swap' rel='stylesheet' />
   <link rel='stylesheet' href='https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css' />
   <!-- CDN — GSAP + Lenis + SplitType -->
   <Fragment set:html={'<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"><\/script><script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"><\/script><script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"><\/script><script src="https://unpkg.com/split-type@0.3.4/umd/index.min.js"><\/script>'} />
@@ -86,6 +86,8 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       overflow-x: hidden;
     }
     .font-display { font-family: 'Cormorant Garamond', Georgia, serif; }
+    .font-impact { font-family: 'Black Han Sans', 'Pretendard Variable', sans-serif; }
+    .font-bebas { font-family: 'Bebas Neue', 'Cormorant Garamond', serif; }
     .blue-gradient {
       background: linear-gradient(90deg, var(--blue), var(--blue-light), var(--blue));
       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
