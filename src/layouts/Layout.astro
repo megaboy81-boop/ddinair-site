@@ -61,8 +61,8 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin />
   <link href='https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap' rel='stylesheet' />
   <link rel='stylesheet' href='https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css' />
-  <!-- CDN 라이브러리 — Fragment set:html로 Astro 번들러 우회 -->
-  <Fragment set:html={'<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"><\/script><script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"><\/script><script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"><\/script>'} />
+  <!-- CDN -->
+  <Fragment set:html={'<script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"><\/script>'} />
 
   <style is:global>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -81,6 +81,32 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     html { scroll-behavior: auto; }
     .hero-slide { opacity: 0; transition: opacity 1.5s ease-in-out; position: absolute; inset: 0; }
     .hero-slide.active { opacity: 1; }
+
+    /* 페이드인 애니메이션 */
+    .fade-in-up { opacity:0; transform:translateY(50px); transition:opacity 0.9s cubic-bezier(0.16,1,0.3,1),transform 0.9s cubic-bezier(0.16,1,0.3,1); }
+    .fade-in-up.visible { opacity:1; transform:translateY(0); }
+    .fade-in-left { opacity:0; transform:translateX(-50px); transition:opacity 0.9s cubic-bezier(0.16,1,0.3,1),transform 0.9s cubic-bezier(0.16,1,0.3,1); }
+    .fade-in-left.visible { opacity:1; transform:translateX(0); }
+    .fade-in-right { opacity:0; transform:translateX(50px); transition:opacity 0.9s cubic-bezier(0.16,1,0.3,1),transform 0.9s cubic-bezier(0.16,1,0.3,1); }
+    .fade-in-right.visible { opacity:1; transform:translateX(0); }
+    .fade-in-scale { opacity:0; transform:scale(0.92); transition:opacity 0.9s cubic-bezier(0.16,1,0.3,1),transform 0.9s cubic-bezier(0.16,1,0.3,1); }
+    .fade-in-scale.visible { opacity:1; transform:scale(1); }
+    .delay-100 { transition-delay:0.1s; } .delay-200 { transition-delay:0.2s; }
+    .delay-300 { transition-delay:0.3s; } .delay-400 { transition-delay:0.4s; }
+    .delay-500 { transition-delay:0.5s; } .delay-600 { transition-delay:0.6s; }
+
+    /* 히어로 텍스트 진입 */
+    @keyframes hero-fade-in { from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);} }
+    .hero-text-1{animation:hero-fade-in 1s ease 0.3s both;}
+    .hero-text-2{animation:hero-fade-in 1s ease 0.6s both;}
+    .hero-text-3{animation:hero-fade-in 1s ease 0.9s both;}
+    .hero-text-4{animation:hero-fade-in 1s ease 1.2s both;}
+
+    /* 섹션 구분선 (파란색) */
+    .section-divider { width:60px;height:1px;background:linear-gradient(90deg,transparent,#4FC3F7,transparent);margin:0 auto; }
+
+    /* VanillaTilt 카드 */
+    .tilt-card { transform-style:preserve-3d; will-change:transform; }
     body {
       font-family: 'Pretendard Variable','Pretendard',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
       background: var(--dark);
