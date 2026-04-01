@@ -5,385 +5,359 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const title = 'DD에어컨 | 남양주 에어컨 설치·판매·청소 전문';
 const description = '남양주·다산신도시 에어컨 전문 설치 업체. 천장형 4WAY·스탠드·벽걸이 설치, 에어컨 청소·수리·이전. 당일 출장 가능. 70건+ 시공 실적.';
 
-const storyPanels = [
+const heroImages = [
+  `${base}/images/bg/h1.jpg`,
+  `${base}/images/bg/h2.jpg`,
+  `${base}/images/bg/h3.jpg`,
+  `${base}/images/bg/h4.jpg`,
+];
+
+const stats = [
+  { number: 70,  suffix: '+',  label: '시공 실적' },
+  { number: 5,   suffix: '년+', label: '현장 경력' },
+  { number: 100, suffix: '%',  label: 'AS 보장'   },
+  { number: 1,   suffix: '일', label: '당일 출장'  },
+];
+
+const features = [
   {
-    bg: `${base}/images/bg/h1.jpg`,
-    eyebrow: 'Professional HVAC · 70+ Projects',
-    title: 'DD\nAircon',
-    titleItalic: true,
-    desc: '전문 시공팀이 직접 설치합니다',
-    isHero: true,
+    icon: '❄',
+    title: '시스템 에어컨 설치',
+    desc: '천장형 4WAY, 스탠드형, 벽걸이형 전문 설치. LG·삼성·캐리어 공식 시공.',
+    badge: 'Installation',
+    delay: ''
   },
   {
-    bg: `${base}/images/bg/exploded.jpg`,
-    eyebrow: 'System Installation',
-    title: '에어컨 설치',
-    desc: '천장형 4WAY, 스탠드형, 벽걸이형 등 모든 타입의 업무용·가정용 에어컨 전문 설치. LG·삼성·캐리어 공식 시공.',
-    stat: '70+',
-    statLabel: '시공 실적',
+    icon: '🔧',
+    title: '에어컨 청소·수리',
+    desc: '분해청소, 가스충전, 부품교체. 냄새 제거 전문.',
+    badge: 'Maintenance',
+    delay: 'delay-200'
   },
   {
-    bg: `${base}/images/bg/exploded.jpg`,
-    eyebrow: 'Cleaning & Repair',
-    title: '청소·수리',
-    desc: '냄새 제거 전문 에어컨 분해청소, 가스 충전, 부품 교체. 오래된 에어컨도 새것처럼 되살립니다.',
-    stat: '5년+',
-    statLabel: '현장 경력',
-  },
-  {
-    bg: `${base}/images/bg/h4.jpg`,
-    eyebrow: 'Fast Response',
-    title: '빠른 출장',
-    desc: '남양주·구리·하남·의정부·노원·서울 전역 당일 및 익일 출장. 긴급 수리도 빠르게 출동합니다.',
-    stat: '당일',
-    statLabel: '출장 가능',
+    icon: '🚚',
+    title: '당일 출장 가능',
+    desc: '남양주·구리·하남·의정부·노원·서울 전역. 긴급 수리도 빠르게.',
+    badge: 'Fast Service',
+    delay: 'delay-400'
   },
 ];
 
 const galleryItems = [
-  { src: `${base}/images/gallery/case01.jpg`, label: '요양병원 벽걸이 설치' },
-  { src: `${base}/images/gallery/case02.jpg`, label: '셀렉샵 4WAY 설치' },
-  { src: `${base}/images/gallery/case03.jpg`, label: '네일샵 4WAY 설치' },
-  { src: `${base}/images/gallery/case04.jpg`, label: '마포 4WAY 설치' },
+  { src: `${base}/images/gallery/case01.jpg`, label: '요양병원 벽걸이 설치', delay: 'delay-100' },
+  { src: `${base}/images/gallery/case02.jpg`, label: '셀렉샵 4WAY 설치', delay: 'delay-200' },
+  { src: `${base}/images/gallery/case03.jpg`, label: '네일샵 4WAY 설치', delay: 'delay-300' },
+  { src: `${base}/images/gallery/case04.jpg`, label: '마포 4WAY 설치', delay: 'delay-400' },
+];
+
+const galleryExtra = [
   { src: `${base}/images/gallery/case05.jpg`, label: '치과 4WAY 설치' },
   { src: `${base}/images/gallery/case06.jpg`, label: '헤어샵 4WAY 설치' },
   { src: `${base}/images/gallery/case07.jpg`, label: '관리실 스탠드 설치' },
   { src: `${base}/images/gallery/case08.jpg`, label: '사무실 벽걸이 설치' },
 ];
 
-const stats = [
-  { num: 70, suffix: '+', label: '시공 실적' },
-  { num: 5, suffix: '년+', label: '현장 경력' },
-  { num: 100, suffix: '%', label: 'AS 보장' },
-  { num: 24, suffix: 'h', label: '출장 대응' },
-];
-
-const services = [
+const reviews = [
   {
-    icon: '❄',
-    title: '시스템 에어컨 설치',
-    desc: '천장형 4WAY 카세트, 스탠드형, 벽걸이형 에어컨 신규 설치. 식당·헤어샵·의원·학교·사무실 모든 업종 가능.',
-    tags: ['LG', '삼성', '캐리어', '대우'],
+    text: '시공이 깔끔하고 빠르게 완료됐어요. 천장형 설치인데 마감까지 완벽했습니다.',
+    name: '남양주 원룸 사장님',
+    date: '2025년 11월 시공',
+    img: `${base}/images/gallery/case01.jpg`
   },
   {
-    icon: '🔧',
-    title: '에어컨 청소·수리',
-    desc: '냄새 제거 전문 분해청소, 냉매 가스 충전, 실내기·실외기 점검 및 부품 교체.',
-    tags: ['분해청소', '가스충전', '수리'],
+    text: '다산신도시 식당 4WAY 설치했는데 정말 꼼꼼하게 해주셨어요. 추천합니다.',
+    name: '다산 식당 사장님',
+    date: '2025년 8월 시공',
+    img: `${base}/images/gallery/case02.jpg`
   },
   {
-    icon: '🚚',
-    title: '에어컨 이전설치',
-    desc: '기존 에어컨 철거 후 새 위치에 재설치. 인테리어 공사 후 복원설치 전문.',
-    tags: ['이전', '철거', '재설치'],
-  },
-  {
-    icon: '📐',
-    title: '멀티·선배관 공사',
-    desc: '신규 건물·인테리어 현장 선배관 공사. 멀티형 실외기 1대에 실내기 다수 연결.',
-    tags: ['멀티', '선배관', '신규공사'],
+    text: '급하게 연락했는데 당일 출장 와주셨어요. 가격도 합리적이고 친절했습니다.',
+    name: '의정부 헤어샵',
+    date: '2025년 6월 시공',
+    img: `${base}/images/gallery/case03.jpg`
   },
 ];
 ---
 <Layout title={title} description={description}>
 
-<!-- 파티클 캔버스 -->
-<canvas id="particle-canvas" style="position:fixed;inset:0;z-index:1;pointer-events:none;opacity:0.5;"></canvas>
-
-<!-- 히어로 섹션 — 웨딩마치 구조 동일 -->
-<section style="position:relative;height:100dvh;min-height:600px;overflow:hidden;background:#05090F;">
-  {storyPanels.map((panel, i) => (
-    <div class={`hero-slide ${i === 0 ? 'active' : ''}`} data-index={i}>
-      <div style={`position:absolute;inset:0;background-image:url('${panel.bg}');background-size:cover;background-position:center;`}></div>
-      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(5,9,15,0.45) 0%,rgba(5,9,15,0.05) 40%,rgba(5,9,15,0.85) 100%);"></div>
-    </div>
-  ))}
-
-  <!-- 히어로 콘텐츠 -->
-  <div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:0 8vw 12vh;z-index:10;">
-    <div style="max-width:750px;">
-      <div id="hero-eyebrow" style="display:flex;align-items:center;gap:16px;margin-bottom:28px;overflow:hidden;">
-        <span id="eyebrow-line" style="display:block;height:1px;width:0;background:linear-gradient(90deg,transparent,rgba(79,195,247,0.6));transition:width 1.2s ease 0.5s;"></span>
-        <span id="eyebrow-text" style="font-size:10px;letter-spacing:0.55em;text-transform:uppercase;color:rgba(255,255,255,0.45);opacity:0;transition:opacity 0.8s ease 0.9s;">Professional HVAC · 70+ Projects</span>
+  <!-- ====== HERO 섹션 — 파티클 캔버스 + 슬라이더 ====== -->
+  <section class='relative h-screen min-h-[600px] overflow-hidden' style='background: #05090F;'>
+    <!-- 배경 슬라이더 이미지 -->
+    {heroImages.map((src, i) => (
+      <div class={`hero-slide absolute inset-0 ${i === 0 ? 'active' : ''}`} data-index={i}>
+        <img src={src} alt={`DD에어컨 시공 ${i+1}`}
+          class='w-full h-full object-cover object-center'
+          loading={i === 0 ? 'eager' : 'lazy'} />
+        <div class='absolute inset-0' style='background: linear-gradient(to bottom, rgba(5,9,15,0.45) 0%, rgba(5,9,15,0.1) 40%, rgba(5,9,15,0.85) 100%);'></div>
       </div>
-      <h1 id="hero-title" class="font-display" style="font-size:clamp(80px,14vw,180px);font-weight:300;color:white;line-height:0.88;letter-spacing:0.02em;margin-bottom:30px;">
-        <div style="overflow:hidden;display:block;">
-          <span class="title-slide-up" style="display:block;animation-delay:0.4s;">DD</span>
+    ))}
+
+    <!-- 파티클 캔버스 -->
+    <canvas id='particle-canvas' class='absolute inset-0 w-full h-full pointer-events-none' style='z-index: 2;'></canvas>
+
+    <!-- 히어로 텍스트 오버레이 -->
+    <div class='absolute inset-0 flex flex-col justify-end z-10'>
+      <div class='max-w-6xl mx-auto w-full px-8 pb-28 md:pb-32'>
+        <p class='hero-text-1 text-white/60 text-xs tracking-[0.6em] uppercase mb-4 font-light'>Namyangju HVAC Specialist · 70+ Projects</p>
+        <h1 class='font-display leading-none mb-5'>
+          <span class='hero-text-2 block text-5xl md:text-7xl lg:text-8xl text-white font-light tracking-wider'>DD</span>
+          <span class='hero-text-3 block text-5xl md:text-7xl lg:text-8xl font-light tracking-wider' style='color: #81D4FA; font-style: italic;'>에어컨</span>
+        </h1>
+        <p class='hero-text-4 text-white/70 text-lg md:text-xl font-light mb-8'>
+          남양주 · 구리 · 의정부 시스템에어컨 전문
+        </p>
+        <div class='hero-text-4 flex flex-col sm:flex-row gap-4'>
+          <a href={`${base}/contact`}
+             class='inline-block text-white px-10 py-4 text-sm tracking-[0.2em] uppercase font-light hover:opacity-90 transition-all duration-300 shadow-lg'
+             style='background: linear-gradient(135deg, #1E88E5, #0D47A1);'>
+            서비스 신청하기
+          </a>
+          <a href={`${base}/cases`}
+             class='inline-block border border-white/40 text-white/80 px-10 py-4 text-sm tracking-[0.2em] uppercase font-light hover:border-white hover:text-white transition-all duration-300'>
+            시공사례 보기
+          </a>
         </div>
-        <div style="overflow:hidden;display:block;">
-          <span class="blue-gradient title-slide-up" style="display:block;font-style:italic;animation-delay:0.65s;">에어컨</span>
+      </div>
+    </div>
+
+    <!-- 슬라이더 인디케이터 -->
+    <div class='absolute bottom-8 right-8 flex gap-2 z-10' id='slide-indicators'>
+      {heroImages.map((_, i) => (
+        <button
+          class={`slide-dot rounded-full transition-all duration-300 h-2 ${i === 0 ? 'bg-white w-6' : 'bg-white/40 w-2'}`}
+          data-slide={i}
+          aria-label={`슬라이드 ${i+1}`}></button>
+      ))}
+    </div>
+
+    <!-- 스크롤 유도 -->
+    <div class='absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-2 z-10 text-white/40'>
+      <span class='text-[10px] tracking-[0.4em] uppercase'>Scroll</span>
+      <div class='w-px h-10' style='background: linear-gradient(to bottom, rgba(79,195,247,0.4), transparent);'></div>
+    </div>
+  </section>
+
+  <!-- ====== 숫자 스탯 — 카운터 애니메이션 ====== -->
+  <section class='py-14 border-b' style='background: linear-gradient(135deg, #080D15 0%, #05090F 100%); border-color: rgba(79,195,247,0.15);'>
+    <div class='max-w-5xl mx-auto px-6'>
+      <div class='grid grid-cols-2 md:grid-cols-4 gap-8 text-center'>
+        {stats.map((stat, i) => (
+          <div class={`fade-in-up delay-${i * 100}`}>
+            <p class='font-display text-4xl md:text-5xl font-light mb-1' style='color: #4FC3F7;'>
+              <span class='counter-num' data-target={stat.number} data-suffix={stat.suffix}>0</span>
+            </p>
+            <p class='text-xs tracking-[0.25em] uppercase font-light' style='color: #81D4FA;'>{stat.label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== 브랜드 특징 — VanillaTilt 3D 카드 ====== -->
+  <section class='py-24 px-6' style='background: #080D15;'>
+    <div class='max-w-6xl mx-auto'>
+      <div class='text-center mb-16'>
+        <p class='fade-in-up text-xs tracking-[0.5em] uppercase font-light mb-4' style='color: #4FC3F7;'>Why DD에어컨</p>
+        <h2 class='fade-in-up delay-100 font-display text-4xl md:text-5xl font-light text-white mb-5'>왜 DD에어컨인가요?</h2>
+        <div class='fade-in-up delay-200 section-divider'></div>
+        <p class='fade-in-up delay-300 font-light text-sm mt-4' style='color: rgba(255,255,255,0.45);'>남양주·다산신도시 고객들이 DD에어컨을 선택하는 이유</p>
+      </div>
+      <div class='grid grid-cols-1 md:grid-cols-3 gap-8'>
+        {features.map((feat) => (
+          <div
+            class={`tilt-card fade-in-up ${feat.delay} relative border p-10 overflow-hidden cursor-default`}
+            style='background: #080D15; border-color: rgba(79,195,247,0.15);'
+            data-tilt
+            data-tilt-max='8'
+            data-tilt-speed='400'
+            data-tilt-glare='true'
+            data-tilt-max-glare='0.15'
+          >
+            <span class='absolute top-5 right-5 text-[10px] tracking-[0.3em] uppercase border px-2 py-0.5' style='color: #4FC3F7; border-color: rgba(79,195,247,0.6);'>{feat.badge}</span>
+            <div class='font-display text-2xl mb-5' style='color: #4FC3F7;'>{feat.icon}</div>
+            <div class='w-8 h-px mb-5' style='background: linear-gradient(90deg, #1E88E5, #81D4FA);'></div>
+            <h3 class='font-display text-2xl font-light text-white mb-4'>{feat.title}</h3>
+            <p class='text-sm leading-relaxed font-light' style='color: rgba(255,255,255,0.55);'>{feat.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== 갤러리 섹션 ====== -->
+  <section class='py-20' style='background: #05090F;'>
+    <div class='max-w-6xl mx-auto px-6 mb-10'>
+      <div class='flex items-end justify-between'>
+        <div>
+          <p class='fade-in-left text-xs tracking-[0.5em] uppercase font-light mb-3' style='color: rgba(79,195,247,0.6);'>Our Installation Cases</p>
+          <h2 class='fade-in-left delay-100 font-display text-4xl md:text-5xl font-light text-white'>시공 갤러리</h2>
         </div>
-      </h1>
-      <p id="hero-sub" style="font-size:clamp(14px,1.8vw,19px);color:rgba(255,255,255,0.58);font-weight:300;letter-spacing:0.08em;margin-bottom:40px;opacity:0;transform:translateY(16px);">
-        남양주 · 구리 · 의정부 시스템에어컨 전문
-      </p>
-      <div id="hero-cta" style="display:flex;gap:14px;flex-wrap:wrap;opacity:0;transform:translateY(16px);">
-        <a href={`${base}/contact`} class="btn-primary">서비스 신청하기</a>
-        <a href={`${base}/cases`} class="btn-outline">시공사례 보기</a>
+        <a href={`${base}/cases`} class='fade-in-right hidden md:inline-block text-xs tracking-[0.3em] uppercase pb-0.5 hover:text-white hover:border-white transition-colors font-light' style='color: rgba(79,195,247,0.6); border-bottom: 1px solid rgba(79,195,247,0.6);'>
+          전체 보기 →
+        </a>
       </div>
     </div>
-  </div>
 
-  <!-- 슬라이드 인디케이터 -->
-  <div style="position:absolute;bottom:40px;right:8vw;z-index:10;display:flex;gap:8px;align-items:center;">
-    {storyPanels.map((_, i) => (
-      <button
-        class="slide-dot"
-        data-slide={i}
-        style={`border:none;border-radius:9999px;height:8px;transition:all 0.3s ease;cursor:pointer;padding:0;background:${i===0?'white':'rgba(255,255,255,0.35)'};width:${i===0?'24px':'8px'};`}
-        aria-label={`슬라이드 ${i+1}`}
-      ></button>
-    ))}
-  </div>
-
-  <!-- 스크롤 유도 -->
-  <div style="position:absolute;bottom:40px;left:50%;transform:translateX(-50%);z-index:10;display:flex;flex-direction:column;align-items:center;gap:8px;">
-    <span style="font-size:11px;letter-spacing:0.2em;color:rgba(255,255,255,0.45);">아래로 내려보세요</span>
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(79,195,247,0.7)" stroke-width="1.5" style="animation:bounce 1.8s ease-in-out infinite;"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
-  </div>
-</section>
-
-<!-- 한전 지원사업 배너 — 웨딩마치 CTA 섹션 구조 동일 -->
-<section style="padding:80px 6vw;position:relative;overflow:hidden;text-align:center;background:linear-gradient(135deg,#0d1f2d 0%,#1a2a3a 100%);">
-  <div style="position:absolute;top:0;left:0;width:300px;height:300px;border-radius:50%;opacity:0.08;transform:translate(-50%,-50%);background:#4FC3F7;pointer-events:none;"></div>
-  <div style="position:absolute;bottom:0;right:0;width:400px;height:400px;border-radius:50%;opacity:0.06;transform:translate(40%,40%);background:#1E88E5;pointer-events:none;"></div>
-  <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:1px;height:48px;opacity:0.3;background:#4FC3F7;"></div>
-
-  <div style="max-width:760px;margin:0 auto;position:relative;z-index:1;">
-    <p style="font-size:10px;letter-spacing:0.5em;text-transform:uppercase;color:rgba(79,195,247,0.7);font-weight:300;margin-bottom:16px;">2026 KEPCO Support Program</p>
-    <h2 class="font-display" style="font-size:clamp(28px,4.5vw,52px);font-weight:300;color:white;margin-bottom:20px;letter-spacing:0.04em;">한전 고효율기기 지원사업</h2>
-    <div style="width:48px;height:1px;margin:0 auto 24px;background:rgba(79,195,247,0.4);"></div>
-    <p style="font-size:16px;color:rgba(255,255,255,0.75);font-weight:300;line-height:1.85;margin-bottom:36px;">
-      DD에어컨은 2026년 한전 지원사업 참여 업체입니다.<br/>
-      에어컨 교체 시 <strong style="color:#4FC3F7;">최대 40% 환급</strong> 혜택을 받으세요.
-    </p>
-    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
-      <a href={`${base}/contact`} style="display:inline-block;background:#4FC3F7;color:#05090F;padding:16px 48px;font-size:11px;letter-spacing:0.25em;text-transform:uppercase;text-decoration:none;font-weight:600;">지원금 신청하기</a>
-      <a href={`${base}/subsidy`} style="display:inline-block;border:1px solid rgba(79,195,247,0.5);color:#4FC3F7;padding:15px 40px;font-size:11px;letter-spacing:0.25em;text-transform:uppercase;text-decoration:none;font-weight:300;">지원사업 안내 →</a>
-    </div>
-  </div>
-</section>
-
-<!-- STATS 섹션 -->
-<section id="stats-section" style="background:var(--dark);position:relative;z-index:2;overflow:hidden;">
-  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:300px;background:radial-gradient(ellipse,rgba(79,195,247,0.05) 0%,transparent 70%);pointer-events:none;"></div>
-  <div style="max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);position:relative;">
-    {stats.map((s) => (
-      <div class="stat-item">
-        <span class="stat-num counter-num" data-target={s.num} data-suffix={s.suffix}>0{s.suffix}</span>
-        <span class="stat-label">{s.label}</span>
+    <div class='grid grid-cols-2 md:grid-cols-4 gap-px' style='background: #05090F;'>
+      <div class='col-span-2 overflow-hidden group relative fade-in-scale' style='height: 380px;'>
+        <img src={`${base}/images/gallery/case01.jpg`} alt='DD에어컨 대표 시공'
+             class='w-full h-full object-cover transition-transform duration-700 group-hover:scale-105' />
+        <div class='absolute inset-0 bg-black/0 group-hover:bg-black/15 transition-colors duration-500'></div>
+        <div class='absolute bottom-0 left-0 right-0 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500' style='background: linear-gradient(to top, rgba(5,9,15,0.8), transparent);'>
+          <p class='text-white/90 text-sm font-light tracking-wider'>대표 시공사례</p>
+        </div>
       </div>
-    ))}
-  </div>
-  <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(79,195,247,0.15),transparent);"></div>
-  <div style="position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(79,195,247,0.15),transparent);"></div>
-</section>
-
-<!-- MARQUEE -->
-<div class='marquee-outer' style='position:relative;z-index:2;'>
-  <div class='marquee-track'>
-    {[1,2].map(() => (
-      ['DD에어컨','남양주 전문 시공','SYSTEM AC','당일 출장','70건+ 시공','천장형 4WAY','에어컨 청소','SINCE 2019','100% AS 보장'].map(t => (
-        <span class='marquee-item'>{t} ·</span>
-      ))
-    ))}
-  </div>
-</div>
-
-<!-- 분해 애니메이션 섹션 -->
-<div id="explode-scroll" style="height:250vh;position:relative;">
-  <div style="position:sticky;top:0;height:100dvh;overflow:hidden;background:#f0f2f4;">
-    <!-- 완제품 이미지 -->
-    <img id="img-assembled" src={`${base}/images/bg/assembled.jpg`} alt="삼성 천장형 4WAY 에어컨"
-      style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center;transition:opacity 0.05s linear,transform 0.05s linear;z-index:1;" />
-    <!-- 분해도 이미지 -->
-    <img id="img-exploded" src={`${base}/images/bg/exploded.jpg`} alt="에어컨 분해도"
-      style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center;opacity:0;transition:opacity 0.05s linear,transform 0.05s linear;z-index:2;" />
-    <!-- 텍스트 오버레이 -->
-    <div id="explode-label" style="position:absolute;bottom:10%;left:50%;transform:translateX(-50%);z-index:10;text-align:center;pointer-events:none;">
-      <p style="font-size:10px;letter-spacing:0.5em;text-transform:uppercase;color:rgba(5,9,15,0.4);margin-bottom:8px;">System Air Conditioner</p>
-      <h2 id="explode-title" class="font-display" style="font-size:clamp(28px,4vw,56px);font-weight:300;color:#05090F;letter-spacing:0.04em;">천장형 4WAY 전문 시공</h2>
-      <p id="explode-desc" style="font-size:14px;color:rgba(5,9,15,0.55);margin-top:10px;font-weight:300;">LG · 삼성 · 캐리어 공식 시공</p>
-    </div>
-    <!-- 스크롤 진행 바 -->
-    <div style="position:absolute;bottom:0;left:0;right:0;height:3px;background:rgba(5,9,15,0.08);z-index:10;">
-      <div id="explode-progress" style="height:100%;width:0%;background:linear-gradient(90deg,#4FC3F7,#1E88E5);transition:width 0.05s linear;"></div>
-    </div>
-  </div>
-</div>
-
-<!-- 서비스 섹션 -->
-<section style="background:var(--dark2);padding:100px 8vw;position:relative;z-index:2;">
-  <div style="max-width:1100px;margin:0 auto;">
-    <div style="text-align:center;margin-bottom:64px;">
-      <span class='section-label gsap-fade'>Our Services</span>
-      <h2 class='font-display gsap-fade' style="font-size:clamp(32px,5vw,56px);font-weight:300;color:white;letter-spacing:0.04em;">전문 서비스</h2>
-      <div class='section-divider'></div>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:rgba(255,255,255,0.05);">
-      {services.map((svc, i) => (
-        <div class="gsap-fade" data-delay={i*0.1} style="background:var(--dark2);padding:40px 32px;transition:background 0.3s;" onmouseover="this.style.background='rgba(79,195,247,0.03)'" onmouseout="this.style.background='var(--dark2)'">
-          <div style="font-size:32px;margin-bottom:20px;">{svc.icon}</div>
-          <h3 style="font-size:17px;font-weight:600;color:white;margin-bottom:14px;">{svc.title}</h3>
-          <p style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.85;margin-bottom:18px;">{svc.desc}</p>
-          <div style="display:flex;flex-wrap:wrap;gap:6px;">
-            {svc.tags.map(tag => (
-              <span style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--blue);border:1px solid rgba(79,195,247,0.3);padding:3px 10px;">{tag}</span>
-            ))}
+      {galleryItems.map((img) => (
+        <div class={`aspect-square overflow-hidden group relative fade-in-scale ${img.delay}`}>
+          <img src={img.src} alt={`DD에어컨 ${img.label}`} class='w-full h-full object-cover transition-transform duration-700 group-hover:scale-110' loading='lazy' />
+          <div class='absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-end justify-start p-3'>
+            <span class='text-white/0 group-hover:text-white/90 transition-all duration-300 text-xs tracking-wider font-light'>{img.label}</span>
           </div>
         </div>
       ))}
     </div>
-  </div>
-</section>
 
-<!-- 갤러리 섹션 -->
-<section style="background:var(--dark);padding:80px 0 60px;position:relative;z-index:2;">
-  <div style="max-width:1100px;margin:0 auto;padding:0 8vw;margin-bottom:40px;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;">
-    <div>
-      <span class='section-label gsap-fade' style="color:rgba(79,195,247,0.7);">Installation Cases</span>
-      <h2 class='font-display gsap-fade' style="font-size:clamp(32px,5vw,56px);font-weight:300;color:white;letter-spacing:0.04em;">시공 갤러리</h2>
+    <!-- 2nd row: case05~08 small grid -->
+    <div class='grid grid-cols-4 gap-px mt-px' style='background: #05090F;'>
+      {galleryExtra.map((img, i) => (
+        <div class={`aspect-square overflow-hidden group relative fade-in-scale delay-${(i+1)*100}`}>
+          <img src={img.src} alt={`DD에어컨 ${img.label}`} class='w-full h-full object-cover transition-transform duration-700 group-hover:scale-110' loading='lazy' />
+          <div class='absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-end justify-start p-3'>
+            <span class='text-white/0 group-hover:text-white/90 transition-all duration-300 text-xs tracking-wider font-light'>{img.label}</span>
+          </div>
+        </div>
+      ))}
     </div>
-    <a href={`${base}/cases`} class="gsap-fade btn-blue">전체 시공사례 →</a>
-  </div>
-  <div id="hgal-track" class="hgal-track" style="padding:0 8vw;">
-    {galleryItems.map((item) => (
-      <div class="hgal-item">
-        <img src={item.src} alt={`DD에어컨 ${item.label}`} loading='lazy' />
-        <div class="hgal-label">{item.label}</div>
+
+    <div class='text-center mt-10 px-6'>
+      <a href={`${base}/cases`}
+         id='gallery-cta'
+         class='fade-in-up inline-block px-12 py-4 text-xs tracking-[0.3em] uppercase font-light transition-all duration-300'
+         style='border: 1px solid rgba(79,195,247,0.6); color: rgba(79,195,247,0.6);'>
+        전체 갤러리 보기
+      </a>
+    </div>
+  </section>
+
+  <!-- ====== 분해 애니메이션 섹션 ====== -->
+  <div id="explode-scroll" style="height:250vh;position:relative;z-index:2;">
+    <div style="position:sticky;top:0;height:100dvh;overflow:hidden;background:#f0f2f4;">
+      <img id="img-assembled" src={`${base}/images/bg/assembled.jpg`} alt="삼성 천장형 4WAY 에어컨"
+        style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center;transition:opacity 0.05s linear,transform 0.05s linear;z-index:1;" />
+      <img id="img-exploded" src={`${base}/images/bg/exploded.jpg`} alt="에어컨 분해도"
+        style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center;opacity:0;transition:opacity 0.05s linear,transform 0.05s linear;z-index:2;" />
+      <div id="explode-label" style="position:absolute;bottom:10%;left:50%;transform:translateX(-50%);z-index:10;text-align:center;pointer-events:none;">
+        <p style="font-size:10px;letter-spacing:0.5em;text-transform:uppercase;color:rgba(5,9,15,0.4);margin-bottom:8px;">System Air Conditioner</p>
+        <h2 id="explode-title" class="font-display" style="font-size:clamp(28px,4vw,56px);font-weight:300;color:#05090F;letter-spacing:0.04em;">천장형 4WAY 전문 시공</h2>
+        <p id="explode-desc" style="font-size:14px;color:rgba(5,9,15,0.55);margin-top:10px;font-weight:300;">LG · 삼성 · 캐리어 공식 시공</p>
       </div>
-    ))}
-  </div>
-</section>
-
-<!-- CTA 섹션 -->
-<section style="background:var(--dark2);padding:130px 8vw 120px;text-align:center;position:relative;z-index:2;overflow:hidden;border-top:1px solid rgba(79,195,247,0.08);">
-  <div style="position:absolute;top:-80px;left:-80px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(79,195,247,0.08),transparent 70%);pointer-events:none;"></div>
-  <div style="position:absolute;bottom:-100px;right:-60px;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(30,136,229,0.06),transparent 70%);pointer-events:none;"></div>
-  <div style="max-width:640px;margin:0 auto;position:relative;">
-    <span class='section-label gsap-fade'>Quick Service</span>
-    <h2 class='font-display' style="font-size:clamp(38px,6.5vw,76px);font-weight:300;color:white;line-height:1.02;margin-bottom:20px;letter-spacing:0.02em;">
-      빠른 상담,<br/>
-      <span class='blue-gradient' style="font-style:italic;">당일 출장 가능</span>
-    </h2>
-    <div class='section-divider'></div>
-    <p class='gsap-fade' style="font-size:16px;color:rgba(255,255,255,0.5);font-weight:300;line-height:1.85;margin-bottom:44px;">
-      남양주·구리·하남·의정부·노원·서울 전역<br/>전화 한 통으로 바로 연결됩니다.
-    </p>
-    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
-      <a href="tel:010-7237-2122" class='btn-primary' style="padding:18px 60px;font-size:12px;">010-7237-2122 전화하기</a>
-      <a href={`${base}/contact`} class='btn-outline' style="padding:17px 40px;font-size:12px;">온라인 신청</a>
+      <div style="position:absolute;bottom:0;left:0;right:0;height:3px;background:rgba(5,9,15,0.08);z-index:10;">
+        <div id="explode-progress" style="height:100%;width:0%;background:linear-gradient(90deg,#4FC3F7,#1E88E5);transition:width 0.05s linear;"></div>
+      </div>
     </div>
   </div>
-</section>
+
+  <!-- ====== 한전 지원사업 CTA 배너 ====== -->
+  <section class='py-20 px-6 relative overflow-hidden text-center' style='background: linear-gradient(135deg, #1E88E5 0%, #0D47A1 100%);'>
+    <div class='absolute top-0 left-0 w-64 h-64 rounded-full opacity-10 -translate-x-32 -translate-y-32' style='background: #080D15;'></div>
+    <div class='absolute bottom-0 right-0 w-96 h-96 rounded-full opacity-10 translate-x-48 translate-y-48' style='background: #05090F;'></div>
+    <div class='absolute top-8 left-1/2 -translate-x-1/2 w-px h-12 opacity-30' style='background: #81D4FA;'></div>
+
+    <div class='max-w-4xl mx-auto relative z-10'>
+      <p class='fade-in-up text-white/70 text-xs tracking-[0.5em] uppercase font-light mb-4'>2026 KEPCO Support Program</p>
+      <h2 class='fade-in-up delay-100 font-display text-4xl md:text-5xl font-light text-white mb-5'>한전 고효율기기 지원사업</h2>
+      <div class='fade-in-up delay-200 w-12 h-px mx-auto mb-6' style='background: rgba(255,255,255,0.4);'></div>
+      <p class='fade-in-up delay-300 text-white/80 font-light text-lg mb-8'>
+        2026년 참여 업체 — 에어컨 교체 시<br/>
+        <strong style='color: #81D4FA;'>최대 40% 환급</strong> 혜택을 받으세요.
+      </p>
+      <div class='fade-in-up delay-400 flex flex-col sm:flex-row gap-4 justify-center'>
+        <a href={`${base}/contact`}
+           class='inline-block bg-white px-12 py-4 text-sm tracking-[0.2em] uppercase font-medium hover:opacity-95 transition-colors shadow-lg'
+           style='color: #1E88E5;'>
+          지원금 신청하기
+        </a>
+        <a href={`${base}/subsidy`}
+           class='inline-block border border-white/50 text-white px-12 py-4 text-sm tracking-[0.2em] uppercase font-light hover:bg-white/10 transition-all duration-300'>
+          지원사업 안내
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== 고객 후기 ====== -->
+  <section class='py-24 px-6' style='background: #080D15;'>
+    <div class='max-w-6xl mx-auto'>
+      <div class='text-center mb-16'>
+        <p class='fade-in-up text-xs tracking-[0.5em] uppercase font-light mb-4' style='color: #4FC3F7;'>Customer Reviews</p>
+        <h2 class='fade-in-up delay-100 font-display text-4xl md:text-5xl font-light text-white mb-5'>고객들의 이야기</h2>
+        <div class='fade-in-up delay-200 section-divider'></div>
+      </div>
+      <div class='grid grid-cols-1 md:grid-cols-3 gap-8'>
+        {reviews.map((review, i) => (
+          <div class={`fade-in-up delay-${i*200} border p-8 relative hover:shadow-xl transition-all duration-500 hover:-translate-y-1`} style='background: rgba(79,195,247,0.03); border-color: rgba(79,195,247,0.12);'>
+            <div class='font-display text-6xl leading-none mb-4 font-light select-none' style='color: rgba(79,195,247,0.15);'>"</div>
+            <div class='w-14 h-14 rounded-full overflow-hidden mb-5 border-2' style='border-color: rgba(79,195,247,0.6);'>
+              <img src={review.img} alt='고객 시공사례' class='w-full h-full object-cover' loading='lazy' />
+            </div>
+            <div class='flex gap-0.5 mb-4'>
+              {[1,2,3,4,5].map(() => <span class='text-sm' style='color: #4FC3F7;'>★</span>)}
+            </div>
+            <p class='text-sm leading-relaxed mb-5 font-light italic' style='color: rgba(255,255,255,0.65);'>"{review.text}"</p>
+            <div class='border-t pt-4' style='border-color: rgba(79,195,247,0.12);'>
+              <p class='text-xs tracking-wider font-medium' style='color: #4FC3F7;'>{review.name}</p>
+              <p class='text-xs mt-0.5' style='color: rgba(255,255,255,0.35);'>{review.date}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== 최종 CTA ====== -->
+  <section class='py-32 px-6 text-center relative overflow-hidden' style='background: #05090F;'>
+    <div class='absolute inset-0 pointer-events-none' style='background: radial-gradient(ellipse at center, rgba(79,195,247,0.06) 0%, transparent 70%);'></div>
+    <p class='fade-in-up text-xs tracking-[0.5em] uppercase font-light mb-5' style='color: #4FC3F7;'>Quick Service</p>
+    <h2 class='fade-in-up delay-100 font-display text-4xl md:text-6xl font-light text-white mb-6'>
+      지금 바로 상담 신청하세요<br/>
+      <span class='font-light blue-gradient' style='font-style: italic;'>당일 출장 가능합니다</span>
+    </h2>
+    <div class='fade-in-up delay-200 section-divider mb-8'></div>
+    <p class='fade-in-up delay-300 font-light mb-10 text-lg' style='color: rgba(255,255,255,0.5);'>
+      남양주·구리·하남 전역 당일 출장 가능합니다.<br/>
+      전화 한 통으로 바로 연결됩니다.
+    </p>
+    <div class='fade-in-up delay-400 flex flex-col sm:flex-row gap-4 justify-center'>
+      <a href='tel:010-7237-2122'
+         class='inline-block text-white px-16 py-5 text-sm tracking-[0.3em] uppercase font-light shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300'
+         style='background: linear-gradient(135deg, #1E88E5, #0D47A1);'>
+        010-7237-2122 전화하기
+      </a>
+      <a href={`${base}/contact`}
+         class='inline-block border border-white/20 text-white/75 px-12 py-5 text-sm tracking-[0.2em] uppercase font-light hover:border-[#4FC3F7] hover:text-[#4FC3F7] transition-all duration-300'>
+        온라인 신청
+      </a>
+    </div>
+  </section>
 
 </Layout>
 
-<style>
-@keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(6px); }
-}
-</style>
-
-<script is:inline>
-window.addEventListener('load', function() {
-  // Lenis smooth scroll
-  if (typeof Lenis !== 'undefined') {
-    const lenis = new Lenis({ lerp: 0.1, smoothWheel: true });
-    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
-    requestAnimationFrame(raf);
-    window._lenis = lenis;
-  }
-
-  // GSAP ScrollTrigger
-  if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-    gsap.registerPlugin(ScrollTrigger);
-
-    // 히어로 슬라이더 — 웨딩마치 방식 (classList + setInterval)
-    const heroSlides = document.querySelectorAll('.hero-slide');
-    const slideDots = document.querySelectorAll('.slide-dot');
-    let current = 0;
-
-    function goToSlide(n) {
-      heroSlides[current].classList.remove('active');
-      slideDots[current].style.width = '8px';
-      slideDots[current].style.background = 'rgba(255,255,255,0.35)';
-      current = n;
-      heroSlides[current].classList.add('active');
-      slideDots[current].style.width = '24px';
-      slideDots[current].style.background = 'white';
-    }
-
-    let slideTimer = setInterval(() => goToSlide((current + 1) % heroSlides.length), 5500);
-
-    slideDots.forEach((dot, i) => {
-      dot.addEventListener('click', () => {
-        clearInterval(slideTimer);
-        goToSlide(i);
-        slideTimer = setInterval(() => goToSlide((current + 1) % heroSlides.length), 5500);
-      });
-    });
-
-    // GSAP fade-in
-    gsap.utils.toArray('.gsap-fade').forEach((el) => {
-      const delay = parseFloat(el.dataset.delay || 0);
-      gsap.to(el, {
-        opacity: 1, y: 0, duration: 0.8, delay,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: el,
-          start: 'top 85%',
-          toggleActions: 'play none none none',
-        }
-      });
-    });
-
-    // 카운터 애니메이션
-    document.querySelectorAll('.counter-num').forEach((el) => {
-      const target = parseInt(el.dataset.target);
-      const suffix = el.dataset.suffix || '';
-      ScrollTrigger.create({
-        trigger: el,
-        start: 'top 80%',
-        once: true,
-        onEnter: () => {
-          let current = 0;
-          const inc = target / 60;
-          const timer = setInterval(() => {
-            current += inc;
-            if (current >= target) { current = target; clearInterval(timer); }
-            el.textContent = Math.floor(current) + suffix;
-          }, 16);
-        }
-      });
-    });
-  }
-
-  // Hero 진입 애니메이션
-  setTimeout(() => {
-    const eyebrowLine = document.getElementById('eyebrow-line');
-    const eyebrowText = document.getElementById('eyebrow-text');
-    const heroSub = document.getElementById('hero-sub');
-    const heroCta = document.getElementById('hero-cta');
-    if (eyebrowLine) eyebrowLine.style.width = '60px';
-    if (eyebrowText) eyebrowText.style.opacity = '1';
-    setTimeout(() => {
-      if (heroSub) { heroSub.style.opacity = '1'; heroSub.style.transform = 'translateY(0)'; heroSub.style.transition = 'all 0.8s ease'; }
-      if (heroCta) { heroCta.style.opacity = '1'; heroCta.style.transform = 'translateY(0)'; heroCta.style.transition = 'all 0.8s ease 0.15s'; }
-    }, 1000);
-  }, 100);
-
-  // 파티클
-  const canvas = document.getElementById('particle-canvas');
+<script>
+  // ============================================================
+  // 1. 캔버스 파티클 — 히어로 배경
+  // ============================================================
+  const canvas = document.getElementById('particle-canvas') as HTMLCanvasElement | null;
   if (canvas) {
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext('2d')!;
     let W = canvas.width = window.innerWidth;
     let H = canvas.height = window.innerHeight;
-    const particles = Array.from({length: 40}, () => ({
-      x: Math.random() * W, y: Math.random() * H,
-      vx: (Math.random() - 0.5) * 0.3, vy: -Math.random() * 0.3 - 0.1,
-      r: Math.random() * 1.5 + 0.5, a: Math.random() * 0.4 + 0.1
+    const particles = Array.from({length: 50}, () => ({
+      x: Math.random() * W,
+      y: Math.random() * H,
+      vx: (Math.random() - 0.5) * 0.3,
+      vy: -Math.random() * 0.35 - 0.1,
+      r: Math.random() * 1.8 + 0.4,
+      a: Math.random() * 0.45 + 0.1
     }));
     function drawParticles() {
       ctx.clearRect(0, 0, W, H);
@@ -392,7 +366,8 @@ window.addEventListener('load', function() {
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(79,195,247,${p.a})`;
         ctx.fill();
-        p.x += p.vx; p.y += p.vy;
+        p.x += p.vx;
+        p.y += p.vy;
         if (p.y < -10) { p.y = H + 10; p.x = Math.random() * W; }
         if (p.x < 0 || p.x > W) p.vx *= -1;
       });
@@ -405,10 +380,88 @@ window.addEventListener('load', function() {
     }, { passive: true });
   }
 
-  // 분해 애니메이션 — 스크롤로 완제품 → 분해도 전환
+  // ============================================================
+  // 2. 히어로 슬라이더
+  // ============================================================
+  const slides = document.querySelectorAll<HTMLElement>('.hero-slide');
+  const dots = document.querySelectorAll<HTMLElement>('.slide-dot');
+  let current = 0;
+
+  function goToSlide(n: number) {
+    slides[current].classList.remove('active');
+    (dots[current] as HTMLElement).style.width = '8px';
+    dots[current].classList.add('bg-white/40');
+    dots[current].classList.remove('bg-white');
+    current = n;
+    slides[current].classList.add('active');
+    (dots[current] as HTMLElement).style.width = '24px';
+    dots[current].classList.remove('bg-white/40');
+    dots[current].classList.add('bg-white');
+  }
+
+  let slideTimer = setInterval(() => goToSlide((current+1) % slides.length), 5500);
+  dots.forEach((dot, i) => {
+    dot.addEventListener('click', () => {
+      clearInterval(slideTimer);
+      goToSlide(i);
+      slideTimer = setInterval(() => goToSlide((current+1) % slides.length), 5500);
+    });
+  });
+
+  // ============================================================
+  // 3. 카운터 애니메이션
+  // ============================================================
+  const counterObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target as HTMLElement;
+      const target = parseInt(el.dataset.target || '0');
+      const suffix = el.dataset.suffix || '';
+      const duration = 1800;
+      const start = performance.now();
+      function update(now: number) {
+        const t = Math.min((now-start)/duration, 1);
+        const eased = 1 - Math.pow(1-t, 3);
+        el.textContent = Math.round(eased*target) + suffix;
+        if (t < 1) requestAnimationFrame(update);
+      }
+      requestAnimationFrame(update);
+      counterObs.unobserve(el);
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('.counter-num').forEach(el => counterObs.observe(el));
+
+  // ============================================================
+  // 4. VanillaTilt 초기화
+  // ============================================================
+  const VT = (window as any).VanillaTilt;
+  if (VT) {
+    VT.init(document.querySelectorAll('[data-tilt]'), {
+      max: 8, speed: 400, glare: true, 'max-glare': 0.15,
+    });
+  }
+
+  // ============================================================
+  // 5. 갤러리 CTA 호버
+  // ============================================================
+  const galleryCta = document.getElementById('gallery-cta');
+  if (galleryCta) {
+    galleryCta.addEventListener('mouseover', () => {
+      galleryCta.style.background = '#4FC3F7';
+      galleryCta.style.color = '#05090F';
+    });
+    galleryCta.addEventListener('mouseout', () => {
+      galleryCta.style.background = 'transparent';
+      galleryCta.style.color = 'rgba(79,195,247,0.6)';
+    });
+  }
+
+  // ============================================================
+  // 6. 분해 애니메이션 — 스크롤 크로스페이드
+  // ============================================================
   const explodeContainer = document.getElementById('explode-scroll');
-  const imgAssembled = document.getElementById('img-assembled');
-  const imgExploded = document.getElementById('img-exploded');
+  const imgAssembled = document.getElementById('img-assembled') as HTMLImageElement | null;
+  const imgExploded = document.getElementById('img-exploded') as HTMLImageElement | null;
   const explodeProgress = document.getElementById('explode-progress');
 
   if (explodeContainer && imgAssembled && imgExploded) {
@@ -416,9 +469,8 @@ window.addEventListener('load', function() {
       const rect = explodeContainer.getBoundingClientRect();
       const total = explodeContainer.offsetHeight - window.innerHeight;
       const scrolled = -rect.top;
-      const p = Math.max(0, Math.min(1, scrolled / total)); // 0 → 1
+      const p = Math.max(0, Math.min(1, scrolled / total));
 
-      // 완제품 → 분해도 크로스페이드
       imgAssembled.style.opacity = String(1 - p);
       imgAssembled.style.transform = `scale(${1 + p * 0.08})`;
       imgExploded.style.opacity = String(p);
@@ -428,19 +480,79 @@ window.addEventListener('load', function() {
     }, { passive: true });
   }
 
-  // 갤러리 드래그 스크롤
-  const track = document.getElementById('hgal-track');
-  if (track) {
-    let isDown = false, startX, scrollLeft;
-    track.addEventListener('mousedown', e => { isDown = true; startX = e.pageX - track.offsetLeft; scrollLeft = track.scrollLeft; track.style.cursor = 'grabbing'; });
-    track.addEventListener('mouseleave', () => { isDown = false; track.style.cursor = 'grab'; });
-    track.addEventListener('mouseup', () => { isDown = false; track.style.cursor = 'grab'; });
-    track.addEventListener('mousemove', e => {
-      if (!isDown) return;
-      e.preventDefault();
-      const x = e.pageX - track.offsetLeft;
-      track.scrollLeft = scrollLeft - (x - startX) * 1.5;
+  // ============================================================
+  // 7. 스크롤 페이드인 (Intersection Observer)
+  // ============================================================
+  const fadeObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
     });
-  }
-});
+  }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
+
+  document.querySelectorAll('.fade-in-up, .fade-in-left, .fade-in-right, .fade-in-scale').forEach(el => {
+    fadeObs.observe(el);
+  });
 </script>
+
+<style>
+  @keyframes hero-fade-in {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-text-1 { animation: hero-fade-in 1s ease 0.3s both; }
+  .hero-text-2 { animation: hero-fade-in 1s ease 0.6s both; }
+  .hero-text-3 { animation: hero-fade-in 1s ease 0.9s both; }
+  .hero-text-4 { animation: hero-fade-in 1s ease 1.2s both; }
+
+  .tilt-card { transform-style: preserve-3d; will-change: transform; }
+
+  .fade-in-up {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .fade-in-up.visible { opacity: 1; transform: translateY(0); }
+
+  .fade-in-left {
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .fade-in-left.visible { opacity: 1; transform: translateX(0); }
+
+  .fade-in-right {
+    opacity: 0;
+    transform: translateX(50px);
+    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .fade-in-right.visible { opacity: 1; transform: translateX(0); }
+
+  .fade-in-scale {
+    opacity: 0;
+    transform: scale(0.92);
+    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .fade-in-scale.visible { opacity: 1; transform: scale(1); }
+
+  .delay-100 { transition-delay: 0.1s; }
+  .delay-200 { transition-delay: 0.2s; }
+  .delay-300 { transition-delay: 0.3s; }
+  .delay-400 { transition-delay: 0.4s; }
+  .delay-500 { transition-delay: 0.5s; }
+  .delay-600 { transition-delay: 0.6s; }
+
+  .section-divider {
+    width: 60px; height: 1px;
+    background: linear-gradient(90deg, transparent, #4FC3F7, transparent);
+    margin: 0 auto;
+  }
+
+  .blue-gradient {
+    background: linear-gradient(90deg, #4FC3F7, #81D4FA, #4FC3F7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+</style>
