@@ -50,8 +50,25 @@ const serviceAreas = [
         <a href="https://blog.naver.com/ddinair" target="_blank" rel="noopener"
            style="display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--blue);border:1px solid rgba(79,195,247,0.4);padding:10px 20px;transition:all 0.3s;"
            onmouseover="this.style.background='rgba(79,195,247,0.1)'" onmouseout="this.style.background='transparent'">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <rect width="24" height="24" rx="4" fill="#03C75A"/>
+            <path d="M13.5 12.3L10.2 7H7v10h3.5v-5.3L13.8 17H17V7h-3.5v5.3z" fill="white"/>
+          </svg>
           blog.naver.com/ddinair
+        </a>
+      </div>
+
+      <!-- 카카오톡 카드 -->
+      <div style="border:1px solid rgba(79,195,247,0.15);padding:32px;margin-bottom:16px;background:rgba(79,195,247,0.02);transition:border-color 0.3s;" onmouseover="this.style.borderColor='rgba(254,229,0,0.35)'" onmouseout="this.style.borderColor='rgba(79,195,247,0.15)'">
+        <div style="font-size:10px;letter-spacing:0.4em;text-transform:uppercase;color:var(--blue);margin-bottom:12px;">KakaoTalk</div>
+        <p style="font-size:14px;color:rgba(255,255,255,0.7);margin-bottom:16px;">카카오톡으로 빠르게 문의하세요</p>
+        <a href="tel:010-7237-2122"
+           style="display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#FEE500;border:1px solid rgba(254,229,0,0.4);padding:10px 20px;transition:all 0.3s;"
+           onmouseover="this.style.background='rgba(254,229,0,0.1)'" onmouseout="this.style.background='transparent'">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#FEE500">
+            <path d="M12 2C6.477 2 2 5.85 2 10.6c0 2.956 1.768 5.558 4.444 7.18-.165.615-.597 2.23-.684 2.576-.108.432.158.426.332.31.136-.092 2.168-1.47 3.046-2.065.609.087 1.232.133 1.862.133 5.523 0 10-3.85 10-8.6C22 5.85 17.523 2 12 2z"/>
+          </svg>
+          카카오톡 문의
         </a>
       </div>
 
@@ -85,10 +102,11 @@ const serviceAreas = [
         <!-- 카카오맵 iframe (좌표: 남양주시 진건읍 고재로 186) -->
         <div style="position:relative;padding-top:60%;background:#0a0f18;">
           <iframe
-            src="https://map.kakao.com/link/embed/DD에어컨,37.684739,127.215623"
+            src="https://maps.google.com/maps?q=37.684739,127.215623&z=16&output=embed&hl=ko"
             style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"
-            allow="geolocation"
             loading="lazy"
+            allowfullscreen
+            referrerpolicy="no-referrer-when-downgrade"
             title="DD에어컨 위치"
           ></iframe>
         </div>
