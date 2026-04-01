@@ -1,0 +1,478 @@
+---
+export interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+}
+const {
+  title = 'DD에어컨 | 남양주 에어컨 전문 설치·판매·청소',
+  description = '남양주·다산신도시 에어컨 전문 업체 DD에어컨. 천장형 4WAY·스탠드·벽걸이 설치, 에어컨 청소·수리·이전. 당일 출장 가능. 70건+ 시공 실적.',
+  ogImage = '/images/bg/h1.jpg'
+} = Astro.props;
+const canonicalURL = Astro.site ? new URL(Astro.url.pathname, Astro.site) : null;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+<!DOCTYPE html>
+<html lang='ko'>
+<head>
+  <meta charset='UTF-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+  <title>{title}</title>
+  <meta name='description' content={description} />
+  <meta name='keywords' content='남양주에어컨설치,다산신도시에어컨,에어컨설치업체,천장형에어컨,4WAY에어컨,에어컨청소,에어컨수리,DD에어컨,구리에어컨,하남에어컨' />
+  <meta name='robots' content='index, follow' />
+  <link rel='canonical' href={canonicalURL?.toString() ?? Astro.url.href} />
+  <meta property='og:type' content='website' />
+  <meta property='og:title' content={title} />
+  <meta property='og:description' content={description} />
+  <meta property='og:image' content={`${base}${ogImage}`} />
+  <meta property='og:locale' content='ko_KR' />
+  <meta property='og:site_name' content='DD에어컨' />
+  <meta name='twitter:card' content='summary_large_image' />
+  <meta name='twitter:title' content={title} />
+  <meta name='twitter:description' content={description} />
+  <meta name='twitter:image' content={`${base}${ogImage}`} />
+  <script type='application/ld+json' set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": ["LocalBusiness","HVACBusiness"],
+    "name": "DD에어컨",
+    "description": "남양주·다산신도시 에어컨 전문 설치·판매·청소 업체",
+    "telephone": "010-7237-2122",
+    "url": "https://megaboy81-boop.github.io/ddinair-site/",
+    "sameAs": ["https://blog.naver.com/ddinair"],
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "진건읍 고재로 186 1층",
+      "addressLocality": "남양주시",
+      "addressRegion": "경기도",
+      "addressCountry": "KR"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 37.6262,
+      "longitude": 127.1889
+    },
+    "openingHours": "Mo-Su 08:00-20:00",
+    "priceRange": "₩₩"
+  })} />
+
+  <link rel='preconnect' href='https://fonts.googleapis.com' />
+  <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin />
+  <link href='https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap' rel='stylesheet' />
+  <link rel='stylesheet' href='https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css' />
+  <!-- CDN 라이브러리 — Fragment set:html로 Astro 번들러 우회 -->
+  <Fragment set:html={'<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"><\/script><script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"><\/script><script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"><\/script>'} />
+
+  <style is:global>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #03070F;
+      --dark: #05090F;
+      --dark2: #080D15;
+      --blue: #4FC3F7;
+      --blue-deep: #1E88E5;
+      --blue-light: #81D4FA;
+      --blue-glow: rgba(79,195,247,0.15);
+      --cream: #F0F4F8;
+      --text-dim: rgba(255,255,255,0.55);
+      --text-muted: rgba(255,255,255,0.35);
+    }
+    html { scroll-behavior: auto; }
+    body {
+      font-family: 'Pretendard Variable','Pretendard',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+      background: var(--dark);
+      color: #e8f0f8;
+      overflow-x: hidden;
+    }
+    .font-display { font-family: 'Cormorant Garamond', Georgia, serif; }
+    .blue-gradient {
+      background: linear-gradient(90deg, var(--blue), var(--blue-light), var(--blue));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .section-label {
+      display: block; font-size: 10px; letter-spacing: 0.5em; text-transform: uppercase;
+      color: var(--blue); margin-bottom: 16px;
+    }
+    .section-divider {
+      width: 40px; height: 1px;
+      background: linear-gradient(90deg, var(--blue), var(--blue-light));
+      margin: 20px auto;
+    }
+    .btn-primary {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--blue-deep), #0D47A1);
+      color: white; padding: 16px 40px;
+      font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase;
+      text-decoration: none; transition: all 0.3s ease; border: none; cursor: pointer;
+      font-family: inherit; position: relative; overflow: hidden;
+    }
+    .btn-primary::after {
+      content:''; position:absolute; inset:0;
+      background: linear-gradient(135deg,rgba(255,255,255,0.15),transparent);
+      opacity:0; transition: opacity 0.3s;
+    }
+    .btn-primary:hover::after { opacity:1; }
+    .btn-primary:hover { box-shadow: 0 16px 40px rgba(79,195,247,0.35); }
+    .btn-outline {
+      display: inline-block;
+      background: transparent; color: rgba(255,255,255,0.75);
+      padding: 15px 38px;
+      font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase;
+      text-decoration: none; border: 1px solid rgba(255,255,255,0.2);
+      transition: all 0.3s ease; cursor: pointer; font-family: inherit;
+    }
+    .btn-outline:hover { border-color: var(--blue); color: var(--blue); }
+    .btn-blue {
+      display: inline-block;
+      border: 1px solid rgba(79,195,247,0.5);
+      color: var(--blue); padding: 10px 24px;
+      font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase;
+      text-decoration: none; transition: all 0.3s ease;
+    }
+    .btn-blue:hover { background: rgba(79,195,247,0.1); border-color: var(--blue); }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 20px 8vw;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: background 0.5s ease, padding 0.3s ease;
+    }
+    nav.scrolled {
+      background: rgba(5,9,15,0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 14px 8vw;
+      border-bottom: 1px solid rgba(79,195,247,0.1);
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none; color: white;
+    }
+    .nav-logo img { height: 44px; width: auto; object-fit: contain; filter: drop-shadow(0 1px 4px rgba(0,0,0,0.5)); }
+    .nav-logo span { font-size: 15px; font-weight: 600; letter-spacing: 0.05em; color: white; }
+    .nav-links {
+      display: flex; gap: 36px; list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+      color: rgba(255,255,255,0.65); transition: color 0.3s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--blue); }
+    .nav-cta {
+      font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+      text-decoration: none; color: var(--blue);
+      border: 1px solid rgba(79,195,247,0.4); padding: 9px 22px;
+      transition: all 0.3s;
+    }
+    .nav-cta:hover { background: rgba(79,195,247,0.1); border-color: var(--blue); }
+    .nav-hamburger {
+      display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px;
+    }
+    .nav-hamburger span { display: block; width: 24px; height: 1.5px; background: white; transition: all 0.3s; }
+
+    /* MOBILE NAV */
+    .nav-mobile {
+      display: none; position: fixed; inset: 0; z-index: 99;
+      background: rgba(5,9,15,0.97); backdrop-filter: blur(20px);
+      flex-direction: column; align-items: center; justify-content: center; gap: 36px;
+    }
+    .nav-mobile.open { display: flex; }
+    .nav-mobile a {
+      font-size: 20px; letter-spacing: 0.15em; text-transform: uppercase;
+      text-decoration: none; color: rgba(255,255,255,0.8); transition: color 0.2s;
+    }
+    .nav-mobile a:hover { color: var(--blue); }
+
+    /* STATS */
+    .stat-item {
+      padding: 48px 24px; text-align: center; border-right: 1px solid rgba(79,195,247,0.08);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+      display: block; font-family: 'Cormorant Garamond',serif;
+      font-size: clamp(40px,5vw,64px); font-weight: 300; line-height: 1;
+      background: linear-gradient(90deg, var(--blue), var(--blue-light));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      margin-bottom: 10px;
+    }
+    .stat-label {
+      font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+    }
+
+    /* MARQUEE */
+    .marquee-outer {
+      overflow: hidden; background: var(--dark2);
+      border-top: 1px solid rgba(79,195,247,0.08);
+      border-bottom: 1px solid rgba(79,195,247,0.08);
+      padding: 18px 0;
+    }
+    .marquee-track {
+      display: flex; gap: 0; white-space: nowrap;
+      animation: marquee 28s linear infinite;
+    }
+    .marquee-item {
+      font-size: 11px; letter-spacing: 0.35em; text-transform: uppercase;
+      color: rgba(79,195,247,0.5); padding: 0 32px;
+    }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* GALLERY */
+    .hgal-track {
+      display: flex; gap: 12px; overflow-x: auto; padding-bottom: 16px;
+      scrollbar-width: thin; scrollbar-color: rgba(79,195,247,0.3) transparent;
+      cursor: grab;
+    }
+    .hgal-track:active { cursor: grabbing; }
+    .hgal-track::-webkit-scrollbar { height: 3px; }
+    .hgal-track::-webkit-scrollbar-thumb { background: rgba(79,195,247,0.3); border-radius: 2px; }
+    .hgal-item {
+      flex-shrink: 0; width: 340px; height: 240px;
+      position: relative; overflow: hidden;
+    }
+    .hgal-item img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.23,1,0.32,1);
+    }
+    .hgal-item:hover img { transform: scale(1.06); }
+    .hgal-label {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 24px 16px 12px;
+      background: linear-gradient(to top, rgba(5,9,15,0.9), transparent);
+      font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+      color: rgba(255,255,255,0.75);
+    }
+
+    /* CASE GRID */
+    .case-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 16px;
+    }
+    .case-card {
+      position: relative; overflow: hidden; aspect-ratio: 4/3;
+      cursor: pointer;
+    }
+    .case-card img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.23,1,0.32,1);
+    }
+    .case-card:hover img { transform: scale(1.07); }
+    .case-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(5,9,15,0.92) 0%, rgba(5,9,15,0.2) 55%, transparent 100%);
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 20px 18px; transition: background 0.3s;
+    }
+    .case-card:hover .case-overlay { background: linear-gradient(to top, rgba(5,9,15,0.95) 0%, rgba(5,9,15,0.4) 60%, rgba(5,9,15,0.1) 100%); }
+    .case-date { font-size: 9px; letter-spacing: 0.35em; color: var(--blue); text-transform: uppercase; margin-bottom: 5px; }
+    .case-place { font-size: 14px; font-weight: 600; color: white; margin-bottom: 4px; line-height: 1.3; }
+    .case-spec { font-size: 11px; color: rgba(255,255,255,0.55); letter-spacing: 0.05em; }
+
+    /* REVIEW */
+    .review-card {
+      padding: 36px 32px;
+      background: rgba(255,255,255,0.025);
+      border: 1px solid rgba(255,255,255,0.06);
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .review-card:hover { border-color: rgba(79,195,247,0.2); transform: translateY(-4px); }
+
+    /* FOOTER */
+    footer {
+      background: var(--black);
+      border-top: 1px solid rgba(79,195,247,0.08);
+      padding: 60px 8vw 40px;
+    }
+    .footer-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px;
+    }
+    .footer-logo { font-family: 'Cormorant Garamond',serif; font-size: 24px; font-weight: 300; color: white; margin-bottom: 12px; }
+    .footer-desc { font-size: 13px; color: rgba(255,255,255,0.4); line-height: 1.8; }
+    .footer-heading { font-size: 10px; letter-spacing: 0.4em; text-transform: uppercase; color: var(--blue); margin-bottom: 16px; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a { text-decoration: none; font-size: 13px; color: rgba(255,255,255,0.5); transition: color 0.2s; }
+    .footer-links a:hover { color: var(--blue); }
+    .footer-bottom {
+      max-width: 1100px; margin: 40px auto 0;
+      padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.06);
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+    }
+    .footer-copy { font-size: 11px; color: rgba(255,255,255,0.25); }
+
+    /* FLOATING CTA */
+    .float-cta {
+      position: fixed; bottom: 28px; right: 24px; z-index: 200;
+      display: flex; flex-direction: column; align-items: flex-end; gap: 10px;
+    }
+    .float-btn {
+      width: 52px; height: 52px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none; transition: all 0.3s;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    }
+    .float-tel { background: linear-gradient(135deg, var(--blue-deep), #0D47A1); }
+    .float-tel:hover { transform: scale(1.1); box-shadow: 0 12px 32px rgba(79,195,247,0.4); }
+    .float-blog { background: #03C75A; }
+    .float-blog:hover { transform: scale(1.1); }
+
+    /* GSAP */
+    .gsap-fade { opacity: 0; transform: translateY(30px); }
+
+    /* SCROLL INDICATOR */
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(6px); }
+    }
+
+    /* TITLE ANIM */
+    .title-slide-up {
+      transform: translateY(110%);
+      animation: titleSlideUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes titleSlideUp {
+      to { transform: translateY(0); }
+    }
+
+    /* MOBILE */
+    @media (max-width: 768px) {
+      .nav-links, .nav-cta { display: none; }
+      .nav-hamburger { display: flex; }
+      .footer-inner { grid-template-columns: 1fr; gap: 32px; }
+      .stat-item { border-right: none; border-bottom: 1px solid rgba(79,195,247,0.08); padding: 32px 20px; }
+      .stat-item:last-child { border-bottom: none; }
+      .hgal-item { width: 260px; height: 190px; }
+      .case-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px; }
+    }
+    @media (max-width: 480px) {
+      .case-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+      .hgal-item { width: 220px; height: 160px; }
+    }
+
+    /* mobile bg show */
+    @media (max-width: 900px) {
+      .mobile-bg { display: block !important; }
+    }
+  </style>
+</head>
+<body>
+  <!-- NAV -->
+  <nav id="main-nav">
+    <a href={`${base}/`} class="nav-logo">
+      <img src={`${base}/images/logo.png`} alt="DD에어컨 로고" />
+    </a>
+    <ul class="nav-links">
+      <li><a href={`${base}/`}>홈</a></li>
+      <li><a href={`${base}/cases`}>시공사례</a></li>
+      <li><a href={`${base}/contact`}>문의하기</a></li>
+    </ul>
+    <a href="tel:010-7237-2122" class="nav-cta">010-7237-2122</a>
+    <button class="nav-hamburger" id="hamburger" aria-label="메뉴 열기">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- MOBILE NAV -->
+  <div class="nav-mobile" id="mobile-nav">
+    <a href={`${base}/`} onclick="closeMobileNav()">홈</a>
+    <a href={`${base}/cases`} onclick="closeMobileNav()">시공사례</a>
+    <a href={`${base}/contact`} onclick="closeMobileNav()">문의하기</a>
+    <a href="tel:010-7237-2122" style="color:var(--blue);font-size:22px;letter-spacing:0.1em;">010-7237-2122</a>
+  </div>
+
+  <slot />
+
+  <!-- FLOATING CTA -->
+  <div class="float-cta">
+    <!-- 채널톡 연동 시 아래 주석 해제하고 tel 버튼 교체
+    <script>
+      (function(){var w=window;if(w.ChannelIO){return;}var d=window.document;var ch=function(){ch.c(arguments);};ch.q=[];ch.c=function(args){ch.q.push(args);};w.ChannelIO=ch;function l(){if(w.ChannelIOInitialized){return;}w.ChannelIOInitialized=true;var s=document.createElement('script');s.type='text/javascript';s.async=true;s.src='https://cdn.channel.io/plugin/ch-plugin-web.js';var x=document.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);}if(document.readyState==='complete'){l();}else{w.addEventListener('DOMContentLoaded',l);w.addEventListener('load',l);}})();
+      ChannelIO('boot', { pluginKey: 'YOUR_PLUGIN_KEY' });
+    </script>
+    -->
+    <a href="https://blog.naver.com/ddinair" target="_blank" rel="noopener" class="float-btn float-blog" title="네이버 블로그">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+        <path d="M16.273 12.845L7.376 0H0v24h7.727V11.155L16.624 24H24V0h-7.727z"/>
+      </svg>
+    </a>
+    <a href="tel:010-7237-2122" class="float-btn float-tel" title="전화 문의">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+        <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.83 10.8 19.79 19.79 0 01.77 2.18 2 2 0 012.77 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.78a16 16 0 006.29 6.29l1.15-1.15a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+      </svg>
+    </a>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <div class="footer-logo">DD에어컨</div>
+        <p class="footer-desc">남양주·다산신도시 에어컨 전문<br/>설치·판매·청소·수리·이전</p>
+        <p style="font-size:12px;color:rgba(255,255,255,0.3);margin-top:16px;line-height:1.8;">
+          경기도 남양주시 진건읍 고재로 186 1층<br/>
+          TEL: 010-7237-2122
+        </p>
+      </div>
+      <div>
+        <div class="footer-heading">서비스</div>
+        <ul class="footer-links">
+          <li><a href={`${base}/`}>시스템 에어컨 설치</a></li>
+          <li><a href={`${base}/`}>에어컨 청소·수리</a></li>
+          <li><a href={`${base}/`}>에어컨 이전설치</a></li>
+          <li><a href={`${base}/cases`}>시공사례</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">바로가기</div>
+        <ul class="footer-links">
+          <li><a href="https://blog.naver.com/ddinair" target="_blank" rel="noopener">네이버 블로그</a></li>
+          <li><a href="https://map.naver.com/v5/search/DD에어컨" target="_blank" rel="noopener">네이버 플레이스</a></li>
+          <li><a href={`${base}/contact`}>서비스 신청</a></li>
+        </ul>
+        <div style="margin-top:20px;">
+          <p style="font-size:10px;letter-spacing:0.3em;color:rgba(79,195,247,0.6);text-transform:uppercase;margin-bottom:8px;">서비스 권역</p>
+          <p style="font-size:12px;color:rgba(255,255,255,0.4);line-height:1.8;">
+            남양주 · 다산신도시 · 구리 · 하남<br/>의정부 · 노원 · 서울 전역
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2024 DD에어컨. All rights reserved.</p>
+      <p class="footer-copy">사업자등록번호 문의: 010-7237-2122</p>
+    </div>
+  </footer>
+
+  <script is:inline>
+    // Nav scroll
+    const nav = document.getElementById('main-nav');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 60) nav.classList.add('scrolled');
+      else nav.classList.remove('scrolled');
+    }, { passive: true });
+
+    // Hamburger
+    const hamburger = document.getElementById('hamburger');
+    const mobileNav = document.getElementById('mobile-nav');
+    hamburger?.addEventListener('click', () => {
+      mobileNav.classList.toggle('open');
+      document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
+    });
+    function closeMobileNav() {
+      mobileNav.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    window.closeMobileNav = closeMobileNav;
+
+    // Active nav link
+    const currentPath = window.location.pathname;
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      if (a.getAttribute('href') === currentPath ||
+          (a.getAttribute('href') !== '/' && currentPath.includes(a.getAttribute('href')?.split('/').pop() || ''))) {
+        a.classList.add('active');
+      }
+    });
+  </script>
+</body>
+</html>

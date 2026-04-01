@@ -1,0 +1,197 @@
+---
+import Layout from '../layouts/Layout.astro';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const title = '정부지원사업 | 최대 40% 환급 — DD에어컨';
+const description = '한전 고효율기기 보급사업으로 에어컨 구매 시 최대 40% 환급. 에너지효율 1~2등급 에어컨 설치 후 한전 앱으로 간단 신청. DD에어컨이 처음부터 끝까지 안내해드립니다.';
+---
+<Layout title={title} description={description}>
+
+<!-- 페이지 헤더 -->
+<section style="background:var(--dark);padding:160px 8vw 80px;position:relative;overflow:hidden;">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 60% 50%,rgba(79,195,247,0.07),transparent 60%);"></div>
+  <div style="max-width:1100px;margin:0 auto;position:relative;">
+    <span class="section-label">Government Support</span>
+    <h1 class="font-display" style="font-size:clamp(38px,6vw,80px);font-weight:300;color:white;line-height:1;letter-spacing:0.02em;margin-bottom:24px;">
+      정부지원사업<br/><span class="blue-gradient" style="font-style:italic;">최대 40% 환급</span>
+    </h1>
+    <p style="font-size:16px;color:rgba(255,255,255,0.55);font-weight:300;line-height:1.9;max-width:560px;">
+      한전 고효율기기 보급사업을 통해<br/>에어컨 구매비용의 최대 40%를 돌려받으세요.<br/>DD에어컨이 신청까지 안내해드립니다.
+    </p>
+    <div style="margin-top:36px;display:flex;gap:16px;flex-wrap:wrap;">
+      <a href="{base}/contact" class="btn-primary" style="padding:16px 40px;font-size:11px;">무료 상담 신청</a>
+      <a href="tel:010-7237-2122" class="btn-outline" style="padding:15px 38px;font-size:11px;">010-7237-2122</a>
+    </div>
+  </div>
+</section>
+
+<!-- 예산 현황 배너 -->
+<section style="background:rgba(79,195,247,0.06);border-top:1px solid rgba(79,195,247,0.2);border-bottom:1px solid rgba(79,195,247,0.2);padding:20px 8vw;">
+  <div style="max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+    <div style="width:8px;height:8px;border-radius:50%;background:var(--blue);box-shadow:0 0 12px rgba(79,195,247,0.8);flex-shrink:0;"></div>
+    <p style="font-size:13px;color:var(--blue);letter-spacing:0.05em;">
+      <strong>2026년 예산 소진이 빠릅니다.</strong> 조기 마감될 수 있으니 서둘러 신청하세요.
+    </p>
+    <span style="font-size:11px;color:rgba(255,255,255,0.35);margin-left:auto;">예산 소진율 약 60% (4월 기준 추정치)</span>
+  </div>
+</section>
+
+<!-- 지원 내용 요약 -->
+<section style="background:var(--dark);padding:80px 8vw;position:relative;z-index:2;">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:60px;">
+      <span class="section-label">지원 개요</span>
+      <h2 class="font-display" style="font-size:clamp(28px,4vw,52px);font-weight:300;color:white;letter-spacing:0.03em;">한전 고효율기기 보급사업</h2>
+      <div class="section-divider"></div>
+      <p style="font-size:14px;color:rgba(255,255,255,0.45);margin-top:12px;line-height:1.8;">
+        한국전력공사에서 운영하는 에너지 절약 지원 프로그램입니다.
+      </p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(79,195,247,0.1);border:1px solid rgba(79,195,247,0.1);">
+      <div style="background:var(--dark);padding:40px 32px;text-align:center;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:300;background:linear-gradient(90deg,var(--blue),var(--blue-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;">30~40%</div>
+        <div style="font-size:10px;letter-spacing:0.4em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-top:12px;">환급률</div>
+        <p style="font-size:13px;color:rgba(255,255,255,0.5);margin-top:10px;line-height:1.7;">에너지효율 1등급 40%<br/>에너지효율 2등급 30%</p>
+      </div>
+      <div style="background:var(--dark);padding:40px 32px;text-align:center;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:300;background:linear-gradient(90deg,var(--blue),var(--blue-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;">100만원</div>
+        <div style="font-size:10px;letter-spacing:0.4em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-top:12px;">1대당 최대 한도</div>
+        <p style="font-size:13px;color:rgba(255,255,255,0.5);margin-top:10px;line-height:1.7;">에어컨 1대당<br/>최대 100만원 환급</p>
+      </div>
+      <div style="background:var(--dark);padding:40px 32px;text-align:center;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:300;background:linear-gradient(90deg,var(--blue),var(--blue-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;">30일</div>
+        <div style="font-size:10px;letter-spacing:0.4em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-top:12px;">신청 기한</div>
+        <p style="font-size:13px;color:rgba(255,255,255,0.5);margin-top:10px;line-height:1.7;">설치 완료 후 30일 이내<br/>한전 앱에서 신청</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 지원 대상 -->
+<section style="background:var(--dark2);padding:80px 8vw;border-top:1px solid rgba(79,195,247,0.08);">
+  <div style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;">
+    <div>
+      <span class="section-label">지원 대상</span>
+      <h2 class="font-display" style="font-size:clamp(26px,3vw,44px);font-weight:300;color:white;margin-bottom:32px;">이런 분들이<br/>지원받을 수 있습니다</h2>
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <div style="display:flex;align-items:flex-start;gap:16px;padding:20px 24px;border:1px solid rgba(79,195,247,0.15);background:rgba(79,195,247,0.02);">
+          <div style="width:32px;height:32px;border:1px solid rgba(79,195,247,0.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;color:var(--blue);">01</div>
+          <div>
+            <div style="font-size:14px;font-weight:600;color:white;margin-bottom:4px;">주거용 건물 거주자</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.45);line-height:1.7;">아파트, 단독주택, 다세대주택, 연립주택 등 주거용 건물에 설치하는 경우</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:16px;padding:20px 24px;border:1px solid rgba(79,195,247,0.15);background:rgba(79,195,247,0.02);">
+          <div style="width:32px;height:32px;border:1px solid rgba(79,195,247,0.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;color:var(--blue);">02</div>
+          <div>
+            <div style="font-size:14px;font-weight:600;color:white;margin-bottom:4px;">에너지효율 1~2등급 제품 구매</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.45);line-height:1.7;">한국에너지공단 인증 1등급 또는 2등급 에어컨 구매 시 지원 대상</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:16px;padding:20px 24px;border:1px solid rgba(79,195,247,0.15);background:rgba(79,195,247,0.02);">
+          <div style="width:32px;height:32px;border:1px solid rgba(79,195,247,0.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;color:var(--blue);">03</div>
+          <div>
+            <div style="font-size:14px;font-weight:600;color:white;margin-bottom:4px;">한전 고객번호 보유자</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.45);line-height:1.7;">한국전력 전기 고객으로 등록되어 있는 경우 (대부분의 가정 해당)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <span class="section-label">신청 절차</span>
+      <h2 class="font-display" style="font-size:clamp(26px,3vw,44px);font-weight:300;color:white;margin-bottom:32px;">4단계로<br/>완료됩니다</h2>
+      <div style="display:flex;flex-direction:column;gap:0;">
+        <div style="display:flex;gap:20px;padding-bottom:32px;position:relative;">
+          <div style="display:flex;flex-direction:column;align-items:center;">
+            <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--blue-deep),#0D47A1);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:white;flex-shrink:0;">1</div>
+            <div style="width:1px;flex:1;background:rgba(79,195,247,0.2);margin-top:8px;"></div>
+          </div>
+          <div style="padding-top:8px;">
+            <div style="font-size:14px;font-weight:600;color:white;margin-bottom:6px;">DD에어컨에 문의/상담</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.45);line-height:1.7;">전화 또는 블로그로 정부지원 신청 의사를 알려주세요. 적합 제품을 안내해드립니다.</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:20px;padding-bottom:32px;position:relative;">
+          <div style="display:flex;flex-direction:column;align-items:center;">
+            <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--blue-deep),#0D47A1);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:white;flex-shrink:0;">2</div>
+            <div style="width:1px;flex:1;background:rgba(79,195,247,0.2);margin-top:8px;"></div>
+          </div>
+          <div style="padding-top:8px;">
+            <div style="font-size:14px;font-weight:600;color:white;margin-bottom:6px;">에너지효율 1~2등급 제품 선택</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.45);line-height:1.7;">DD에어컨 취급 제품 중 지원 대상 등급을 선택. 영수증·인증서류 준비가 핵심입니다.</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:20px;padding-bottom:32px;position:relative;">
+          <div style="display:flex;flex-direction:column;align-items:center;">
+            <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--blue-deep),#0D47A1);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:white;flex-shrink:0;">3</div>
+            <div style="width:1px;flex:1;background:rgba(79,195,247,0.2);margin-top:8px;"></div>
+          </div>
+          <div style="padding-top:8px;">
+            <div style="font-size:14px;font-weight:600;color:white;margin-bottom:6px;">설치 완료 후 영수증 보관</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.45);line-height:1.7;">설치 완료 후 세금계산서/영수증과 제품 에너지효율 인증서를 반드시 보관하세요.</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:20px;">
+          <div style="display:flex;flex-direction:column;align-items:center;">
+            <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--blue-light));display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:white;flex-shrink:0;">4</div>
+          </div>
+          <div style="padding-top:8px;">
+            <div style="font-size:14px;font-weight:600;color:white;margin-bottom:6px;">한전 앱에서 환급 신청 (30일 이내)</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.45);line-height:1.7;">한전 앱(한전ON) 또는 홈페이지에서 설치 30일 이내 신청. 심사 후 계좌로 환급됩니다.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA 섹션 -->
+<section style="background:var(--dark);padding:80px 8vw;border-top:1px solid rgba(79,195,247,0.08);">
+  <div style="max-width:700px;margin:0 auto;text-align:center;">
+    <span class="section-label">Start Now</span>
+    <h2 class="font-display" style="font-size:clamp(28px,4vw,52px);font-weight:300;color:white;margin-bottom:16px;">
+      지금 상담하면<br/>정부지원부터 설치까지<br/><span class="blue-gradient" style="font-style:italic;">한번에 해결</span>
+    </h2>
+    <div class="section-divider"></div>
+    <p style="font-size:14px;color:rgba(255,255,255,0.45);margin-top:20px;margin-bottom:36px;line-height:1.8;">
+      정부지원 대상 제품 선택부터 한전 앱 신청 방법까지<br/>DD에어컨이 처음부터 끝까지 안내해드립니다.
+    </p>
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+      <a href="tel:010-7237-2122" class="btn-primary" style="padding:18px 48px;font-size:11px;">전화 상담 010-7237-2122</a>
+      <a href="{base}/contact" class="btn-outline" style="padding:17px 40px;font-size:11px;">온라인 문의</a>
+    </div>
+  </div>
+</section>
+
+<!-- 면책 문구 -->
+<section style="background:var(--dark2);padding:24px 8vw;border-top:1px solid rgba(255,255,255,0.05);">
+  <div style="max-width:1100px;margin:0 auto;">
+    <p style="font-size:11px;color:rgba(255,255,255,0.25);line-height:1.8;text-align:center;">
+      지원 내용은 변경될 수 있으며, 한전 공식 홈페이지(kepco.co.kr)를 통해 최신 정보를 확인하세요.
+      본 페이지의 환급률·한도·신청 기한은 2026년 기준 안내이며 실제 지원 조건과 다를 수 있습니다.
+    </p>
+  </div>
+</section>
+
+</Layout>
+
+<style>
+@media (max-width: 768px) {
+  section > div[style*="grid-template-columns:repeat(3"] {
+    grid-template-columns: 1fr !important;
+  }
+  section > div[style*="grid-template-columns:1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+}
+</style>
+
+<script is:inline>
+window.addEventListener('load', function() {
+  if (typeof Lenis !== 'undefined') {
+    const lenis = new Lenis({ lerp: 0.1, smoothWheel: true });
+    function raf(t) { lenis.raf(t); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+  }
+});
+</script>
