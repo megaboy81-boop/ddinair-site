@@ -362,15 +362,11 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   <nav id="main-nav">
     <a href={`${base}/`} class="nav-logo">
       <img src={`${base}/images/logo.png`} alt="DD에어컨 로고" />
-      <span>디디에어컨</span>
     </a>
     <ul class="nav-links">
       <li><a href={`${base}/`}>홈</a></li>
       <li><a href={`${base}/cases`}>시공사례</a></li>
-      <li><a href={`${base}/pricing`}>설치비용</a></li>
-      <li><a href={`${base}/info`}>에어컨정보</a></li>
-      <li><a href={`${base}/subsidy`} style="color:var(--blue);font-weight:600;">정부지원사업</a></li>
-      <li><a href={`${base}/contact`}>상담신청</a></li>
+      <li><a href={`${base}/contact`}>문의하기</a></li>
     </ul>
     <a href="tel:010-7237-2122" class="nav-cta">010-7237-2122</a>
     <button class="nav-hamburger" id="hamburger" aria-label="메뉴 열기">
@@ -382,10 +378,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   <div class="nav-mobile" id="mobile-nav">
     <a href={`${base}/`} onclick="closeMobileNav()">홈</a>
     <a href={`${base}/cases`} onclick="closeMobileNav()">시공사례</a>
-    <a href={`${base}/pricing`} onclick="closeMobileNav()">설치비용</a>
-    <a href={`${base}/info`} onclick="closeMobileNav()">에어컨정보</a>
-    <a href={`${base}/subsidy`} onclick="closeMobileNav()" style="color:var(--blue);">정부지원사업</a>
-    <a href={`${base}/contact`} onclick="closeMobileNav()">상담신청</a>
+    <a href={`${base}/contact`} onclick="closeMobileNav()">문의하기</a>
     <a href="tel:010-7237-2122" style="color:var(--blue);font-size:22px;letter-spacing:0.1em;">010-7237-2122</a>
   </div>
 
