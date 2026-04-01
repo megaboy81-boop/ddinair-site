@@ -15,7 +15,7 @@ const storyPanels = [
     isHero: true,
   },
   {
-    bg: `${base}/images/bg/h2.jpg`,
+    bg: `${base}/images/bg/exploded.jpg`,
     eyebrow: 'System Installation',
     title: '에어컨 설치',
     desc: '천장형 4WAY, 스탠드형, 벽걸이형 등 모든 타입의 업무용·가정용 에어컨 전문 설치. LG·삼성·캐리어 공식 시공.',
@@ -23,7 +23,7 @@ const storyPanels = [
     statLabel: '시공 실적',
   },
   {
-    bg: `${base}/images/bg/h3.jpg`,
+    bg: `${base}/images/bg/exploded.jpg`,
     eyebrow: 'Cleaning & Repair',
     title: '청소·수리',
     desc: '냄새 제거 전문 에어컨 분해청소, 가스 충전, 부품 교체. 오래된 에어컨도 새것처럼 되살립니다.',
@@ -90,63 +90,58 @@ const services = [
 <!-- 파티클 캔버스 -->
 <canvas id="particle-canvas" style="position:fixed;inset:0;z-index:1;pointer-events:none;opacity:0.5;"></canvas>
 
-<!-- 히어로 — 스크롤하면 이미지 전환, 자연스럽게 아래 콘텐츠로 이어짐 -->
-<div id="hero-scroll-container" style="height:400vh;position:relative;">
-  <div style="position:sticky;top:0;height:100dvh;min-height:600px;overflow:hidden;background:#05090F;">
-    {storyPanels.map((panel, i) => (
-      <div
-        class="hero-bg-slide"
-        data-index={i}
-        style={`position:absolute;inset:0;background-image:url('${panel.bg}');background-size:cover;background-position:center;opacity:${i===0?1:0};transition:opacity 0.7s ease;z-index:0;`}
-      ></div>
-    ))}
-    <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(5,9,15,0.45) 0%,rgba(5,9,15,0.05) 40%,rgba(5,9,15,0.85) 100%);z-index:1;pointer-events:none;"></div>
-    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 40%,rgba(5,9,15,0.5) 100%);z-index:1;pointer-events:none;"></div>
+<!-- 히어로 섹션 — 웨딩마치 구조 동일 -->
+<section style="position:relative;height:100dvh;min-height:600px;overflow:hidden;background:#05090F;">
+  {storyPanels.map((panel, i) => (
+    <div class={`hero-slide ${i === 0 ? 'active' : ''}`} data-index={i}>
+      <div style={`position:absolute;inset:0;background-image:url('${panel.bg}');background-size:cover;background-position:center;`}></div>
+      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(5,9,15,0.45) 0%,rgba(5,9,15,0.05) 40%,rgba(5,9,15,0.85) 100%);"></div>
+    </div>
+  ))}
 
-    <!-- 히어로 콘텐츠 -->
-    <div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:0 8vw 12vh;z-index:2;">
-      <div style="max-width:750px;">
-        <div id="hero-eyebrow" style="display:flex;align-items:center;gap:16px;margin-bottom:28px;overflow:hidden;">
-          <span id="eyebrow-line" style="display:block;height:1px;width:0;background:linear-gradient(90deg,transparent,rgba(79,195,247,0.6));transition:width 1.2s ease 0.5s;"></span>
-          <span style="font-size:10px;letter-spacing:0.55em;text-transform:uppercase;color:rgba(255,255,255,0.45);opacity:0;transition:opacity 0.8s ease 0.9s;" id="eyebrow-text">Professional HVAC · 70+ Projects</span>
+  <!-- 히어로 콘텐츠 -->
+  <div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:0 8vw 12vh;z-index:10;">
+    <div style="max-width:750px;">
+      <div id="hero-eyebrow" style="display:flex;align-items:center;gap:16px;margin-bottom:28px;overflow:hidden;">
+        <span id="eyebrow-line" style="display:block;height:1px;width:0;background:linear-gradient(90deg,transparent,rgba(79,195,247,0.6));transition:width 1.2s ease 0.5s;"></span>
+        <span id="eyebrow-text" style="font-size:10px;letter-spacing:0.55em;text-transform:uppercase;color:rgba(255,255,255,0.45);opacity:0;transition:opacity 0.8s ease 0.9s;">Professional HVAC · 70+ Projects</span>
+      </div>
+      <h1 id="hero-title" class="font-display" style="font-size:clamp(80px,14vw,180px);font-weight:300;color:white;line-height:0.88;letter-spacing:0.02em;margin-bottom:30px;">
+        <div style="overflow:hidden;display:block;">
+          <span class="title-slide-up" style="display:block;animation-delay:0.4s;">DD</span>
         </div>
-        <h1 id="hero-title" class="font-display" style="font-size:clamp(80px,14vw,180px);font-weight:300;color:white;line-height:0.88;letter-spacing:0.02em;margin-bottom:30px;">
-          <div style="overflow:hidden;display:block;">
-            <span class="title-slide-up" style="display:block;animation-delay:0.4s;">DD</span>
-          </div>
-          <div style="overflow:hidden;display:block;">
-            <span class="blue-gradient title-slide-up" style="display:block;font-style:italic;animation-delay:0.65s;">에어컨</span>
-          </div>
-        </h1>
-        <p id="hero-sub" style="font-size:clamp(14px,1.8vw,19px);color:rgba(255,255,255,0.58);font-weight:300;letter-spacing:0.08em;margin-bottom:40px;opacity:0;transform:translateY(16px);">
-          남양주 · 구리 · 의정부 시스템에어컨 전문
-        </p>
-        <div id="hero-cta" style="display:flex;gap:14px;flex-wrap:wrap;opacity:0;transform:translateY(16px);">
-          <a href={`${base}/contact`} class="btn-primary">서비스 신청하기</a>
-          <a href={`${base}/cases`} class="btn-outline">시공사례 보기</a>
+        <div style="overflow:hidden;display:block;">
+          <span class="blue-gradient title-slide-up" style="display:block;font-style:italic;animation-delay:0.65s;">에어컨</span>
         </div>
+      </h1>
+      <p id="hero-sub" style="font-size:clamp(14px,1.8vw,19px);color:rgba(255,255,255,0.58);font-weight:300;letter-spacing:0.08em;margin-bottom:40px;opacity:0;transform:translateY(16px);">
+        남양주 · 구리 · 의정부 시스템에어컨 전문
+      </p>
+      <div id="hero-cta" style="display:flex;gap:14px;flex-wrap:wrap;opacity:0;transform:translateY(16px);">
+        <a href={`${base}/contact`} class="btn-primary">서비스 신청하기</a>
+        <a href={`${base}/cases`} class="btn-outline">시공사례 보기</a>
       </div>
     </div>
-
-    <!-- 슬라이드 인디케이터 -->
-    <div id="slide-indicators" style="position:absolute;bottom:40px;right:8vw;z-index:3;display:flex;gap:8px;align-items:center;">
-      {storyPanels.map((_, i) => (
-        <button
-          class="slide-dot"
-          data-slide={i}
-          style={`border:none;border-radius:9999px;height:8px;transition:all 0.3s ease;cursor:pointer;background:${i===0?'white':'rgba(255,255,255,0.35)'};width:${i===0?'24px':'8px'};padding:0;`}
-          aria-label={`슬라이드 ${i+1}`}
-        ></button>
-      ))}
-    </div>
-
-    <!-- 스크롤 유도 -->
-    <div id="scroll-arrow" style="position:absolute;bottom:40px;left:50%;transform:translateX(-50%);z-index:3;display:flex;flex-direction:column;align-items:center;gap:8px;">
-      <span style="font-size:11px;letter-spacing:0.2em;color:rgba(255,255,255,0.45);">아래로 내려보세요</span>
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(79,195,247,0.7)" stroke-width="1.5" style="animation:bounce 1.8s ease-in-out infinite;"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
-    </div>
   </div>
-</div>
+
+  <!-- 슬라이드 인디케이터 -->
+  <div style="position:absolute;bottom:40px;right:8vw;z-index:10;display:flex;gap:8px;align-items:center;">
+    {storyPanels.map((_, i) => (
+      <button
+        class="slide-dot"
+        data-slide={i}
+        style={`border:none;border-radius:9999px;height:8px;transition:all 0.3s ease;cursor:pointer;padding:0;background:${i===0?'white':'rgba(255,255,255,0.35)'};width:${i===0?'24px':'8px'};`}
+        aria-label={`슬라이드 ${i+1}`}
+      ></button>
+    ))}
+  </div>
+
+  <!-- 스크롤 유도 -->
+  <div style="position:absolute;bottom:40px;left:50%;transform:translateX(-50%);z-index:10;display:flex;flex-direction:column;align-items:center;gap:8px;">
+    <span style="font-size:11px;letter-spacing:0.2em;color:rgba(255,255,255,0.45);">아래로 내려보세요</span>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(79,195,247,0.7)" stroke-width="1.5" style="animation:bounce 1.8s ease-in-out infinite;"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+  </div>
+</section>
 
 <!-- 정부지원사업 공지 배너 -->
 <div id="gov-notice" style="background:linear-gradient(90deg,#1a2a3a,#0d1f2d);border-top:1px solid rgba(79,195,247,0.3);border-bottom:1px solid rgba(79,195,247,0.3);padding:14px 8vw;display:flex;align-items:center;gap:16px;position:relative;z-index:2;">
@@ -271,46 +266,28 @@ window.addEventListener('load', function() {
   if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
 
-    // 히어로 슬라이더 — 스크롤 기반 전환 + 타이머 자동 전환
-    const heroContainer = document.getElementById('hero-scroll-container');
-    const heroSlides = document.querySelectorAll('.hero-bg-slide');
+    // 히어로 슬라이더 — 웨딩마치 방식 (classList + setInterval)
+    const heroSlides = document.querySelectorAll('.hero-slide');
     const slideDots = document.querySelectorAll('.slide-dot');
-    let currentSlide = 0;
-    const totalSlides = heroSlides.length;
+    let current = 0;
 
-    function goToSlide(idx) {
-      if (idx === currentSlide) return;
-      heroSlides.forEach((s, i) => { s.style.opacity = i === idx ? '1' : '0'; });
-      slideDots.forEach((dot, i) => {
-        dot.style.background = i === idx ? 'white' : 'rgba(255,255,255,0.35)';
-        dot.style.width = i === idx ? '24px' : '8px';
-      });
-      currentSlide = idx;
+    function goToSlide(n) {
+      heroSlides[current].classList.remove('active');
+      slideDots[current].style.width = '8px';
+      slideDots[current].style.background = 'rgba(255,255,255,0.35)';
+      current = n;
+      heroSlides[current].classList.add('active');
+      slideDots[current].style.width = '24px';
+      slideDots[current].style.background = 'white';
     }
 
-    // 스크롤 위치 → 이미지 전환
-    window.addEventListener('scroll', () => {
-      if (!heroContainer) return;
-      const scrolled = window.scrollY - heroContainer.offsetTop;
-      const total = heroContainer.offsetHeight - window.innerHeight;
-      if (scrolled < 0 || total <= 0) return;
-      const progress = Math.min(1, scrolled / total);
-      const idx = Math.min(totalSlides - 1, Math.floor(progress * totalSlides));
-      goToSlide(idx);
-    }, { passive: true });
-
-    // 타이머 자동 전환 (스크롤 안 해도 자동 슬라이드)
-    let autoSlide = setInterval(() => {
-      goToSlide((currentSlide + 1) % totalSlides);
-    }, 5500);
+    let slideTimer = setInterval(() => goToSlide((current + 1) % heroSlides.length), 5500);
 
     slideDots.forEach((dot, i) => {
       dot.addEventListener('click', () => {
-        clearInterval(autoSlide);
+        clearInterval(slideTimer);
         goToSlide(i);
-        autoSlide = setInterval(() => {
-          goToSlide((currentSlide + 1) % totalSlides);
-        }, 5500);
+        slideTimer = setInterval(() => goToSlide((current + 1) % heroSlides.length), 5500);
       });
     });
 

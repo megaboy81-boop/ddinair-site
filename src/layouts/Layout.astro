@@ -78,6 +78,8 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       --text-muted: rgba(255,255,255,0.35);
     }
     html { scroll-behavior: auto; }
+    .hero-slide { opacity: 0; transition: opacity 1.5s ease-in-out; position: absolute; inset: 0; }
+    .hero-slide.active { opacity: 1; }
     body {
       font-family: 'Pretendard Variable','Pretendard',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
       background: var(--dark);
