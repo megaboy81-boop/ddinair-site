@@ -90,13 +90,13 @@ const services = [
 <!-- 파티클 캔버스 -->
 <canvas id="particle-canvas" style="position:fixed;inset:0;z-index:1;pointer-events:none;opacity:0.5;"></canvas>
 
-<!-- 히어로 섹션 — 자동 이미지 슬라이더 -->
+<!-- 히어로 섹션 — 웨딩마치와 동일한 자동 슬라이더 방식 -->
 <section id="hero" style="position:relative;height:100dvh;min-height:600px;overflow:hidden;background:#05090F;">
   {storyPanels.map((panel, i) => (
     <div
       class="hero-bg-slide"
       data-index={i}
-      style={`position:absolute;inset:0;background-image:url('${panel.bg}');background-size:cover;background-position:center;opacity:${i===0?1:0};transition:opacity 1.2s ease;z-index:0;`}
+      style={`position:absolute;inset:0;background-image:url('${panel.bg}');background-size:cover;background-position:center;opacity:${i===0?1:0};transition:opacity 1.5s ease;z-index:0;`}
     ></div>
   ))}
   <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(5,9,15,0.45) 0%,rgba(5,9,15,0.05) 40%,rgba(5,9,15,0.85) 100%);z-index:1;pointer-events:none;"></div>
