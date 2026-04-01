@@ -1,0 +1,108 @@
+name: Update Subsidy Budget
+
+on:
+  schedule:
+    # 매일 오전 9시, 오후 6시 (KST = UTC+9 → UTC 00:00, 09:00)
+    - cron: '0 0,9 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests beautifulsoup4
+
+      - name: Fetch budget data
+        run: |
+          python3 - << 'PYEOF'
+          import requests, re, json
+          from datetime import datetime, timezone, timedelta
+
+          KST = timezone(timedelta(hours=9))
+          now = datetime.now(KST)
+
+          headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
+          }
+
+          remaining = None
+          try:
+            resp = requests.get("https://en-ter.co.kr/ac/main/main.do", headers=headers, timeout=20)
+            text = resp.text
+            patterns = [
+              r'잔여예산\s*(\d+(?:\.\d+)?)\s*%',
+              r'전여예산\s*(\d+(?:\.\d+)?)\s*%',
+              r'"remainBudget"\s*:\s*"?(\d+(?:\.\d+)?)"?',
+              r'remainBudget[^\d]*(\d+(?:\.\d+)?)',
+              r'(\d+(?:\.\d+)?)\s*%[^a-zA-Z]*(?:잔여|남음)',
+            ]
+            for pat in patterns:
+              m = re.search(pat, text, re.IGNORECASE)
+              if m:
+                remaining = float(m.group(1))
+                print(f"Found: {remaining}%")
+                break
+            if remaining is None:
+              print("Pattern not matched. Trying number extraction near keyword...")
+              idx = text.find("잔여예산")
+              if idx == -1:
+                idx = text.find("전여예산")
+              if idx != -1:
+                snippet = text[idx:idx+30]
+                m = re.search(r'(\d+(?:\.\d+)?)', snippet)
+                if m:
+                  remaining = float(m.group(1))
+                  print(f"Found via snippet: {remaining}%")
+          except Exception as e:
+            print(f"Fetch error: {e}")
+
+          # 기존 파일에서 fallback 읽기
+          try:
+            with open("public/data/subsidy.json") as f:
+              existing = json.load(f)
+          except:
+            existing = {"remaining": 67, "used": 33}
+
+          if remaining is None or remaining < 0 or remaining > 100:
+            print(f"Invalid value ({remaining}), keeping existing: {existing['remaining']}%")
+            remaining = existing["remaining"]
+
+          used = round(100 - remaining, 1)
+          data = {
+            "remaining": remaining,
+            "used": used,
+            "updated": now.strftime("%Y-%m-%d"),
+            "updated_label": now.strftime("%Y.%m.%d %H:%M") + " (KST)",
+            "source": "en-ter.co.kr",
+            "year": now.year
+          }
+          with open("public/data/subsidy.json", "w", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+          print(f"Written: remaining={remaining}%, used={used}%")
+          PYEOF
+
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add public/data/subsidy.json
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore: 한전 지원사업 예산 자동 업데이트 [skip ci]"
+            git push
+          fi

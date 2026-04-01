@@ -1,8 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const title = '에어컨 정보 | 시스템에어컨 완벽 가이드 — DD에어컨';
-const description = '시스템에어컨 vs 일반에어컨 비교, 냉매 종류, 에너지효율등급 안내. DD에어컨 전문가 가이드.';
+const title = '에어컨 정보 | 전문가 가이드 — 디디에어컨';
+const description = '천장형 4WAY 카세트 에어컨 완전 가이드, 이전설치 안내, 시스템에어컨 vs 일반에어컨 비교, 냉매 종류, 에너지효율등급. 디디에어컨 전문가 가이드.';
 
 const compareTable = [
   { item: '설치 위치', system: '천장·벽 매립형', normal: '벽걸이·바닥형' },
@@ -13,6 +13,74 @@ const compareTable = [
   { item: '유지보수', system: '전문가 청소 권장', normal: '필터 자가 청소 가능' },
   { item: '에너지 효율', system: '대용량 공간에 유리', normal: '소형 공간에 유리' },
   { item: '적합 공간', system: '거실·사무실·음식점', normal: '침실·소형 공간' },
+];
+
+const spaceCards = [
+  {
+    icon: '🛏',
+    label: '소형 방·침실',
+    range: '10평 이하',
+    rec: '벽걸이 10~13평형',
+    desc: '소형 공간에 최적. 설치 간단, 비용 합리적. 자가 필터 청소로 유지비 낮음.',
+    highlight: false,
+  },
+  {
+    icon: '🛋',
+    label: '거실·중형 공간',
+    range: '15~25평',
+    rec: '스탠드 또는 천장형 4WAY',
+    desc: '공간 활용·인테리어 중시 시 천장형 4WAY, 이동·유연성 원할 시 스탠드형 추천.',
+    highlight: false,
+  },
+  {
+    icon: '🏢',
+    label: '상업 공간·사무실',
+    range: '20~40평',
+    rec: '천장형 4WAY 카세트',
+    desc: '디디에어컨 주력 시공 분야. 4방향 균일 기류로 사각지대 없는 냉난방. 카페·치과·셀렉샵에 최적.',
+    highlight: true,
+  },
+  {
+    icon: '🏭',
+    label: '대형 상업 공간',
+    range: '40평 이상',
+    rec: '멀티형 시스템 (별도 설계)',
+    desc: '복수의 실내기를 하나의 실외기에 연결하는 멀티형. 현장 방문 실사 후 설계·견적 필요.',
+    highlight: false,
+  },
+];
+
+const installSteps = [
+  {
+    step: 'STEP 1',
+    title: '현장 방문 실사',
+    desc: '도면 확인, 천장 구조 파악, 배관 경로 및 실외기 위치 설계. 슬라브 두께·장애물 여부 현장 측정.',
+  },
+  {
+    step: 'STEP 2',
+    title: '앙카 고정',
+    desc: '콘크리트 슬라브에 앙카 볼트 체결. 실내기 하중을 안전하게 지지하는 핵심 공정. 수평·수직 정밀 확인.',
+  },
+  {
+    step: 'STEP 3',
+    title: '코어 타공',
+    desc: '배관·드레인·전선 통로 확보를 위해 외벽 또는 슬라브를 코어 드릴로 타공. 방수 마감 동시 처리.',
+  },
+  {
+    step: 'STEP 4',
+    title: '실내기 설치',
+    desc: '천장 개구부에 실내기 고정, 레이저 레벨링으로 수평 정밀 조정. 그릴·패널 마감 처리.',
+  },
+  {
+    step: 'STEP 5',
+    title: '배관·드레인 연결',
+    desc: '냉매 배관 플레어 가공 및 체결, 드레인 배관 구배(경사) 확보로 결로수 완전 배출. 단열재 래핑.',
+  },
+  {
+    step: 'STEP 6',
+    title: '냉매 충전·시운전',
+    desc: '진공 펌프로 배관 내부 완전 건조 후 냉매 정량 충전. 냉방·난방 실측 테스트, 전류·압력 이상 여부 최종 확인.',
+  },
 ];
 ---
 <Layout title={title} description={description}>
@@ -26,7 +94,7 @@ const compareTable = [
       에어컨 정보<br/><span class="blue-gradient" style="font-style:italic;">전문가 가이드</span>
     </h1>
     <p style="font-size:16px;color:rgba(255,255,255,0.55);font-weight:300;line-height:1.9;max-width:560px;">
-      시스템에어컨 선택에 필요한 핵심 정보를<br/>DD에어컨 전문가가 쉽게 정리했습니다.
+      천장형 4WAY 카세트 시스템에어컨 설치·이전에 필요한<br/>핵심 정보를 디디에어컨 전문가가 쉽게 정리했습니다.
     </p>
   </div>
 </section>
@@ -47,7 +115,12 @@ const compareTable = [
         <div style="padding:14px 20px;font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:rgba(255,255,255,0.5);">일반에어컨</div>
       </div>
       {compareTable.map((row, i) => (
-        <div style={} onmouseover="this.style.background='rgba(79,195,247,0.04)'" onmouseout={}>
+        <div
+          class="compare-row"
+          style={`display:grid;grid-template-columns:140px 1fr 1fr;border-bottom:1px solid rgba(79,195,247,0.06);${i % 2 === 0 ? '' : 'background:rgba(255,255,255,0.01);'}`}
+          onmouseover="this.style.background='rgba(79,195,247,0.04)'"
+          onmouseout={`this.style.background='${i % 2 === 0 ? 'transparent' : 'rgba(255,255,255,0.01)'}'`}
+        >
           <div style="padding:16px 20px;font-size:12px;color:rgba(255,255,255,0.4);font-weight:500;">{row.item}</div>
           <div style="padding:16px 20px;font-size:13px;color:var(--blue);">{row.system}</div>
           <div style="padding:16px 20px;font-size:13px;color:rgba(255,255,255,0.55);">{row.normal}</div>
@@ -57,20 +130,291 @@ const compareTable = [
   </div>
 </section>
 
-<!-- 냉매 종류 -->
+<!-- 공간별 용량 선택 가이드 -->
 <section style="background:var(--dark2);padding:80px 8vw;border-top:1px solid rgba(79,195,247,0.08);">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:52px;">
+      <span class="section-label">Space Guide</span>
+      <h2 class="font-display" style="font-size:clamp(26px,3.5vw,48px);font-weight:300;color:white;">공간별 용량 선택 가이드</h2>
+      <div class="section-divider"></div>
+      <p style="font-size:14px;color:rgba(255,255,255,0.4);margin-top:12px;line-height:1.8;">공간 규모와 용도에 맞는 에어컨 타입을 선택하세요.</p>
+    </div>
+    <div class="space-grid">
+      {spaceCards.map((card) => (
+        <div
+          class="space-card"
+          style={card.highlight
+            ? 'padding:36px 32px;border:1px solid rgba(79,195,247,0.5);background:rgba(79,195,247,0.06);position:relative;'
+            : 'padding:36px 32px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.02);position:relative;'}
+        >
+          {card.highlight && (
+            <div style="position:absolute;top:16px;right:16px;font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:var(--blue);border:1px solid rgba(79,195,247,0.4);padding:4px 10px;">디디에어컨 주력</div>
+          )}
+          <div style="font-size:28px;margin-bottom:12px;">{card.icon}</div>
+          <div style={`font-size:10px;letter-spacing:0.25em;text-transform:uppercase;margin-bottom:6px;${card.highlight ? 'color:var(--blue);' : 'color:rgba(255,255,255,0.35);'}`}>{card.range}</div>
+          <div style="font-size:16px;font-weight:600;color:white;margin-bottom:8px;">{card.label}</div>
+          <div style={`font-size:13px;font-weight:500;margin-bottom:12px;${card.highlight ? 'color:var(--blue);' : 'color:rgba(79,195,247,0.6);'}`}>{card.rec}</div>
+          <p style="font-size:13px;color:rgba(255,255,255,0.45);line-height:1.7;margin:0;">{card.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- 천장형 4WAY 카세트 완전 가이드 -->
+<section style="background:var(--dark);padding:80px 8vw;border-top:1px solid rgba(79,195,247,0.08);">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:52px;">
+      <span class="section-label">4WAY Cassette</span>
+      <h2 class="font-display" style="font-size:clamp(26px,3.5vw,48px);font-weight:300;color:white;">천장형 4WAY 카세트<br/><span class="blue-gradient" style="font-style:italic;">완전 가이드</span></h2>
+      <div class="section-divider"></div>
+      <p style="font-size:14px;color:rgba(255,255,255,0.4);margin-top:12px;line-height:1.8;">
+        디디에어컨의 핵심 전문 분야 — LG·삼성·캐리어·위니아 4WAY 시공 전문
+      </p>
+    </div>
+
+    <!-- 4WAY란? -->
+    <div style="padding:44px 48px;border:1px solid rgba(79,195,247,0.25);background:rgba(79,195,247,0.04);margin-bottom:24px;position:relative;overflow:hidden;">
+      <div style="position:absolute;right:-20px;top:-20px;font-family:'Cormorant Garamond',serif;font-size:160px;font-weight:300;color:rgba(79,195,247,0.04);line-height:1;pointer-events:none;user-select:none;">4WAY</div>
+      <div style="position:relative;">
+        <div style="font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:var(--blue);margin-bottom:16px;">What is 4WAY?</div>
+        <h3 class="font-display" style="font-size:clamp(20px,2.5vw,32px);font-weight:300;color:white;margin-bottom:20px;">4WAY란 무엇인가?</h3>
+        <p style="font-size:14px;color:rgba(255,255,255,0.6);line-height:1.9;max-width:700px;margin:0;">
+          천장에 매립된 실내기에서 냉기·온기를 <strong style="color:var(--blue);">동서남북 4방향</strong>으로 동시에 토출하는 방식입니다.
+          실내 전 구역에 균일하게 기류를 분산해 냉난방 효율을 극대화하며,
+          실내에 보이는 것은 오직 얇은 그릴 패널뿐이어서 인테리어 훼손이 없습니다.
+          카페·치과·쇼룸·사무실처럼 공간 전체의 쾌적함이 중요한 상업 공간에 특히 적합합니다.
+        </p>
+      </div>
+    </div>
+
+    <!-- 1WAY vs 4WAY 비교 -->
+    <div style="margin-bottom:24px;">
+      <div style="font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:20px;text-align:center;">방향 비교</div>
+      <div class="way-compare-grid">
+        <div style="padding:36px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.02);">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:300;color:rgba(255,255,255,0.3);line-height:1;margin-bottom:12px;">1WAY</div>
+          <div style="font-size:14px;font-weight:600;color:rgba(255,255,255,0.6);margin-bottom:16px;">단방향 토출</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;margin:0;padding:0;">
+            <li style="font-size:13px;color:rgba(255,255,255,0.4);display:flex;align-items:flex-start;gap:8px;">
+              <span style="color:rgba(255,255,255,0.25);font-size:10px;margin-top:3px;">▸</span> 한 방향으로만 기류 토출
+            </li>
+            <li style="font-size:13px;color:rgba(255,255,255,0.4);display:flex;align-items:flex-start;gap:8px;">
+              <span style="color:rgba(255,255,255,0.25);font-size:10px;margin-top:3px;">▸</span> 반대편 공간에 사각지대 발생
+            </li>
+            <li style="font-size:13px;color:rgba(255,255,255,0.4);display:flex;align-items:flex-start;gap:8px;">
+              <span style="color:rgba(255,255,255,0.25);font-size:10px;margin-top:3px;">▸</span> 긴 복도형·직사각형 공간에 적합
+            </li>
+            <li style="font-size:13px;color:rgba(255,255,255,0.4);display:flex;align-items:flex-start;gap:8px;">
+              <span style="color:rgba(255,255,255,0.25);font-size:10px;margin-top:3px;">▸</span> 설치 공간 선택이 중요
+            </li>
+          </ul>
+        </div>
+        <div style="padding:36px;border:1px solid rgba(79,195,247,0.4);background:rgba(79,195,247,0.06);">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:300;color:var(--blue);line-height:1;margin-bottom:12px;">4WAY</div>
+          <div style="font-size:14px;font-weight:600;color:white;margin-bottom:16px;">사방향 균일 토출</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;margin:0;padding:0;">
+            <li style="font-size:13px;color:rgba(255,255,255,0.65);display:flex;align-items:flex-start;gap:8px;">
+              <span style="color:var(--blue);font-size:10px;margin-top:3px;">▸</span> 동서남북 4방향 동시 기류
+            </li>
+            <li style="font-size:13px;color:rgba(255,255,255,0.65);display:flex;align-items:flex-start;gap:8px;">
+              <span style="color:var(--blue);font-size:10px;margin-top:3px;">▸</span> 공간 전체 균일한 온도 분포
+            </li>
+            <li style="font-size:13px;color:rgba(255,255,255,0.65);display:flex;align-items:flex-start;gap:8px;">
+              <span style="color:var(--blue);font-size:10px;margin-top:3px;">▸</span> 정사각형·다각형 공간에 최적
+            </li>
+            <li style="font-size:13px;color:rgba(255,255,255,0.65);display:flex;align-items:flex-start;gap:8px;">
+              <span style="color:var(--blue);font-size:10px;margin-top:3px;">▸</span> 설치 위치 자유도 높음
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4WAY 설치 조건 + 장점 -->
+    <div class="fourway-bottom-grid">
+      <!-- 설치 조건 -->
+      <div style="padding:36px;border:1px solid rgba(79,195,247,0.15);background:rgba(79,195,247,0.02);">
+        <div style="font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:var(--blue);margin-bottom:16px;">Installation Requirements</div>
+        <h3 style="font-size:18px;font-weight:600;color:white;margin-bottom:20px;">4WAY 설치 조건</h3>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:14px;margin:0;padding:0;">
+          <li style="font-size:13px;color:rgba(255,255,255,0.6);display:flex;align-items:flex-start;gap:10px;">
+            <span style="color:var(--blue);font-size:16px;line-height:1;margin-top:1px;">✓</span>
+            <span>천장 내부 유효 공간 <strong style="color:white;">200mm 이상</strong> 확보 (실내기 본체 두께)</span>
+          </li>
+          <li style="font-size:13px;color:rgba(255,255,255,0.6);display:flex;align-items:flex-start;gap:10px;">
+            <span style="color:var(--blue);font-size:16px;line-height:1;margin-top:1px;">✓</span>
+            <span>콘크리트 슬라브 앙카 볼트 <strong style="color:white;">고정 가능</strong> 구조</span>
+          </li>
+          <li style="font-size:13px;color:rgba(255,255,255,0.6);display:flex;align-items:flex-start;gap:10px;">
+            <span style="color:var(--blue);font-size:16px;line-height:1;margin-top:1px;">✓</span>
+            <span>배관 통로 확보를 위한 <strong style="color:white;">외벽 타공</strong> 가능 여부</span>
+          </li>
+          <li style="font-size:13px;color:rgba(255,255,255,0.6);display:flex;align-items:flex-start;gap:10px;">
+            <span style="color:var(--blue);font-size:16px;line-height:1;margin-top:1px;">✓</span>
+            <span>드레인 배관 경사 확보 가능한 <strong style="color:white;">구배 공간</strong></span>
+          </li>
+          <li style="font-size:13px;color:rgba(255,255,255,0.6);display:flex;align-items:flex-start;gap:10px;">
+            <span style="color:var(--blue);font-size:16px;line-height:1;margin-top:1px;">✓</span>
+            <span>전용 전기 회로 (에어컨 전용 <strong style="color:white;">220V 전원</strong>)</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- 장점 -->
+      <div style="padding:36px;border:1px solid rgba(79,195,247,0.15);background:rgba(79,195,247,0.02);">
+        <div style="font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:var(--blue);margin-bottom:16px;">Advantages</div>
+        <h3 style="font-size:18px;font-weight:600;color:white;margin-bottom:20px;">4WAY 장점</h3>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:14px;margin:0;padding:0;">
+          <li style="font-size:13px;color:rgba(255,255,255,0.6);display:flex;align-items:flex-start;gap:10px;">
+            <span style="color:var(--blue);font-size:16px;line-height:1;margin-top:1px;">✓</span>
+            <span><strong style="color:white;">사각지대 없는 균일 냉난방</strong> — 전 구역 온도 편차 최소화</span>
+          </li>
+          <li style="font-size:13px;color:rgba(255,255,255,0.6);display:flex;align-items:flex-start;gap:10px;">
+            <span style="color:var(--blue);font-size:16px;line-height:1;margin-top:1px;">✓</span>
+            <span><strong style="color:white;">인테리어 친화적</strong> — 천장 매립, 그릴 패널만 노출</span>
+          </li>
+          <li style="font-size:13px;color:rgba(255,255,255,0.6);display:flex;align-items:flex-start;gap:10px;">
+            <span style="color:var(--blue);font-size:16px;line-height:1;margin-top:1px;">✓</span>
+            <span><strong style="color:white;">저소음</strong> — 본체가 천장 내부에 위치, 실내 소음 저감</span>
+          </li>
+          <li style="font-size:13px;color:rgba(255,255,255,0.6);display:flex;align-items:flex-start;gap:10px;">
+            <span style="color:var(--blue);font-size:16px;line-height:1;margin-top:1px;">✓</span>
+            <span><strong style="color:white;">공간 효율 극대화</strong> — 벽면·바닥 공간 100% 활용 가능</span>
+          </li>
+          <li style="font-size:13px;color:rgba(255,255,255,0.6);display:flex;align-items:flex-start;gap:10px;">
+            <span style="color:var(--blue);font-size:16px;line-height:1;margin-top:1px;">✓</span>
+            <span><strong style="color:white;">냉난방 겸용</strong> — 히트펌프 방식으로 연중 사용 가능</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 설치 불가 환경 -->
+    <div style="margin-top:24px;padding:28px 36px;border:1px solid rgba(255,100,100,0.2);background:rgba(255,80,80,0.03);">
+      <div style="font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:rgba(255,140,140,0.7);margin-bottom:12px;">설치 불가 환경 안내</div>
+      <div style="display:flex;flex-wrap:wrap;gap:12px;">
+        {['천장 내부 공간 200mm 미만', '목조 구조체 (앙카 고정 불가)', '배관 통로 확보 불가 구조', '전용 전기 회로 없는 경우', '슬라브 없는 조립식 천장'].map((item) => (
+          <div style="font-size:12px;color:rgba(255,180,180,0.7);border:1px solid rgba(255,100,100,0.2);padding:6px 14px;display:flex;align-items:center;gap:6px;">
+            <span style="font-size:10px;color:rgba(255,120,120,0.6);">✕</span> {item}
+          </div>
+        ))}
+      </div>
+      <p style="font-size:12px;color:rgba(255,255,255,0.3);margin-top:14px;margin-bottom:0;line-height:1.7;">
+        * 설치 가능 여부는 현장 방문 실사 후 확인. 불가 환경 시 대안 기종을 제안드립니다.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- 에어컨 이전설치 완전 안내 -->
+<section style="background:var(--dark2);padding:80px 8vw;border-top:1px solid rgba(79,195,247,0.08);">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:52px;">
+      <span class="section-label">Relocation Service</span>
+      <h2 class="font-display" style="font-size:clamp(26px,3.5vw,48px);font-weight:300;color:white;">에어컨 이전설치 완전 안내</h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <!-- 언제 필요한가 + 비용 -->
+    <div class="reloc-top-grid" style="margin-bottom:24px;">
+      <div style="padding:36px;border:1px solid rgba(79,195,247,0.15);background:rgba(79,195,247,0.02);">
+        <div style="font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:var(--blue);margin-bottom:16px;">When needed</div>
+        <h3 style="font-size:18px;font-weight:600;color:white;margin-bottom:18px;">언제 이전설치가 필요한가?</h3>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:12px;margin:0;padding:0;">
+          {[
+            { t: '이사', d: '이사 시 기존 에어컨을 새 집으로 옮겨 재설치' },
+            { t: '매장·사무실 이전', d: '임대 공간 변경 시 에어컨 재활용' },
+            { t: '리모델링', d: '인테리어 공사로 에어컨 위치를 변경하거나 재배치' },
+            { t: '공간 변경', d: '파티션 철거·합치기 등 실내 구조 변경 후 위치 재조정' },
+          ].map((it) => (
+            <li style="display:flex;align-items:flex-start;gap:10px;">
+              <span style="color:var(--blue);font-size:10px;margin-top:4px;flex-shrink:0;">▸</span>
+              <div>
+                <span style="font-size:13px;font-weight:600;color:white;">{it.t}</span>
+                <span style="font-size:13px;color:rgba(255,255,255,0.45);"> — {it.d}</span>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div style="padding:36px;border:1px solid rgba(79,195,247,0.15);background:rgba(79,195,247,0.02);">
+        <div style="font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:var(--blue);margin-bottom:16px;">Cost Guide</div>
+        <h3 style="font-size:18px;font-weight:600;color:white;margin-bottom:18px;">이전설치 비용 안내</h3>
+        <div style="display:flex;flex-direction:column;gap:14px;">
+          <div style="padding:18px 20px;border:1px solid rgba(79,195,247,0.3);background:rgba(79,195,247,0.05);">
+            <div style="font-size:11px;color:var(--blue);letter-spacing:0.1em;margin-bottom:4px;">일반 이전설치</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:white;line-height:1;">50 ~ 100만원</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.4);margin-top:4px;">기존 배관 재사용, 근거리 이전 기준</div>
+          </div>
+          <div style="padding:18px 20px;border:1px solid rgba(255,255,255,0.08);">
+            <div style="font-size:11px;color:rgba(255,255,255,0.4);letter-spacing:0.1em;margin-bottom:4px;">배관 연장·추가 타공 포함</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:rgba(255,255,255,0.65);line-height:1;">추가 비용 발생</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.35);margin-top:4px;">배관 길이, 타공 난이도, 냉매 보충 여부에 따라 상이</div>
+          </div>
+          <p style="font-size:12px;color:rgba(255,255,255,0.3);margin:0;line-height:1.7;">
+            * 정확한 비용은 현장 방문 견적 후 안내. 방문 견적 무료.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 이전 과정 -->
+    <div style="padding:36px;border:1px solid rgba(79,195,247,0.1);margin-bottom:20px;">
+      <div style="font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:var(--blue);margin-bottom:20px;">이전설치 과정</div>
+      <div class="reloc-steps-grid">
+        {[
+          { n: '01', t: '냉매 회수', d: '냉매를 회수 장비로 안전하게 회수. 환경 규정 준수.' },
+          { n: '02', t: '기존 배관 철거', d: '실내기·실외기 분리, 기존 배관 및 고정 브라켓 제거.' },
+          { n: '03', t: '새 위치 코어 타공', d: '새 설치 위치에 코어 드릴로 배관 통로 타공.' },
+          { n: '04', t: '재설치·배관 연결', d: '실내기·실외기 재고정, 배관·드레인 새로 연결.' },
+          { n: '05', t: '냉매 충전·시운전', d: '진공 작업 후 냉매 정량 충전, 냉난방 성능 테스트.' },
+        ].map((s) => (
+          <div style="display:flex;gap:16px;align-items:flex-start;">
+            <div style="font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:rgba(79,195,247,0.3);line-height:1;flex-shrink:0;width:40px;">{s.n}</div>
+            <div>
+              <div style="font-size:13px;font-weight:600;color:white;margin-bottom:4px;">{s.t}</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.45);line-height:1.6;">{s.d}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- 이전 시 주의사항 -->
+    <div style="padding:28px 36px;border:1px solid rgba(255,195,0,0.2);background:rgba(255,180,0,0.02);">
+      <div style="font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:rgba(255,200,0,0.7);margin-bottom:16px;">이전 시 주의사항</div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        {[
+          '노후 배관(10년 이상)은 교체 권장 — 재사용 시 냉매 누출 위험 증가',
+          '이전 전 냉매 누출 여부 확인 — 누출 시 추가 충전 필요',
+          '실외기 위치 변경 시 배관 길이 계산 필수 — 과도한 연장은 효율 저하',
+          '이전 후 첫 운전 시 냉방 성능 정상 여부 반드시 확인',
+        ].map((note) => (
+          <div style="font-size:13px;color:rgba(255,255,255,0.5);display:flex;align-items:flex-start;gap:8px;">
+            <span style="color:rgba(255,200,0,0.6);font-size:12px;flex-shrink:0;margin-top:2px;">!</span> {note}
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 냉매 종류 -->
+<section style="background:var(--dark);padding:80px 8vw;border-top:1px solid rgba(79,195,247,0.08);">
   <div style="max-width:1100px;margin:0 auto;">
     <div style="text-align:center;margin-bottom:52px;">
       <span class="section-label">Refrigerant</span>
       <h2 class="font-display" style="font-size:clamp(26px,3.5vw,48px);font-weight:300;color:white;">냉매 종류 안내</h2>
       <div class="section-divider"></div>
     </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+    <div class="refrigerant-grid">
       <div style="padding:40px 36px;border:1px solid rgba(79,195,247,0.3);background:rgba(79,195,247,0.04);position:relative;">
         <div style="position:absolute;top:20px;right:20px;font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:var(--blue);border:1px solid rgba(79,195,247,0.4);padding:4px 10px;">현재 표준</div>
         <div style="font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:300;color:var(--blue);margin-bottom:12px;line-height:1;">R32</div>
         <div style="font-size:13px;font-weight:600;color:white;margin-bottom:12px;">차세대 친환경 냉매</div>
-        <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;margin:0;padding:0;">
           <li style="font-size:13px;color:rgba(255,255,255,0.55);display:flex;align-items:center;gap:8px;">
             <span style="color:var(--blue);font-size:10px;">▸</span> 지구온난화지수(GWP) 낮음 (675)
           </li>
@@ -88,7 +432,7 @@ const compareTable = [
       <div style="padding:40px 36px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.02);">
         <div style="font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:300;color:rgba(255,255,255,0.5);margin-bottom:12px;line-height:1;">R410A</div>
         <div style="font-size:13px;font-weight:600;color:white;margin-bottom:12px;">구형 표준 냉매</div>
-        <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;margin:0;padding:0;">
           <li style="font-size:13px;color:rgba(255,255,255,0.45);display:flex;align-items:center;gap:8px;">
             <span style="color:rgba(255,255,255,0.3);font-size:10px;">▸</span> GWP 높음 (2088)
           </li>
@@ -108,7 +452,7 @@ const compareTable = [
 </section>
 
 <!-- 에너지효율등급 -->
-<section style="background:var(--dark);padding:80px 8vw;border-top:1px solid rgba(79,195,247,0.08);">
+<section style="background:var(--dark2);padding:80px 8vw;border-top:1px solid rgba(79,195,247,0.08);">
   <div style="max-width:1100px;margin:0 auto;">
     <div style="text-align:center;margin-bottom:52px;">
       <span class="section-label">Energy Rating</span>
@@ -158,8 +502,35 @@ const compareTable = [
       </div>
     </div>
     <p style="text-align:center;font-size:12px;color:rgba(255,255,255,0.3);margin-top:20px;">
-      * 에너지효율 1~2등급 제품은 정부지원 대상 — <a href="{base}/subsidy" style="color:var(--blue);text-decoration:none;">정부지원사업 자세히 보기</a>
+      * 에너지효율 1~2등급 제품은 정부지원 대상 — <a href={`${base}/subsidy`} style="color:var(--blue);text-decoration:none;">정부지원사업 자세히 보기</a>
     </p>
+  </div>
+</section>
+
+<!-- 시공 과정 단계별 설명 -->
+<section style="background:var(--dark);padding:80px 8vw;border-top:1px solid rgba(79,195,247,0.08);">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:52px;">
+      <span class="section-label">Installation Process</span>
+      <h2 class="font-display" style="font-size:clamp(26px,3.5vw,48px);font-weight:300;color:white;">시공 과정 단계별 설명</h2>
+      <div class="section-divider"></div>
+      <p style="font-size:14px;color:rgba(255,255,255,0.4);margin-top:12px;line-height:1.8;">
+        디디에어컨의 천장형 4WAY 시스템에어컨 시공 전 과정
+      </p>
+    </div>
+    <div class="steps-grid">
+      {installSteps.map((s, i) => (
+        <div style="position:relative;padding:36px 32px;border:1px solid rgba(79,195,247,0.12);background:rgba(79,195,247,0.02);overflow:hidden;">
+          <div style="position:absolute;right:16px;bottom:12px;font-family:'Cormorant Garamond',serif;font-size:72px;font-weight:300;color:rgba(79,195,247,0.04);line-height:1;pointer-events:none;user-select:none;">{i + 1}</div>
+          <div style="font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:var(--blue);margin-bottom:10px;">{s.step}</div>
+          <h3 style="font-size:16px;font-weight:600;color:white;margin-bottom:12px;">{s.title}</h3>
+          <p style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.7;margin:0;">{s.desc}</p>
+          {i < installSteps.length - 1 && (
+            <div style="position:absolute;bottom:-1px;right:20px;font-size:16px;color:rgba(79,195,247,0.25);">↓</div>
+          )}
+        </div>
+      ))}
+    </div>
   </div>
 </section>
 
@@ -172,11 +543,13 @@ const compareTable = [
     </h2>
     <div class="section-divider"></div>
     <p style="font-size:14px;color:rgba(255,255,255,0.45);margin-top:20px;margin-bottom:36px;line-height:1.8;">
-      공간 크기, 예산, 사용 환경에 맞는 최적의 에어컨을 추천해드립니다.<br/>정부지원 가능 여부도 함께 확인해드립니다.
+      남양주·구리·의정부·수원·용인·하남·서울 전역 출장 가능.<br/>
+      공간 크기, 예산, 사용 환경에 맞는 최적의 에어컨을 추천해드립니다.<br/>
+      정부지원 가능 여부도 함께 확인해드립니다.
     </p>
     <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
       <a href="tel:010-7237-2122" class="btn-primary" style="padding:18px 48px;font-size:11px;">전화 상담 010-7237-2122</a>
-      <a href="{base}/contact" class="btn-outline" style="padding:17px 40px;font-size:11px;">온라인 문의</a>
+      <a href={`${base}/contact`} class="btn-outline" style="padding:17px 40px;font-size:11px;">온라인 문의</a>
     </div>
   </div>
 </section>
@@ -184,12 +557,105 @@ const compareTable = [
 </Layout>
 
 <style>
-@media (max-width: 768px) {
-  div[style*="grid-template-columns:1fr 1fr"] {
-    grid-template-columns: 1fr !important;
+/* 공간별 용량 선택 */
+.space-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+/* 1WAY vs 4WAY */
+.way-compare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+/* 4WAY 설치조건 + 장점 */
+.fourway-bottom-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+/* 냉매 */
+.refrigerant-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* 이전설치 상단 */
+.reloc-top-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* 이전 과정 스텝 */
+.reloc-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+}
+
+/* 시공 단계 */
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+/* 비교 테이블 row */
+.compare-row {
+  display: grid;
+  grid-template-columns: 140px 1fr 1fr;
+  border-bottom: 1px solid rgba(79, 195, 247, 0.06);
+  transition: background 0.15s;
+}
+
+@media (max-width: 1024px) {
+  .space-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
-  div[style*="grid-template-columns:140px 1fr 1fr"] {
-    grid-template-columns: 100px 1fr 1fr !important;
+  .reloc-steps-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .steps-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .space-grid {
+    grid-template-columns: 1fr;
+  }
+  .way-compare-grid {
+    grid-template-columns: 1fr;
+  }
+  .fourway-bottom-grid {
+    grid-template-columns: 1fr;
+  }
+  .refrigerant-grid {
+    grid-template-columns: 1fr;
+  }
+  .reloc-top-grid {
+    grid-template-columns: 1fr;
+  }
+  .reloc-steps-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .steps-grid {
+    grid-template-columns: 1fr;
+  }
+  .compare-row {
+    grid-template-columns: 100px 1fr 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .reloc-steps-grid {
+    grid-template-columns: 1fr;
   }
 }
 </style>

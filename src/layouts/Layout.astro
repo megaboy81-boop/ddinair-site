@@ -33,6 +33,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   <meta name='twitter:title' content={title} />
   <meta name='twitter:description' content={description} />
   <meta name='twitter:image' content={`${base}${ogImage}`} />
+  <meta name='site-base' content={base} />
   <script type='application/ld+json' set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": ["LocalBusiness","HVACBusiness"],
@@ -413,21 +414,15 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   </footer>
 
   <script is:inline>
-    // Lenis smooth scroll
-    const LenisClass = window.Lenis;
-    if (LenisClass) {
-      const lenis = new LenisClass({ lerp: 0.1, smooth: true });
-      const gsapLib = window.gsap;
-      const STLib = window.ScrollTrigger;
-      if (gsapLib && STLib) {
-        gsapLib.ticker.add((time) => lenis.raf(time * 1000));
-        gsapLib.ticker.lagSmoothing(0);
-        lenis.on('scroll', STLib.update);
-      } else {
-        function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
-        requestAnimationFrame(raf);
-      }
-    }
+    // Lenis smooth scroll (기본 raf — GSAP 페이지는 load 후 재연결)
+    window.addEventListener('load', function() {
+      var LenisClass = window.Lenis;
+      if (!LenisClass || window.__lenis) return;
+      var lenis = new LenisClass({ lerp: 0.08, smoothWheel: true });
+      window.__lenis = lenis;
+      function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+      requestAnimationFrame(raf);
+    });
 
     // Nav 스크롤
     const nav = document.getElementById('main-nav');

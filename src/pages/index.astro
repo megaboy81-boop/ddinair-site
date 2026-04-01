@@ -189,23 +189,49 @@ const stats = [
     <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.15),transparent);"></div>
 
     <!-- 콘텐츠 -->
-    <div style="max-width:760px;padding:0 8vw;position:relative;z-index:1;">
+    <div style="max-width:860px;padding:0 8vw;position:relative;z-index:1;width:100%;">
       <p id="sub-eyebrow" style="font-size:10px;letter-spacing:0.55em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-bottom:20px;opacity:0;transform:translateY(16px);">2026 KEPCO Support Program</p>
-      <h2 id="sub-title" class="font-impact" style="font-size:clamp(38px,6vw,72px);color:white;line-height:1.15;letter-spacing:0.02em;margin-bottom:20px;opacity:0;transform:translateY(32px);">
-        <span style="display:block;">한전 고효율기기</span>
-        <span style="display:block;">지원사업</span>
-      </h2>
-      <div id="sub-line" style="width:0;height:1px;background:rgba(255,255,255,0.35);margin:22px auto 24px;"></div>
-      <p id="sub-desc" style="font-size:clamp(15px,1.8vw,19px);color:rgba(255,255,255,0.75);font-weight:300;line-height:1.8;margin-bottom:40px;opacity:0;transform:translateY(20px);">
-        1등급 에어컨 설치 시 구매가의<br/>
-        <strong style="color:#81D4FA;font-weight:600;">40% 현금 환급 · 최대 160만원</strong>
+
+      <!-- 타이틀 + 예산 현황 가로 배치 -->
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:32px;flex-wrap:wrap;margin-bottom:20px;">
+        <h2 id="sub-title" class="font-impact" style="font-size:clamp(32px,5vw,60px);color:white;line-height:1.15;letter-spacing:0.02em;opacity:0;transform:translateY(32px);flex-shrink:0;">
+          <span style="display:block;">한전 고효율기기</span>
+          <span style="display:block;">지원사업</span>
+        </h2>
+        <!-- 예산 현황 박스 -->
+        <div id="budget-box" style="flex:1;min-width:220px;max-width:320px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.2);border-radius:4px;padding:20px 24px;opacity:0;transform:translateY(20px);">
+          <p style="font-size:9px;letter-spacing:0.4em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:12px;">예산 현황 · 실시간</p>
+          <!-- 로딩 상태 -->
+          <div id="budget-loading" style="font-size:12px;color:rgba(255,255,255,0.4);">불러오는 중...</div>
+          <!-- 데이터 표시 (초기 숨김) -->
+          <div id="budget-data" style="display:none;">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;">
+              <span style="font-size:11px;color:rgba(255,255,255,0.6);">잔여예산</span>
+              <span id="budget-remaining" style="font-size:28px;font-family:'Cormorant Garamond',serif;font-weight:600;color:#81D4FA;line-height:1;">—%</span>
+            </div>
+            <!-- 프로그레스 바 -->
+            <div style="height:4px;background:rgba(255,255,255,0.15);border-radius:2px;overflow:hidden;margin-bottom:8px;">
+              <div id="budget-bar" style="height:100%;background:linear-gradient(90deg,#81D4FA,#4FC3F7);border-radius:2px;width:0%;transition:width 1.2s ease;"></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;">
+              <span style="font-size:10px;color:rgba(255,255,255,0.4);">소진 <span id="budget-used">—</span>%</span>
+              <span id="budget-updated" style="font-size:9px;color:rgba(255,255,255,0.3);">—</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="sub-line" style="width:0;height:1px;background:rgba(255,255,255,0.35);margin:16px 0 18px;"></div>
+      <p id="sub-desc" style="font-size:clamp(14px,1.6vw,17px);color:rgba(255,255,255,0.75);font-weight:300;line-height:1.8;margin-bottom:32px;opacity:0;transform:translateY(20px);">
+        1등급 에어컨 설치 시 구매가의
+        <strong style="color:#81D4FA;font-weight:600;"> 40% 현금 환급 · 최대 160만원</strong>
       </p>
-      <div id="sub-btns" style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;opacity:0;transform:translateY(20px);">
+      <div id="sub-btns" style="display:flex;gap:14px;flex-wrap:wrap;opacity:0;transform:translateY(20px);">
         <a href={`${base}/contact`}
-           style="display:inline-block;background:white;color:#1E88E5;padding:16px 44px;font-size:11px;letter-spacing:0.25em;text-transform:uppercase;text-decoration:none;font-family:inherit;transition:opacity 0.3s;"
+           style="display:inline-block;background:white;color:#1E88E5;padding:14px 40px;font-size:11px;letter-spacing:0.25em;text-transform:uppercase;text-decoration:none;font-family:inherit;transition:opacity 0.3s;"
            onmouseover="this.style.opacity='0.88'" onmouseout="this.style.opacity='1'">지원금 신청하기</a>
         <a href={`${base}/subsidy`}
-           style="display:inline-block;border:1px solid rgba(255,255,255,0.45);color:white;padding:16px 44px;font-size:11px;letter-spacing:0.25em;text-transform:uppercase;text-decoration:none;transition:all 0.3s;"
+           style="display:inline-block;border:1px solid rgba(255,255,255,0.45);color:white;padding:14px 40px;font-size:11px;letter-spacing:0.25em;text-transform:uppercase;text-decoration:none;transition:all 0.3s;"
            onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='transparent'">지원사업 안내</a>
       </div>
     </div>
@@ -392,13 +418,26 @@ const stats = [
   }
 
   // ══════════════════════════════════════════════════════════════════════════
-  // 2. GSAP 스크롤 스토리텔링
+  // 2. GSAP 스크롤 스토리텔링 (window.load 후 실행 — CDN 스크립트 보장)
   // ══════════════════════════════════════════════════════════════════════════
-  const gsap = (window as any).gsap;
-  const ScrollTrigger = (window as any).ScrollTrigger;
+  window.addEventListener('load', () => {
+    const gsap = (window as any).gsap;
+    const ScrollTrigger = (window as any).ScrollTrigger;
+    const LenisLib = (window as any).Lenis;
 
-  if (gsap && ScrollTrigger) {
+    if (!gsap || !ScrollTrigger) return;
     gsap.registerPlugin(ScrollTrigger);
+
+    // ── Lenis + ScrollTrigger 올바른 연결 ────────────────────────────────
+    // Layout.astro가 만든 인스턴스는 raf 방식이므로 교체
+    if ((window as any).__lenis) { try { (window as any).__lenis.destroy(); } catch(_) {} }
+    if (LenisLib) {
+      const lenis = new LenisLib({ lerp: 0.08, smoothWheel: true });
+      (window as any).__lenis = lenis;
+      lenis.on('scroll', ScrollTrigger.update);
+      gsap.ticker.add((time: number) => { lenis.raf(time * 1000); });
+      gsap.ticker.lagSmoothing(0);
+    }
 
     // 데스크탑: 고정 배경 + 패널 전환
     const fixedBg = document.getElementById('story-fixed-bg');
@@ -411,8 +450,7 @@ const stats = [
       panels.forEach((panel, i) => {
         ScrollTrigger.create({
           trigger: panel,
-          start: 'top center',
-          end: 'bottom center',
+          start: 'top 55%',
           onEnter: () => {
             bgSlides.forEach((s, si) => { s.style.opacity = si === i ? '1' : '0'; });
           },
@@ -422,7 +460,6 @@ const stats = [
         });
       });
 
-      // 스토리 컨테이너 끝나면 고정 배경 숨기기
       ScrollTrigger.create({
         trigger: '#story-container',
         start: 'top top',
@@ -435,15 +472,8 @@ const stats = [
     // GSAP fade 요소들
     document.querySelectorAll('.gsap-fade').forEach(el => {
       gsap.to(el, {
-        opacity: 1,
-        y: 0,
-        duration: 0.9,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: el,
-          start: 'top 88%',
-          toggleActions: 'play none none none',
-        },
+        opacity: 1, y: 0, duration: 0.9, ease: 'power2.out',
+        scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' },
       });
     });
 
@@ -451,41 +481,31 @@ const stats = [
     document.querySelectorAll<HTMLElement>('.review-card').forEach((card) => {
       const delay = parseFloat(card.dataset.delay || '0');
       gsap.to(card, {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        delay,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: card,
-          start: 'top 85%',
-          toggleActions: 'play none none none',
-        },
+        opacity: 1, y: 0, duration: 0.8, delay, ease: 'power2.out',
+        scrollTrigger: { trigger: card, start: 'top 85%', toggleActions: 'play none none none' },
       });
     });
 
-    // ── 지원사업 패널 GSAP 콘텐츠 스태거 ────────────────────────────────
-    // 섹션이 뷰포트에 들어오면(스크롤로 덮어씌워지는 순간) 콘텐츠 순차 등장
+    // ── 지원사업 패널: 한번에 빠르게 등장 ───────────────────────────────
     const subEyebrow = document.getElementById('sub-eyebrow');
     const subTitle   = document.getElementById('sub-title');
     const subLine    = document.getElementById('sub-line');
     const subDesc    = document.getElementById('sub-desc');
     const subBtns    = document.getElementById('sub-btns');
+    const budgetBox  = document.getElementById('budget-box');
 
     if (subTitle) {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: '#subsidy-panel',
-          start: 'top 60%',   // 화면 60% 지점에서 트리거 (자연스럽게 덮히는 도중)
+          start: 'top 70%',
           toggleActions: 'play none none none',
         },
       });
-
-      tl.to(subEyebrow, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' })
-        .to(subTitle,   { opacity: 1, y: 0, duration: 0.75, ease: 'power2.out' }, '-=0.3')
-        .to(subLine,    { width: '40px', duration: 0.5, ease: 'power2.out' }, '-=0.4')
-        .to(subDesc,    { opacity: 1, y: 0, duration: 0.65, ease: 'power2.out' }, '-=0.3')
-        .to(subBtns,    { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, '-=0.3');
+      // 모든 요소 동시에 빠르게
+      const items = [subEyebrow, subTitle, subDesc, subBtns, budgetBox].filter(Boolean);
+      tl.to(items, { opacity: 1, y: 0, duration: 0.35, ease: 'power3.out', stagger: 0 }, 0)
+        .to(subLine, { width: '40px', duration: 0.4, ease: 'power2.out' }, 0);
     }
 
     // 마그네틱 버튼
@@ -500,7 +520,9 @@ const stats = [
         gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: 'elastic.out(1, 0.4)' });
       });
     });
-  }
+
+    ScrollTrigger.refresh();
+  });
 
   // ══════════════════════════════════════════════════════════════════════════
   // 3. 히어로 진입 애니메이션
@@ -553,16 +575,53 @@ const stats = [
   if (track) {
     let isDown = false, startX = 0, scrollLeft = 0;
     track.addEventListener('mousedown', e => {
-      isDown = true; track.style.cursor = 'grabbing';
-      startX = e.pageX - track.offsetLeft; scrollLeft = track.scrollLeft;
+      isDown = true; (track as HTMLElement).style.cursor = 'grabbing';
+      startX = e.pageX - (track as HTMLElement).offsetLeft; scrollLeft = (track as HTMLElement).scrollLeft;
     });
-    track.addEventListener('mouseleave', () => { isDown = false; track.style.cursor = 'grab'; });
-    track.addEventListener('mouseup', () => { isDown = false; track.style.cursor = 'grab'; });
+    track.addEventListener('mouseleave', () => { isDown = false; (track as HTMLElement).style.cursor = 'grab'; });
+    track.addEventListener('mouseup', () => { isDown = false; (track as HTMLElement).style.cursor = 'grab'; });
     track.addEventListener('mousemove', e => {
       if (!isDown) return;
       e.preventDefault();
-      const x = e.pageX - track.offsetLeft;
-      track.scrollLeft = scrollLeft - (x - startX) * 1.5;
+      const x = (e as MouseEvent).pageX - (track as HTMLElement).offsetLeft;
+      (track as HTMLElement).scrollLeft = scrollLeft - (x - startX) * 1.5;
     });
   }
+
+  // ══════════════════════════════════════════════════════════════════════════
+  // 6. 한전 지원사업 예산 실시간 표시
+  // ══════════════════════════════════════════════════════════════════════════
+  (async function loadBudget() {
+    const base = document.querySelector('meta[name="site-base"]')?.getAttribute('content') || '';
+    try {
+      const r = await fetch(`${base}/data/subsidy.json`);
+      if (!r.ok) throw new Error('fetch failed');
+      const d = await r.json();
+      const remaining = typeof d.remaining === 'number' ? d.remaining : 67;
+      const used = typeof d.used === 'number' ? d.used : (100 - remaining);
+
+      const elLoading = document.getElementById('budget-loading');
+      const elData = document.getElementById('budget-data');
+      const elRemaining = document.getElementById('budget-remaining');
+      const elBar = document.getElementById('budget-bar');
+      const elUsed = document.getElementById('budget-used');
+      const elUpdated = document.getElementById('budget-updated');
+
+      if (elRemaining) elRemaining.textContent = remaining + '%';
+      if (elUsed) elUsed.textContent = String(used);
+      if (elUpdated) elUpdated.textContent = d.updated_label || d.updated || '';
+
+      if (elLoading) elLoading.style.display = 'none';
+      if (elData) elData.style.display = 'block';
+
+      // 프로그레스 바 애니메이션 (잔여예산 %)
+      setTimeout(() => {
+        if (elBar) elBar.style.width = remaining + '%';
+      }, 300);
+    } catch (_) {
+      // 조용히 실패 — 기본 텍스트 유지
+      const elLoading = document.getElementById('budget-loading');
+      if (elLoading) elLoading.textContent = '잔여예산 확인 중';
+    }
+  })();
 </script>
