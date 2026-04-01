@@ -172,6 +172,33 @@ const stats = [
   ))}
 </div>
 
+<!-- ══════ 한전 지원사업 배너 (GSAP 스크롤 리빌) ══════════════════════════ -->
+<section id="subsidy-banner" style="position:relative;z-index:2;overflow:hidden;min-height:420px;display:flex;align-items:center;justify-content:center;">
+  <!-- 배경 레이어 (clip-path로 curtain 리빌) -->
+  <div id="subsidy-bg" style="position:absolute;inset:0;background:linear-gradient(135deg,#1E88E5 0%,#0D47A1 100%);clip-path:inset(0 100% 0 0);"></div>
+  <!-- 장식 원 -->
+  <div style="position:absolute;top:0;left:0;width:280px;height:280px;border-radius:50%;background:rgba(255,255,255,0.04);transform:translate(-140px,-140px);pointer-events:none;z-index:1;"></div>
+  <div style="position:absolute;bottom:0;right:0;width:360px;height:360px;border-radius:50%;background:rgba(255,255,255,0.03);transform:translate(180px,180px);pointer-events:none;z-index:1;"></div>
+  <!-- 콘텐츠 -->
+  <div style="max-width:760px;margin:0 auto;padding:80px 8vw;text-align:center;position:relative;z-index:2;">
+    <p id="sub-eyebrow" style="font-size:10px;letter-spacing:0.55em;text-transform:uppercase;color:rgba(255,255,255,0);margin-bottom:16px;transition:color 0.01s;">2026 KEPCO Support Program</p>
+    <h2 id="sub-title" class="font-display" style="font-size:clamp(32px,5vw,54px);font-weight:300;color:white;margin-bottom:14px;letter-spacing:0.04em;opacity:0;transform:translateY(32px);">한전 고효율기기 지원사업</h2>
+    <div id="sub-line" style="width:0;height:1px;background:rgba(255,255,255,0.45);margin:16px auto 22px;"></div>
+    <p id="sub-desc" style="font-size:17px;color:rgba(255,255,255,0);font-weight:300;line-height:1.8;margin-bottom:36px;">
+      2026년 참여 업체 — 에어컨 교체 시<br/>
+      <strong style="color:#81D4FA;">최대 40% 환급</strong> 혜택을 받으세요.
+    </p>
+    <div id="sub-btns" style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;opacity:0;transform:translateY(20px);">
+      <a href={`${base}/contact`}
+         style="display:inline-block;background:white;color:#1E88E5;padding:16px 40px;font-size:11px;letter-spacing:0.25em;text-transform:uppercase;text-decoration:none;font-family:inherit;transition:opacity 0.3s;"
+         onmouseover="this.style.opacity='0.88'" onmouseout="this.style.opacity='1'">지원금 신청하기</a>
+      <a href={`${base}/subsidy`}
+         style="display:inline-block;border:1px solid rgba(255,255,255,0.5);color:white;padding:16px 40px;font-size:11px;letter-spacing:0.25em;text-transform:uppercase;text-decoration:none;transition:all 0.3s;"
+         onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='transparent'">지원사업 안내</a>
+    </div>
+  </div>
+</section>
+
 <!-- ══════ STATS 섹션 ══════════════════════════════════════════════════════ -->
 <section id="stats-section" style="background:var(--dark);position:relative;z-index:2;overflow:hidden;">
   <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:300px;background:radial-gradient(ellipse,rgba(79,195,247,0.05) 0%,transparent 70%);pointer-events:none;"></div>
@@ -220,28 +247,6 @@ const stats = [
   </div>
 </section>
 
-<!-- ══════ 한전 지원사업 배너 ══════════════════════════════════════════════ -->
-<section style="padding:80px 8vw;position:relative;z-index:2;text-align:center;overflow:hidden;background:linear-gradient(135deg,#1E88E5 0%,#0D47A1 100%);">
-  <div style="position:absolute;top:0;left:0;width:64px;height:64px;background:rgba(255,255,255,0.06);border-radius:50%;transform:translate(-32px,-32px);"></div>
-  <div style="position:absolute;bottom:0;right:0;width:120px;height:120px;background:rgba(255,255,255,0.04);border-radius:50%;transform:translate(60px,60px);"></div>
-  <div style="max-width:700px;margin:0 auto;position:relative;z-index:1;">
-    <p class="gsap-fade" style="font-size:10px;letter-spacing:0.5em;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:16px;">2026 KEPCO Support Program</p>
-    <h2 class="font-display gsap-fade" style="font-size:clamp(32px,5vw,52px);font-weight:300;color:white;margin-bottom:14px;letter-spacing:0.04em;">한전 고효율기기 지원사업</h2>
-    <div class="gsap-fade" style="width:40px;height:1px;background:rgba(255,255,255,0.4);margin:16px auto 20px;"></div>
-    <p class="gsap-fade" style="font-size:17px;color:rgba(255,255,255,0.8);font-weight:300;line-height:1.75;margin-bottom:32px;">
-      2026년 참여 업체 — 에어컨 교체 시<br/>
-      <strong style="color:#81D4FA;">최대 40% 환급</strong> 혜택을 받으세요.
-    </p>
-    <div class="gsap-fade" style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
-      <a href={`${base}/contact`}
-         style="display:inline-block;background:white;color:#1E88E5;padding:16px 40px;font-size:11px;letter-spacing:0.25em;text-transform:uppercase;text-decoration:none;transition:opacity 0.3s;font-family:inherit;"
-         onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">지원금 신청하기</a>
-      <a href={`${base}/subsidy`}
-         style="display:inline-block;border:1px solid rgba(255,255,255,0.5);color:white;padding:16px 40px;font-size:11px;letter-spacing:0.25em;text-transform:uppercase;text-decoration:none;transition:all 0.3s;"
-         onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='transparent'">지원사업 안내</a>
-    </div>
-  </div>
-</section>
 
 <!-- ══════ 리뷰 ══════════════════════════════════════════════════════════════ -->
 <section style="background:var(--dark);padding:80px 8vw 100px;position:relative;z-index:2;border-top:1px solid rgba(255,255,255,0.05);">
@@ -415,6 +420,41 @@ const stats = [
         },
       });
     });
+
+    // ── 지원사업 배너 GSAP 리빌 ──────────────────────────────────────────
+    const subsidyBg = document.getElementById('subsidy-bg');
+    const subEyebrow = document.getElementById('sub-eyebrow');
+    const subTitle = document.getElementById('sub-title');
+    const subLine = document.getElementById('sub-line');
+    const subDesc = document.getElementById('sub-desc');
+    const subBtns = document.getElementById('sub-btns');
+
+    if (subsidyBg) {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: '#subsidy-banner',
+          start: 'top 72%',
+          toggleActions: 'play none none none',
+        },
+      });
+
+      // 1) 배경 커튼 리빌 (clip-path 왼→오)
+      tl.to(subsidyBg, {
+        clipPath: 'inset(0 0% 0 0)',
+        duration: 0.9,
+        ease: 'power3.inOut',
+      })
+      // 2) eyebrow 텍스트 페이드인
+      .to(subEyebrow, { color: 'rgba(255,255,255,0.6)', duration: 0.5, ease: 'none' }, '-=0.3')
+      // 3) 타이틀 슬라이드업
+      .to(subTitle, { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }, '-=0.3')
+      // 4) 구분선 확장
+      .to(subLine, { width: '40px', duration: 0.5, ease: 'power2.out' }, '-=0.4')
+      // 5) 설명문 페이드인
+      .to(subDesc, { color: 'rgba(255,255,255,0.8)', duration: 0.6, ease: 'none' }, '-=0.3')
+      // 6) 버튼 슬라이드업
+      .to(subBtns, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, '-=0.3');
+    }
 
     // 마그네틱 버튼
     document.querySelectorAll('.magnetic').forEach(btn => {
