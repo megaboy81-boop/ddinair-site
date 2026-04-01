@@ -1,0 +1,643 @@
+---
+import Layout from '../layouts/Layout.astro';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const title = '디디에어컨 | 남양주 에어컨 설치·판매·수리 전문';
+const description = '남양주·다산신도시 에어컨 전문 설치 업체. 천장형 4WAY·스탠드·벽걸이 설치, 에어컨 수리·이전. 당일 출장 가능. 70건+ 시공 실적.';
+
+const galleryItems = [
+  { src: `${base}/images/gallery/case01.jpg`, label: '요양병원 벽걸이 설치' },
+  { src: `${base}/images/gallery/case02.jpg`, label: '셀렉샵 4WAY 설치' },
+  { src: `${base}/images/gallery/case03.jpg`, label: '네일샵 4WAY 설치' },
+  { src: `${base}/images/gallery/case04.jpg`, label: '마포 4WAY 설치' },
+  { src: `${base}/images/gallery/case05.jpg`, label: '치과 4WAY 설치' },
+  { src: `${base}/images/gallery/case06.jpg`, label: '헤어샵 4WAY 설치' },
+  { src: `${base}/images/gallery/case07.jpg`, label: '관리실 스탠드 설치' },
+  { src: `${base}/images/gallery/case08.jpg`, label: '사무실 벽걸이 설치' },
+];
+
+const reviews = [
+  { text: '천장형 4WAY 설치인데 배관 정리랑 마감이 정말 깔끔했어요. 개업 전 일정에 맞춰 당일 완료해 주셔서 감사합니다.', name: '성수 셀렉샵 사장님', date: '2026년 2월 시공', img: `${base}/images/gallery/case02.jpg` },
+  { text: '치과 특성상 환자 환경이 중요한데, 현장 진단부터 시공까지 전문적으로 처리해 주셨어요. 소음도 없고 마감도 완벽합니다.', name: '강변 치과·피부과', date: '2026년 2월 시공', img: `${base}/images/gallery/case05.jpg` },
+  { text: '이전설치라 걱정했는데 배관 재정리부터 냉매 충전까지 하루 만에 깔끔하게 끝냈습니다. 역시 전문 시공팀이네요.', name: '수원 인계동 카페', date: '2026년 1월 시공', img: `${base}/images/gallery/case04.jpg` },
+];
+
+const stats = [
+  { num: 70,  suffix: '+',  label: '시공 실적' },
+  { num: 5,   suffix: '년+', label: '현장 경력' },
+  { num: 100, suffix: '%',  label: 'AS 보장' },
+  { num: 1,   suffix: '일', label: '당일 출장' },
+];
+---
+
+<Layout title={title} description={description}>
+
+<style is:global>
+  :root {
+    --v3-black: #03070F;
+    --v3-dark: #05090F;
+    --v3-dark2: #080D15;
+    --v3-blue: #4FC3F7;
+    --v3-blue-deep: #1E88E5;
+    --v3-blue-light: #81D4FA;
+    --v3-blue-glow: rgba(79,195,247,0.15);
+    --v3-cream: #F0F4F8;
+    --v3-white: #FFFFFF;
+    --v3-bg-light: #F5F7FA;
+    --v3-text: #03070F;
+    --v3-text-dim: rgba(3,7,15,0.55);
+    --v3-text-muted: rgba(3,7,15,0.35);
+    --v3-border: rgba(3,7,15,0.08);
+  }
+
+  /* RESET for v3 */
+  .v3-page * { box-sizing: border-box; margin: 0; padding: 0; }
+  .v3-page {
+    background: var(--v3-white);
+    color: var(--v3-text);
+    font-family: 'Pretendard Variable', Pretendard, sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .v3-hero {
+    position: relative;
+    height: 100dvh;
+    min-height: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background: #03070F;
+  }
+  .v3-hero-bg {
+    position: absolute; inset: 0; z-index: 0;
+  }
+  .v3-hero-bg img {
+    width: 100%; height: 100%; object-fit: cover; object-position: center top;
+  }
+  .v3-hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(255,255,255,0.55) 0%,
+      rgba(255,255,255,0.2) 40%,
+      rgba(255,255,255,0.2) 60%,
+      rgba(255,255,255,0.75) 100%
+    );
+  }
+  .v3-hero-center {
+    position: relative; z-index: 2; text-align: center; padding: 0 8vw;
+  }
+  .v3-eyebrow {
+    font-size: 10px; letter-spacing: 0.5em; text-transform: uppercase;
+    color: rgba(30,136,229,0.85); margin-bottom: 24px; display: block;
+    font-family: 'Pretendard Variable', sans-serif;
+  }
+  .v3-title {
+    font-family: 'Black Han Sans', sans-serif;
+    font-size: clamp(80px, 15vw, 180px);
+    color: var(--v3-black);
+    letter-spacing: -0.01em;
+    line-height: 0.9;
+    margin-bottom: 24px;
+    will-change: transform;
+  }
+  .v3-title .char {
+    display: inline-block;
+    will-change: transform, opacity;
+  }
+  .v3-sub {
+    font-size: clamp(14px, 1.8vw, 18px);
+    color: rgba(3,7,15,0.6);
+    letter-spacing: 0.08em;
+    margin-bottom: 40px;
+  }
+  .v3-cta-wrap { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .v3-btn-primary {
+    display: inline-block;
+    background: linear-gradient(135deg, #1E88E5, #1565C0);
+    color: white; padding: 16px 40px;
+    font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase;
+    text-decoration: none; transition: all 0.3s;
+    font-family: 'Pretendard Variable', sans-serif;
+  }
+  .v3-btn-primary:hover { box-shadow: 0 12px 32px rgba(30,136,229,0.5); transform: translateY(-2px); }
+  .v3-btn-outline {
+    display: inline-block; border: 1px solid rgba(30,136,229,0.45);
+    color: rgba(3,7,15,0.75); padding: 16px 40px;
+    font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase;
+    text-decoration: none; transition: all 0.3s;
+    font-family: 'Pretendard Variable', sans-serif;
+    background: rgba(255,255,255,0.6);
+  }
+  .v3-btn-outline:hover { border-color: #1E88E5; color: #1E88E5; background: rgba(255,255,255,0.9); }
+
+  /* Hero info grid */
+  .v3-hero-info {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid rgba(3,7,15,0.1);
+    z-index: 2;
+    background: rgba(255,255,255,0.7);
+    backdrop-filter: blur(10px);
+  }
+  .v3-info-item {
+    padding: 20px 6vw;
+    border-right: 1px solid rgba(3,7,15,0.08);
+  }
+  .v3-info-item:last-child { border-right: none; }
+  .v3-info-label {
+    display: block; font-size: 9px; letter-spacing: 0.4em; text-transform: uppercase;
+    color: rgba(3,7,15,0.4); margin-bottom: 6px;
+  }
+  .v3-info-val {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px; color: #1E88E5; letter-spacing: 0.05em;
+  }
+
+  /* Scroll hint */
+  .v3-scroll-hint {
+    position: absolute; right: 5vw; bottom: 80px; z-index: 2;
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
+  }
+  .v3-scroll-hint span {
+    font-size: 9px; letter-spacing: 0.4em; text-transform: uppercase;
+    color: rgba(3,7,15,0.35); writing-mode: vertical-rl;
+  }
+  .v3-scroll-bar {
+    width: 1px; height: 50px;
+    background: linear-gradient(to bottom, rgba(30,136,229,0.7), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+  @keyframes scrollPulse { 0%,100%{opacity:1;transform:scaleY(1)} 50%{opacity:0.3;transform:scaleY(0.4)} }
+
+  /* ── SERVICES ── */
+  .v3-services {
+    background: var(--v3-white);
+    padding: 120px 6vw;
+  }
+  .v3-section-header {
+    text-align: center;
+    margin-bottom: 64px;
+  }
+  .v3-section-eyebrow {
+    font-size: 10px; letter-spacing: 0.5em; text-transform: uppercase;
+    color: #1E88E5; display: block; margin-bottom: 16px;
+  }
+  .v3-section-title {
+    font-family: 'Black Han Sans', sans-serif;
+    font-size: clamp(32px, 5vw, 56px);
+    color: var(--v3-black);
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+  }
+  .v3-section-desc {
+    font-size: 15px; color: var(--v3-text-dim);
+    margin-top: 16px; line-height: 1.7;
+  }
+  .v3-service-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+    max-width: 1200px; margin: 0 auto;
+  }
+  .v3-service-card {
+    position: relative; overflow: hidden;
+    height: 480px; cursor: pointer;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    box-shadow: 0 2px 20px rgba(3,7,15,0.08);
+  }
+  .v3-service-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 20px 60px rgba(30,136,229,0.2);
+  }
+  .v3-service-card img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+  .v3-service-card:hover img { transform: scale(1.05); }
+  .v3-service-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(3,7,15,0.85) 0%, rgba(3,7,15,0.2) 50%, rgba(3,7,15,0.05) 100%);
+  }
+  .v3-service-content {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 32px 28px;
+  }
+  .v3-service-eyebrow {
+    font-size: 9px; letter-spacing: 0.4em; text-transform: uppercase;
+    color: #4FC3F7; display: block; margin-bottom: 10px;
+  }
+  .v3-service-name {
+    font-family: 'Black Han Sans', sans-serif;
+    font-size: 28px; color: white; line-height: 1.2;
+    margin-bottom: 10px;
+  }
+  .v3-service-text {
+    font-size: 13px; color: rgba(255,255,255,0.7);
+    line-height: 1.65;
+  }
+
+  /* ── GALLERY ── */
+  .v3-gallery {
+    background: var(--v3-bg-light);
+    padding: 120px 0;
+    overflow: hidden;
+  }
+  .v3-gallery-header {
+    padding: 0 6vw; margin-bottom: 48px;
+  }
+  .v3-gallery-header .v3-section-title {
+    color: var(--v3-black);
+  }
+  .v3-gal-track {
+    display: flex; gap: 20px;
+    overflow-x: auto; scroll-behavior: smooth;
+    padding: 0 6vw 24px;
+    scrollbar-width: none;
+  }
+  .v3-gal-track::-webkit-scrollbar { display: none; }
+  .v3-gal-item {
+    flex: 0 0 38vw; height: 56vh; min-height: 280px;
+    position: relative; overflow: hidden;
+    box-shadow: 0 4px 20px rgba(3,7,15,0.1);
+  }
+  .v3-gal-item img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  .v3-gal-item:hover img { transform: scale(1.04); }
+  .v3-gal-label {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 28px 20px 18px;
+    background: linear-gradient(to top, rgba(3,7,15,0.75), transparent);
+    font-size: 13px; color: white; letter-spacing: 0.05em;
+  }
+
+  /* ── REVIEWS ── */
+  .v3-reviews {
+    background: var(--v3-white);
+    padding: 120px 6vw;
+  }
+  .v3-review-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+    max-width: 1200px; margin: 0 auto;
+  }
+  .v3-review-card {
+    background: var(--v3-white);
+    border: 1px solid rgba(30,136,229,0.2);
+    padding: 32px 28px;
+    transition: box-shadow 0.3s, transform 0.3s;
+    box-shadow: 0 2px 12px rgba(3,7,15,0.05);
+  }
+  .v3-review-card:hover {
+    box-shadow: 0 12px 40px rgba(30,136,229,0.15);
+    transform: translateY(-4px);
+  }
+  .v3-review-img {
+    width: 100%; height: 180px; object-fit: cover;
+    margin-bottom: 24px;
+  }
+  .v3-review-quote {
+    font-size: 14px; line-height: 1.75;
+    color: var(--v3-text-dim);
+    margin-bottom: 20px;
+  }
+  .v3-review-divider {
+    width: 32px; height: 2px; background: #4FC3F7; margin-bottom: 16px;
+  }
+  .v3-review-name {
+    font-size: 13px; font-weight: 600; color: var(--v3-black);
+  }
+  .v3-review-date {
+    font-size: 11px; color: var(--v3-text-muted); margin-top: 4px;
+    letter-spacing: 0.05em;
+  }
+
+  /* ── STATS ── */
+  .v3-stats {
+    background: var(--v3-bg-light);
+    padding: 80px 6vw;
+    border-top: 1px solid var(--v3-border);
+    border-bottom: 1px solid var(--v3-border);
+  }
+  .v3-stats-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+    max-width: 1000px; margin: 0 auto;
+  }
+  .v3-stat-item {
+    text-align: center;
+    border-right: 1px solid var(--v3-border);
+    padding: 20px;
+  }
+  .v3-stat-item:last-child { border-right: none; }
+  .v3-stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(48px, 6vw, 80px);
+    color: #1E88E5; line-height: 1;
+    margin-bottom: 8px;
+  }
+  .v3-stat-label {
+    font-size: 12px; letter-spacing: 0.15em;
+    color: var(--v3-text-muted); text-transform: uppercase;
+  }
+
+  /* ── CTA ── */
+  .v3-cta {
+    background: linear-gradient(135deg, #1E88E5 0%, #1565C0 50%, #0D47A1 100%);
+    padding: 120px 6vw;
+    text-align: center;
+  }
+  .v3-cta-eyebrow {
+    font-size: 10px; letter-spacing: 0.5em; text-transform: uppercase;
+    color: rgba(255,255,255,0.6); display: block; margin-bottom: 24px;
+  }
+  .v3-cta-title {
+    font-family: 'Black Han Sans', sans-serif;
+    font-size: clamp(40px, 7vw, 96px);
+    color: white; letter-spacing: -0.01em; line-height: 1.05;
+    margin-bottom: 16px;
+  }
+  .v3-cta-sub {
+    font-size: 15px; color: rgba(255,255,255,0.7);
+    margin-bottom: 48px;
+  }
+  .v3-cta-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .v3-cta-phone {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);
+    color: white; padding: 18px 40px;
+    font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 0.1em;
+    text-decoration: none; transition: all 0.3s;
+    backdrop-filter: blur(10px);
+  }
+  .v3-cta-phone:hover { background: rgba(255,255,255,0.25); transform: translateY(-2px); }
+  .v3-cta-btn {
+    display: inline-block;
+    background: white; color: #1E88E5;
+    padding: 18px 40px;
+    font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase;
+    text-decoration: none; transition: all 0.3s;
+    font-weight: 600;
+  }
+  .v3-cta-btn:hover { background: rgba(255,255,255,0.9); transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0,0,0,0.2); }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    .v3-hero-info { grid-template-columns: repeat(2, 1fr); }
+    .v3-info-item:nth-child(2) { border-right: none; }
+    .v3-service-grid { grid-template-columns: 1fr; }
+    .v3-service-card { height: 360px; }
+    .v3-review-grid { grid-template-columns: 1fr; }
+    .v3-gal-item { flex: 0 0 80vw; }
+    .v3-stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .v3-stat-item:nth-child(2) { border-right: none; }
+    .v3-stat-item:nth-child(3) { border-top: 1px solid var(--v3-border); }
+    .v3-stat-item:nth-child(4) { border-top: 1px solid var(--v3-border); border-right: none; }
+  }
+</style>
+
+<div class="v3-page">
+
+  <!-- ── HERO ── -->
+  <section class="v3-hero" id="v3-hero">
+    <div class="v3-hero-bg">
+      <img src={`${base}/images/bg/h1.jpg`} alt="" loading="eager" />
+      <div class="v3-hero-overlay"></div>
+    </div>
+
+    <div class="v3-hero-center">
+      <p class="v3-eyebrow">남양주 시스템에어컨 전문 시공팀 · 자체 기술팀 직영</p>
+      <h1 class="v3-title">디디에어컨</h1>
+      <p class="v3-sub">정확한 설계 · 깔끔한 배관 · 섬세한 마감</p>
+      <div class="v3-cta-wrap">
+        <a href={`${base}/contact`} class="v3-btn-primary">서비스 신청하기</a>
+        <a href={`${base}/cases`} class="v3-btn-outline">시공사례 보기</a>
+      </div>
+    </div>
+
+    <div class="v3-hero-info">
+      <div class="v3-info-item"><span class="v3-info-label">시공실적</span><span class="v3-info-val">70건+</span></div>
+      <div class="v3-info-item"><span class="v3-info-label">현장경력</span><span class="v3-info-val">5년+</span></div>
+      <div class="v3-info-item"><span class="v3-info-label">AS보장</span><span class="v3-info-val">100%</span></div>
+      <div class="v3-info-item"><span class="v3-info-label">출장</span><span class="v3-info-val">당일 가능</span></div>
+    </div>
+
+    <div class="v3-scroll-hint">
+      <span>scroll</span>
+      <div class="v3-scroll-bar"></div>
+    </div>
+  </section>
+
+  <!-- ── SERVICES ── -->
+  <section class="v3-services">
+    <div class="v3-section-header">
+      <span class="v3-section-eyebrow">Our Services</span>
+      <h2 class="v3-section-title">전문 시공 서비스</h2>
+      <p class="v3-section-desc">자체 기술팀이 설계부터 마감까지 직접 책임집니다</p>
+    </div>
+    <div class="v3-service-grid">
+      <div class="v3-service-card">
+        <img src={`${base}/images/bg/h2.jpg`} alt="시스템에어컨 직영시공" />
+        <div class="v3-service-overlay"></div>
+        <div class="v3-service-content">
+          <span class="v3-service-eyebrow">System AC Installation</span>
+          <div class="v3-service-name">시스템에어컨<br/>직영 시공</div>
+          <p class="v3-service-text">천장형 4WAY·스탠드·벽걸이 전 기종 설치. LG·삼성·캐리어·위니아 전 브랜드 취급. 자체 기술팀 직영시공.</p>
+        </div>
+      </div>
+      <div class="v3-service-card">
+        <img src={`${base}/images/bg/h3.jpg`} alt="수리 이전설치" />
+        <div class="v3-service-overlay"></div>
+        <div class="v3-service-content">
+          <span class="v3-service-eyebrow">Repair · Relocation</span>
+          <div class="v3-service-name">수리·<br/>이전설치</div>
+          <p class="v3-service-text">냉매충전, 부품 교체, 소음·누수 원인 정밀 진단. 이전설치 시 배관 재정리·드레인 레벨링까지 원스톱 처리.</p>
+        </div>
+      </div>
+      <div class="v3-service-card">
+        <img src={`${base}/images/bg/h4.jpg`} alt="당일 출장" />
+        <div class="v3-service-overlay"></div>
+        <div class="v3-service-content">
+          <span class="v3-service-eyebrow">Same-Day Field Service</span>
+          <div class="v3-service-name">당일<br/>출장 가능</div>
+          <p class="v3-service-text">남양주·구리·하남·의정부·수원·용인 등 경기 전역. 전화 한 통으로 당일 연결. 현장 즉시 처리.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── GALLERY ── -->
+  <section class="v3-gallery">
+    <div class="v3-gallery-header">
+      <span class="v3-section-eyebrow">Installation Cases</span>
+      <h2 class="v3-section-title">시공 갤러리</h2>
+      <p class="v3-section-desc" style="color: var(--v3-text-dim);">실제 현장 시공 사례 · 드래그하여 둘러보세요</p>
+    </div>
+    <div class="v3-gal-track" id="v3-gal-track">
+      {galleryItems.map(item => (
+        <div class="v3-gal-item">
+          <img src={item.src} alt={item.label} loading="lazy" />
+          <div class="v3-gal-label">{item.label}</div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ── REVIEWS ── -->
+  <section class="v3-reviews">
+    <div class="v3-section-header">
+      <span class="v3-section-eyebrow">Client Reviews</span>
+      <h2 class="v3-section-title">시공 후기</h2>
+      <p class="v3-section-desc">실제 고객님의 생생한 후기입니다</p>
+    </div>
+    <div class="v3-review-grid">
+      {reviews.map(r => (
+        <div class="v3-review-card">
+          <img src={r.img} alt={r.name} class="v3-review-img" loading="lazy" />
+          <p class="v3-review-quote">"{r.text}"</p>
+          <div class="v3-review-divider"></div>
+          <div class="v3-review-name">{r.name}</div>
+          <div class="v3-review-date">{r.date}</div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ── STATS ── -->
+  <section class="v3-stats">
+    <div class="v3-stats-grid">
+      {stats.map(s => (
+        <div class="v3-stat-item">
+          <div class="v3-stat-num" data-count={s.num} data-suffix={s.suffix}>0</div>
+          <div class="v3-stat-label">{s.label}</div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ── CTA ── -->
+  <section class="v3-cta">
+    <span class="v3-cta-eyebrow">Get Started Today</span>
+    <h2 class="v3-cta-title">지금 바로<br/>문의하세요</h2>
+    <p class="v3-cta-sub">남양주·경기 전역 당일 출장 가능 · 무료 현장 상담</p>
+    <div class="v3-cta-actions">
+      <a href="tel:01072372122" class="v3-cta-phone">010-7237-2122</a>
+      <a href={`${base}/contact`} class="v3-cta-btn">서비스 신청하기</a>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  (function() {
+    const gsap = (window as any).gsap;
+    const ScrollTrigger = (window as any).ScrollTrigger;
+    const SplitType = (window as any).SplitType;
+    const Lenis = (window as any).Lenis;
+
+    // Lenis smooth scroll
+    if (Lenis) {
+      const lenis = new Lenis({ lerp: 0.08 });
+      if (gsap && ScrollTrigger) {
+        gsap.ticker.add((time: number) => lenis.raf(time * 1000));
+        gsap.ticker.lagSmoothing(0);
+        lenis.on('scroll', ScrollTrigger.update);
+      } else {
+        function raf(t: number) { lenis.raf(t); requestAnimationFrame(raf); }
+        requestAnimationFrame(raf);
+      }
+    }
+
+    if (gsap && ScrollTrigger && SplitType) {
+      gsap.registerPlugin(ScrollTrigger);
+
+      // ★ 글자 폭발 애니메이션
+      const titleEl = document.querySelector<HTMLElement>('.v3-title');
+      if (titleEl) {
+        const split = new SplitType(titleEl, { types: 'chars' });
+        const chars = split.chars as HTMLElement[];
+
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: '#v3-hero',
+            start: 'top top',
+            end: '+=130%',
+            pin: true,
+            scrub: 1.0,
+            anticipatePin: 1,
+          }
+        });
+
+        tl
+          .to(['.v3-sub', '.v3-cta-wrap', '.v3-eyebrow'], {
+            opacity: 0, y: -20, duration: 0.2, stagger: 0.05
+          }, 0)
+          .to('.v3-hero-info', { opacity: 0, duration: 0.2 }, 0)
+          .to('.v3-scroll-hint', { opacity: 0, duration: 0.15 }, 0)
+          .to(chars, {
+            x: () => (Math.random() - 0.5) * window.innerWidth * 2.2,
+            y: () => (Math.random() - 0.5) * window.innerHeight * 2.2,
+            rotation: () => Math.random() * 900 - 450,
+            opacity: 0,
+            scale: () => Math.random() * 0.4 + 0.05,
+            ease: 'power3.in',
+            stagger: { each: 0.025, from: 'center' },
+            duration: 0.85,
+          }, 0.1);
+      }
+
+      // 서비스 카드 입장
+      gsap.from('.v3-service-card', {
+        y: 50, opacity: 0, duration: 0.8, stagger: 0.15, ease: 'power3.out',
+        scrollTrigger: { trigger: '.v3-services', start: 'top 75%' }
+      });
+
+      // 갤러리 헤더
+      gsap.from('.v3-gallery-header', {
+        y: 30, opacity: 0, duration: 0.8, ease: 'power3.out',
+        scrollTrigger: { trigger: '.v3-gallery-header', start: 'top 80%' }
+      });
+
+      // 리뷰 카드
+      gsap.from('.v3-review-card', {
+        y: 40, opacity: 0, duration: 0.7, stagger: 0.12, ease: 'power3.out',
+        scrollTrigger: { trigger: '.v3-reviews', start: 'top 75%' }
+      });
+
+      // 카운터
+      document.querySelectorAll<HTMLElement>('[data-count]').forEach(el => {
+        const target = parseInt(el.dataset.count || '0');
+        const suffix = el.dataset.suffix || '';
+        ScrollTrigger.create({
+          trigger: el, start: 'top 85%', once: true,
+          onEnter: () => {
+            const obj = { val: 0 };
+            gsap.to(obj, {
+              val: target, duration: 2, ease: 'power2.out',
+              onUpdate: () => { el.textContent = Math.round(obj.val) + suffix; }
+            });
+          }
+        });
+      });
+    }
+
+    // 갤러리 드래그
+    const track = document.getElementById('v3-gal-track') as HTMLElement | null;
+    if (track) {
+      let isDown = false, startX = 0, scrollLeft = 0;
+      track.addEventListener('mousedown', e => {
+        isDown = true; track.style.cursor = 'grabbing';
+        startX = e.pageX - track.offsetLeft; scrollLeft = track.scrollLeft;
+      });
+      ['mouseleave','mouseup'].forEach(ev => track.addEventListener(ev, () => { isDown = false; track.style.cursor = 'grab'; }));
+      track.addEventListener('mousemove', e => {
+        if (!isDown) return; e.preventDefault();
+        track.scrollLeft = scrollLeft - (e.pageX - track.offsetLeft - startX) * 1.5;
+      });
+      track.style.cursor = 'grab';
+    }
+  })();
+</script>
+
+</Layout>
