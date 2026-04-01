@@ -524,42 +524,60 @@ const stats = [
     });
 
 
-    // ── 히어로 글자 폭발 (스크롤 시 사방으로 날아감) ─────────────────────
-    const SplitType = (window as any).SplitType;
-    if (SplitType) {
-      // overflow:hidden 래퍼 제거 (클리핑 방지)
-      document.querySelectorAll<HTMLElement>('#hero-title > div').forEach(d => {
-        d.style.overflow = 'visible';
-      });
-      // 각 span에 SplitType 적용
-      const spans = document.querySelectorAll<HTMLElement>('#hero-title span.title-slide-up');
+    // ── 히어로 글자 폭발 ─────────────────────────────────────────────────────
+    (function scatterHeroTitle() {
+      const heroTitle = document.getElementById('hero-title');
+      if (!heroTitle) return;
+
+      // overflow:hidden 래퍼 → visible
+      heroTitle.querySelectorAll('div').forEach((d: any) => { d.style.overflow = 'visible'; });
+      heroTitle.style.overflow = 'visible';
+
+      // 각 span의 텍스트를 개별 <span class=sc>글자</span> 로 분리
+      const spans = heroTitle.querySelectorAll<HTMLElement>('span.title-slide-up');
       const allChars: HTMLElement[] = [];
+
       spans.forEach(span => {
-        // 그라디언트 텍스트(투명fill) → 흰색으로 변경해야 글자 보임
-        span.style.webkitTextFillColor = 'white';
-        span.style.background = 'none';
-        const split = new SplitType(span, { types: 'chars' });
-        (split.chars as HTMLElement[]).forEach(c => allChars.push(c));
+        const text = span.textContent || '';
+        span.textContent = '';
+        span.style.cssText += ';-webkit-text-fill-color:white;background:none;';
+        text.split('').forEach(ch => {
+          const el = document.createElement('span');
+          el.className = 'sc';
+          el.textContent = ch;
+          el.style.cssText = 'display:inline-block;will-change:transform,opacity;';
+          span.appendChild(el);
+          allChars.push(el);
+        });
       });
 
-      if (allChars.length > 0) {
-        gsap.to(allChars, {
-          x: () => (Math.random() - 0.5) * window.innerWidth * 2.4,
-          y: () => (Math.random() - 0.5) * window.innerHeight * 2.4,
-          rotation: () => Math.random() * 800 - 400,
-          opacity: 0,
-          scale: () => Math.random() * 0.3 + 0.05,
-          ease: 'power3.in',
-          stagger: { each: 0.03, from: 'center' },
-          scrollTrigger: {
-            trigger: '.story-panel[data-index=0]',
-            start: 'top top',
-            end: 'bottom top',
-            scrub: 1.2,
-          },
-        });
-      }
-    }
+      if (!allChars.length) return;
+
+      // 랜덤값 미리 계산 (gsap function 형태로 scrub에 안정적)
+      const rx = allChars.map(() => (Math.random() - 0.5) * window.innerWidth * 2.6);
+      const ry = allChars.map(() => (Math.random() - 0.5) * window.innerHeight * 2.6);
+      const rr = allChars.map(() => Math.random() * 720 - 360);
+      const rs = allChars.map(() => Math.random() * 0.4 + 0.05);
+
+      const heroPanel = document.querySelector<HTMLElement>('.story-panel[data-index=0]');
+      if (!heroPanel) return;
+
+      gsap.to(allChars, {
+        x: (i: number) => rx[i],
+        y: (i: number) => ry[i],
+        rotation: (i: number) => rr[i],
+        opacity: 0,
+        scale: (i: number) => rs[i],
+        ease: 'power3.in',
+        stagger: { each: 0.025, from: 'center' },
+        scrollTrigger: {
+          trigger: heroPanel,
+          start: 'top top',
+          end: 'bottom top',
+          scrub: 1.0,
+        },
+      });
+    })();
     // ────────────────────────────────────────────────────────────────────────
 
     ScrollTrigger.refresh();
