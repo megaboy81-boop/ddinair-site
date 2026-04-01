@@ -187,16 +187,15 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     }
     .nav-mobile a:hover { color: var(--blue); }
 
-    /* ── 가로 갤러리 ── */
-    .hgal-track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 2px; -ms-overflow-style: none; scrollbar-width: none; cursor: grab; }
-    .hgal-track::-webkit-scrollbar { display: none; }
-    .hgal-track:active { cursor: grabbing; }
-    .hgal-item { flex-shrink: 0; width: 38vw; height: 60vh; overflow: hidden; scroll-snap-align: start; position: relative; }
+    /* ── 갤러리 그리드 ── */
+    .hgal-item { position: relative; aspect-ratio: 4/3; overflow: hidden; }
     .hgal-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; display: block; }
-    .hgal-item:hover img { transform: scale(1.05); }
-    .hgal-label { position: absolute; bottom: 0; left: 0; right: 0; padding: 16px 20px; background: linear-gradient(to top, rgba(5,9,15,0.85), transparent); color: rgba(255,255,255,0.75); font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; transform: translateY(4px); opacity: 0; transition: all 0.3s; }
+    .hgal-item:hover img { transform: scale(1.06); }
+    .hgal-label { position: absolute; bottom: 0; left: 0; right: 0; padding: 12px 14px; background: linear-gradient(to top, rgba(5,9,15,0.85), transparent); color: rgba(255,255,255,0.8); font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase; transform: translateY(4px); opacity: 0; transition: all 0.3s; }
     .hgal-item:hover .hgal-label { opacity: 1; transform: translateY(0); }
-    @media (max-width: 768px) { .hgal-item { width: 78vw; height: 52vw; } }
+    @media (max-width: 768px) {
+      .hgal-item { aspect-ratio: 1/1; }
+    }
 
     /* ── Stats ── */
     .stat-item { text-align: center; padding: 40px 20px; position: relative; }
@@ -342,8 +341,8 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   <!-- 플로팅 CTA -->
   <div class="float-cta">
     <a href="https://open.kakao.com/o/ddinair" target="_blank" rel="noopener" class="float-btn" style="background:#FEE500;" title="카카오톡 문의">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="#3C1E1E">
-        <path d="M12 2C6.477 2 2 5.85 2 10.6c0 2.956 1.768 5.558 4.444 7.18-.165.615-.597 2.23-.684 2.576-.108.432.158.426.332.31.136-.092 2.168-1.47 3.046-2.065.609.087 1.232.133 1.862.133 5.523 0 10-3.85 10-8.6C22 5.85 17.523 2 12 2z"/>
+      <svg width="22" height="22" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 3C7.03 3 3 6.36 3 10.5c0 2.7 1.67 5.07 4.2 6.53l-.88 3.28c-.08.29.22.52.48.36L11.07 18c.3.03.61.04.93.04 4.97 0 9-3.36 9-7.54C21 6.36 16.97 3 12 3z" fill="#3B1E1E"/>
       </svg>
     </a>
     <a href="https://blog.naver.com/ddinair" target="_blank" rel="noopener" class="float-btn float-blog" title="네이버 블로그">
@@ -361,8 +360,8 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   <footer>
     <div class="footer-inner">
       <div>
-        <div class="footer-logo">DD에어컨</div>
-        <p class="footer-desc">남양주·다산신도시 에어컨 전문<br/>설치·판매·청소·수리·이전</p>
+        <div class="footer-logo">디디에어컨</div>
+        <p class="footer-desc">남양주·다산신도시 에어컨 전문<br/>설치·판매·수리·이전</p>
         <p style="font-size:12px;color:rgba(255,255,255,0.3);margin-top:16px;line-height:1.8;">
           경기도 남양주시 진건읍 고재로 186 1층<br/>
           TEL: 010-7237-2122
@@ -372,7 +371,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         <div class="footer-heading">서비스</div>
         <ul class="footer-links">
           <li><a href={`${base}/`}>시스템 에어컨 설치</a></li>
-          <li><a href={`${base}/`}>에어컨 청소·수리</a></li>
+          <li><a href={`${base}/`}>에어컨 수리·이전</a></li>
           <li><a href={`${base}/`}>에어컨 이전설치</a></li>
           <li><a href={`${base}/cases`}>시공사례</a></li>
         </ul>

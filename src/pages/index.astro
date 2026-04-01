@@ -2,14 +2,14 @@
 import Layout from '../layouts/Layout.astro';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
-const title = 'DD에어컨 | 남양주 에어컨 설치·판매·청소 전문';
-const description = '남양주·다산신도시 에어컨 전문 설치 업체. 천장형 4WAY·스탠드·벽걸이 설치, 에어컨 청소·수리·이전. 당일 출장 가능. 70건+ 시공 실적.';
+const title = '디디에어컨 | 남양주 에어컨 설치·판매·수리 전문';
+const description = '남양주·다산신도시 에어컨 전문 설치 업체. 천장형 4WAY·스탠드·벽걸이 설치, 에어컨 수리·이전. 당일 출장 가능. 70건+ 시공 실적.';
 
 const storyPanels = [
   {
     bg: `${base}/images/bg/h1.jpg`,
     eyebrow: '남양주 시스템에어컨 전문 시공팀 · 자체 기술팀 직영',
-    title: 'DD',
+    title: '디디',
     titleSub: '에어컨',
     titleItalic: true,
     desc: '정확한 설계 · 깔끔한 배관 · 섬세한 마감',
@@ -25,9 +25,9 @@ const storyPanels = [
   },
   {
     bg: `${base}/images/bg/h3.jpg`,
-    eyebrow: 'Cleaning · Repair · Relocation',
-    title: '청소·수리·\n이전설치',
-    desc: '에어컨 분해청소, 냉매충전, 부품 교체. 소음·냄새·누수 원인 정밀 진단 후 즉시 처리. 이전설치 배관 재정리까지 원스톱.',
+    eyebrow: 'Repair · Relocation · Gas Charge',
+    title: '수리·\n이전설치',
+    desc: '냉매충전, 부품 교체, 소음·누수 원인 정밀 진단. 이전설치 시 배관 재정리·드레인 레벨링까지 원스톱 처리.',
     stat: '100%',
     statLabel: 'AS 보장',
   },
@@ -125,7 +125,7 @@ const stats = [
             <!-- 히어로 타이틀 -->
             <h1 id="hero-title" style="font-size:clamp(72px,13vw,160px);line-height:0.9;letter-spacing:-0.01em;margin-bottom:30px;">
               <div style="overflow:hidden;display:block;">
-                <span class="title-slide-up font-bebas" style="display:block;animation-delay:0.4s;color:white;font-weight:400;">{panel.title}</span>
+                <span class="title-slide-up font-impact" style="display:block;animation-delay:0.4s;color:white;">{panel.title}</span>
               </div>
               <div style="overflow:hidden;display:block;">
                 <span class="title-slide-up font-impact blue-gradient" style="display:block;animation-delay:0.65s;">{panel.titleSub}</span>
@@ -176,7 +176,7 @@ const stats = [
   <!-- ══ 지원사업 배너 패널 (히어로 바로 뒤, 전체화면 덮기) ══ -->
   <section
     id="subsidy-panel"
-    style="position:relative;height:100dvh;min-height:600px;display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:2;overflow:hidden;text-align:center;"
+    style="position:relative;padding:56px 8vw;display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:2;overflow:hidden;text-align:center;"
   >
     <!-- 불투명 파란 배경 — 뒤의 fixed bg 이미지를 완전히 덮음 -->
     <div style="position:absolute;inset:0;background:linear-gradient(135deg,#0D47A1 0%,#1565C0 45%,#1E88E5 100%);"></div>
@@ -210,10 +210,6 @@ const stats = [
       </div>
     </div>
 
-    <!-- 패널 번호 -->
-    <div style="position:absolute;bottom:40px;right:8vw;z-index:2;">
-      <p style="font-family:'Cormorant Garamond',serif;font-size:11px;color:rgba(255,255,255,0.2);letter-spacing:0.2em;">— / {String(storyPanels.length).padStart(2,'0')}</p>
-    </div>
   </section>
 
   <!-- 패널 1–3: 나머지 스토리 패널 -->
@@ -284,10 +280,10 @@ const stats = [
       전체 갤러리 →
     </a>
   </div>
-  <div id="hgal-track" class="hgal-track" style="padding:0 8vw;">
+  <div style="max-width:1100px;margin:0 auto;padding:0 8vw;display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(2,1fr);gap:4px;">
     {galleryItems.map((item) => (
-      <div class="hgal-item">
-        <img src={item.src} alt={`DD에어컨 ${item.label}`} loading="lazy" />
+      <div class="hgal-item" style="width:100%;">
+        <img src={item.src} alt={`디디에어컨 ${item.label}`} loading="lazy" />
         <div class="hgal-label">{item.label}</div>
       </div>
     ))}
