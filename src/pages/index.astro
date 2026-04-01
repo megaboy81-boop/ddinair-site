@@ -523,6 +523,35 @@ const stats = [
       });
     });
 
+
+    // ── 히어로 글자 폭발 (스크롤 시 사방으로 날아감) ─────────────────────
+    const SplitType = (window as any).SplitType;
+    if (SplitType) {
+      const heroTitle = document.getElementById('hero-title');
+      if (heroTitle) {
+        const split = new SplitType(heroTitle, { types: 'chars' });
+        const chars = split.chars as HTMLElement[];
+        chars.forEach(c => { (c as HTMLElement).style.display = 'inline-block'; });
+
+        gsap.to(chars, {
+          x: () => (Math.random() - 0.5) * window.innerWidth * 2.4,
+          y: () => (Math.random() - 0.5) * window.innerHeight * 2.4,
+          rotation: () => Math.random() * 800 - 400,
+          opacity: 0,
+          scale: () => Math.random() * 0.3 + 0.05,
+          ease: 'power3.in',
+          stagger: { each: 0.03, from: 'center' },
+          scrollTrigger: {
+            trigger: '.story-panel[data-index=0]',
+            start: 'top top',
+            end: 'bottom top',
+            scrub: 1.2,
+          },
+        });
+      }
+    }
+    // ────────────────────────────────────────────────────────────────────────
+
     ScrollTrigger.refresh();
   });
 
