@@ -143,13 +143,14 @@ const services = [
   </div>
 </section>
 
-<!-- 정부지원사업 공지 배너 -->
-<div id="gov-notice" style="background:linear-gradient(90deg,#1a2a3a,#0d1f2d);border-top:1px solid rgba(79,195,247,0.3);border-bottom:1px solid rgba(79,195,247,0.3);padding:14px 8vw;display:flex;align-items:center;gap:16px;position:relative;z-index:2;">
+<!-- 정부지원사업 공지 배너 — 히어로 이미지 위 고정 -->
+<div id="gov-notice" style="position:fixed;bottom:0;left:0;right:0;z-index:100;background:linear-gradient(90deg,#1a2a3a,#0d1f2d);border-top:1px solid rgba(79,195,247,0.3);padding:12px 8vw;display:flex;align-items:center;gap:16px;">
   <span style="background:#4FC3F7;color:#05090F;font-size:9px;letter-spacing:0.3em;padding:4px 10px;font-weight:600;white-space:nowrap;">공지</span>
-  <p style="font-size:13px;color:rgba(255,255,255,0.8);letter-spacing:0.05em;">
+  <p style="font-size:13px;color:rgba(255,255,255,0.8);letter-spacing:0.05em;flex:1;">
     2026년 <strong style="color:#4FC3F7;">한전 고효율기기 지원사업</strong> 참여 업체 — 에어컨 교체 시 최대 40% 환급
-    <a href="#contact" style="color:#4FC3F7;margin-left:12px;font-size:11px;letter-spacing:0.2em;text-decoration:none;border-bottom:1px solid rgba(79,195,247,0.4);">신청하기 →</a>
+    <a href={`${base}/contact`} style="color:#4FC3F7;margin-left:12px;font-size:11px;letter-spacing:0.2em;text-decoration:none;border-bottom:1px solid rgba(79,195,247,0.4);">신청하기 →</a>
   </p>
+  <button onclick="document.getElementById('gov-notice').style.display='none'" style="background:none;border:none;color:rgba(255,255,255,0.3);font-size:18px;cursor:pointer;padding:0 4px;line-height:1;">×</button>
 </div>
 
 <!-- STATS 섹션 -->
