@@ -123,16 +123,16 @@ const services = [
               <span id="eyebrow-line" style="display:block;height:1px;width:0;background:linear-gradient(90deg,transparent,rgba(79,195,247,0.6));transition:width 1.2s ease 0.5s;"></span>
               <span style="font-size:10px;letter-spacing:0.55em;text-transform:uppercase;color:rgba(255,255,255,0.45);opacity:0;transition:opacity 0.8s ease 0.9s;" id="eyebrow-text">{panel.eyebrow}</span>
             </div>
-            <h1 id="hero-title" class="font-display" style="font-size:clamp(72px,12vw,148px);font-weight:300;color:white;line-height:0.88;letter-spacing:0.02em;margin-bottom:30px;">
+            <h1 id="hero-title" class="font-display" style="font-size:clamp(80px,14vw,180px);font-weight:300;color:white;line-height:0.88;letter-spacing:0.02em;margin-bottom:30px;">
               <div style="overflow:hidden;display:block;">
                 <span class="title-slide-up" style="display:block;animation-delay:0.4s;">DD</span>
               </div>
               <div style="overflow:hidden;display:block;">
-                <span class="blue-gradient title-slide-up" style="display:block;font-style:italic;animation-delay:0.65s;">Aircon</span>
+                <span class="blue-gradient title-slide-up" style="display:block;font-style:italic;animation-delay:0.65s;">에어컨</span>
               </div>
             </h1>
             <p id="hero-sub" style="font-size:clamp(14px,1.8vw,19px);color:rgba(255,255,255,0.58);font-weight:300;letter-spacing:0.08em;margin-bottom:40px;opacity:0;transform:translateY(16px);">
-              {panel.desc}
+              남양주 · 구리 · 의정부 시스템에어컨 전문
             </p>
             <div id="hero-cta" style="display:flex;gap:14px;flex-wrap:wrap;opacity:0;transform:translateY(16px);">
               <a href={`${base}/contact`} class="btn-primary">서비스 신청하기</a>
@@ -169,6 +169,15 @@ const services = [
       )}
     </section>
   ))}
+</div>
+
+<!-- 정부지원사업 공지 배너 -->
+<div id="gov-notice" style="background:linear-gradient(90deg,#1a2a3a,#0d1f2d);border-top:1px solid rgba(79,195,247,0.3);border-bottom:1px solid rgba(79,195,247,0.3);padding:14px 8vw;display:flex;align-items:center;gap:16px;position:relative;z-index:2;">
+  <span style="background:#4FC3F7;color:#05090F;font-size:9px;letter-spacing:0.3em;padding:4px 10px;font-weight:600;white-space:nowrap;">공지</span>
+  <p style="font-size:13px;color:rgba(255,255,255,0.8);letter-spacing:0.05em;">
+    2026년 <strong style="color:#4FC3F7;">한전 고효율기기 지원사업</strong> 참여 업체 — 에어컨 교체 시 최대 40% 환급
+    <a href="#contact" style="color:#4FC3F7;margin-left:12px;font-size:11px;letter-spacing:0.2em;text-decoration:none;border-bottom:1px solid rgba(79,195,247,0.4);">신청하기 →</a>
+  </p>
 </div>
 
 <!-- STATS 섹션 -->

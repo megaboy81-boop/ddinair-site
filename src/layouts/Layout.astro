@@ -149,7 +149,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       display: flex; align-items: center; gap: 10px;
       text-decoration: none; color: white;
     }
-    .nav-logo img { height: 36px; width: auto; object-fit: contain; }
+    .nav-logo img { height: 44px; width: auto; object-fit: contain; filter: drop-shadow(0 1px 4px rgba(0,0,0,0.5)); }
     .nav-logo span { font-size: 15px; font-weight: 600; letter-spacing: 0.05em; color: white; }
     .nav-links {
       display: flex; gap: 36px; list-style: none;
@@ -361,8 +361,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   <!-- NAV -->
   <nav id="main-nav">
     <a href={`${base}/`} class="nav-logo">
-      <img src={`${base}/images/logos/logo.png`} alt="DD에어컨 로고" />
-      <span>DD에어컨</span>
+      <img src={`${base}/images/logo.png`} alt="DD에어컨 로고" />
     </a>
     <ul class="nav-links">
       <li><a href={`${base}/`}>홈</a></li>
@@ -394,11 +393,8 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     </script>
     -->
     <a href="https://blog.naver.com/ddinair" target="_blank" rel="noopener" class="float-btn float-blog" title="네이버 블로그">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-        <rect x="3" y="3" width="8" height="8" rx="1" fill="white"/>
-        <rect x="13" y="3" width="8" height="8" rx="1" fill="white"/>
-        <rect x="3" y="13" width="8" height="8" rx="1" fill="white"/>
-        <rect x="13" y="13" width="8" height="8" rx="1" fill="white"/>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+        <path d="M16.273 12.845L7.376 0H0v24h7.727V11.155L16.624 24H24V0h-7.727z"/>
       </svg>
     </a>
     <a href="tel:010-7237-2122" class="float-btn float-tel" title="전화 문의">
