@@ -1,0 +1,249 @@
+---
+import Layout from '../layouts/Layout.astro';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const title = 'DD에어컨 문의하기 | 에어컨 설치·청소·수리 신청';
+const description = '남양주·다산신도시 에어컨 설치 문의. DD에어컨 서비스 신청 및 연락처 안내.';
+
+const serviceAreas = [
+  '남양주시', '다산신도시', '구리시', '하남시',
+  '의정부시', '노원구', '도봉구', '강북구',
+  '성북구', '중랑구', '서울 전역',
+];
+---
+<Layout title={title} description={description}>
+
+<!-- 페이지 헤더 -->
+<section style="background:var(--dark);padding:160px 8vw 80px;position:relative;overflow:hidden;">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 70% 50%,rgba(79,195,247,0.05),transparent 60%);"></div>
+  <div style="max-width:1100px;margin:0 auto;position:relative;">
+    <span class="section-label">Contact Us</span>
+    <h1 class="font-display" style="font-size:clamp(42px,7vw,88px);font-weight:300;color:white;line-height:0.95;letter-spacing:0.02em;margin-bottom:24px;">
+      문의하기<br/><span class="blue-gradient" style="font-style:italic;">빠르게 연결</span>
+    </h1>
+    <p style="font-size:16px;color:rgba(255,255,255,0.5);font-weight:300;line-height:1.8;">
+      전화 또는 블로그로 문의하시면<br/>빠르게 안내드립니다.
+    </p>
+  </div>
+</section>
+
+<!-- 연락처 + 지도 -->
+<section style="background:var(--dark);padding:0 8vw 80px;position:relative;z-index:2;">
+  <div style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;">
+
+    <!-- 연락처 정보 -->
+    <div>
+      <!-- 전화 카드 -->
+      <div style="border:1px solid rgba(79,195,247,0.15);padding:40px;margin-bottom:16px;background:rgba(79,195,247,0.02);transition:border-color 0.3s;" onmouseover="this.style.borderColor='rgba(79,195,247,0.35)'" onmouseout="this.style.borderColor='rgba(79,195,247,0.15)'">
+        <div style="font-size:10px;letter-spacing:0.4em;text-transform:uppercase;color:var(--blue);margin-bottom:12px;">Phone</div>
+        <a href="tel:010-7237-2122" style="text-decoration:none;display:block;font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,42px);font-weight:300;color:white;letter-spacing:0.05em;margin-bottom:10px;transition:color 0.3s;" onmouseover="this.style.color='var(--blue)'" onmouseout="this.style.color='white'">
+          010-7237-2122
+        </a>
+        <p style="font-size:12px;color:rgba(255,255,255,0.4);">평일·주말 08:00 ~ 20:00</p>
+        <a href="tel:010-7237-2122" class="btn-primary" style="display:inline-block;margin-top:20px;padding:14px 32px;font-size:11px;">전화 연결하기</a>
+      </div>
+
+      <!-- 블로그 카드 -->
+      <div style="border:1px solid rgba(79,195,247,0.15);padding:32px;margin-bottom:16px;background:rgba(79,195,247,0.02);transition:border-color 0.3s;" onmouseover="this.style.borderColor='rgba(79,195,247,0.35)'" onmouseout="this.style.borderColor='rgba(79,195,247,0.15)'">
+        <div style="font-size:10px;letter-spacing:0.4em;text-transform:uppercase;color:var(--blue);margin-bottom:12px;">Naver Blog</div>
+        <p style="font-size:14px;color:rgba(255,255,255,0.7);margin-bottom:16px;">시공사례·가격 정보를 블로그에서 확인하세요</p>
+        <a href="https://blog.naver.com/ddinair" target="_blank" rel="noopener"
+           style="display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--blue);border:1px solid rgba(79,195,247,0.4);padding:10px 20px;transition:all 0.3s;"
+           onmouseover="this.style.background='rgba(79,195,247,0.1)'" onmouseout="this.style.background='transparent'">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          blog.naver.com/ddinair
+        </a>
+      </div>
+
+      <!-- 주소 카드 -->
+      <div style="border:1px solid rgba(79,195,247,0.15);padding:32px;background:rgba(79,195,247,0.02);">
+        <div style="font-size:10px;letter-spacing:0.4em;text-transform:uppercase;color:var(--blue);margin-bottom:12px;">Address</div>
+        <p style="font-size:15px;color:white;margin-bottom:6px;">경기도 남양주시 진건읍 고재로 186 1층</p>
+        <p style="font-size:12px;color:rgba(255,255,255,0.4);margin-bottom:20px;">DD에어컨 (영문: DD Aircon)</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <a href="https://map.naver.com/v5/search/남양주 진건읍 고재로 186" target="_blank" rel="noopener"
+             style="display:inline-flex;align-items:center;gap:6px;text-decoration:none;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.6);border:1px solid rgba(255,255,255,0.15);padding:8px 16px;transition:all 0.3s;"
+             onmouseover="this.style.borderColor='rgba(79,195,247,0.4)';this.style.color='var(--blue)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.15)';this.style.color='rgba(255,255,255,0.6)'">
+            네이버 지도 열기 →
+          </a>
+          <a href="https://map.kakao.com/link/search/남양주시 진건읍 고재로 186" target="_blank" rel="noopener"
+             style="display:inline-flex;align-items:center;gap:6px;text-decoration:none;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.6);border:1px solid rgba(255,255,255,0.15);padding:8px 16px;transition:all 0.3s;"
+             onmouseover="this.style.borderColor='rgba(79,195,247,0.4)';this.style.color='var(--blue)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.15)';this.style.color='rgba(255,255,255,0.6)'">
+            카카오 지도 열기 →
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 지도 + 서비스 권역 -->
+    <div>
+      <!-- 카카오맵 embed -->
+      <div style="width:100%;border:1px solid rgba(79,195,247,0.15);overflow:hidden;margin-bottom:20px;">
+        <div style="padding:12px 16px;background:rgba(79,195,247,0.05);border-bottom:1px solid rgba(79,195,247,0.1);">
+          <span style="font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:var(--blue);">Location</span>
+        </div>
+        <!-- 카카오맵 iframe (좌표: 남양주시 진건읍 고재로 186) -->
+        <div style="position:relative;padding-top:60%;background:#0a0f18;">
+          <iframe
+            src="https://map.kakao.com/link/map/DD에어컨,37.6262,127.1889"
+            style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;filter:invert(0.9) hue-rotate(180deg);"
+            allow="geolocation"
+            loading="lazy"
+            title="DD에어컨 위치"
+          ></iframe>
+        </div>
+        <div style="padding:12px 16px;background:rgba(5,9,15,0.9);display:flex;gap:8px;">
+          <a href="https://map.naver.com/v5/search/남양주 진건읍 고재로 186" target="_blank" rel="noopener"
+             style="flex:1;text-align:center;text-decoration:none;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.5);padding:8px;border:1px solid rgba(255,255,255,0.1);transition:all 0.2s;"
+             onmouseover="this.style.borderColor='rgba(79,195,247,0.4)';this.style.color='var(--blue)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.1)';this.style.color='rgba(255,255,255,0.5)'">
+            네이버 지도
+          </a>
+          <a href="https://map.kakao.com/link/to/DD에어컨,37.6262,127.1889" target="_blank" rel="noopener"
+             style="flex:1;text-align:center;text-decoration:none;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.5);padding:8px;border:1px solid rgba(255,255,255,0.1);transition:all 0.2s;"
+             onmouseover="this.style.borderColor='rgba(79,195,247,0.4)';this.style.color='var(--blue)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.1)';this.style.color='rgba(255,255,255,0.5)'">
+            카카오 지도
+          </a>
+        </div>
+      </div>
+
+      <!-- 서비스 권역 -->
+      <div style="border:1px solid rgba(79,195,247,0.15);padding:28px;background:rgba(79,195,247,0.02);">
+        <div style="font-size:10px;letter-spacing:0.4em;text-transform:uppercase;color:var(--blue);margin-bottom:16px;">Service Area</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;">
+          {serviceAreas.map(area => (
+            <span style="font-size:12px;color:rgba(255,255,255,0.6);border:1px solid rgba(79,195,247,0.2);padding:5px 12px;border-radius:2px;">{area}</span>
+          ))}
+        </div>
+        <p style="font-size:11px;color:rgba(255,255,255,0.3);margin-top:14px;line-height:1.7;">
+          위 지역 외에도 원거리 출장 가능합니다.<br/>전화로 문의해 주세요.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 온라인 신청 폼 -->
+<section style="background:var(--dark2);padding:80px 8vw 100px;position:relative;z-index:2;border-top:1px solid rgba(79,195,247,0.08);">
+  <div style="max-width:700px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:56px;">
+      <span class="section-label">Online Request</span>
+      <h2 class="font-display" style="font-size:clamp(28px,4vw,52px);font-weight:300;color:white;letter-spacing:0.03em;">온라인 서비스 신청</h2>
+      <div class="section-divider"></div>
+      <p style="font-size:13px;color:rgba(255,255,255,0.35);margin-top:12px;">
+        폼 제출 시 네이버 블로그로 연결됩니다. 블로그 DM 또는 전화로 빠르게 답변드립니다.
+      </p>
+    </div>
+
+    <form id="contact-form" style="display:flex;flex-direction:column;gap:16px;" onsubmit="handleSubmit(event)">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div>
+          <label style="display:block;font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:var(--blue);margin-bottom:8px;">이름 *</label>
+          <input type="text" name="name" required placeholder="홍길동"
+            style="width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);padding:14px 16px;color:white;font-size:14px;font-family:inherit;outline:none;transition:border-color 0.2s;"
+            onfocus="this.style.borderColor='rgba(79,195,247,0.5)'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'" />
+        </div>
+        <div>
+          <label style="display:block;font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:var(--blue);margin-bottom:8px;">연락처 *</label>
+          <input type="tel" name="tel" required placeholder="010-0000-0000"
+            style="width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);padding:14px 16px;color:white;font-size:14px;font-family:inherit;outline:none;transition:border-color 0.2s;"
+            onfocus="this.style.borderColor='rgba(79,195,247,0.5)'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'" />
+        </div>
+      </div>
+      <div>
+        <label style="display:block;font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:var(--blue);margin-bottom:8px;">주소 *</label>
+        <input type="text" name="address" required placeholder="경기도 남양주시 ..."
+          style="width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);padding:14px 16px;color:white;font-size:14px;font-family:inherit;outline:none;transition:border-color 0.2s;"
+          onfocus="this.style.borderColor='rgba(79,195,247,0.5)'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'" />
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div>
+          <label style="display:block;font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:var(--blue);margin-bottom:8px;">에어컨 종류</label>
+          <select name="ac_type"
+            style="width:100%;background:rgba(5,9,15,0.9);border:1px solid rgba(255,255,255,0.1);padding:14px 16px;color:rgba(255,255,255,0.8);font-size:14px;font-family:inherit;outline:none;-webkit-appearance:none;">
+            <option value="">선택하세요</option>
+            <option>천장형 4WAY</option>
+            <option>천장형 1WAY</option>
+            <option>스탠드형</option>
+            <option>벽걸이형</option>
+            <option>기타</option>
+          </select>
+        </div>
+        <div>
+          <label style="display:block;font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:var(--blue);margin-bottom:8px;">서비스 종류</label>
+          <select name="service_type"
+            style="width:100%;background:rgba(5,9,15,0.9);border:1px solid rgba(255,255,255,0.1);padding:14px 16px;color:rgba(255,255,255,0.8);font-size:14px;font-family:inherit;outline:none;-webkit-appearance:none;">
+            <option value="">선택하세요</option>
+            <option>신규 설치</option>
+            <option>이전 설치</option>
+            <option>에어컨 청소</option>
+            <option>수리·수검</option>
+            <option>견적 문의</option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <label style="display:block;font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:var(--blue);margin-bottom:8px;">추가 내용</label>
+        <textarea name="memo" rows="4" placeholder="에어컨 개수, 평수, 희망 날짜 등을 남겨주시면 더 빠르게 답변드립니다."
+          style="width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);padding:14px 16px;color:white;font-size:14px;font-family:inherit;outline:none;resize:vertical;min-height:100px;transition:border-color 0.2s;"
+          onfocus="this.style.borderColor='rgba(79,195,247,0.5)'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'"></textarea>
+      </div>
+      <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+        <button type="submit" class="btn-primary" style="padding:16px 40px;font-size:11px;">블로그로 문의하기</button>
+        <a href="tel:010-7237-2122" style="font-size:11px;letter-spacing:0.2em;color:rgba(255,255,255,0.45);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--blue)'" onmouseout="this.style.color='rgba(255,255,255,0.45)'">
+          또는 전화: 010-7237-2122
+        </a>
+      </div>
+    </form>
+  </div>
+</section>
+
+</Layout>
+
+<style>
+  @media (max-width: 768px) {
+    section > div[style*="grid-template-columns:1fr 1fr"] {
+      display: block !important;
+    }
+    form [style*="grid-template-columns:1fr 1fr"] {
+      grid-template-columns: 1fr !important;
+    }
+  }
+  input::placeholder, textarea::placeholder {
+    color: rgba(255,255,255,0.2);
+  }
+</style>
+
+<script is:inline>
+window.addEventListener('load', function() {
+  if (typeof Lenis !== 'undefined') {
+    const lenis = new Lenis({ lerp: 0.1, smoothWheel: true });
+    function raf(t) { lenis.raf(t); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+  }
+});
+
+function handleSubmit(e) {
+  e.preventDefault();
+  const form = e.target;
+  const name = form.name.value;
+  const tel = form.tel.value;
+  const address = form.address.value;
+  const acType = form.ac_type.value;
+  const serviceType = form.service_type.value;
+  const memo = form.memo.value;
+
+  // 네이버 블로그 문의 페이지로 이동 (폼 데이터 정보 포함)
+  const message = encodeURIComponent(`[서비스 신청]\n이름: ${name}\n연락처: ${tel}\n주소: ${address}\n에어컨 종류: ${acType}\n서비스: ${serviceType}\n내용: ${memo}`);
+  window.open(`https://blog.naver.com/ddinair`, '_blank');
+
+  // 성공 메시지
+  form.innerHTML = `<div style="text-align:center;padding:60px 0;">
+    <div style="font-size:48px;margin-bottom:16px;">✓</div>
+    <h3 style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:white;margin-bottom:12px;">접수 완료</h3>
+    <p style="color:rgba(255,255,255,0.5);font-size:14px;line-height:1.8;">
+      네이버 블로그로 이동했습니다.<br/>블로그 DM 또는 <a href="tel:010-7237-2122" style="color:var(--blue);">010-7237-2122</a>로 연락 주세요.
+    </p>
+  </div>`;
+}
+window.handleSubmit = handleSubmit;
+</script>

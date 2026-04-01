@@ -1,0 +1,151 @@
+---
+import Layout from '../layouts/Layout.astro';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const title = 'DD에어컨 시공사례 | 70건+ 현장 포트폴리오';
+const description = 'DD에어컨의 실제 시공 현장 사례. 식당, 헤어샵, 의원, 학교, 사무실 등 다양한 업종의 에어컨 설치 포트폴리오.';
+
+const cases = [
+  { img: 'case01.jpg', date: '2026.03', place: '수유 노원솔요양병원', spec: '삼성 벽걸이 9평 냉난방', type: '벽걸이' },
+  { img: 'case02.jpg', date: '2026.02', place: '성수 셀렉샵', spec: 'LG 4WAY 25평 1등급', type: '4WAY' },
+  { img: 'case03.jpg', date: '2026.02', place: '안산 네일아트샵', spec: 'LG 4WAY 25평 1등급', type: '4WAY' },
+  { img: 'case04.jpg', date: '2026.02', place: '마포 사무실', spec: 'LG 4WAY 25평 + 벽걸이 16평', type: '4WAY' },
+  { img: 'case05.jpg', date: '2026.02', place: '강변 치과', spec: '삼성 4WAY 30평 1등급', type: '4WAY' },
+  { img: 'case06.jpg', date: '2025.11', place: '에이바헤어 건대점', spec: 'LG 4WAY 40평 1등급 + 28평', type: '4WAY' },
+  { img: 'case07.jpg', date: '2025.11', place: '강동구 관리실', spec: 'LG 스탠드 40평 냉난방', type: '스탠드' },
+  { img: 'case08.jpg', date: '2025.10', place: '송능리 사무실', spec: '캐리어 벽걸이 12평 2조', type: '벽걸이' },
+  { img: 'case09.jpg', date: '2025.09', place: '익산 헤어샵', spec: '4WAY 40평 2대', type: '4WAY' },
+  { img: 'case10.jpg', date: '2025.07', place: '구리 오리고기집', spec: 'LG 스탠드 80평 냉난방 2조', type: '스탠드' },
+  { img: 'case11.jpg', date: '2025.06', place: '무교동 시그너스빌딩', spec: 'LG 멀티 12마력 4WAY 30평 3조', type: '멀티' },
+  { img: 'case12.jpg', date: '2025.06', place: '방배동 라멘집', spec: 'LG 4WAY 30평 + 벽걸이 16평', type: '4WAY' },
+  { img: 'case13.jpg', date: '2025.05', place: '이태원 식당', spec: 'LG 4WAY 40평 1등급', type: '4WAY' },
+  { img: 'case14.jpg', date: '2025.05', place: '안산 치과의원', spec: '삼성 멀티 4WAY 3조 + 1WAY 1조', type: '멀티' },
+  { img: 'case15.jpg', date: '2025.04', place: '에이바헤어 구리토평점', spec: 'LG 4WAY 40평 1등급', type: '4WAY' },
+  { img: 'case16.jpg', date: '2025.04', place: '양재동 치과', spec: '삼성 멀티 4WAY 2조 + 1WAY', type: '멀티' },
+  { img: 'case17.jpg', date: '2025.04', place: '에이바헤어 장위점', spec: 'LG 4WAY 40평 1등급', type: '4WAY' },
+  { img: 'case18.jpg', date: '2025.03', place: '에이바헤어 본사', spec: 'LG 4WAY 25평 + 캐리어 7평 3조', type: '4WAY' },
+  { img: 'case19.jpg', date: '2025.02', place: '잠실 국민통닭', spec: 'LG 4WAY 40평 1등급', type: '4WAY' },
+];
+
+const typeColors: Record<string, string> = {
+  '4WAY': 'rgba(79,195,247,0.8)',
+  '스탠드': 'rgba(30,136,229,0.8)',
+  '벽걸이': 'rgba(129,212,250,0.8)',
+  '멀티': 'rgba(0,188,212,0.8)',
+};
+---
+<Layout title={title} description={description}>
+
+<!-- 페이지 헤더 -->
+<section style="background:var(--dark);padding:160px 8vw 80px;position:relative;overflow:hidden;">
+  <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(79,195,247,0.2),transparent);"></div>
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(79,195,247,0.05),transparent 60%);"></div>
+  <div style="max-width:1100px;margin:0 auto;position:relative;">
+    <span class="section-label" style="margin-bottom:12px;">Installation Portfolio</span>
+    <h1 class="font-display" style="font-size:clamp(42px,7vw,88px);font-weight:300;color:white;line-height:0.95;letter-spacing:0.02em;margin-bottom:24px;">
+      시공사례<br/><span class="blue-gradient" style="font-style:italic;">70건+</span>
+    </h1>
+    <p style="font-size:16px;color:rgba(255,255,255,0.5);font-weight:300;line-height:1.8;max-width:480px;">
+      식당·헤어샵·의원·학교·사무실 등<br/>다양한 업종의 실제 시공 현장입니다.
+    </p>
+  </div>
+</section>
+
+<!-- 필터 탭 -->
+<section style="background:var(--dark);position:sticky;top:60px;z-index:10;border-bottom:1px solid rgba(255,255,255,0.05);">
+  <div style="max-width:1100px;margin:0 auto;padding:0 8vw;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;">
+    {['전체', '4WAY', '스탠드', '벽걸이', '멀티'].map(f => (
+      <button
+        class="filter-btn"
+        data-filter={f}
+        style={`flex-shrink:0;padding:16px 20px;background:none;border:none;cursor:pointer;font-size:11px;letter-spacing:0.25em;text-transform:uppercase;color:rgba(255,255,255,0.45);transition:all 0.2s;border-bottom:2px solid transparent;font-family:inherit;${f==='전체'?'color:var(--blue);border-bottom-color:var(--blue);':''}`}
+      >{f}</button>
+    ))}
+  </div>
+</section>
+
+<!-- 케이스 그리드 -->
+<section style="background:var(--dark);padding:48px 8vw 100px;position:relative;z-index:2;">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="case-grid" id="case-grid">
+      {cases.map((c, i) => (
+        <div class="case-card gsap-fade" data-type={c.type} data-delay={Math.min(i*0.04, 0.5)}>
+          <img src={`${base}/images/gallery/${c.img}`} alt={`DD에어컨 ${c.place} ${c.spec}`} loading='lazy' />
+          <div class="case-overlay">
+            <div class="case-date">{c.date}</div>
+            <div class="case-place">{c.place}</div>
+            <div class="case-spec">{c.spec}</div>
+            <div style="margin-top:10px;">
+              <span style={`font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:${typeColors[c.type]||'rgba(79,195,247,0.8)'};border:1px solid ${typeColors[c.type]||'rgba(79,195,247,0.4)'};padding:2px 8px;`}>{c.type}</span>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+    <!-- 결과 없음 -->
+    <div id="no-results" style="display:none;text-align:center;padding:80px 0;color:rgba(255,255,255,0.35);font-size:14px;">해당 타입의 시공사례가 없습니다.</div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section style="background:var(--dark2);padding:80px 8vw;text-align:center;border-top:1px solid rgba(79,195,247,0.08);">
+  <div style="max-width:500px;margin:0 auto;">
+    <h2 class="font-display" style="font-size:clamp(28px,4vw,48px);font-weight:300;color:white;margin-bottom:16px;">견적 문의하기</h2>
+    <p style="font-size:14px;color:rgba(255,255,255,0.45);line-height:1.8;margin-bottom:32px;">시공 전 무료 현장 방문 견적을 제공합니다.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <a href="tel:010-7237-2122" class="btn-primary">전화 문의하기</a>
+      <a href={`${base}/contact`} class="btn-outline">온라인 신청</a>
+    </div>
+  </div>
+</section>
+
+</Layout>
+
+<script is:inline>
+window.addEventListener('load', function() {
+  // Lenis
+  if (typeof Lenis !== 'undefined') {
+    const lenis = new Lenis({ lerp: 0.1, smoothWheel: true });
+    function raf(t) { lenis.raf(t); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+  }
+
+  // GSAP
+  if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.utils.toArray('.gsap-fade').forEach(el => {
+      const delay = parseFloat(el.dataset.delay || 0);
+      gsap.to(el, {
+        opacity: 1, y: 0, duration: 0.7, delay,
+        ease: 'power2.out',
+        scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' }
+      });
+    });
+  }
+
+  // 필터
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.case-card');
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => {
+        b.style.color = 'rgba(255,255,255,0.45)';
+        b.style.borderBottomColor = 'transparent';
+      });
+      btn.style.color = 'var(--blue)';
+      btn.style.borderBottomColor = 'var(--blue)';
+      const filter = btn.dataset.filter;
+      let visible = 0;
+      cards.forEach(card => {
+        if (filter === '전체' || card.dataset.type === filter) {
+          card.style.display = '';
+          visible++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+      document.getElementById('no-results').style.display = visible === 0 ? 'block' : 'none';
+    });
+  });
+});
+</script>
