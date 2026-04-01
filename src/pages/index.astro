@@ -178,6 +178,28 @@ const services = [
   </div>
 </div>
 
+<!-- 분해 애니메이션 섹션 -->
+<div id="explode-scroll" style="height:250vh;position:relative;">
+  <div style="position:sticky;top:0;height:100dvh;overflow:hidden;background:#f0f2f4;">
+    <!-- 완제품 이미지 -->
+    <img id="img-assembled" src={`${base}/images/bg/assembled.jpg`} alt="삼성 천장형 4WAY 에어컨"
+      style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center;transition:opacity 0.05s linear,transform 0.05s linear;z-index:1;" />
+    <!-- 분해도 이미지 -->
+    <img id="img-exploded" src={`${base}/images/bg/exploded.jpg`} alt="에어컨 분해도"
+      style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center;opacity:0;transition:opacity 0.05s linear,transform 0.05s linear;z-index:2;" />
+    <!-- 텍스트 오버레이 -->
+    <div id="explode-label" style="position:absolute;bottom:10%;left:50%;transform:translateX(-50%);z-index:10;text-align:center;pointer-events:none;">
+      <p style="font-size:10px;letter-spacing:0.5em;text-transform:uppercase;color:rgba(5,9,15,0.4);margin-bottom:8px;">Precision Cleaning</p>
+      <h2 id="explode-title" class="font-display" style="font-size:clamp(28px,4vw,56px);font-weight:300;color:#05090F;letter-spacing:0.04em;">전문 분해청소</h2>
+      <p id="explode-desc" style="font-size:14px;color:rgba(5,9,15,0.55);margin-top:10px;font-weight:300;">냄새 제거 · 곰팡이 제거 · 냉각핀 세척</p>
+    </div>
+    <!-- 스크롤 진행 바 -->
+    <div style="position:absolute;bottom:0;left:0;right:0;height:3px;background:rgba(5,9,15,0.08);z-index:10;">
+      <div id="explode-progress" style="height:100%;width:0%;background:linear-gradient(90deg,#4FC3F7,#1E88E5);transition:width 0.05s linear;"></div>
+    </div>
+  </div>
+</div>
+
 <!-- 서비스 섹션 -->
 <section style="background:var(--dark2);padding:100px 8vw;position:relative;z-index:2;">
   <div style="max-width:1100px;margin:0 auto;">
@@ -368,6 +390,29 @@ window.addEventListener('load', function() {
     window.addEventListener('resize', () => {
       W = canvas.width = window.innerWidth;
       H = canvas.height = window.innerHeight;
+    }, { passive: true });
+  }
+
+  // 분해 애니메이션 — 스크롤로 완제품 → 분해도 전환
+  const explodeContainer = document.getElementById('explode-scroll');
+  const imgAssembled = document.getElementById('img-assembled');
+  const imgExploded = document.getElementById('img-exploded');
+  const explodeProgress = document.getElementById('explode-progress');
+
+  if (explodeContainer && imgAssembled && imgExploded) {
+    window.addEventListener('scroll', () => {
+      const rect = explodeContainer.getBoundingClientRect();
+      const total = explodeContainer.offsetHeight - window.innerHeight;
+      const scrolled = -rect.top;
+      const p = Math.max(0, Math.min(1, scrolled / total)); // 0 → 1
+
+      // 완제품 → 분해도 크로스페이드
+      imgAssembled.style.opacity = String(1 - p);
+      imgAssembled.style.transform = `scale(${1 + p * 0.08})`;
+      imgExploded.style.opacity = String(p);
+      imgExploded.style.transform = `scale(${0.92 + p * 0.08})`;
+
+      if (explodeProgress) explodeProgress.style.width = (p * 100) + '%';
     }, { passive: true });
   }
 
