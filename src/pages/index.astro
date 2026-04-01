@@ -101,7 +101,9 @@ const stats = [
 
 <!-- ══════ 스크롤 스토리텔링 섹션들 ══════════════════════════════════════ -->
 <div id="story-container">
-  {storyPanels.map((panel, i) => (
+
+  <!-- 패널 0: 히어로 -->
+  {storyPanels.slice(0, 1).map((panel, i) => (
     <section
       class="story-panel"
       data-index={i}
@@ -170,34 +172,78 @@ const stats = [
       )}
     </section>
   ))}
-</div>
 
-<!-- ══════ 한전 지원사업 배너 (GSAP 스크롤 리빌) ══════════════════════════ -->
-<section id="subsidy-banner" style="position:relative;z-index:2;overflow:hidden;min-height:420px;display:flex;align-items:center;justify-content:center;">
-  <!-- 배경 레이어 (clip-path로 curtain 리빌) -->
-  <div id="subsidy-bg" style="position:absolute;inset:0;background:linear-gradient(135deg,#1E88E5 0%,#0D47A1 100%);clip-path:inset(0 100% 0 0);"></div>
-  <!-- 장식 원 -->
-  <div style="position:absolute;top:0;left:0;width:280px;height:280px;border-radius:50%;background:rgba(255,255,255,0.04);transform:translate(-140px,-140px);pointer-events:none;z-index:1;"></div>
-  <div style="position:absolute;bottom:0;right:0;width:360px;height:360px;border-radius:50%;background:rgba(255,255,255,0.03);transform:translate(180px,180px);pointer-events:none;z-index:1;"></div>
-  <!-- 콘텐츠 -->
-  <div style="max-width:760px;margin:0 auto;padding:80px 8vw;text-align:center;position:relative;z-index:2;">
-    <p id="sub-eyebrow" style="font-size:10px;letter-spacing:0.55em;text-transform:uppercase;color:rgba(255,255,255,0);margin-bottom:16px;transition:color 0.01s;">2026 KEPCO Support Program</p>
-    <h2 id="sub-title" class="font-display" style="font-size:clamp(32px,5vw,54px);font-weight:300;color:white;margin-bottom:14px;letter-spacing:0.04em;opacity:0;transform:translateY(32px);">한전 고효율기기 지원사업</h2>
-    <div id="sub-line" style="width:0;height:1px;background:rgba(255,255,255,0.45);margin:16px auto 22px;"></div>
-    <p id="sub-desc" style="font-size:17px;color:rgba(255,255,255,0);font-weight:300;line-height:1.8;margin-bottom:36px;">
-      2026년 참여 업체 — 에어컨 교체 시<br/>
-      <strong style="color:#81D4FA;">최대 40% 환급</strong> 혜택을 받으세요.
-    </p>
-    <div id="sub-btns" style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;opacity:0;transform:translateY(20px);">
-      <a href={`${base}/contact`}
-         style="display:inline-block;background:white;color:#1E88E5;padding:16px 40px;font-size:11px;letter-spacing:0.25em;text-transform:uppercase;text-decoration:none;font-family:inherit;transition:opacity 0.3s;"
-         onmouseover="this.style.opacity='0.88'" onmouseout="this.style.opacity='1'">지원금 신청하기</a>
-      <a href={`${base}/subsidy`}
-         style="display:inline-block;border:1px solid rgba(255,255,255,0.5);color:white;padding:16px 40px;font-size:11px;letter-spacing:0.25em;text-transform:uppercase;text-decoration:none;transition:all 0.3s;"
-         onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='transparent'">지원사업 안내</a>
+  <!-- ══ 지원사업 배너 패널 (히어로 바로 뒤, 전체화면 덮기) ══ -->
+  <section
+    id="subsidy-panel"
+    style="position:relative;height:100dvh;min-height:600px;display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:2;overflow:hidden;text-align:center;"
+  >
+    <!-- 불투명 파란 배경 — 뒤의 fixed bg 이미지를 완전히 덮음 -->
+    <div style="position:absolute;inset:0;background:linear-gradient(135deg,#0D47A1 0%,#1565C0 45%,#1E88E5 100%);"></div>
+    <!-- 미묘한 격자 오버레이 -->
+    <div style="position:absolute;inset:0;opacity:0.04;background-image:repeating-linear-gradient(0deg,transparent,transparent 60px,rgba(255,255,255,0.5) 60px,rgba(255,255,255,0.5) 61px),repeating-linear-gradient(90deg,transparent,transparent 60px,rgba(255,255,255,0.5) 60px,rgba(255,255,255,0.5) 61px);"></div>
+    <!-- 장식 원 -->
+    <div style="position:absolute;top:-120px;left:-120px;width:400px;height:400px;border-radius:50%;background:rgba(255,255,255,0.04);pointer-events:none;"></div>
+    <div style="position:absolute;bottom:-160px;right:-160px;width:500px;height:500px;border-radius:50%;background:rgba(255,255,255,0.03);pointer-events:none;"></div>
+    <!-- 상단 라인 -->
+    <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.15),transparent);"></div>
+
+    <!-- 콘텐츠 -->
+    <div style="max-width:760px;padding:0 8vw;position:relative;z-index:1;">
+      <p id="sub-eyebrow" style="font-size:10px;letter-spacing:0.55em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-bottom:20px;opacity:0;transform:translateY(16px);">2026 KEPCO Support Program</p>
+      <h2 id="sub-title" class="font-display" style="font-size:clamp(38px,6vw,72px);font-weight:300;color:white;line-height:1;letter-spacing:0.04em;margin-bottom:20px;opacity:0;transform:translateY(32px);">
+        한전 고효율기기<br/>지원사업
+      </h2>
+      <div id="sub-line" style="width:0;height:1px;background:rgba(255,255,255,0.35);margin:22px auto 24px;"></div>
+      <p id="sub-desc" style="font-size:clamp(15px,1.8vw,19px);color:rgba(255,255,255,0.75);font-weight:300;line-height:1.8;margin-bottom:40px;opacity:0;transform:translateY(20px);">
+        2026년 참여 업체 — 에어컨 교체 시<br/>
+        <strong style="color:#81D4FA;font-weight:500;">최대 40% 환급</strong> 혜택을 받으세요.
+      </p>
+      <div id="sub-btns" style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;opacity:0;transform:translateY(20px);">
+        <a href={`${base}/contact`}
+           style="display:inline-block;background:white;color:#1E88E5;padding:16px 44px;font-size:11px;letter-spacing:0.25em;text-transform:uppercase;text-decoration:none;font-family:inherit;transition:opacity 0.3s;"
+           onmouseover="this.style.opacity='0.88'" onmouseout="this.style.opacity='1'">지원금 신청하기</a>
+        <a href={`${base}/subsidy`}
+           style="display:inline-block;border:1px solid rgba(255,255,255,0.45);color:white;padding:16px 44px;font-size:11px;letter-spacing:0.25em;text-transform:uppercase;text-decoration:none;transition:all 0.3s;"
+           onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='transparent'">지원사업 안내</a>
+      </div>
     </div>
-  </div>
-</section>
+
+    <!-- 패널 번호 -->
+    <div style="position:absolute;bottom:40px;right:8vw;z-index:2;">
+      <p style="font-family:'Cormorant Garamond',serif;font-size:11px;color:rgba(255,255,255,0.2);letter-spacing:0.2em;">— / {String(storyPanels.length).padStart(2,'0')}</p>
+    </div>
+  </section>
+
+  <!-- 패널 1–3: 나머지 스토리 패널 -->
+  {storyPanels.slice(1).map((panel, i) => (
+    <section
+      class="story-panel"
+      data-index={i + 1}
+      style={`position:relative;height:100dvh;min-height:600px;display:flex;flex-direction:column;justify-content:flex-end;padding:0 8vw 12vh;z-index:2;`}
+    >
+      <div class="mobile-bg" style={`display:none;position:absolute;inset:0;background-image:url('${panel.bg}');background-size:cover;background-position:center top;z-index:0;`}></div>
+      <div class="mobile-bg" style="display:none;position:absolute;inset:0;background:linear-gradient(to bottom,rgba(5,9,15,0.35) 0%,rgba(5,9,15,0.0) 35%,rgba(5,9,15,0.75) 85%,rgba(5,9,15,0.92) 100%);z-index:1;"></div>
+      <div class="story-content" style="position:relative;z-index:3;max-width:750px;">
+        <p style="font-size:10px;letter-spacing:0.5em;text-transform:uppercase;color:rgba(79,195,247,0.75);margin-bottom:16px;">{panel.eyebrow}</p>
+        <div style="display:flex;align-items:flex-end;gap:28px;margin-bottom:20px;flex-wrap:wrap;">
+          <h2 class="font-display" style="font-size:clamp(44px,8vw,100px);font-weight:300;color:white;line-height:0.92;letter-spacing:0.02em;white-space:pre-line;">{panel.title}</h2>
+          {panel.stat && (
+            <div style="padding-bottom:8px;">
+              <span class="font-display" style="font-size:clamp(36px,5vw,60px);font-weight:300;background:linear-gradient(90deg,#4FC3F7,#81D4FA);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;display:block;">{panel.stat}</span>
+              <p style="font-size:9px;letter-spacing:0.45em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-top:5px;">{panel.statLabel}</p>
+            </div>
+          )}
+        </div>
+        <p style="font-size:clamp(14px,1.6vw,17px);color:rgba(255,255,255,0.55);font-weight:300;max-width:480px;line-height:1.75;">{panel.desc}</p>
+      </div>
+      <div style="position:absolute;bottom:40px;right:8vw;z-index:3;text-align:right;">
+        <p style="font-family:'Cormorant Garamond',serif;font-size:11px;color:rgba(255,255,255,0.25);letter-spacing:0.2em;">{String(i+2).padStart(2,'0')} / {String(storyPanels.length).padStart(2,'0')}</p>
+      </div>
+    </section>
+  ))}
+
+</div>
 
 <!-- ══════ STATS 섹션 ══════════════════════════════════════════════════════ -->
 <section id="stats-section" style="background:var(--dark);position:relative;z-index:2;overflow:hidden;">
@@ -421,39 +467,28 @@ const stats = [
       });
     });
 
-    // ── 지원사업 배너 GSAP 리빌 ──────────────────────────────────────────
-    const subsidyBg = document.getElementById('subsidy-bg');
+    // ── 지원사업 패널 GSAP 콘텐츠 스태거 ────────────────────────────────
+    // 섹션이 뷰포트에 들어오면(스크롤로 덮어씌워지는 순간) 콘텐츠 순차 등장
     const subEyebrow = document.getElementById('sub-eyebrow');
-    const subTitle = document.getElementById('sub-title');
-    const subLine = document.getElementById('sub-line');
-    const subDesc = document.getElementById('sub-desc');
-    const subBtns = document.getElementById('sub-btns');
+    const subTitle   = document.getElementById('sub-title');
+    const subLine    = document.getElementById('sub-line');
+    const subDesc    = document.getElementById('sub-desc');
+    const subBtns    = document.getElementById('sub-btns');
 
-    if (subsidyBg) {
+    if (subTitle) {
       const tl = gsap.timeline({
         scrollTrigger: {
-          trigger: '#subsidy-banner',
-          start: 'top 72%',
+          trigger: '#subsidy-panel',
+          start: 'top 60%',   // 화면 60% 지점에서 트리거 (자연스럽게 덮히는 도중)
           toggleActions: 'play none none none',
         },
       });
 
-      // 1) 배경 커튼 리빌 (clip-path 왼→오)
-      tl.to(subsidyBg, {
-        clipPath: 'inset(0 0% 0 0)',
-        duration: 0.9,
-        ease: 'power3.inOut',
-      })
-      // 2) eyebrow 텍스트 페이드인
-      .to(subEyebrow, { color: 'rgba(255,255,255,0.6)', duration: 0.5, ease: 'none' }, '-=0.3')
-      // 3) 타이틀 슬라이드업
-      .to(subTitle, { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }, '-=0.3')
-      // 4) 구분선 확장
-      .to(subLine, { width: '40px', duration: 0.5, ease: 'power2.out' }, '-=0.4')
-      // 5) 설명문 페이드인
-      .to(subDesc, { color: 'rgba(255,255,255,0.8)', duration: 0.6, ease: 'none' }, '-=0.3')
-      // 6) 버튼 슬라이드업
-      .to(subBtns, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, '-=0.3');
+      tl.to(subEyebrow, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' })
+        .to(subTitle,   { opacity: 1, y: 0, duration: 0.75, ease: 'power2.out' }, '-=0.3')
+        .to(subLine,    { width: '40px', duration: 0.5, ease: 'power2.out' }, '-=0.4')
+        .to(subDesc,    { opacity: 1, y: 0, duration: 0.65, ease: 'power2.out' }, '-=0.3')
+        .to(subBtns,    { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, '-=0.3');
     }
 
     // 마그네틱 버튼
