@@ -1,0 +1,498 @@
+---
+import Layout from '../layouts/Layout.astro';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<Layout title="DD Aircon | 남양주 에어컨 전문 설치·청소·수리" description="남양주·다산신도시 전문 에어컨 업체. 설치부터 청소, 수리, 이전까지 한 번에 해결합니다.">
+
+<style is:global>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
+  #main-nav { display: none !important; }
+  body {
+    background: #050505 !important;
+    color: #fff !important;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  :root {
+    --bg: #050505;
+    --fg: #FFFFFF;
+    --accent: #00A8FF;
+    --muted: rgba(255,255,255,0.4);
+    --line: rgba(255,255,255,0.08);
+  }
+
+  /* ── NAV ── */
+  .didi-nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 24px 6vw;
+    transition: background 0.4s;
+  }
+  .didi-nav.scrolled {
+    background: rgba(5,5,5,0.9);
+    backdrop-filter: blur(12px);
+  }
+  .didi-logo {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 20px; font-weight: 700;
+    color: white; text-decoration: none;
+    letter-spacing: -0.02em;
+  }
+  .didi-logo span { color: #00A8FF; }
+  .didi-nav-links { display: flex; gap: 32px; }
+  .didi-nav-links a {
+    color: rgba(255,255,255,0.5); text-decoration: none;
+    font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .didi-nav-links a:hover { color: white; }
+  .didi-nav-cta {
+    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: #00A8FF; border: 1px solid rgba(0,168,255,0.4);
+    padding: 10px 20px; text-decoration: none; transition: all 0.3s;
+  }
+  .didi-nav-cta:hover { background: #00A8FF; color: #050505; }
+
+  /* ── HERO ── */
+  .didi-hero {
+    position: relative; height: 100dvh; background: #050505;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    overflow: hidden;
+  }
+  .didi-hero-bg {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(0,168,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,168,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .didi-hero-content {
+    text-align: center; position: relative; z-index: 1;
+  }
+  .didi-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(80px, 14vw, 180px);
+    font-weight: 700;
+    color: white;
+    letter-spacing: -0.04em;
+    line-height: 0.9;
+    margin: 0 0 32px 0;
+    will-change: transform;
+  }
+  .didi-hero-sub { position: relative; z-index: 1; }
+  .didi-sub-text {
+    font-size: 14px; letter-spacing: 0.3em;
+    color: rgba(255,255,255,0.4); text-transform: uppercase;
+    margin: 0;
+  }
+  .didi-location {
+    font-size: 12px; letter-spacing: 0.2em;
+    color: #00A8FF; margin: 8px 0 0 0;
+  }
+  .didi-hero-bottom {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 0 6vw 5vh;
+  }
+  .didi-info-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 24px;
+  }
+  .didi-label {
+    display: block; font-size: 9px; letter-spacing: 0.4em;
+    text-transform: uppercase; color: rgba(255,255,255,0.3);
+    margin-bottom: 6px;
+  }
+  .didi-val {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 16px; font-weight: 500; color: white;
+    display: block;
+  }
+
+  /* ── SCROLL HINT ── */
+  .didi-scroll-hint {
+    position: absolute; right: 6vw; bottom: 5vh;
+    display: flex; flex-direction: column;
+    align-items: center; gap: 8px;
+  }
+  .didi-scroll-hint span {
+    font-size: 9px; letter-spacing: 0.4em; text-transform: uppercase;
+    color: rgba(255,255,255,0.3); writing-mode: vertical-rl;
+  }
+  .didi-scroll-line {
+    width: 1px; height: 60px;
+    background: linear-gradient(to bottom, rgba(0,168,255,0.6), transparent);
+    animation: scrollLine 2s ease-in-out infinite;
+  }
+  @keyframes scrollLine {
+    0%,100%{ transform:scaleY(1); opacity:1; }
+    50%{ transform:scaleY(0.5); opacity:0.4; }
+  }
+
+  /* ── SERVICES ── */
+  .didi-services {
+    background: #050505; padding: 120px 6vw;
+  }
+  .didi-section-header {
+    margin-bottom: 60px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    padding-bottom: 20px;
+  }
+  .didi-service-item {
+    display: grid;
+    grid-template-columns: 50px 1fr 1fr 120px;
+    align-items: center; padding: 24px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    transition: all 0.3s cubic-bezier(0.23,1,0.32,1);
+    cursor: default;
+  }
+  .didi-service-item:hover {
+    padding-left: 20px;
+    background: rgba(0,168,255,0.03);
+  }
+  .didi-service-num {
+    font-size: 10px; color: rgba(255,255,255,0.2);
+    letter-spacing: 0.2em;
+  }
+  .didi-service-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(24px, 3vw, 40px);
+    font-weight: 600; color: white; letter-spacing: -0.02em;
+  }
+  .didi-service-desc {
+    font-size: 12px; color: rgba(255,255,255,0.4);
+  }
+  .didi-service-tag {
+    font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase;
+    color: #00A8FF; text-align: right;
+  }
+
+  /* ── ABOUT ── */
+  .didi-about {
+    background: #0A0A0A; padding: 120px 6vw;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: center;
+  }
+  .didi-about-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(48px, 7vw, 96px);
+    font-weight: 700; color: white;
+    letter-spacing: -0.03em; line-height: 0.9;
+    margin: 0 0 32px 0;
+  }
+  .didi-about-text {
+    font-size: 16px; line-height: 1.9;
+    color: rgba(255,255,255,0.5); margin: 0;
+  }
+  .didi-stats {
+    display: flex; flex-direction: column; gap: 40px;
+  }
+  .didi-stat-num {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 64px; font-weight: 700; color: #00A8FF;
+    letter-spacing: -0.03em; display: block; line-height: 1;
+  }
+  .didi-stat-label {
+    font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase;
+    color: rgba(255,255,255,0.3); display: block; margin-top: 6px;
+  }
+
+  /* ── CTA ── */
+  .didi-cta {
+    background: #050505; padding: 160px 6vw; text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  .didi-cta-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(56px, 9vw, 120px);
+    font-weight: 700; color: white;
+    letter-spacing: -0.03em; line-height: 0.9;
+    margin: 0 0 48px 0;
+  }
+  .didi-cta-title em { font-style: normal; color: #00A8FF; }
+  .didi-cta-btn {
+    display: inline-block; font-size: 24px; font-weight: 600;
+    color: white; text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 20px 48px; letter-spacing: 0.05em; transition: all 0.3s;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+  .didi-cta-btn:hover { background: #00A8FF; border-color: #00A8FF; color: #050505; }
+  .didi-cta-sub {
+    margin-top: 24px; font-size: 11px; letter-spacing: 0.4em;
+    text-transform: uppercase; color: rgba(255,255,255,0.3);
+  }
+
+  /* ── FOOTER ── */
+  .didi-footer {
+    background: #050505; padding: 40px 6vw;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .didi-footer-logo {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 16px; font-weight: 700; color: white; letter-spacing: -0.02em;
+  }
+  .didi-footer-logo span { color: #00A8FF; }
+  .didi-footer-copy {
+    font-size: 11px; color: rgba(255,255,255,0.2); letter-spacing: 0.1em;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .didi-service-item { grid-template-columns: 40px 1fr; }
+    .didi-service-desc, .didi-service-tag { display: none; }
+    .didi-about { grid-template-columns: 1fr; gap: 60px; }
+    .didi-info-grid { grid-template-columns: repeat(2, 1fr); row-gap: 20px; }
+    .didi-nav-links { display: none; }
+    .didi-footer { flex-direction: column; gap: 16px; text-align: center; }
+  }
+</style>
+
+<!-- ── NAV ── -->
+<nav class="didi-nav">
+  <a href="#" class="didi-logo">DD<span>Aircon</span></a>
+  <div class="didi-nav-links">
+    <a href="#services">서비스</a>
+    <a href="#about">소개</a>
+    <a href="#contact">문의</a>
+  </div>
+  <a href="tel:010-7237-2122" class="didi-nav-cta">전화 문의</a>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="didi-hero" id="hero">
+  <div class="didi-hero-bg"></div>
+
+  <div class="didi-hero-content">
+    <h1 class="didi-title">DD Aircon</h1>
+    <div class="didi-hero-sub">
+      <p class="didi-sub-text">에어컨 설치 · 청소 · 수리 · 이전</p>
+      <p class="didi-location">남양주 · 다산신도시</p>
+    </div>
+  </div>
+
+  <div class="didi-hero-bottom">
+    <div class="didi-info-grid">
+      <div>
+        <span class="didi-label">Since</span>
+        <span class="didi-val">2020</span>
+      </div>
+      <div>
+        <span class="didi-label">시공이력</span>
+        <span class="didi-val">71건+</span>
+      </div>
+      <div>
+        <span class="didi-label">서비스권역</span>
+        <span class="didi-val">경기도 전역</span>
+      </div>
+      <div>
+        <span class="didi-label">연락처</span>
+        <span class="didi-val">010-7237-2122</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="didi-scroll-hint">
+    <span>scroll</span>
+    <div class="didi-scroll-line"></div>
+  </div>
+</section>
+
+<!-- ── SERVICES ── -->
+<section class="didi-services" id="services">
+  <div class="didi-section-header">
+    <span class="didi-label">Services</span>
+  </div>
+
+  <div class="didi-service-item">
+    <span class="didi-service-num">01</span>
+    <span class="didi-service-name">에어컨 설치</span>
+    <span class="didi-service-desc">신규 설치 · 이전 설치 · 배관 작업</span>
+    <span class="didi-service-tag">Installation</span>
+  </div>
+  <div class="didi-service-item">
+    <span class="didi-service-num">02</span>
+    <span class="didi-service-name">에어컨 청소</span>
+    <span class="didi-service-desc">분해청소 · 살균 · 필터 관리</span>
+    <span class="didi-service-tag">Cleaning</span>
+  </div>
+  <div class="didi-service-item">
+    <span class="didi-service-num">03</span>
+    <span class="didi-service-name">에어컨 수리</span>
+    <span class="didi-service-desc">냉매 충전 · 부품 교체 · 오류 진단</span>
+    <span class="didi-service-tag">Repair</span>
+  </div>
+  <div class="didi-service-item">
+    <span class="didi-service-num">04</span>
+    <span class="didi-service-name">지원사업 대행</span>
+    <span class="didi-service-desc">한전 고효율 기기 교체 보조금 40%</span>
+    <span class="didi-service-tag">Subsidy</span>
+  </div>
+</section>
+
+<!-- ── ABOUT ── -->
+<section class="didi-about" id="about">
+  <div class="didi-about-content">
+    <h2 class="didi-about-title">에어컨,<br/>제대로</h2>
+    <p class="didi-about-text">
+      남양주·다산신도시 전문 에어컨 업체.<br/>
+      설치부터 청소, 수리, 이전까지<br/>
+      한 번에 해결합니다.
+    </p>
+  </div>
+  <div class="didi-stats">
+    <div class="didi-stat">
+      <span class="didi-stat-num" data-target="71">0</span>
+      <span class="didi-stat-label">시공이력</span>
+    </div>
+    <div class="didi-stat">
+      <span class="didi-stat-num">24h</span>
+      <span class="didi-stat-label">긴급출동</span>
+    </div>
+    <div class="didi-stat">
+      <span class="didi-stat-num">40%</span>
+      <span class="didi-stat-label">보조금 지원</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ── -->
+<section class="didi-cta" id="contact">
+  <h2 class="didi-cta-title">지금 바로<br/><em>문의하세요</em></h2>
+  <a href="tel:010-7237-2122" class="didi-cta-btn">010-7237-2122</a>
+  <p class="didi-cta-sub">남양주 · 다산신도시 · 경기도 전역</p>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="didi-footer">
+  <div class="didi-footer-logo">DD<span>Aircon</span></div>
+  <div class="didi-footer-copy">© 2026 DD에어컨. 남양주 · 다산신도시</div>
+</footer>
+
+<!-- ── GSAP + SplitType + Lenis CDN ── -->
+<script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script is:inline src="https://unpkg.com/split-type@0.3.4/umd/index.min.js"></script>
+<script is:inline src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+
+<script is:inline>
+(function() {
+  'use strict';
+
+  const gsap = window.gsap;
+  const ScrollTrigger = window.ScrollTrigger;
+  const SplitType = window.SplitType;
+  const Lenis = window.Lenis;
+
+  // ── Lenis smooth scroll ──
+  if (Lenis) {
+    const lenis = new Lenis({ lerp: 0.08 });
+    if (gsap) {
+      gsap.ticker.add(function(time) { lenis.raf(time * 1000); });
+      gsap.ticker.lagSmoothing(0);
+      if (ScrollTrigger) lenis.on('scroll', ScrollTrigger.update);
+    } else {
+      function raf(t) { lenis.raf(t); requestAnimationFrame(raf); }
+      requestAnimationFrame(raf);
+    }
+  }
+
+  // ── Nav scroll state ──
+  var nav = document.querySelector('.didi-nav');
+  window.addEventListener('scroll', function() {
+    if (nav) nav.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
+
+  if (!gsap || !ScrollTrigger || !SplitType) {
+    console.warn('[didi-v1] GSAP/ScrollTrigger/SplitType not loaded — animations skipped');
+    return;
+  }
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // ── ★ 핵심: 히어로 글자 폭발 애니메이션 ──
+  var titleEl = document.querySelector('.didi-title');
+  if (titleEl) {
+    var split = new SplitType(titleEl, { types: 'chars' });
+    var chars = split.chars;
+
+    var tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: '.didi-hero',
+        start: 'top top',
+        end: '+=120%',
+        pin: true,
+        scrub: 1.2,
+        anticipatePin: 1,
+      }
+    });
+
+    tl.to('.didi-hero-sub', { opacity: 0, y: -20, duration: 0.3 }, 0)
+      .to('.didi-hero-bottom', { opacity: 0, duration: 0.3 }, 0)
+      .to('.didi-scroll-hint', { opacity: 0, duration: 0.2 }, 0)
+      .to(chars, {
+        x: function() { return (Math.random() - 0.5) * (window.innerWidth * 2); },
+        y: function() { return (Math.random() - 0.5) * (window.innerHeight * 2); },
+        rotation: function() { return Math.random() * 720 - 360; },
+        opacity: 0,
+        scale: function() { return Math.random() * 0.3 + 0.05; },
+        ease: 'power3.in',
+        stagger: { each: 0.03, from: 'center' },
+        duration: 0.8,
+      }, 0.1);
+  }
+
+  // ── 서비스 아이템 순차 등장 ──
+  gsap.from('.didi-service-item', {
+    y: 40, opacity: 0, duration: 0.7,
+    stagger: 0.1, ease: 'power3.out',
+    scrollTrigger: { trigger: '.didi-services', start: 'top 75%' }
+  });
+
+  // ── About 섹션 ──
+  gsap.from('.didi-about-title', {
+    y: 50, opacity: 0, duration: 1, ease: 'power3.out',
+    scrollTrigger: { trigger: '.didi-about', start: 'top 70%' }
+  });
+  gsap.from('.didi-stat', {
+    y: 30, opacity: 0, duration: 0.7,
+    stagger: 0.15, ease: 'power3.out',
+    scrollTrigger: { trigger: '.didi-stats', start: 'top 75%' }
+  });
+
+  // ── 카운터 애니메이션 ──
+  var counter = document.querySelector('[data-target="71"]');
+  if (counter) {
+    ScrollTrigger.create({
+      trigger: counter,
+      start: 'top 80%',
+      once: true,
+      onEnter: function() {
+        var obj = { val: 0 };
+        gsap.to(obj, {
+          val: 71, duration: 2, ease: 'power2.out',
+          onUpdate: function() {
+            counter.textContent = Math.round(obj.val) + '건';
+          }
+        });
+      }
+    });
+  }
+
+  // ── CTA 타이틀 ──
+  gsap.from('.didi-cta-title', {
+    y: 60, opacity: 0, duration: 1, ease: 'power3.out',
+    scrollTrigger: { trigger: '.didi-cta', start: 'top 70%' }
+  });
+
+})();
+</script>
+
+</Layout>
