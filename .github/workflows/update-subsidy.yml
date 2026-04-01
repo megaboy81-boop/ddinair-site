@@ -3,7 +3,7 @@ name: Update Subsidy Budget
 on:
   schedule:
     # 매일 오전 9시, 오후 6시 (KST = UTC+9 → UTC 00:00, 09:00)
-    - cron: '0 0,9 * * *'
+    - cron: '0 0 * * *'
   workflow_dispatch:
 
 permissions:

@@ -188,29 +188,35 @@ const stats = [
     <!-- 상단 라인 -->
     <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.15),transparent);"></div>
 
-    <!-- 콘텐츠 -->
-    <div style="max-width:860px;padding:0 8vw;position:relative;z-index:1;width:100%;">
-      <p id="sub-eyebrow" style="font-size:10px;letter-spacing:0.55em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-bottom:20px;opacity:0;transform:translateY(16px);">2026 KEPCO Support Program</p>
+    <!-- 콘텐츠 (중앙 정렬) -->
+    <div style="max-width:800px;padding:0;position:relative;z-index:1;width:100%;text-align:center;">
+      <p id="sub-eyebrow" style="font-size:10px;letter-spacing:0.55em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-bottom:16px;opacity:0;transform:translateY(16px);">2026 KEPCO Support Program</p>
 
-      <!-- 타이틀 + 예산 현황 가로 배치 -->
-      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:32px;flex-wrap:wrap;margin-bottom:20px;">
-        <h2 id="sub-title" class="font-impact" style="font-size:clamp(32px,5vw,60px);color:white;line-height:1.15;letter-spacing:0.02em;opacity:0;transform:translateY(32px);flex-shrink:0;">
-          <span style="display:block;">한전 고효율기기</span>
-          <span style="display:block;">지원사업</span>
-        </h2>
+      <!-- 타이틀 -->
+      <h2 id="sub-title" class="font-impact" style="font-size:clamp(32px,5.5vw,64px);color:white;line-height:1.1;letter-spacing:0.02em;margin-bottom:16px;opacity:0;transform:translateY(32px);">
+        한전 고효율기기 지원사업
+      </h2>
+
+      <!-- 구분선 -->
+      <div id="sub-line" style="width:0;height:1px;background:rgba(255,255,255,0.3);margin:0 auto 20px;"></div>
+
+      <!-- 설명 + 예산 가로 카드 -->
+      <div style="display:flex;gap:20px;align-items:stretch;justify-content:center;flex-wrap:wrap;margin-bottom:28px;">
+        <!-- 설명 텍스트 -->
+        <p id="sub-desc" style="font-size:clamp(14px,1.6vw,17px);color:rgba(255,255,255,0.75);font-weight:300;line-height:1.9;opacity:0;transform:translateY(20px);text-align:left;flex:1;min-width:200px;max-width:340px;">
+          1등급 에어컨 설치 시 구매가의<br/>
+          <strong style="color:#81D4FA;font-weight:600;">40% 현금 환급</strong> · <strong style="color:white;font-weight:600;">최대 160만원</strong>
+        </p>
         <!-- 예산 현황 박스 -->
-        <div id="budget-box" style="flex:1;min-width:220px;max-width:320px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.2);border-radius:4px;padding:20px 24px;opacity:0;transform:translateY(20px);">
-          <p style="font-size:9px;letter-spacing:0.4em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:12px;">예산 현황 · 실시간</p>
-          <!-- 로딩 상태 -->
+        <div id="budget-box" style="flex:0 0 auto;min-width:200px;max-width:280px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.2);border-radius:4px;padding:18px 22px;opacity:0;transform:translateY(20px);text-align:left;">
+          <p style="font-size:9px;letter-spacing:0.4em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:10px;">예산 현황 · 실시간</p>
           <div id="budget-loading" style="font-size:12px;color:rgba(255,255,255,0.4);">불러오는 중...</div>
-          <!-- 데이터 표시 (초기 숨김) -->
           <div id="budget-data" style="display:none;">
-            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;">
               <span style="font-size:11px;color:rgba(255,255,255,0.6);">잔여예산</span>
-              <span id="budget-remaining" style="font-size:28px;font-family:'Cormorant Garamond',serif;font-weight:600;color:#81D4FA;line-height:1;">—%</span>
+              <span id="budget-remaining" style="font-size:26px;font-family:'Cormorant Garamond',serif;font-weight:600;color:#81D4FA;line-height:1;">—%</span>
             </div>
-            <!-- 프로그레스 바 -->
-            <div style="height:4px;background:rgba(255,255,255,0.15);border-radius:2px;overflow:hidden;margin-bottom:8px;">
+            <div style="height:4px;background:rgba(255,255,255,0.15);border-radius:2px;overflow:hidden;margin-bottom:7px;">
               <div id="budget-bar" style="height:100%;background:linear-gradient(90deg,#81D4FA,#4FC3F7);border-radius:2px;width:0%;transition:width 1.2s ease;"></div>
             </div>
             <div style="display:flex;justify-content:space-between;">
@@ -221,17 +227,13 @@ const stats = [
         </div>
       </div>
 
-      <div id="sub-line" style="width:0;height:1px;background:rgba(255,255,255,0.35);margin:16px 0 18px;"></div>
-      <p id="sub-desc" style="font-size:clamp(14px,1.6vw,17px);color:rgba(255,255,255,0.75);font-weight:300;line-height:1.8;margin-bottom:32px;opacity:0;transform:translateY(20px);">
-        1등급 에어컨 설치 시 구매가의
-        <strong style="color:#81D4FA;font-weight:600;"> 40% 현금 환급 · 최대 160만원</strong>
-      </p>
-      <div id="sub-btns" style="display:flex;gap:14px;flex-wrap:wrap;opacity:0;transform:translateY(20px);">
+      <!-- 버튼 -->
+      <div id="sub-btns" style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;opacity:0;transform:translateY(20px);">
         <a href={`${base}/contact`}
-           style="display:inline-block;background:white;color:#1E88E5;padding:14px 40px;font-size:11px;letter-spacing:0.25em;text-transform:uppercase;text-decoration:none;font-family:inherit;transition:opacity 0.3s;"
+           style="display:inline-block;background:white;color:#1E88E5;padding:13px 36px;font-size:11px;letter-spacing:0.25em;text-transform:uppercase;text-decoration:none;font-family:inherit;transition:opacity 0.3s;"
            onmouseover="this.style.opacity='0.88'" onmouseout="this.style.opacity='1'">지원금 신청하기</a>
         <a href={`${base}/subsidy`}
-           style="display:inline-block;border:1px solid rgba(255,255,255,0.45);color:white;padding:14px 40px;font-size:11px;letter-spacing:0.25em;text-transform:uppercase;text-decoration:none;transition:all 0.3s;"
+           style="display:inline-block;border:1px solid rgba(255,255,255,0.45);color:white;padding:13px 36px;font-size:11px;letter-spacing:0.25em;text-transform:uppercase;text-decoration:none;transition:all 0.3s;"
            onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='transparent'">지원사업 안내</a>
       </div>
     </div>
