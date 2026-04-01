@@ -95,8 +95,8 @@ const stats = [
     ></div>
   ))}
   <!-- 다층 오버레이 -->
-  <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(5,9,15,0.45) 0%,rgba(5,9,15,0.05) 40%,rgba(5,9,15,0.05) 60%,rgba(5,9,15,0.9) 100%);"></div>
-  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 40%,rgba(5,9,15,0.5) 100%);"></div>
+  <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(255,255,255,0.3) 0%,rgba(255,255,255,0.05) 40%,rgba(255,255,255,0.05) 60%,rgba(255,255,255,0.88) 100%);"></div>
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 40%,rgba(255,255,255,0.4) 100%);"></div>
 </div>
 
 <!-- ══════ 스크롤 스토리텔링 섹션들 ══════════════════════════════════════ -->
@@ -111,7 +111,7 @@ const stats = [
     >
       <!-- 모바일용 배경 -->
       <div class="mobile-bg" style={`display:none;position:absolute;inset:0;background-image:url('${panel.bg}');background-size:cover;background-position:center top;z-index:0;`}></div>
-      <div class="mobile-bg" style="display:none;position:absolute;inset:0;background:linear-gradient(to bottom,rgba(5,9,15,0.35) 0%,rgba(5,9,15,0.0) 35%,rgba(5,9,15,0.75) 85%,rgba(5,9,15,0.92) 100%);z-index:1;"></div>
+      <div class="mobile-bg" style="display:none;position:absolute;inset:0;background:linear-gradient(to bottom,rgba(255,255,255,0.2) 0%,rgba(255,255,255,0.0) 35%,rgba(255,255,255,0.6) 85%,rgba(255,255,255,0.9) 100%);z-index:1;"></div>
 
       <!-- 콘텐츠 -->
       <div class={`story-content${i===0?' hero-content':''}`} style="position:relative;z-index:3;max-width:750px;">
@@ -119,20 +119,20 @@ const stats = [
           <>
             <!-- 아이브로우 라인 -->
             <div id="hero-eyebrow" style="display:flex;align-items:center;gap:16px;margin-bottom:28px;overflow:hidden;">
-              <span id="eyebrow-line" style="display:block;height:1px;width:0;background:linear-gradient(90deg,transparent,rgba(79,195,247,0.6));transition:width 1.2s ease 0.5s;"></span>
-              <span style="font-size:10px;letter-spacing:0.55em;text-transform:uppercase;color:rgba(255,255,255,0.45);opacity:0;transition:opacity 0.8s ease 0.9s;" id="eyebrow-text">{panel.eyebrow}</span>
+              <span id="eyebrow-line" style="display:block;height:1px;width:0;background:linear-gradient(90deg,transparent,rgba(21,101,192,0.6));transition:width 1.2s ease 0.5s;"></span>
+              <span style="font-size:10px;letter-spacing:0.55em;text-transform:uppercase;color:rgba(10,22,40,0.45);opacity:0;transition:opacity 0.8s ease 0.9s;" id="eyebrow-text">{panel.eyebrow}</span>
             </div>
             <!-- 히어로 타이틀 -->
             <h1 id="hero-title" style="font-size:clamp(72px,13vw,160px);line-height:0.9;letter-spacing:-0.01em;margin-bottom:30px;">
               <div style="overflow:hidden;display:block;">
-                <span class="title-slide-up font-impact" style="display:block;animation-delay:0.4s;color:white;">{panel.title}</span>
+                <span class="title-slide-up font-impact" style="display:block;animation-delay:0.4s;color:#0A1628;">{panel.title}</span>
               </div>
               <div style="overflow:hidden;display:block;">
                 <span class="title-slide-up font-impact blue-gradient" style="display:block;animation-delay:0.65s;">{panel.titleSub}</span>
               </div>
             </h1>
             <!-- 서브타이틀 -->
-            <p id="hero-sub" style="font-size:clamp(14px,1.8vw,19px);color:rgba(255,255,255,0.58);font-weight:300;letter-spacing:0.08em;margin-bottom:40px;opacity:0;transform:translateY(16px);">
+            <p id="hero-sub" style="font-size:clamp(14px,1.8vw,19px);color:rgba(10,22,40,0.6);font-weight:300;letter-spacing:0.08em;margin-bottom:40px;opacity:0;transform:translateY(16px);">
               {panel.desc}
             </p>
             <!-- CTA 버튼 -->
@@ -143,31 +143,31 @@ const stats = [
           </>
         ) : (
           <>
-            <p style="font-size:10px;letter-spacing:0.5em;text-transform:uppercase;color:rgba(79,195,247,0.75);margin-bottom:16px;">{panel.eyebrow}</p>
+            <p style="font-size:10px;letter-spacing:0.5em;text-transform:uppercase;color:rgba(21,101,192,0.75);margin-bottom:16px;">{panel.eyebrow}</p>
             <div style="display:flex;align-items:flex-end;gap:28px;margin-bottom:20px;flex-wrap:wrap;">
-              <h2 class="font-display" style="font-size:clamp(44px,8vw,100px);font-weight:300;color:white;line-height:0.92;letter-spacing:0.02em;white-space:pre-line;">{panel.title}</h2>
+              <h2 class="font-display" style="font-size:clamp(44px,8vw,100px);font-weight:300;color:#0A1628;line-height:0.92;letter-spacing:0.02em;white-space:pre-line;">{panel.title}</h2>
               {panel.stat && (
                 <div style="padding-bottom:8px;">
-                  <span class="font-display" style="font-size:clamp(36px,5vw,60px);font-weight:300;background:linear-gradient(90deg,#4FC3F7,#81D4FA);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;display:block;">{panel.stat}</span>
-                  <p style="font-size:9px;letter-spacing:0.45em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-top:5px;">{panel.statLabel}</p>
+                  <span class="font-display" style="font-size:clamp(36px,5vw,60px);font-weight:300;background:linear-gradient(90deg,#1565C0,#42A5F5);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;display:block;">{panel.stat}</span>
+                  <p style="font-size:9px;letter-spacing:0.45em;text-transform:uppercase;color:rgba(10,22,40,0.35);margin-top:5px;">{panel.statLabel}</p>
                 </div>
               )}
             </div>
-            <p style="font-size:clamp(14px,1.6vw,17px);color:rgba(255,255,255,0.55);font-weight:300;max-width:480px;line-height:1.75;">{panel.desc}</p>
+            <p style="font-size:clamp(14px,1.6vw,17px);color:rgba(10,22,40,0.6);font-weight:300;max-width:480px;line-height:1.75;">{panel.desc}</p>
           </>
         )}
       </div>
 
       <!-- 패널 번호 -->
       <div style="position:absolute;bottom:40px;right:8vw;z-index:3;text-align:right;">
-        <p style="font-family:'Cormorant Garamond',serif;font-size:11px;color:rgba(255,255,255,0.25);letter-spacing:0.2em;">{String(i+1).padStart(2,'0')} / {String(storyPanels.length).padStart(2,'0')}</p>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:11px;color:rgba(10,22,40,0.25);letter-spacing:0.2em;">{String(i+1).padStart(2,'0')} / {String(storyPanels.length).padStart(2,'0')}</p>
       </div>
 
       <!-- 첫 패널 스크롤 유도 -->
       {i === 0 && (
         <div id="scroll-arrow" style="position:absolute;bottom:40px;left:50%;transform:translateX(-50%);z-index:3;display:flex;flex-direction:column;align-items:center;gap:8px;">
-          <span style="font-size:11px;letter-spacing:0.2em;color:rgba(255,255,255,0.45);font-family:'Pretendard Variable',sans-serif;">아래로 내려보세요</span>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(79,195,247,0.7)" stroke-width="1.5" style="animation:bounce 1.8s ease-in-out infinite;"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+          <span style="font-size:11px;letter-spacing:0.2em;color:rgba(10,22,40,0.45);font-family:'Pretendard Variable',sans-serif;">아래로 내려보세요</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(21,101,192,0.7)" stroke-width="1.5" style="animation:bounce 1.8s ease-in-out infinite;"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
         </div>
       )}
     </section>
@@ -190,10 +190,10 @@ const stats = [
 
     <!-- 콘텐츠 (중앙 정렬) -->
     <div style="max-width:800px;padding:0;position:relative;z-index:1;width:100%;text-align:center;">
-      <p id="sub-eyebrow" style="font-size:10px;letter-spacing:0.55em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-bottom:16px;opacity:0;transform:translateY(16px);">2026 KEPCO Support Program</p>
+      <p id="sub-eyebrow" style="font-size:10px;letter-spacing:0.55em;text-transform:uppercase;color:rgba(10,22,40,0.45);margin-bottom:16px;opacity:0;transform:translateY(16px);">2026 KEPCO Support Program</p>
 
       <!-- 타이틀 -->
-      <h2 id="sub-title" class="font-impact" style="font-size:clamp(32px,5.5vw,64px);color:white;line-height:1.1;letter-spacing:0.02em;margin-bottom:16px;opacity:0;transform:translateY(32px);">
+      <h2 id="sub-title" class="font-impact" style="font-size:clamp(32px,5.5vw,64px);color:#0A1628;line-height:1.1;letter-spacing:0.02em;margin-bottom:16px;opacity:0;transform:translateY(32px);">
         한전 고효율기기 지원사업
       </h2>
 
@@ -205,10 +205,10 @@ const stats = [
         <!-- 설명 텍스트 -->
         <p id="sub-desc" style="font-size:clamp(14px,1.6vw,17px);color:rgba(255,255,255,0.75);font-weight:300;line-height:1.9;opacity:0;transform:translateY(20px);text-align:left;flex:1;min-width:200px;max-width:340px;">
           1등급 에어컨 설치 시 구매가의<br/>
-          <strong style="color:#81D4FA;font-weight:600;">40% 현금 환급</strong> · <strong style="color:white;font-weight:600;">최대 160만원</strong>
+          <strong style="color:#81D4FA;font-weight:600;">40% 현금 환급</strong> · <strong style="color:#0A1628;font-weight:600;">최대 160만원</strong>
         </p>
         <!-- 예산 현황 박스 -->
-        <div id="budget-box" style="flex:0 0 auto;min-width:200px;max-width:280px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.2);border-radius:4px;padding:18px 22px;opacity:0;transform:translateY(20px);text-align:left;">
+        <div id="budget-box" style="flex:0 0 auto;min-width:200px;max-width:280px;background:rgba(10,22,40,0.08);border:1px solid rgba(255,255,255,0.2);border-radius:4px;padding:18px 22px;opacity:0;transform:translateY(20px);text-align:left;">
           <p style="font-size:9px;letter-spacing:0.4em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:10px;">예산 현황 · 실시간</p>
           <div id="budget-loading" style="font-size:12px;color:rgba(255,255,255,0.4);">불러오는 중...</div>
           <div id="budget-data" style="display:none;">
@@ -217,7 +217,7 @@ const stats = [
               <span id="budget-remaining" style="font-size:26px;font-family:'Cormorant Garamond',serif;font-weight:600;color:#81D4FA;line-height:1;">—%</span>
             </div>
             <div style="height:4px;background:rgba(255,255,255,0.15);border-radius:2px;overflow:hidden;margin-bottom:7px;">
-              <div id="budget-bar" style="height:100%;background:linear-gradient(90deg,#81D4FA,#4FC3F7);border-radius:2px;width:0%;transition:width 1.2s ease;"></div>
+              <div id="budget-bar" style="height:100%;background:linear-gradient(90deg,#42A5F5,#1565C0);border-radius:2px;width:0%;transition:width 1.2s ease;"></div>
             </div>
             <div style="display:flex;justify-content:space-between;">
               <span style="font-size:10px;color:rgba(255,255,255,0.4);">소진 <span id="budget-used">—</span>%</span>
@@ -233,7 +233,7 @@ const stats = [
            style="display:inline-block;background:white;color:#1E88E5;padding:13px 36px;font-size:11px;letter-spacing:0.25em;text-transform:uppercase;text-decoration:none;font-family:inherit;transition:opacity 0.3s;"
            onmouseover="this.style.opacity='0.88'" onmouseout="this.style.opacity='1'">지원금 신청하기</a>
         <a href={`${base}/subsidy`}
-           style="display:inline-block;border:1px solid rgba(255,255,255,0.45);color:white;padding:13px 36px;font-size:11px;letter-spacing:0.25em;text-transform:uppercase;text-decoration:none;transition:all 0.3s;"
+           style="display:inline-block;border:1px solid rgba(10,22,40,0.45);color:#0A1628;padding:13px 36px;font-size:11px;letter-spacing:0.25em;text-transform:uppercase;text-decoration:none;transition:all 0.3s;"
            onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='transparent'">지원사업 안내</a>
       </div>
     </div>
@@ -248,22 +248,22 @@ const stats = [
       style={`position:relative;height:100dvh;min-height:600px;display:flex;flex-direction:column;justify-content:flex-end;padding:0 8vw 12vh;z-index:2;`}
     >
       <div class="mobile-bg" style={`display:none;position:absolute;inset:0;background-image:url('${panel.bg}');background-size:cover;background-position:center top;z-index:0;`}></div>
-      <div class="mobile-bg" style="display:none;position:absolute;inset:0;background:linear-gradient(to bottom,rgba(5,9,15,0.35) 0%,rgba(5,9,15,0.0) 35%,rgba(5,9,15,0.75) 85%,rgba(5,9,15,0.92) 100%);z-index:1;"></div>
+      <div class="mobile-bg" style="display:none;position:absolute;inset:0;background:linear-gradient(to bottom,rgba(255,255,255,0.2) 0%,rgba(255,255,255,0.0) 35%,rgba(255,255,255,0.6) 85%,rgba(255,255,255,0.9) 100%);z-index:1;"></div>
       <div class="story-content" style="position:relative;z-index:3;max-width:750px;">
-        <p style="font-size:10px;letter-spacing:0.5em;text-transform:uppercase;color:rgba(79,195,247,0.75);margin-bottom:16px;">{panel.eyebrow}</p>
+        <p style="font-size:10px;letter-spacing:0.5em;text-transform:uppercase;color:rgba(21,101,192,0.75);margin-bottom:16px;">{panel.eyebrow}</p>
         <div style="display:flex;align-items:flex-end;gap:28px;margin-bottom:20px;flex-wrap:wrap;">
-          <h2 class="font-display" style="font-size:clamp(44px,8vw,100px);font-weight:300;color:white;line-height:0.92;letter-spacing:0.02em;white-space:pre-line;">{panel.title}</h2>
+          <h2 class="font-display" style="font-size:clamp(44px,8vw,100px);font-weight:300;color:#0A1628;line-height:0.92;letter-spacing:0.02em;white-space:pre-line;">{panel.title}</h2>
           {panel.stat && (
             <div style="padding-bottom:8px;">
-              <span class="font-display" style="font-size:clamp(36px,5vw,60px);font-weight:300;background:linear-gradient(90deg,#4FC3F7,#81D4FA);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;display:block;">{panel.stat}</span>
-              <p style="font-size:9px;letter-spacing:0.45em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-top:5px;">{panel.statLabel}</p>
+              <span class="font-display" style="font-size:clamp(36px,5vw,60px);font-weight:300;background:linear-gradient(90deg,#1565C0,#42A5F5);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;display:block;">{panel.stat}</span>
+              <p style="font-size:9px;letter-spacing:0.45em;text-transform:uppercase;color:rgba(10,22,40,0.35);margin-top:5px;">{panel.statLabel}</p>
             </div>
           )}
         </div>
-        <p style="font-size:clamp(14px,1.6vw,17px);color:rgba(255,255,255,0.55);font-weight:300;max-width:480px;line-height:1.75;">{panel.desc}</p>
+        <p style="font-size:clamp(14px,1.6vw,17px);color:rgba(10,22,40,0.6);font-weight:300;max-width:480px;line-height:1.75;">{panel.desc}</p>
       </div>
       <div style="position:absolute;bottom:40px;right:8vw;z-index:3;text-align:right;">
-        <p style="font-family:'Cormorant Garamond',serif;font-size:11px;color:rgba(255,255,255,0.25);letter-spacing:0.2em;">{String(i+2).padStart(2,'0')} / {String(storyPanels.length).padStart(2,'0')}</p>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:11px;color:rgba(10,22,40,0.25);letter-spacing:0.2em;">{String(i+2).padStart(2,'0')} / {String(storyPanels.length).padStart(2,'0')}</p>
       </div>
     </section>
   ))}
@@ -271,8 +271,8 @@ const stats = [
 </div>
 
 <!-- ══════ STATS 섹션 ══════════════════════════════════════════════════════ -->
-<section id="stats-section" style="background:var(--dark);position:relative;z-index:2;overflow:hidden;">
-  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:300px;background:radial-gradient(ellipse,rgba(79,195,247,0.05) 0%,transparent 70%);pointer-events:none;"></div>
+<section id="stats-section" style="background:#FFFFFF;position:relative;z-index:2;overflow:hidden;">
+  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:300px;background:radial-gradient(ellipse,rgba(21,101,192,0.05) 0%,transparent 70%);pointer-events:none;"></div>
   <div style="max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);position:relative;">
     {stats.map((s) => (
       <div class="stat-item">
@@ -281,8 +281,8 @@ const stats = [
       </div>
     ))}
   </div>
-  <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(79,195,247,0.15),transparent);"></div>
-  <div style="position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(79,195,247,0.15),transparent);"></div>
+  <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(21,101,192,0.15),transparent);"></div>
+  <div style="position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(21,101,192,0.15),transparent);"></div>
 </section>
 
 <!-- ══════ MARQUEE ══════════════════════════════════════════════════════════ -->
@@ -297,14 +297,14 @@ const stats = [
 </div>
 
 <!-- ══════ 갤러리 섹션 ══════════════════════════════════════════════════════ -->
-<section style="background:var(--dark);padding:80px 0 60px;position:relative;z-index:2;">
+<section style="background:#FFFFFF;padding:80px 0 60px;position:relative;z-index:2;">
   <div style="max-width:1100px;margin:0 auto;padding:0 8vw;margin-bottom:40px;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;">
     <div>
-      <span class="section-label gsap-fade" style="color:rgba(79,195,247,0.7);">Installation Cases</span>
-      <h2 class="font-display gsap-fade" style="font-size:clamp(32px,5vw,56px);font-weight:300;color:white;letter-spacing:0.04em;">시공 갤러리</h2>
+      <span class="section-label gsap-fade" style="color:rgba(21,101,192,0.7);">Installation Cases</span>
+      <h2 class="font-display gsap-fade" style="font-size:clamp(32px,5vw,56px);font-weight:300;color:#0A1628;letter-spacing:0.04em;">시공 갤러리</h2>
     </div>
-    <a href={`${base}/cases`} class="gsap-fade" style="font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:rgba(79,195,247,0.6);text-decoration:none;border-bottom:1px solid rgba(79,195,247,0.35);padding-bottom:3px;transition:all 0.3s;white-space:nowrap;"
-       onmouseover="this.style.borderBottomColor='#4FC3F7';this.style.color='#4FC3F7';" onmouseout="this.style.borderBottomColor='rgba(79,195,247,0.35)';this.style.color='rgba(79,195,247,0.6)';">
+    <a href={`${base}/cases`} class="gsap-fade" style="font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:rgba(21,101,192,0.85);text-decoration:none;border-bottom:1px solid rgba(21,101,192,0.4);padding-bottom:3px;transition:all 0.3s;white-space:nowrap;"
+       onmouseover="this.style.borderBottomColor='#1565C0';this.style.color='#1565C0';" onmouseout="this.style.borderBottomColor='rgba(21,101,192,0.35)';this.style.color='rgba(21,101,192,0.6)';">
       전체 갤러리 →
     </a>
   </div>
@@ -320,27 +320,27 @@ const stats = [
 
 
 <!-- ══════ 리뷰 ══════════════════════════════════════════════════════════════ -->
-<section style="background:var(--dark);padding:80px 8vw 100px;position:relative;z-index:2;border-top:1px solid rgba(255,255,255,0.05);">
+<section style="background:#FFFFFF;padding:80px 8vw 100px;position:relative;z-index:2;border-top:1px solid rgba(10,22,40,0.08);">
   <div style="max-width:1100px;margin:0 auto;">
     <div style="text-align:center;margin-bottom:60px;">
-      <span class="section-label gsap-fade" style="color:rgba(79,195,247,0.7);">Customer Reviews</span>
-      <h2 class="font-display gsap-fade" style="font-size:clamp(30px,4vw,52px);font-weight:300;color:white;letter-spacing:0.04em;">고객들의 이야기</h2>
+      <span class="section-label gsap-fade" style="color:rgba(21,101,192,0.7);">Customer Reviews</span>
+      <h2 class="font-display gsap-fade" style="font-size:clamp(30px,4vw,52px);font-weight:300;color:#0A1628;letter-spacing:0.04em;">고객들의 이야기</h2>
     </div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1px;">
       {reviews.map((rv, idx) => (
         <div class="review-card" data-delay={idx * 0.15}>
-          <div style="font-family:'Cormorant Garamond',serif;font-size:60px;line-height:1;color:rgba(79,195,247,0.1);margin-bottom:14px;font-weight:300;">"</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:60px;line-height:1;color:rgba(21,101,192,0.1);margin-bottom:14px;font-weight:300;">"</div>
           <div style="display:flex;gap:2px;margin-bottom:18px;">
-            {'★★★★★'.split('').map(s => <span style="color:#4FC3F7;font-size:12px;">{s}</span>)}
+            {'★★★★★'.split('').map(s => <span style="color:#1565C0;font-size:12px;">{s}</span>)}
           </div>
-          <p style="font-size:14px;line-height:1.85;color:rgba(255,255,255,0.55);font-weight:300;font-style:italic;margin-bottom:24px;">"{rv.text}"</p>
-          <div style="display:flex;align-items:center;gap:12px;border-top:1px solid rgba(255,255,255,0.06);padding-top:18px;">
-            <div style="width:40px;height:40px;border-radius:50%;overflow:hidden;flex-shrink:0;border:1px solid rgba(79,195,247,0.25);">
+          <p style="font-size:14px;line-height:1.85;color:rgba(10,22,40,0.6);font-weight:300;font-style:italic;margin-bottom:24px;">"{rv.text}"</p>
+          <div style="display:flex;align-items:center;gap:12px;border-top:1px solid rgba(10,22,40,0.06);padding-top:18px;">
+            <div style="width:40px;height:40px;border-radius:50%;overflow:hidden;flex-shrink:0;border:1px solid rgba(21,101,192,0.25);">
               <img src={rv.img} alt="고객 시공사례" style="width:100%;height:100%;object-fit:cover;" loading="lazy" />
             </div>
             <div>
-              <p style="font-size:11px;color:#4FC3F7;letter-spacing:0.15em;">{rv.name}</p>
-              <p style="font-size:10px;color:rgba(255,255,255,0.28);margin-top:2px;">{rv.date}</p>
+              <p style="font-size:11px;color:#1565C0;letter-spacing:0.15em;">{rv.name}</p>
+              <p style="font-size:10px;color:rgba(10,22,40,0.28);margin-top:2px;">{rv.date}</p>
             </div>
           </div>
         </div>
@@ -350,15 +350,15 @@ const stats = [
 </section>
 
 <!-- ══════ 최종 CTA ══════════════════════════════════════════════════════════ -->
-<section style="padding:120px 8vw;text-align:center;position:relative;overflow:hidden;background:var(--dark2);z-index:2;">
-  <div style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at center,rgba(79,195,247,0.06) 0%,transparent 70%);"></div>
+<section style="padding:120px 8vw;text-align:center;position:relative;overflow:hidden;background:#F0F5FC;z-index:2;">
+  <div style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at center,rgba(21,101,192,0.06) 0%,transparent 70%);"></div>
   <p class="section-label gsap-fade" style="margin-bottom:20px;">Quick Service</p>
-  <h2 class="font-display gsap-fade" style="font-size:clamp(36px,6vw,72px);font-weight:300;color:white;line-height:1.1;margin-bottom:24px;letter-spacing:0.02em;">
+  <h2 class="font-display gsap-fade" style="font-size:clamp(36px,6vw,72px);font-weight:300;color:#0A1628;line-height:1.1;margin-bottom:24px;letter-spacing:0.02em;">
     지금 바로 상담 신청하세요<br/>
     <span class="blue-gradient" style="font-style:italic;">당일 출장 가능합니다</span>
   </h2>
   <div class="section-divider gsap-fade" style="margin-bottom:32px;"></div>
-  <p class="gsap-fade" style="font-size:17px;color:rgba(255,255,255,0.5);font-weight:300;line-height:1.75;margin-bottom:44px;">
+  <p class="gsap-fade" style="font-size:17px;color:rgba(10,22,40,0.55);font-weight:300;line-height:1.75;margin-bottom:44px;">
     남양주·구리·하남 전역 당일 출장 가능합니다.<br/>
     전화 한 통으로 바로 연결됩니다.
   </p>
@@ -397,7 +397,7 @@ const stats = [
         if (p.y < 0) p.y = H; if (p.y > H) p.y = 0;
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(79,195,247,0.5)';
+        ctx.fillStyle = 'rgba(21,101,192,0.5)';
         ctx.fill();
       });
       for (let i = 0; i < pts.length; i++) {
@@ -406,7 +406,7 @@ const stats = [
           const d = Math.sqrt(dx * dx + dy * dy);
           if (d < 120) {
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(79,195,247,${0.08 * (1 - d / 120)})`;
+            ctx.strokeStyle = `rgba(21,101,192,${0.08 * (1 - d / 120)})`;
             ctx.lineWidth = 0.5;
             ctx.moveTo(pts[i].x, pts[i].y);
             ctx.lineTo(pts[j].x, pts[j].y);
@@ -540,7 +540,7 @@ const stats = [
       spans.forEach(span => {
         const text = span.textContent || '';
         span.textContent = '';
-        span.style.cssText += ';-webkit-text-fill-color:white;background:none;';
+        span.style.cssText += ';-webkit-text-fill-color:#0A1628;background:none;';
         text.split('').forEach(ch => {
           const el = document.createElement('span');
           el.className = 'sc';
