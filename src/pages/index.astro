@@ -90,86 +90,61 @@ const services = [
 <!-- 파티클 캔버스 -->
 <canvas id="particle-canvas" style="position:fixed;inset:0;z-index:1;pointer-events:none;opacity:0.5;"></canvas>
 
-<!-- 스크롤 스토리텔링 배경 (데스크탑) -->
-<div id="story-fixed-bg" style="position:fixed;inset:0;z-index:0;pointer-events:none;display:none;">
+<!-- 히어로 섹션 — 자동 이미지 슬라이더 -->
+<section id="hero" style="position:relative;height:100dvh;min-height:600px;overflow:hidden;background:#05090F;">
   {storyPanels.map((panel, i) => (
     <div
-      class="story-bg-slide"
+      class="hero-bg-slide"
       data-index={i}
-      style={`position:absolute;inset:0;background-image:url('${panel.bg}');background-size:cover;background-position:center;opacity:${i===0?1:0};transition:opacity 1s ease;`}
+      style={`position:absolute;inset:0;background-image:url('${panel.bg}');background-size:cover;background-position:center;opacity:${i===0?1:0};transition:opacity 1.2s ease;z-index:0;`}
     ></div>
   ))}
-  <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(5,9,15,0.45) 0%,rgba(5,9,15,0.05) 40%,rgba(5,9,15,0.05) 60%,rgba(5,9,15,0.92) 100%);"></div>
-  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 40%,rgba(5,9,15,0.5) 100%);"></div>
-</div>
+  <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(5,9,15,0.45) 0%,rgba(5,9,15,0.05) 40%,rgba(5,9,15,0.85) 100%);z-index:1;pointer-events:none;"></div>
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 40%,rgba(5,9,15,0.5) 100%);z-index:1;pointer-events:none;"></div>
 
-<!-- 스크롤 스토리텔링 섹션 -->
-<div id="story-container">
-  {storyPanels.map((panel, i) => (
-    <section
-      class="story-panel"
-      data-index={i}
-      style={`position:relative;height:100dvh;min-height:600px;display:flex;flex-direction:column;justify-content:flex-end;padding:0 8vw 12vh;z-index:2;`}
-    >
-      <!-- 모바일용 배경 -->
-      <div class="mobile-bg" style={`display:none;position:absolute;inset:0;background-image:url('${panel.bg}');background-size:cover;background-position:center;z-index:0;`}></div>
-      <div class="mobile-bg" style="display:none;position:absolute;inset:0;background:linear-gradient(to bottom,rgba(5,9,15,0.4) 0%,rgba(5,9,15,0.0) 35%,rgba(5,9,15,0.8) 85%,rgba(5,9,15,0.95) 100%);z-index:1;"></div>
-
-      <!-- 콘텐츠 -->
-      <div class={`story-content${i===0?' hero-content':''}`} style="position:relative;z-index:3;max-width:750px;">
-        {i === 0 ? (
-          <>
-            <div id="hero-eyebrow" style="display:flex;align-items:center;gap:16px;margin-bottom:28px;overflow:hidden;">
-              <span id="eyebrow-line" style="display:block;height:1px;width:0;background:linear-gradient(90deg,transparent,rgba(79,195,247,0.6));transition:width 1.2s ease 0.5s;"></span>
-              <span style="font-size:10px;letter-spacing:0.55em;text-transform:uppercase;color:rgba(255,255,255,0.45);opacity:0;transition:opacity 0.8s ease 0.9s;" id="eyebrow-text">{panel.eyebrow}</span>
-            </div>
-            <h1 id="hero-title" class="font-display" style="font-size:clamp(80px,14vw,180px);font-weight:300;color:white;line-height:0.88;letter-spacing:0.02em;margin-bottom:30px;">
-              <div style="overflow:hidden;display:block;">
-                <span class="title-slide-up" style="display:block;animation-delay:0.4s;">DD</span>
-              </div>
-              <div style="overflow:hidden;display:block;">
-                <span class="blue-gradient title-slide-up" style="display:block;font-style:italic;animation-delay:0.65s;">에어컨</span>
-              </div>
-            </h1>
-            <p id="hero-sub" style="font-size:clamp(14px,1.8vw,19px);color:rgba(255,255,255,0.58);font-weight:300;letter-spacing:0.08em;margin-bottom:40px;opacity:0;transform:translateY(16px);">
-              남양주 · 구리 · 의정부 시스템에어컨 전문
-            </p>
-            <div id="hero-cta" style="display:flex;gap:14px;flex-wrap:wrap;opacity:0;transform:translateY(16px);">
-              <a href={`${base}/contact`} class="btn-primary">서비스 신청하기</a>
-              <a href={`${base}/cases`} class="btn-outline">시공사례 보기</a>
-            </div>
-          </>
-        ) : (
-          <>
-            <p style="font-size:10px;letter-spacing:0.5em;text-transform:uppercase;color:rgba(79,195,247,0.75);margin-bottom:16px;">{panel.eyebrow}</p>
-            <div style="display:flex;align-items:flex-end;gap:28px;margin-bottom:20px;flex-wrap:wrap;">
-              <h2 class="font-display" style="font-size:clamp(52px,9vw,108px);font-weight:300;color:white;line-height:0.88;letter-spacing:0.02em;">{panel.title}</h2>
-              {panel.stat && (
-                <div style="padding-bottom:8px;">
-                  <span class="stat-panel-num font-display" style="font-size:clamp(38px,5.5vw,64px);font-weight:300;background:linear-gradient(90deg,#4FC3F7,#81D4FA);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;display:block;">{panel.stat}</span>
-                  <p style="font-size:9px;letter-spacing:0.45em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-top:5px;">{panel.statLabel}</p>
-                </div>
-              )}
-            </div>
-            <p style="font-size:clamp(14px,1.6vw,17px);color:rgba(255,255,255,0.55);font-weight:300;max-width:500px;line-height:1.75;">{panel.desc}</p>
-          </>
-        )}
+  <!-- 히어로 콘텐츠 -->
+  <div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:0 8vw 12vh;z-index:2;">
+    <div style="max-width:750px;">
+      <div id="hero-eyebrow" style="display:flex;align-items:center;gap:16px;margin-bottom:28px;overflow:hidden;">
+        <span id="eyebrow-line" style="display:block;height:1px;width:0;background:linear-gradient(90deg,transparent,rgba(79,195,247,0.6));transition:width 1.2s ease 0.5s;"></span>
+        <span style="font-size:10px;letter-spacing:0.55em;text-transform:uppercase;color:rgba(255,255,255,0.45);opacity:0;transition:opacity 0.8s ease 0.9s;" id="eyebrow-text">Professional HVAC · 70+ Projects</span>
       </div>
-
-      <!-- 패널 번호 -->
-      <div style="position:absolute;bottom:40px;right:8vw;z-index:3;text-align:right;">
-        <p style="font-family:'Cormorant Garamond',serif;font-size:11px;color:rgba(255,255,255,0.25);letter-spacing:0.2em;">{String(i+1).padStart(2,'0')} / {String(storyPanels.length).padStart(2,'0')}</p>
-      </div>
-
-      {i === 0 && (
-        <div id="scroll-arrow" style="position:absolute;bottom:40px;left:50%;transform:translateX(-50%);z-index:3;display:flex;flex-direction:column;align-items:center;gap:8px;">
-          <span style="font-size:11px;letter-spacing:0.2em;color:rgba(255,255,255,0.45);">아래로 내려보세요</span>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(79,195,247,0.7)" stroke-width="1.5" style="animation:bounce 1.8s ease-in-out infinite;"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      <h1 id="hero-title" class="font-display" style="font-size:clamp(80px,14vw,180px);font-weight:300;color:white;line-height:0.88;letter-spacing:0.02em;margin-bottom:30px;">
+        <div style="overflow:hidden;display:block;">
+          <span class="title-slide-up" style="display:block;animation-delay:0.4s;">DD</span>
         </div>
-      )}
-    </section>
-  ))}
-</div>
+        <div style="overflow:hidden;display:block;">
+          <span class="blue-gradient title-slide-up" style="display:block;font-style:italic;animation-delay:0.65s;">에어컨</span>
+        </div>
+      </h1>
+      <p id="hero-sub" style="font-size:clamp(14px,1.8vw,19px);color:rgba(255,255,255,0.58);font-weight:300;letter-spacing:0.08em;margin-bottom:40px;opacity:0;transform:translateY(16px);">
+        남양주 · 구리 · 의정부 시스템에어컨 전문
+      </p>
+      <div id="hero-cta" style="display:flex;gap:14px;flex-wrap:wrap;opacity:0;transform:translateY(16px);">
+        <a href={`${base}/contact`} class="btn-primary">서비스 신청하기</a>
+        <a href={`${base}/cases`} class="btn-outline">시공사례 보기</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 슬라이드 인디케이터 -->
+  <div id="slide-indicators" style="position:absolute;bottom:40px;right:8vw;z-index:3;display:flex;gap:8px;align-items:center;">
+    {storyPanels.map((_, i) => (
+      <button
+        class="slide-dot"
+        data-slide={i}
+        style={`border:none;border-radius:9999px;height:8px;transition:all 0.3s ease;cursor:pointer;background:${i===0?'white':'rgba(255,255,255,0.35)'};width:${i===0?'24px':'8px'};padding:0;`}
+        aria-label={`슬라이드 ${i+1}`}
+      ></button>
+    ))}
+  </div>
+
+  <!-- 스크롤 유도 -->
+  <div id="scroll-arrow" style="position:absolute;bottom:40px;left:50%;transform:translateX(-50%);z-index:3;display:flex;flex-direction:column;align-items:center;gap:8px;">
+    <span style="font-size:11px;letter-spacing:0.2em;color:rgba(255,255,255,0.45);">아래로 내려보세요</span>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(79,195,247,0.7)" stroke-width="1.5" style="animation:bounce 1.8s ease-in-out infinite;"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+  </div>
+</section>
 
 <!-- 정부지원사업 공지 배너 -->
 <div id="gov-notice" style="background:linear-gradient(90deg,#1a2a3a,#0d1f2d);border-top:1px solid rgba(79,195,247,0.3);border-bottom:1px solid rgba(79,195,247,0.3);padding:14px 8vw;display:flex;align-items:center;gap:16px;position:relative;z-index:2;">
@@ -294,30 +269,33 @@ window.addEventListener('load', function() {
   if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
 
-    // 스크롤 스토리텔링 (데스크탑 900px+)
-    if (window.innerWidth > 900) {
-      const bg = document.getElementById('story-fixed-bg');
-      if (bg) bg.style.display = 'block';
+    // 히어로 이미지 자동 슬라이더
+    const heroSlides = document.querySelectorAll('.hero-bg-slide');
+    const slideDots = document.querySelectorAll('.slide-dot');
+    let currentSlide = 0;
 
-      const panels = document.querySelectorAll('.story-panel');
-      const slides = document.querySelectorAll('.story-bg-slide');
-
-      panels.forEach((panel, i) => {
-        ScrollTrigger.create({
-          trigger: panel,
-          start: 'top center',
-          end: 'bottom center',
-          onEnter: () => activateSlide(i),
-          onEnterBack: () => activateSlide(i),
-        });
+    function goToSlide(idx) {
+      heroSlides.forEach((s, i) => { s.style.opacity = i === idx ? '1' : '0'; });
+      slideDots.forEach((dot, i) => {
+        dot.style.background = i === idx ? 'white' : 'rgba(255,255,255,0.35)';
+        dot.style.width = i === idx ? '24px' : '8px';
       });
-
-      function activateSlide(idx) {
-        slides.forEach((slide, i) => {
-          slide.style.opacity = i === idx ? '1' : '0';
-        });
-      }
+      currentSlide = idx;
     }
+
+    let autoSlide = setInterval(() => {
+      goToSlide((currentSlide + 1) % heroSlides.length);
+    }, 5000);
+
+    slideDots.forEach((dot, i) => {
+      dot.addEventListener('click', () => {
+        clearInterval(autoSlide);
+        goToSlide(i);
+        autoSlide = setInterval(() => {
+          goToSlide((currentSlide + 1) % heroSlides.length);
+        }, 5000);
+      });
+    });
 
     // GSAP fade-in
     gsap.utils.toArray('.gsap-fade').forEach((el) => {
