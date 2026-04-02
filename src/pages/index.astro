@@ -8,72 +8,120 @@ const description = '남양주·다산신도시 에어컨 전문 설치 업체. 
 <Layout title={title} description={description}>
 
   <!-- ══════════════════════════════════════════
-       SECTION 1: HERO (full-screen dark, centered)
+       SECTION 1: HERO — 정적 배경 이미지
   ══════════════════════════════════════════ -->
-  <section id="hero" style="position:relative;height:100dvh;min-height:600px;background:#09090b;overflow:hidden;display:flex;align-items:center;justify-content:center;">
-    <!-- bg video -->
-    <video id="hero-video" autoplay muted loop playsinline
-      style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.7;">
-      <source src={`${base}/images/hero-bg.mp4`} type="video/mp4" />
-    </video>
-    <!-- canvas overlay for WebP scroll animation -->
-    <canvas id="hero-canvas"
-      style="position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity 0.4s ease;"></canvas>
-    <!-- dark gradient overlay -->
-    <div style="position:absolute;inset:0;background:linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.5) 100%);z-index:1;"></div>
+  <section id="hero" style="position:relative;height:100dvh;min-height:640px;background:#09090b;overflow:hidden;display:flex;align-items:center;justify-content:center;">
 
-    <!-- centered content -->
-    <div id="hero-content" style="position:relative;z-index:2;text-align:center;padding:0 24px;max-width:900px;">
-      <!-- badge pill -->
-      <span id="hero-badge" style="display:inline-block;padding:6px 16px;border-radius:9999px;background:rgba(255,255,255,0.1);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.9);font-size:11px;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;margin-bottom:28px;opacity:0;transform:scale(0.95);">
-        남양주 에어컨 전문 시공팀
+    <!-- 배경 이미지 (천장형 카세트 에어컨) -->
+    <img
+      src="https://images.unsplash.com/photo-1633098096918-f12258de36f1?q=85&w=2400&auto=format&fit=crop"
+      alt="천장형 4WAY 카세트 에어컨"
+      style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;"
+      fetchpriority="high"
+    />
+
+    <!-- 다층 오버레이 -->
+    <div style="position:absolute;inset:0;background:linear-gradient(160deg,rgba(0,0,0,0.72) 0%,rgba(0,0,0,0.45) 50%,rgba(0,0,0,0.78) 100%);z-index:1;"></div>
+
+    <!-- 중앙 콘텐츠 -->
+    <div id="hero-content" style="position:relative;z-index:2;text-align:center;padding:0 24px;max-width:860px;">
+
+      <!-- 배지 pill -->
+      <span id="hero-badge" style="display:inline-block;padding:6px 18px;border-radius:9999px;background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.22);color:rgba(255,255,255,0.92);font-size:11px;font-weight:600;letter-spacing:0.35em;text-transform:uppercase;margin-bottom:30px;opacity:0;transform:scale(0.94);">
+        남양주 에어컨 전문 시공팀 · 직영 운영
       </span>
-      <!-- h1 -->
-      <h1 id="hero-h1" style="font-size:clamp(60px,11vw,140px);font-weight:900;letter-spacing:-0.03em;line-height:1;color:white;margin-bottom:24px;opacity:0;transform:translateY(30px);">
-        완벽한 설치<br/><span style="color:rgba(255,255,255,0.7);">디디에어컨</span>
+
+      <!-- 메인 헤드라인 -->
+      <h1 id="hero-h1" style="font-size:clamp(56px,10.5vw,136px);font-weight:900;letter-spacing:-0.03em;line-height:1;color:white;margin-bottom:26px;opacity:0;transform:translateY(32px);">
+        완벽한 설치<br/><span style="color:rgba(255,255,255,0.55);">디디에어컨</span>
       </h1>
-      <!-- tagline -->
-      <p id="hero-p" style="font-size:clamp(15px,2vw,20px);color:rgba(255,255,255,0.7);font-weight:300;letter-spacing:0.02em;margin-bottom:40px;opacity:0;transform:translateY(20px);">
-        정확한 설계 · 깔끔한 배관 · 섬세한 마감
+
+      <!-- 서브 카피 -->
+      <p id="hero-p" style="font-size:clamp(15px,1.9vw,20px);color:rgba(255,255,255,0.68);font-weight:300;letter-spacing:0.06em;line-height:1.7;margin-bottom:44px;opacity:0;transform:translateY(20px);">
+        정확한 설계 &nbsp;·&nbsp; 깔끔한 배관 &nbsp;·&nbsp; 섬세한 마감
       </p>
-      <!-- CTAs -->
+
+      <!-- CTA 버튼 -->
       <div id="hero-cta" style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;opacity:0;transform:translateY(20px);">
-        <a href={`${base}/contact`} class="btn-dark">상담신청 →</a>
-        <a href={`${base}/cases`} class="btn-outline">시공사례 보기</a>
+        <a href={`${base}/contact`} class="btn-dark" style="font-size:14px;padding:15px 34px;">
+          무료 상담 신청 →
+        </a>
+        <a href={`${base}/cases`} class="btn-outline" style="font-size:14px;padding:15px 34px;">
+          시공사례 보기
+        </a>
       </div>
     </div>
 
-    <!-- scroll indicator -->
+    <!-- 스크롤 유도 -->
     <div id="scroll-indicator" style="position:absolute;bottom:40px;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:10px;opacity:0;">
-      <span style="font-size:10px;letter-spacing:0.3em;color:rgba(255,255,255,0.4);text-transform:uppercase;">Scroll</span>
-      <div style="width:1px;height:40px;background:linear-gradient(to bottom,rgba(255,255,255,0.4),transparent);animation:scrollPulse 2s ease-in-out infinite;"></div>
+      <span style="font-size:10px;letter-spacing:0.35em;color:rgba(255,255,255,0.38);text-transform:uppercase;">Scroll</span>
+      <div style="width:1px;height:44px;background:linear-gradient(to bottom,rgba(255,255,255,0.38),transparent);animation:scrollPulse 2.2s ease-in-out infinite;"></div>
     </div>
   </section>
 
   <!-- ══════════════════════════════════════════
-       SECTION 2: BRAND STORY (2-col text + image)
+       NOTICE STRIP — 한전 지원사업 (slim banner)
   ══════════════════════════════════════════ -->
-  <section style="padding:128px 48px;background:#ffffff;">
+  <div style="background:#1d4ed8;padding:14px 24px;text-align:center;position:relative;z-index:2;">
+    <p style="font-size:13px;font-weight:600;color:white;letter-spacing:0.04em;">
+      📋 &nbsp;2026년 한전 고효율기기 지원사업 — 1등급 에어컨 설치 시 최대 <strong>160만원</strong> 현금 환급 &nbsp;
+      <a href={`${base}/subsidy`} style="color:rgba(255,255,255,0.8);text-decoration:underline;font-size:12px;letter-spacing:0.1em;">자세히 보기 →</a>
+    </p>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SECTION 2: BRAND STORY — 2컬럼 (텍스트 + 이미지)
+  ══════════════════════════════════════════ -->
+  <section style="padding:120px 48px;background:#ffffff;">
     <div class="section-container">
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;" class="brand-grid">
-        <!-- text col -->
+
+        <!-- 텍스트 -->
         <div class="reveal-left">
-          <span class="section-label-sm">About DD에어컨</span>
-          <h2 style="font-size:clamp(36px,5vw,64px);font-weight:900;letter-spacing:-0.03em;line-height:1.1;margin-bottom:32px;color:#09090b;">
+          <span class="section-label-sm">About 디디에어컨</span>
+          <h2 style="font-size:clamp(34px,4.8vw,62px);font-weight:900;letter-spacing:-0.03em;line-height:1.1;margin-bottom:28px;color:#09090b;">
             전문 기술팀<br/>직영 운영
           </h2>
-          <p style="font-size:17px;color:#71717a;line-height:1.9;font-weight:300;margin-bottom:40px;">
-            디디에어컨은 남양주·다산신도시를 기반으로 한 에어컨 전문 직영 시공팀입니다.
-            천장형 4WAY 카세트부터 스탠드·벽걸이까지, 현장 진단부터 배관 정리·드레인 레벨링까지 원스톱으로 처리합니다.
+          <p style="font-size:16px;color:#71717a;line-height:1.95;font-weight:300;margin-bottom:16px;">
+            디디에어컨은 남양주·다산신도시를 거점으로 하는 에어컨 전문 <strong style="color:#09090b;font-weight:600;">직영 시공팀</strong>입니다.
+            삼성·LG 공식 인증 기술자가 직접 현장에 나가 설계부터 시공까지 원스톱으로 처리합니다.
           </p>
-          <a href={`${base}/cases`} style="display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#09090b;text-decoration:none;padding-bottom:4px;border-bottom:2px solid #09090b;transition:opacity 0.2s;" onmouseover="this.style.opacity='0.5'" onmouseout="this.style.opacity='1'">
+          <p style="font-size:16px;color:#71717a;line-height:1.95;font-weight:300;margin-bottom:40px;">
+            천장형 4WAY 카세트 · 덕트형 · 스탠드 · 벽걸이 전 기종 설치 가능.
+            배관 정리, 드레인 레벨링, 냉매 충전까지 완벽히 마무리합니다.
+          </p>
+
+          <!-- 핵심 수치 3개 -->
+          <div style="display:flex;gap:32px;margin-bottom:44px;flex-wrap:wrap;">
+            <div>
+              <span style="font-size:36px;font-weight:900;letter-spacing:-0.03em;color:#09090b;display:block;line-height:1;">70<span style="font-size:0.55em;font-weight:400;">+</span></span>
+              <span style="font-size:11px;color:#a1a1aa;letter-spacing:0.2em;text-transform:uppercase;">시공 실적</span>
+            </div>
+            <div style="width:1px;background:#e4e4e7;"></div>
+            <div>
+              <span style="font-size:36px;font-weight:900;letter-spacing:-0.03em;color:#09090b;display:block;line-height:1;">5<span style="font-size:0.55em;font-weight:400;">년+</span></span>
+              <span style="font-size:11px;color:#a1a1aa;letter-spacing:0.2em;text-transform:uppercase;">현장 경력</span>
+            </div>
+            <div style="width:1px;background:#e4e4e7;"></div>
+            <div>
+              <span style="font-size:36px;font-weight:900;letter-spacing:-0.03em;color:#09090b;display:block;line-height:1;">100<span style="font-size:0.55em;font-weight:400;">%</span></span>
+              <span style="font-size:11px;color:#a1a1aa;letter-spacing:0.2em;text-transform:uppercase;">AS 보장</span>
+            </div>
+          </div>
+
+          <a href={`${base}/cases`} style="display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#09090b;text-decoration:none;padding-bottom:3px;border-bottom:2px solid #09090b;transition:opacity 0.2s;" onmouseover="this.style.opacity='0.45'" onmouseout="this.style.opacity='1'">
             시공사례 보기 →
           </a>
         </div>
-        <!-- image col -->
+
+        <!-- 이미지 -->
         <div class="reveal-scale">
           <div class="card-image-wrap" style="aspect-ratio:4/5;border-radius:24px;">
-            <img src={`${base}/images/bg/h1_bedroom_ac.jpg`} alt="에어컨 시공 현장" loading="lazy" />
+            <img
+              src="https://images.unsplash.com/photo-1765371514777-73aaaab1c6d3?q=80&w=1200&auto=format&fit=crop"
+              alt="에어컨 시공 완료 후 쾌적한 인테리어"
+              loading="lazy"
+            />
           </div>
         </div>
       </div>
@@ -81,127 +129,237 @@ const description = '남양주·다산신도시 에어컨 전문 설치 업체. 
   </section>
 
   <!-- ══════════════════════════════════════════
-       SECTION 3: SERVICES (3-col × 2-row product grid)
+       SECTION 3: SERVICES — 3컬럼 × 2행 카드 그리드
   ══════════════════════════════════════════ -->
-  <section style="padding:128px 48px;background:#ffffff;border-top:1px solid #f4f4f5;">
+  <section style="padding:120px 48px;background:#fafafa;border-top:1px solid #f4f4f5;">
     <div class="section-container">
-      <!-- section header -->
-      <div class="reveal" style="display:flex;flex-direction:row;justify-content:space-between;align-items:flex-end;margin-bottom:80px;gap:24px;flex-wrap:wrap;">
+
+      <!-- 섹션 헤더 -->
+      <div class="reveal" style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:72px;gap:24px;flex-wrap:wrap;">
         <div>
-          <h2 style="font-size:clamp(32px,4.5vw,56px);font-weight:900;letter-spacing:-0.03em;margin-bottom:8px;color:#09090b;">시공 서비스</h2>
-          <p style="font-size:16px;color:#71717a;">전문 직영팀의 에어컨 설치·수리·관리</p>
+          <span class="section-label-sm">Our Services</span>
+          <h2 style="font-size:clamp(30px,4.2vw,54px);font-weight:900;letter-spacing:-0.03em;color:#09090b;margin-bottom:8px;">시공 서비스</h2>
+          <p style="font-size:16px;color:#71717a;">전문 직영팀의 에어컨 설치 · 수리 · 관리 전 서비스</p>
         </div>
-        <a href={`${base}/cases`} class="btn-outline-dark" style="white-space:nowrap;">전체보기 →</a>
+        <a href={`${base}/contact`} class="btn-outline-dark" style="white-space:nowrap;">상담 신청 →</a>
       </div>
 
-      <!-- row 1 -->
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;" class="services-grid">
-        <!-- card 1 -->
-        <div class="reveal service-card" style="cursor:default;">
-          <div class="card-image-wrap" style="aspect-ratio:4/3;margin-bottom:20px;border-radius:16px;">
-            <img src={`${base}/images/gallery/case01.jpg`} alt="천장형 4WAY 시스템에어컨 설치" loading="lazy" />
+      <!-- Row 1 -->
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:28px;" class="services-grid">
+
+        <!-- 천장형 4WAY -->
+        <div class="reveal service-card">
+          <div class="card-image-wrap" style="aspect-ratio:4/3;margin-bottom:22px;border-radius:16px;">
+            <img
+              src="https://images.unsplash.com/photo-1633098096918-f12258de36f1?q=80&w=1200&auto=format&fit=crop"
+              alt="천장형 4WAY 카세트 에어컨 설치"
+              loading="lazy"
+            />
           </div>
-          <span style="font-size:11px;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:#a1a1aa;display:block;margin-bottom:8px;">System AC</span>
-          <h3 style="font-size:20px;font-weight:700;letter-spacing:-0.02em;margin-bottom:8px;color:#09090b;">천장형 4WAY 설치</h3>
-          <p style="font-size:14px;color:#71717a;line-height:1.7;">카세트형·덕트형 시스템에어컨 정밀 설계·시공. 배관 정리와 드레인 레벨링까지 완벽 처리.</p>
+          <span style="font-size:10px;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:#a1a1aa;display:block;margin-bottom:8px;">System AC · Cassette</span>
+          <h3 style="font-size:19px;font-weight:700;letter-spacing:-0.02em;margin-bottom:10px;color:#09090b;">천장형 4WAY 설치</h3>
+          <p style="font-size:14px;color:#71717a;line-height:1.75;">카세트형 · 덕트형 시스템에어컨 정밀 설계 및 시공. 배관 정리·드레인 레벨링·전기 작업 포함. 상업공간·사무실 전문.</p>
         </div>
-        <!-- card 2 -->
-        <div class="reveal service-card" style="cursor:default;">
-          <div class="card-image-wrap" style="aspect-ratio:4/3;margin-bottom:20px;border-radius:16px;">
-            <img src={`${base}/images/gallery/case02.jpg`} alt="에어컨 수리 이전설치" loading="lazy" />
+
+        <!-- 수리·이전 -->
+        <div class="reveal service-card">
+          <div class="card-image-wrap" style="aspect-ratio:4/3;margin-bottom:22px;border-radius:16px;">
+            <img
+              src="https://images.unsplash.com/photo-1770838773417-08b18661c62f?q=80&w=1200&auto=format&fit=crop"
+              alt="에어컨 수리 및 이전설치 시공"
+              loading="lazy"
+            />
           </div>
-          <span style="font-size:11px;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:#a1a1aa;display:block;margin-bottom:8px;">Repair · Relocation</span>
-          <h3 style="font-size:20px;font-weight:700;letter-spacing:-0.02em;margin-bottom:8px;color:#09090b;">수리·이전설치</h3>
-          <p style="font-size:14px;color:#71717a;line-height:1.7;">냉매충전, 소음·누수 정밀 진단, 이전설치 시 배관 재정리까지. 100% AS 보장.</p>
+          <span style="font-size:10px;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:#a1a1aa;display:block;margin-bottom:8px;">Repair · Relocation</span>
+          <h3 style="font-size:19px;font-weight:700;letter-spacing:-0.02em;margin-bottom:10px;color:#09090b;">수리 · 이전설치</h3>
+          <p style="font-size:14px;color:#71717a;line-height:1.75;">냉매 충전, 소음·누수 원인 정밀 진단, 부품 교체. 이전설치 시 배관 재정리 · 드레인 재레벨링 원스톱 처리.</p>
         </div>
-        <!-- card 3 (한전 지원사업) -->
-        <div class="reveal service-card" style="cursor:default;">
-          <div class="card-image-wrap" style="aspect-ratio:4/3;margin-bottom:20px;border-radius:16px;">
-            <img src={`${base}/images/bg/h1.jpg`} alt="한전 고효율기기 지원사업" loading="lazy" />
-            <div style="position:absolute;top:12px;left:12px;padding:4px 10px;background:#09090b;color:white;font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;border-radius:4px;">지원금 160만원</div>
+
+        <!-- 한전 지원사업 -->
+        <div class="reveal service-card">
+          <div class="card-image-wrap" style="aspect-ratio:4/3;margin-bottom:22px;border-radius:16px;position:relative;">
+            <img
+              src="https://images.unsplash.com/photo-1762341123870-d706f257a12e?q=80&w=1200&auto=format&fit=crop"
+              alt="에너지 절약형 1등급 에어컨 설치"
+              loading="lazy"
+            />
+            <div style="position:absolute;top:12px;left:12px;padding:5px 12px;background:#1d4ed8;color:white;font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;border-radius:6px;">최대 160만원</div>
           </div>
-          <span style="font-size:11px;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:#2563eb;display:block;margin-bottom:8px;">KEPCO 2026</span>
-          <h3 style="font-size:20px;font-weight:700;letter-spacing:-0.02em;margin-bottom:8px;color:#09090b;">한전 지원사업</h3>
-          <p style="font-size:14px;color:#71717a;line-height:1.7;">1등급 에어컨 설치 시 구매가의 40% 현금 환급. 최대 160만원 지원.</p>
+          <span style="font-size:10px;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:#2563eb;display:block;margin-bottom:8px;">KEPCO 2026 · 정부지원</span>
+          <h3 style="font-size:19px;font-weight:700;letter-spacing:-0.02em;margin-bottom:10px;color:#09090b;">한전 지원사업</h3>
+          <p style="font-size:14px;color:#71717a;line-height:1.75;">2026 한전 고효율기기 보조사업. 1등급 에어컨 설치 시 구매가의 <strong style="color:#09090b;">40% 현금 환급</strong>. DD에어컨이 신청 대행.</p>
         </div>
       </div>
 
-      <!-- row 2 -->
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:24px;" class="services-grid">
-        <div class="reveal service-card" style="cursor:default;">
-          <div class="card-image-wrap" style="aspect-ratio:4/3;margin-bottom:20px;border-radius:16px;">
-            <img src={`${base}/images/gallery/case05.jpg`} alt="당일 출장 서비스" loading="lazy" />
+      <!-- Row 2 -->
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:28px;" class="services-grid">
+
+        <!-- 당일 출장 -->
+        <div class="reveal service-card">
+          <div class="card-image-wrap" style="aspect-ratio:4/3;margin-bottom:22px;border-radius:16px;">
+            <img
+              src="https://images.unsplash.com/photo-1732395805034-e0bf859665e5?q=80&w=1200&auto=format&fit=crop"
+              alt="에어컨 당일 출장 서비스 기사"
+              loading="lazy"
+            />
           </div>
-          <span style="font-size:11px;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:#a1a1aa;display:block;margin-bottom:8px;">Same Day</span>
-          <h3 style="font-size:20px;font-weight:700;letter-spacing:-0.02em;margin-bottom:8px;color:#09090b;">당일 출장</h3>
-          <p style="font-size:14px;color:#71717a;line-height:1.7;">남양주·구리·하남·의정부 등 경기 전역 당일 출장. 전화 한 통으로 즉시 연결.</p>
+          <span style="font-size:10px;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:#a1a1aa;display:block;margin-bottom:8px;">Same Day · Express</span>
+          <h3 style="font-size:19px;font-weight:700;letter-spacing:-0.02em;margin-bottom:10px;color:#09090b;">당일 출장</h3>
+          <p style="font-size:14px;color:#71717a;line-height:1.75;">남양주 · 구리 · 하남 · 의정부 · 서울 전역 당일 방문. 오전 접수 시 당일 오후 출동 가능. 365일 운영.</p>
         </div>
-        <div class="reveal service-card" style="cursor:default;">
-          <div class="card-image-wrap" style="aspect-ratio:4/3;margin-bottom:20px;border-radius:16px;">
-            <img src={`${base}/images/gallery/case03.jpg`} alt="스탠드 벽걸이 에어컨 설치" loading="lazy" />
+
+        <!-- 벽걸이·스탠드 -->
+        <div class="reveal service-card">
+          <div class="card-image-wrap" style="aspect-ratio:4/3;margin-bottom:22px;border-radius:16px;">
+            <img
+              src="https://images.unsplash.com/photo-1757219525975-03b5984bc6e8?q=80&w=1200&auto=format&fit=crop"
+              alt="벽걸이 에어컨 설치"
+              loading="lazy"
+            />
           </div>
-          <span style="font-size:11px;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:#a1a1aa;display:block;margin-bottom:8px;">Wall · Floor</span>
-          <h3 style="font-size:20px;font-weight:700;letter-spacing:-0.02em;margin-bottom:8px;color:#09090b;">스탠드·벽걸이</h3>
-          <p style="font-size:14px;color:#71717a;line-height:1.7;">가정용 스탠드형·벽걸이형 에어컨 설치. 배관 정리와 전기 작업 포함.</p>
+          <span style="font-size:10px;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:#a1a1aa;display:block;margin-bottom:8px;">Wall · Stand Type</span>
+          <h3 style="font-size:19px;font-weight:700;letter-spacing:-0.02em;margin-bottom:10px;color:#09090b;">스탠드 · 벽걸이</h3>
+          <p style="font-size:14px;color:#71717a;line-height:1.75;">가정용 벽걸이 · 스탠드형 전 기종 설치. 실외기 위치 선정, 배관 홀 가공, 전용 회로 작업 포함.</p>
         </div>
-        <div class="reveal service-card" style="cursor:default;">
-          <div class="card-image-wrap" style="aspect-ratio:4/3;margin-bottom:20px;border-radius:16px;">
-            <img src={`${base}/images/gallery/case06.jpg`} alt="가스충전 에어컨 청소" loading="lazy" />
+
+        <!-- 청소·가스충전 -->
+        <div class="reveal service-card">
+          <div class="card-image-wrap" style="aspect-ratio:4/3;margin-bottom:22px;border-radius:16px;">
+            <img
+              src="https://images.unsplash.com/photo-1601659404194-97d2daca8383?q=80&w=1200&auto=format&fit=crop"
+              alt="에어컨 분해 청소 및 냉매 가스 충전"
+              loading="lazy"
+            />
           </div>
-          <span style="font-size:11px;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:#a1a1aa;display:block;margin-bottom:8px;">Maintenance</span>
-          <h3 style="font-size:20px;font-weight:700;letter-spacing:-0.02em;margin-bottom:8px;color:#09090b;">가스충전·청소</h3>
-          <p style="font-size:14px;color:#71717a;line-height:1.7;">냉매 부족 진단 및 충전. 에어컨 실내기·실외기 전문 청소 서비스.</p>
+          <span style="font-size:10px;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:#a1a1aa;display:block;margin-bottom:8px;">Maintenance · Cleaning</span>
+          <h3 style="font-size:19px;font-weight:700;letter-spacing:-0.02em;margin-bottom:10px;color:#09090b;">청소 · 가스충전</h3>
+          <p style="font-size:14px;color:#71717a;line-height:1.75;">실내기 분해 클리닝, 필터·열교환기 세척. 냉매(R32 · R410A) 부족 진단 및 충전. 냄새·결로 완전 제거.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ══════════════════════════════════════════
-       SECTION 4: CASES / JOURNAL (3-col grid)
+       SECTION 4: CASES — NOVA Journal 스타일 3컬럼
   ══════════════════════════════════════════ -->
-  <section style="padding:128px 48px;background:#fafafa;border-top:1px solid #f4f4f5;">
+  <section style="padding:120px 48px;background:#ffffff;border-top:1px solid #f4f4f5;">
     <div class="section-container">
       <div class="reveal" style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:64px;flex-wrap:wrap;gap:16px;">
         <div>
           <span class="section-label-sm">Installation Cases</span>
-          <h2 style="font-size:clamp(32px,4.5vw,56px);font-weight:900;letter-spacing:-0.03em;color:#09090b;">시공사례</h2>
+          <h2 style="font-size:clamp(30px,4.2vw,54px);font-weight:900;letter-spacing:-0.03em;color:#09090b;">최근 시공사례</h2>
         </div>
-        <a href={`${base}/cases`} style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#09090b;text-decoration:none;display:flex;align-items:center;gap:8px;opacity:0.6;transition:opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.6'">
-          전체보기 →
+        <a href={`${base}/cases`} style="font-size:12px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#09090b;text-decoration:none;opacity:0.5;display:flex;align-items:center;gap:6px;transition:opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.5'">
+          전체 시공사례 →
         </a>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap-x:32px;gap-y:64px;" class="cases-grid">
-        <!-- case 1 -->
-        <div class="reveal" style="display:flex;flex-direction:column;gap:20px;cursor:pointer;" onclick={`location.href='${base}/cases'`}>
+
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:32px;row-gap:60px;" class="cases-grid">
+
+        <!-- case 1: 상업공간 -->
+        <a href={`${base}/cases`} style="display:flex;flex-direction:column;gap:20px;text-decoration:none;cursor:pointer;" class="reveal case-card">
           <div class="card-image-wrap" style="aspect-ratio:4/3;border-radius:16px;">
-            <img src={`${base}/images/gallery/case02.jpg`} alt="셀렉샵 4WAY 설치" loading="lazy" />
+            <img
+              src="https://images.unsplash.com/photo-1758691736933-bb0f88fe2e0c?q=80&w=1200&auto=format&fit=crop"
+              alt="오피스 상업공간 4WAY 에어컨 시공"
+              loading="lazy"
+            />
           </div>
           <div>
-            <p style="font-size:11px;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:#a1a1aa;margin-bottom:8px;">Commercial</p>
-            <h3 style="font-size:20px;font-weight:700;letter-spacing:-0.02em;margin-bottom:8px;color:#09090b;transition:color 0.2s;">셀렉샵 4WAY 설치</h3>
-            <p style="font-size:14px;color:#71717a;line-height:1.7;">성수 셀렉샵 천장형 카세트 에어컨. 개업 일정에 맞춰 당일 시공 완료.</p>
+            <p style="font-size:10px;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:#a1a1aa;margin-bottom:10px;">Commercial · Office</p>
+            <h3 style="font-size:19px;font-weight:700;letter-spacing:-0.02em;margin-bottom:8px;color:#09090b;">성수 오피스 4WAY 설치</h3>
+            <p style="font-size:14px;color:#71717a;line-height:1.7;">100평 오피스 천장형 카세트 에어컨 6대 동시 시공. 배관 은닉 처리 및 드레인 통합 배선 완료.</p>
+            <p style="font-size:12px;color:#a1a1aa;margin-top:12px;letter-spacing:0.05em;">2026년 2월 · 서울 성동구</p>
+          </div>
+        </a>
+
+        <!-- case 2: 의료시설 -->
+        <a href={`${base}/cases`} style="display:flex;flex-direction:column;gap:20px;text-decoration:none;cursor:pointer;" class="reveal case-card">
+          <div class="card-image-wrap" style="aspect-ratio:4/3;border-radius:16px;">
+            <img
+              src="https://images.unsplash.com/photo-1762625570087-6d98fca29531?q=80&w=1200&auto=format&fit=crop"
+              alt="치과 의원 4WAY 에어컨 시공사례"
+              loading="lazy"
+            />
+          </div>
+          <div>
+            <p style="font-size:10px;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:#a1a1aa;margin-bottom:10px;">Medical · Clinic</p>
+            <h3 style="font-size:19px;font-weight:700;letter-spacing:-0.02em;margin-bottom:8px;color:#09090b;">치과·피부과 시스템 설치</h3>
+            <p style="font-size:14px;color:#71717a;line-height:1.7;">진료실 3개 + 대기실 카세트 에어컨 설치. 진동 차단재 적용으로 소음 최소화. 의료환경 특화 시공.</p>
+            <p style="font-size:12px;color:#a1a1aa;margin-top:12px;letter-spacing:0.05em;">2026년 2월 · 서울 광진구</p>
+          </div>
+        </a>
+
+        <!-- case 3: 카페·식음 -->
+        <a href={`${base}/cases`} style="display:flex;flex-direction:column;gap:20px;text-decoration:none;cursor:pointer;" class="reveal case-card">
+          <div class="card-image-wrap" style="aspect-ratio:4/3;border-radius:16px;">
+            <img
+              src="https://images.unsplash.com/photo-1751956066306-c5684cbcf385?q=80&w=1200&auto=format&fit=crop"
+              alt="카페 에어컨 천장형 설치"
+              loading="lazy"
+            />
+          </div>
+          <div>
+            <p style="font-size:10px;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:#a1a1aa;margin-bottom:10px;">F&amp;B · Café</p>
+            <h3 style="font-size:19px;font-weight:700;letter-spacing:-0.02em;margin-bottom:8px;color:#09090b;">카페 이전설치</h3>
+            <p style="font-size:14px;color:#71717a;line-height:1.7;">수원 인계동 카페 이전설치. 기존 배관 전량 재정리 · 냉매 재충전 · 드레인 재레벨링 하루 완료.</p>
+            <p style="font-size:12px;color:#a1a1aa;margin-top:12px;letter-spacing:0.05em;">2026년 1월 · 경기 수원시</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       SECTION 5: REVIEWS — 고객 후기
+  ══════════════════════════════════════════ -->
+  <section style="padding:120px 48px;background:#fafafa;border-top:1px solid #f4f4f5;">
+    <div class="section-container">
+      <div class="reveal" style="text-align:center;margin-bottom:64px;">
+        <span class="section-label-sm" style="display:block;text-align:center;">Customer Reviews</span>
+        <h2 style="font-size:clamp(28px,4vw,50px);font-weight:900;letter-spacing:-0.03em;color:#09090b;">고객 후기</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;" class="reviews-grid">
+
+        <!-- review 1 -->
+        <div class="reveal" style="background:#fff;border:1px solid #e4e4e7;border-radius:20px;padding:36px;transition:box-shadow 0.3s;" onmouseover="this.style.boxShadow='0 8px 32px rgba(0,0,0,0.08)'" onmouseout="this.style.boxShadow='none'">
+          <div style="display:flex;gap:2px;margin-bottom:20px;">
+            {'★★★★★'.split('').map((s: string) => `<span style="color:#09090b;font-size:13px;">${s}</span>`).join('')}
+          </div>
+          <p style="font-size:15px;line-height:1.85;color:#52525b;font-weight:300;margin-bottom:24px;">
+            "천장형 4WAY 설치인데 배관 정리와 마감이 정말 깔끔했어요. 개업 전 일정에 맞춰 당일 완료해 주셔서 감사합니다. 직원분들도 친절하고 뒷정리까지 완벽하게 해주셨어요."
+          </p>
+          <div style="border-top:1px solid #f4f4f5;padding-top:20px;display:flex;flex-direction:column;gap:2px;">
+            <span style="font-size:13px;font-weight:700;color:#09090b;">성수 셀렉샵 사장님</span>
+            <span style="font-size:12px;color:#a1a1aa;">2026년 2월 시공 · 서울 성동구</span>
           </div>
         </div>
-        <!-- case 2 -->
-        <div class="reveal" style="display:flex;flex-direction:column;gap:20px;cursor:pointer;" onclick={`location.href='${base}/cases'`}>
-          <div class="card-image-wrap" style="aspect-ratio:4/3;border-radius:16px;">
-            <img src={`${base}/images/gallery/case05.jpg`} alt="치과 4WAY 설치" loading="lazy" />
+
+        <!-- review 2 -->
+        <div class="reveal" style="background:#fff;border:1px solid #e4e4e7;border-radius:20px;padding:36px;transition:box-shadow 0.3s;" onmouseover="this.style.boxShadow='0 8px 32px rgba(0,0,0,0.08)'" onmouseout="this.style.boxShadow='none'">
+          <div style="display:flex;gap:2px;margin-bottom:20px;">
+            {'★★★★★'.split('').map((s: string) => `<span style="color:#09090b;font-size:13px;">${s}</span>`).join('')}
           </div>
-          <div>
-            <p style="font-size:11px;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:#a1a1aa;margin-bottom:8px;">Medical</p>
-            <h3 style="font-size:20px;font-weight:700;letter-spacing:-0.02em;margin-bottom:8px;color:#09090b;">치과 4WAY 설치</h3>
-            <p style="font-size:14px;color:#71717a;line-height:1.7;">강변 치과·피부과 시스템에어컨. 진료 환경을 고려한 소음 최소화 시공.</p>
+          <p style="font-size:15px;line-height:1.85;color:#52525b;font-weight:300;margin-bottom:24px;">
+            "치과 특성상 환자 환경이 중요한데, 진단부터 시공까지 정말 전문적으로 처리해 주셨어요. 소음 처리도 완벽하고 마감도 깔끔합니다. 다음에도 꼭 다시 부탁드릴게요."
+          </p>
+          <div style="border-top:1px solid #f4f4f5;padding-top:20px;display:flex;flex-direction:column;gap:2px;">
+            <span style="font-size:13px;font-weight:700;color:#09090b;">강변 치과·피부과 원장님</span>
+            <span style="font-size:12px;color:#a1a1aa;">2026년 2월 시공 · 서울 광진구</span>
           </div>
         </div>
-        <!-- case 3 -->
-        <div class="reveal" style="display:flex;flex-direction:column;gap:20px;cursor:pointer;" onclick={`location.href='${base}/cases'`}>
-          <div class="card-image-wrap" style="aspect-ratio:4/3;border-radius:16px;">
-            <img src={`${base}/images/gallery/case04.jpg`} alt="카페 이전설치" loading="lazy" />
+
+        <!-- review 3 -->
+        <div class="reveal" style="background:#fff;border:1px solid #e4e4e7;border-radius:20px;padding:36px;transition:box-shadow 0.3s;" onmouseover="this.style.boxShadow='0 8px 32px rgba(0,0,0,0.08)'" onmouseout="this.style.boxShadow='none'">
+          <div style="display:flex;gap:2px;margin-bottom:20px;">
+            {'★★★★★'.split('').map((s: string) => `<span style="color:#09090b;font-size:13px;">${s}</span>`).join('')}
           </div>
-          <div>
-            <p style="font-size:11px;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:#a1a1aa;margin-bottom:8px;">Relocation</p>
-            <h3 style="font-size:20px;font-weight:700;letter-spacing:-0.02em;margin-bottom:8px;color:#09090b;">카페 이전설치</h3>
-            <p style="font-size:14px;color:#71717a;line-height:1.7;">수원 인계동 카페 이전설치. 배관 재정리·냉매충전 포함 하루 완료.</p>
+          <p style="font-size:15px;line-height:1.85;color:#52525b;font-weight:300;margin-bottom:24px;">
+            "이전설치라 걱정했는데 배관 재정리부터 냉매 충전까지 하루 만에 깔끔하게 끝냈어요. 한전 지원사업 신청도 같이 도와주셔서 실제로 환급까지 받았습니다!"
+          </p>
+          <div style="border-top:1px solid #f4f4f5;padding-top:20px;display:flex;flex-direction:column;gap:2px;">
+            <span style="font-size:13px;font-weight:700;color:#09090b;">수원 인계동 카페 사장님</span>
+            <span style="font-size:12px;color:#a1a1aa;">2026년 1월 시공 · 경기 수원시</span>
           </div>
         </div>
       </div>
@@ -209,62 +367,64 @@ const description = '남양주·다산신도시 에어컨 전문 설치 업체. 
   </section>
 
   <!-- ══════════════════════════════════════════
-       SECTION 5: STATS + SERVICE AREA (dark — NOVA Experience Centers)
+       SECTION 6: SERVICE AREA + STATS — NOVA Experience Centers 스타일
   ══════════════════════════════════════════ -->
-  <section style="padding:128px 48px;background:#09090b;color:white;">
+  <section style="padding:120px 48px;background:#09090b;color:white;">
     <div class="section-container">
-      <h2 class="reveal" style="font-size:clamp(32px,5vw,64px);font-weight:900;letter-spacing:-0.03em;color:white;margin-bottom:80px;">
-        서비스 권역 &amp; 실적
+      <h2 class="reveal" style="font-size:clamp(30px,4.8vw,62px);font-weight:900;letter-spacing:-0.03em;color:white;margin-bottom:72px;">
+        서비스 권역
       </h2>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;" class="stats-area-grid">
-        <!-- left: location list -->
+
+        <!-- 좌측: 권역 목록 -->
         <div>
           <div class="stat-row reveal">
             <div>
-              <p style="font-size:18px;font-weight:700;color:white;margin-bottom:4px;">남양주 · 다산신도시</p>
-              <p style="font-size:13px;color:rgba(255,255,255,0.4);">주요 서비스 권역</p>
+              <p style="font-size:18px;font-weight:700;color:white;margin-bottom:5px;">남양주 · 다산신도시 · 진건</p>
+              <p style="font-size:13px;color:rgba(255,255,255,0.4);">본거지 · 최우선 출동 구역</p>
             </div>
-            <span style="font-size:13px;font-weight:600;letter-spacing:0.1em;color:rgba(255,255,255,0.3);">MAIN</span>
+            <span style="font-size:11px;font-weight:700;letter-spacing:0.15em;color:rgba(255,255,255,0.3);text-transform:uppercase;">MAIN</span>
           </div>
           <div class="stat-row reveal">
             <div>
-              <p style="font-size:18px;font-weight:700;color:white;margin-bottom:4px;">구리 · 하남 · 의정부</p>
-              <p style="font-size:13px;color:rgba(255,255,255,0.4);">당일 출장 가능</p>
+              <p style="font-size:18px;font-weight:700;color:white;margin-bottom:5px;">구리 · 하남 · 의정부 · 노원</p>
+              <p style="font-size:13px;color:rgba(255,255,255,0.4);">당일 출장 가능 · 오전 접수 시 오후 출동</p>
             </div>
-            <span style="font-size:13px;font-weight:600;letter-spacing:0.1em;color:rgba(255,255,255,0.3);">SAME DAY</span>
+            <span style="font-size:11px;font-weight:700;letter-spacing:0.15em;color:rgba(255,255,255,0.3);text-transform:uppercase;">SAME DAY</span>
           </div>
           <div class="stat-row reveal">
             <div>
-              <p style="font-size:18px;font-weight:700;color:white;margin-bottom:4px;">서울 전역 · 경기 전역</p>
-              <p style="font-size:13px;color:rgba(255,255,255,0.4);">예약 상담 후 방문</p>
+              <p style="font-size:18px;font-weight:700;color:white;margin-bottom:5px;">서울 전 지역 · 경기 전 지역</p>
+              <p style="font-size:13px;color:rgba(255,255,255,0.4);">예약 상담 후 일정 협의</p>
             </div>
-            <span style="font-size:13px;font-weight:600;letter-spacing:0.1em;color:rgba(255,255,255,0.3);">BY APPT</span>
+            <span style="font-size:11px;font-weight:700;letter-spacing:0.15em;color:rgba(255,255,255,0.3);text-transform:uppercase;">BY APPT</span>
           </div>
           <div class="stat-row reveal" style="border-bottom:none;">
             <div>
-              <p style="font-size:18px;font-weight:700;color:white;margin-bottom:4px;">전화 한 통으로 즉시 연결</p>
-              <p style="font-size:13px;color:rgba(255,255,255,0.4);">010-7237-2122</p>
+              <p style="font-size:18px;font-weight:700;color:white;margin-bottom:5px;">010-7237-2122</p>
+              <p style="font-size:13px;color:rgba(255,255,255,0.4);">평일·주말·공휴일 08:00 – 20:00</p>
             </div>
-            <a href="tel:010-7237-2122" style="font-size:13px;font-weight:600;letter-spacing:0.1em;color:#93c5fd;text-decoration:none;">전화하기 →</a>
+            <a href="tel:010-7237-2122" style="font-size:13px;font-weight:700;letter-spacing:0.1em;color:#93c5fd;text-decoration:none;white-space:nowrap;">전화하기 →</a>
           </div>
         </div>
-        <!-- right: big numbers -->
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,0.08);">
-          <div style="padding:40px;background:#09090b;text-align:center;" class="reveal">
-            <span style="display:block;font-size:clamp(48px,6vw,80px);font-weight:900;letter-spacing:-0.04em;color:white;line-height:1;">70<span style="font-size:0.5em;font-weight:300;">+</span></span>
-            <span style="font-size:11px;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-top:8px;display:block;">시공 실적</span>
+
+        <!-- 우측: 실적 숫자 그리드 -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,0.06);">
+          <div style="padding:44px 32px;background:#09090b;text-align:center;" class="reveal">
+            <span style="display:block;font-size:clamp(44px,5.5vw,72px);font-weight:900;letter-spacing:-0.04em;color:white;line-height:1;">70<span style="font-size:0.48em;font-weight:300;">+</span></span>
+            <span style="font-size:10px;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-top:10px;display:block;">시공 실적</span>
           </div>
-          <div style="padding:40px;background:#09090b;text-align:center;" class="reveal">
-            <span style="display:block;font-size:clamp(48px,6vw,80px);font-weight:900;letter-spacing:-0.04em;color:white;line-height:1;">5<span style="font-size:0.5em;font-weight:300;">년+</span></span>
-            <span style="font-size:11px;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-top:8px;display:block;">현장 경력</span>
+          <div style="padding:44px 32px;background:#09090b;text-align:center;" class="reveal">
+            <span style="display:block;font-size:clamp(44px,5.5vw,72px);font-weight:900;letter-spacing:-0.04em;color:white;line-height:1;">5<span style="font-size:0.48em;font-weight:300;">년+</span></span>
+            <span style="font-size:10px;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-top:10px;display:block;">현장 경력</span>
           </div>
-          <div style="padding:40px;background:#09090b;text-align:center;" class="reveal">
-            <span style="display:block;font-size:clamp(48px,6vw,80px);font-weight:900;letter-spacing:-0.04em;color:white;line-height:1;">100<span style="font-size:0.5em;font-weight:300;">%</span></span>
-            <span style="font-size:11px;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-top:8px;display:block;">AS 보장</span>
+          <div style="padding:44px 32px;background:#09090b;text-align:center;" class="reveal">
+            <span style="display:block;font-size:clamp(44px,5.5vw,72px);font-weight:900;letter-spacing:-0.04em;color:white;line-height:1;">100<span style="font-size:0.48em;font-weight:300;">%</span></span>
+            <span style="font-size:10px;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-top:10px;display:block;">AS 보장</span>
           </div>
-          <div style="padding:40px;background:#09090b;text-align:center;" class="reveal">
-            <span style="display:block;font-size:clamp(48px,6vw,80px);font-weight:900;letter-spacing:-0.04em;color:white;line-height:1;">1<span style="font-size:0.5em;font-weight:300;">일</span></span>
-            <span style="font-size:11px;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-top:8px;display:block;">당일 출장</span>
+          <div style="padding:44px 32px;background:#09090b;text-align:center;" class="reveal">
+            <span style="display:block;font-size:clamp(44px,5.5vw,72px);font-weight:900;letter-spacing:-0.04em;color:white;line-height:1;">365<span style="font-size:0.48em;font-weight:300;">일</span></span>
+            <span style="font-size:10px;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-top:10px;display:block;">연중무휴</span>
           </div>
         </div>
       </div>
@@ -276,29 +436,34 @@ const description = '남양주·다산신도시 에어컨 전문 설치 업체. 
   ══════════════════════════════════════════ -->
   <div class="marquee-outer">
     <div class="marquee-track">
-      {[1,2].map(() => (
-        ['디디에어컨','천장형 4WAY 전문','직영 시공팀','70건+ 시공','당일 출장 가능','에어컨 전문 설치','DDINAIR','한전 지원사업'].map(t => (
+      {[1,2].map(() =>
+        ['디디에어컨','천장형 4WAY 전문','직영 시공팀','70건+ 시공 실적','당일 출장 가능','에어컨 전문 설치','DDINAIR','한전 지원사업 160만원','남양주·경기 전역'].map((t: string) => (
           <span class="marquee-item">{t} ·</span>
         ))
-      ))}
+      )}
     </div>
   </div>
 
   <!-- ══════════════════════════════════════════
-       SECTION 6: FINAL CTA (minimal, white)
+       SECTION 7: FINAL CTA — 미니멀 화이트
   ══════════════════════════════════════════ -->
-  <section style="padding:160px 48px;background:#ffffff;text-align:center;border-top:1px solid #f4f4f5;">
-    <div class="section-container" style="max-width:700px;">
-      <span class="section-label-sm reveal" style="text-align:center;display:block;">Quick Service</span>
+  <section style="padding:160px 48px;background:#ffffff;text-align:center;">
+    <div class="section-container" style="max-width:680px;">
+      <span class="section-label-sm reveal" style="display:block;text-align:center;">Quick Service · 365일</span>
       <h2 class="reveal" style="font-size:clamp(36px,6vw,80px);font-weight:900;letter-spacing:-0.04em;line-height:1;margin:24px 0;color:#09090b;">
         지금 바로<br/>상담하세요
       </h2>
-      <p class="reveal" style="font-size:18px;color:#71717a;font-weight:300;line-height:1.8;margin-bottom:48px;">
-        남양주·구리·하남 전역 당일 출장 가능합니다.<br/>전화 한 통으로 바로 연결됩니다.
+      <p class="reveal" style="font-size:17px;color:#71717a;font-weight:300;line-height:1.85;margin-bottom:52px;">
+        남양주 · 구리 · 하남 · 의정부 · 서울 전역<br/>
+        당일 출장 가능합니다. 전화 한 통으로 바로 연결됩니다.
       </p>
       <div class="reveal" style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-        <a href="tel:010-7237-2122" class="btn-dark" style="padding:16px 40px;font-size:15px;">010-7237-2122 전화하기</a>
-        <a href={`${base}/contact`} class="btn-outline-dark" style="padding:16px 40px;font-size:15px;">온라인 신청</a>
+        <a href="tel:010-7237-2122" class="btn-dark" style="padding:17px 44px;font-size:15px;letter-spacing:0.04em;">
+          📞 &nbsp;010-7237-2122
+        </a>
+        <a href={`${base}/contact`} class="btn-outline-dark" style="padding:17px 44px;font-size:15px;">
+          온라인 상담 신청
+        </a>
       </div>
     </div>
   </section>
@@ -307,16 +472,28 @@ const description = '남양주·다산신도시 에어컨 전문 설치 업체. 
 
 <style>
   @keyframes scrollPulse {
-    0%,100% { opacity:0.4; transform:scaleY(1); }
-    50% { opacity:1; transform:scaleY(1.3); }
+    0%,100% { opacity:0.38; transform:scaleY(1); }
+    50% { opacity:0.9; transform:scaleY(1.25); }
+  }
+
+  /* 리뷰 별점 렌더링 */
+  .review-stars { display:flex; gap:2px; }
+
+  /* 케이스 카드 호버 */
+  .case-card:hover h3 { color:#52525b; }
+
+  @media (max-width: 1024px) {
+    .services-grid { grid-template-columns: repeat(2,1fr) !important; }
   }
   @media (max-width: 768px) {
     .brand-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
     .services-grid { grid-template-columns: 1fr 1fr !important; gap: 16px !important; }
-    .cases-grid { grid-template-columns: 1fr !important; gap-y: 48px !important; }
+    .cases-grid { grid-template-columns: 1fr !important; row-gap: 48px !important; }
+    .reviews-grid { grid-template-columns: 1fr !important; gap: 16px !important; }
     .stats-area-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
-    section[style*="padding:128px"] { padding: 80px 20px !important; }
-    section[style*="padding:160px"] { padding: 100px 20px !important; }
+    section[style*="padding:120px 48px"] { padding: 72px 20px !important; }
+    section[style*="padding:160px 48px"] { padding: 100px 20px !important; }
+    section[style*="padding:120px 48px;background:#09090b"] { padding: 72px 20px !important; }
   }
   @media (max-width: 480px) {
     .services-grid { grid-template-columns: 1fr !important; }
@@ -331,7 +508,7 @@ const description = '남양주·다산신도시 에어컨 전문 설치 업체. 
     if (!gsap || !ScrollTrigger) return;
     gsap.registerPlugin(ScrollTrigger);
 
-    // Lenis — destroy old, create new with ScrollTrigger integration
+    // Lenis 초기화
     if ((window as any).__lenis) {
       try { (window as any).__lenis.destroy(); } catch(_) {}
     }
@@ -343,110 +520,47 @@ const description = '남양주·다산신도시 에어컨 전문 설치 업체. 
       gsap.ticker.lagSmoothing(0);
     }
 
-    // ── Hero entrance animations ──
+    // ── 히어로 진입 애니메이션 ──
     const badge = document.getElementById('hero-badge');
-    const h1 = document.getElementById('hero-h1');
+    const h1    = document.getElementById('hero-h1');
     const heroP = document.getElementById('hero-p');
-    const heroCta = document.getElementById('hero-cta');
-    const scrollInd = document.getElementById('scroll-indicator');
+    const cta   = document.getElementById('hero-cta');
+    const ind   = document.getElementById('scroll-indicator');
 
-    if (badge) gsap.to(badge, { opacity: 1, scale: 1, duration: 1, delay: 0.3, ease: 'power3.out' });
-    if (h1) gsap.to(h1, { opacity: 1, y: 0, duration: 1, delay: 0.5, ease: 'power3.out' });
-    if (heroP) gsap.to(heroP, { opacity: 1, y: 0, duration: 1, delay: 0.7, ease: 'power3.out' });
-    if (heroCta) gsap.to(heroCta, { opacity: 1, y: 0, duration: 1, delay: 0.9, ease: 'power3.out' });
-    if (scrollInd) gsap.to(scrollInd, { opacity: 1, duration: 1, delay: 1.5, ease: 'power2.out' });
+    if (badge) gsap.to(badge, { opacity:1, scale:1, duration:1.1, delay:0.25, ease:'power3.out' });
+    if (h1)    gsap.to(h1,    { opacity:1, y:0,     duration:1.1, delay:0.45, ease:'power3.out' });
+    if (heroP) gsap.to(heroP, { opacity:1, y:0,     duration:1.0, delay:0.65, ease:'power3.out' });
+    if (cta)   gsap.to(cta,   { opacity:1, y:0,     duration:1.0, delay:0.85, ease:'power3.out' });
+    if (ind)   gsap.to(ind,   { opacity:1,           duration:1.0, delay:1.6,  ease:'power2.out' });
 
-    // ── Hero content parallax on scroll ──
+    // ── 히어로 콘텐츠 패럴랙스 ──
     const heroContent = document.getElementById('hero-content');
     if (heroContent) {
       gsap.to(heroContent, {
-        y: -80, ease: 'none',
+        y: -90, ease: 'none',
         scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true }
       });
     }
 
-    // ── Reveal animations ──
-    document.querySelectorAll('.reveal').forEach(el => {
-      gsap.fromTo(el,
-        { opacity: 0, y: 24 },
-        {
-          opacity: 1, y: 0, duration: 0.8, ease: 'power2.out',
-          scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' }
-        }
-      );
-    });
-    document.querySelectorAll('.reveal-left').forEach(el => {
-      gsap.fromTo(el,
-        { opacity: 0, x: -40 },
-        {
-          opacity: 1, x: 0, duration: 1, ease: 'power2.out',
-          scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' }
-        }
-      );
-    });
-    document.querySelectorAll('.reveal-scale').forEach(el => {
-      gsap.fromTo(el,
-        { opacity: 0, scale: 0.95 },
-        {
-          opacity: 1, scale: 1, duration: 1, ease: 'power2.out',
-          scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' }
-        }
-      );
-    });
-
-    // ── WebP canvas scroll animation (desktop only) ──
-    const heroCanvas = document.getElementById('hero-canvas') as HTMLCanvasElement | null;
-    if (heroCanvas && window.innerWidth > 768) {
-      const ctx = heroCanvas.getContext('2d')!;
-      const FRAME_COUNT = 100;
-      const siteBase = document.querySelector('meta[name="site-base"]')?.getAttribute('content') || '';
-      const frames: HTMLImageElement[] = new Array(FRAME_COUNT);
-      let currentFrame = 0;
-      let canvasReady = false;
-
-      function resizeCanvas() {
-        if (!heroCanvas) return;
-        heroCanvas.width = window.innerWidth;
-        heroCanvas.height = window.innerHeight;
-        drawFrame(currentFrame);
-      }
-
-      function drawFrame(idx: number) {
-        if (!heroCanvas) return;
-        const img = frames[idx];
-        if (!img?.complete || !img.naturalWidth) return;
-        const W = heroCanvas.width, H = heroCanvas.height;
-        const scale = Math.max(W / img.naturalWidth, H / img.naturalHeight);
-        const x = (W - img.naturalWidth * scale) / 2;
-        const y = (H - img.naturalHeight * scale) / 2;
-        ctx.clearRect(0, 0, W, H);
-        ctx.drawImage(img, x, y, img.naturalWidth * scale, img.naturalHeight * scale);
-        if (!canvasReady) {
-          canvasReady = true;
-          heroCanvas.style.opacity = '0.85';
-        }
-      }
-
-      resizeCanvas();
-      window.addEventListener('resize', resizeCanvas);
-
-      for (let i = 0; i < FRAME_COUNT; i++) {
-        const img = new Image();
-        img.src = `${siteBase}/images/hero-frames/frame_${String(i + 1).padStart(3, '0')}.webp`;
-        img.onload = () => { if (i === 0) resizeCanvas(); };
-        frames[i] = img;
-      }
-
-      const scrubObj = { frame: 0 };
-      gsap.to(scrubObj, {
-        frame: FRAME_COUNT - 1, ease: 'none',
-        scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: 0.5 },
-        onUpdate() {
-          const f = Math.round(scrubObj.frame);
-          if (f !== currentFrame) { currentFrame = f; drawFrame(f); }
-        }
+    // ── 스크롤 reveal 애니메이션 ──
+    document.querySelectorAll<HTMLElement>('.reveal').forEach(el => {
+      gsap.fromTo(el, { opacity:0, y:28 }, {
+        opacity:1, y:0, duration:0.85, ease:'power2.out',
+        scrollTrigger: { trigger: el, start:'top 89%', toggleActions:'play none none none' }
       });
-    }
+    });
+    document.querySelectorAll<HTMLElement>('.reveal-left').forEach(el => {
+      gsap.fromTo(el, { opacity:0, x:-44 }, {
+        opacity:1, x:0, duration:1.05, ease:'power2.out',
+        scrollTrigger: { trigger: el, start:'top 86%', toggleActions:'play none none none' }
+      });
+    });
+    document.querySelectorAll<HTMLElement>('.reveal-scale').forEach(el => {
+      gsap.fromTo(el, { opacity:0, scale:0.94 }, {
+        opacity:1, scale:1, duration:1.05, ease:'power2.out',
+        scrollTrigger: { trigger: el, start:'top 86%', toggleActions:'play none none none' }
+      });
+    });
 
     ScrollTrigger.refresh();
   });
