@@ -87,12 +87,12 @@ const stats = [
 
 <!-- ══════ 스크롤 스토리텔링 배경 (데스크탑) ════════════════════════════ -->
 <div id="story-fixed-bg" style="position:fixed;inset:0;z-index:0;pointer-events:none;display:none;">
-  <!-- 히어로 패널 0: 비디오 프레임 캔버스 -->
+  <!-- 히어로 패널 0: 비디오 프레임 캔버스 (CSS background = 로드 전 폴백) -->
   <canvas
     id="hero-canvas"
     class="story-bg-slide"
     data-index="0"
-    style="position:absolute;inset:0;width:100%;height:100%;opacity:1;transition:opacity 1s ease;"
+    style={`position:absolute;inset:0;width:100%;height:100%;opacity:1;transition:opacity 1s ease;background-image:url('${storyPanels[0].bg}');background-size:cover;background-position:center top;`}
   ></canvas>
   <!-- 패널 1–3: 일반 배경 이미지 -->
   {storyPanels.slice(1).map((panel, i) => (
