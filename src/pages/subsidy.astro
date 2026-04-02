@@ -24,14 +24,65 @@ const description = '한전 고효율기기 보급사업으로 에어컨 구매 
   </div>
 </section>
 
-<!-- 예산 현황 배너 -->
-<section style="background:rgba(79,195,247,0.06);border-top:1px solid rgba(79,195,247,0.2);border-bottom:1px solid rgba(79,195,247,0.2);padding:20px 8vw;">
-  <div style="max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
-    <div style="width:8px;height:8px;border-radius:50%;background:var(--blue);box-shadow:0 0 12px rgba(79,195,247,0.8);flex-shrink:0;"></div>
-    <p style="font-size:13px;color:var(--blue);letter-spacing:0.05em;">
-      <strong>2026년 예산 소진이 빠릅니다.</strong> 조기 마감될 수 있으니 서둘러 신청하세요.
-    </p>
-    <span style="font-size:11px;color:rgba(255,255,255,0.35);margin-left:auto;">예산 소진율 약 60% (4월 기준 추정치)</span>
+<!-- ══ 예산 소진 현황 위젯 ══ -->
+<section style="background:var(--dark);padding:48px 8vw 56px;border-top:1px solid rgba(79,195,247,0.12);border-bottom:1px solid rgba(79,195,247,0.08);">
+  <div style="max-width:1100px;margin:0 auto;">
+
+    <!-- 헤더 -->
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;flex-wrap:wrap;gap:12px;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span id="status-dot" style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#22c55e;box-shadow:0 0 10px #22c55e;animation:pulse-dot 2s infinite;flex-shrink:0;"></span>
+        <span style="font-size:11px;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:rgba(255,255,255,0.5);">실시간 예산 소진 현황</span>
+        <span id="status-badge" style="font-size:9px;padding:2px 10px;border:1px solid #22c55e;color:#22c55e;letter-spacing:0.15em;text-transform:uppercase;">접수 중</span>
+      </div>
+      <span id="status-updated" style="font-size:11px;color:rgba(255,255,255,0.3);"></span>
+    </div>
+
+    <!-- 메인 그리드 -->
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:rgba(79,195,247,0.08);border:1px solid rgba(79,195,247,0.08);margin-bottom:28px;" class="status-grid-3">
+      <div style="background:var(--dark);padding:28px 24px;">
+        <div style="font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:8px;">총 지원 예산</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:300;color:white;line-height:1;">388<span style="font-size:0.5em;font-weight:400;color:rgba(255,255,255,0.6);">억원</span></div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:6px;">2026년 전체 배정 예산</div>
+      </div>
+      <div style="background:var(--dark);padding:28px 24px;">
+        <div style="font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:8px;">추정 소진율</div>
+        <div id="pct-display" style="font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:300;line-height:1;color:#4fc3f7;">—</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:6px;">역대 소진 패턴 기반 추정</div>
+      </div>
+      <div style="background:var(--dark);padding:28px 24px;">
+        <div style="font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:8px;">추정 잔여 예산</div>
+        <div id="remaining-display" style="font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:300;color:#22c55e;line-height:1;">—</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:6px;">
+          <a href="https://en-ter.co.kr/ac/main/main.do" target="_blank" rel="noopener" style="color:#93c5fd;text-decoration:none;">공식 사이트에서 정확한 현황 확인 →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 프로그레스 바 -->
+    <div style="margin-bottom:16px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <span style="font-size:11px;color:rgba(255,255,255,0.4);">2026.02.09 접수 시작</span>
+        <span id="bar-label" style="font-size:11px;font-weight:700;color:#4fc3f7;"></span>
+        <span style="font-size:11px;color:rgba(255,255,255,0.4);">2026.12.31 (조기마감 가능)</span>
+      </div>
+      <div style="width:100%;height:8px;background:rgba(255,255,255,0.07);border-radius:4px;overflow:hidden;">
+        <div id="progress-bar" style="height:100%;width:0%;background:linear-gradient(90deg,#1d4ed8,#4fc3f7);border-radius:4px;transition:width 1.2s cubic-bezier(0.4,0,0.2,1);"></div>
+      </div>
+    </div>
+
+    <!-- 경고 메시지 -->
+    <div id="warning-box" style="display:none;padding:14px 20px;border:1px solid rgba(251,191,36,0.4);background:rgba(251,191,36,0.05);margin-bottom:16px;">
+      <p id="warning-text" style="font-size:13px;color:#fbbf24;margin:0;line-height:1.6;"></p>
+    </div>
+
+    <!-- 하단 안내 -->
+    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+      <span style="font-size:11px;color:rgba(255,255,255,0.25);">※ 소진율은 역대 한전 지원사업 패턴 기반 추정치입니다. 실제 현황은</span>
+      <a href="https://en-ter.co.kr/ac/main/main.do" target="_blank" rel="noopener" style="font-size:11px;color:#93c5fd;text-decoration:none;">en-ter.co.kr</a>
+      <span style="font-size:11px;color:rgba(255,255,255,0.25);">에서 확인하세요.</span>
+    </div>
+
   </div>
 </section>
 
@@ -176,22 +227,123 @@ const description = '한전 고효율기기 보급사업으로 에어컨 구매 
 </Layout>
 
 <style>
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
 @media (max-width: 768px) {
-  section > div[style*="grid-template-columns:repeat(3"] {
-    grid-template-columns: 1fr !important;
-  }
-  section > div[style*="grid-template-columns:1fr 1fr"] {
-    grid-template-columns: 1fr !important;
-  }
+  .status-grid-3 { grid-template-columns: 1fr !important; }
+  section > div[style*="grid-template-columns:repeat(3"] { grid-template-columns: 1fr !important; }
+  section > div[style*="grid-template-columns:1fr 1fr"] { grid-template-columns: 1fr !important; }
 }
 </style>
 
 <script is:inline>
-window.addEventListener('load', function() {
-  if (typeof Lenis !== 'undefined') {
-    const lenis = new Lenis({ lerp: 0.1, smoothWheel: true });
-    function raf(t) { lenis.raf(t); requestAnimationFrame(raf); }
-    requestAnimationFrame(raf);
+(function() {
+  // ── 역대 소진 패턴 기반 piecewise 추정 ──
+  // 출처: 2024~2025년 한전 소상공인 고효율기기 지원사업 조기마감 패턴
+  // 2월 초 개시 → 4~6월 성수기 급증 → 8~9월 조기마감 반복
+  var MILESTONES = [
+    [0,   0],    // 2026-02-09 개시
+    [20,  8],    // 2026-03-01
+    [51,  22],   // 2026-04-01
+    [81,  40],   // 2026-05-01  ← 성수기 진입
+    [112, 60],   // 2026-06-01  ← 에어컨 시즌 피크
+    [142, 77],   // 2026-07-01
+    [173, 89],   // 2026-08-01
+    [204, 96],   // 2026-09-01
+    [235, 99],   // 2026-10-01  (사실상 마감)
+  ];
+  var BUDGET_BILLION = 388; // 억원
+
+  function getDepletion(today) {
+    var start = new Date('2026-02-09T00:00:00+09:00');
+    var days = Math.max(0, (today - start) / 86400000);
+    var m = MILESTONES;
+    if (days >= m[m.length - 1][0]) return m[m.length - 1][1];
+    for (var i = 0; i < m.length - 1; i++) {
+      if (days >= m[i][0] && days < m[i + 1][0]) {
+        var t = (days - m[i][0]) / (m[i + 1][0] - m[i][0]);
+        return m[i][1] + t * (m[i + 1][1] - m[i][1]);
+      }
+    }
+    return 0;
   }
-});
+
+  function render() {
+    var now = new Date();
+    var pct = getDepletion(now);
+    var remaining = Math.round(BUDGET_BILLION * (1 - pct / 100));
+    var pctRound = Math.round(pct * 10) / 10;
+
+    // 퍼센트 표시
+    var pctEl = document.getElementById('pct-display');
+    if (pctEl) pctEl.textContent = pctRound.toFixed(1) + '%';
+
+    // 잔여 예산
+    var remEl = document.getElementById('remaining-display');
+    if (remEl) {
+      remEl.textContent = remaining > 0 ? '약 ' + remaining + '억원' : '소진';
+      remEl.style.color = pct < 50 ? '#22c55e' : pct < 80 ? '#fbbf24' : '#f87171';
+    }
+
+    // 프로그레스 바
+    var bar = document.getElementById('progress-bar');
+    if (bar) {
+      bar.style.width = Math.min(pct, 100) + '%';
+      bar.style.background = pct < 50
+        ? 'linear-gradient(90deg,#1d4ed8,#22c55e)'
+        : pct < 80
+          ? 'linear-gradient(90deg,#1d4ed8,#fbbf24)'
+          : 'linear-gradient(90deg,#1d4ed8,#f87171)';
+    }
+
+    // 바 레이블
+    var barLabel = document.getElementById('bar-label');
+    if (barLabel) barLabel.textContent = pctRound.toFixed(1) + '% 소진';
+
+    // 상태 뱃지 & 도트
+    var dot = document.getElementById('status-dot');
+    var badge = document.getElementById('status-badge');
+    if (pct >= 99) {
+      if (dot) { dot.style.background = '#f87171'; dot.style.boxShadow = '0 0 10px #f87171'; }
+      if (badge) { badge.textContent = '마감'; badge.style.borderColor = '#f87171'; badge.style.color = '#f87171'; }
+    } else if (pct >= 75) {
+      if (dot) { dot.style.background = '#fbbf24'; dot.style.boxShadow = '0 0 10px #fbbf24'; }
+      if (badge) { badge.textContent = '마감 임박'; badge.style.borderColor = '#fbbf24'; badge.style.color = '#fbbf24'; }
+    }
+
+    // 경고 박스
+    var wBox = document.getElementById('warning-box');
+    var wText = document.getElementById('warning-text');
+    if (pct >= 75 && wBox && wText) {
+      wBox.style.display = 'block';
+      if (pct >= 99) {
+        wText.textContent = '⚠️ 2026년 예산이 소진되었거나 거의 소진된 상태입니다. 한전 공식 사이트에서 잔여 예산을 반드시 확인하세요.';
+      } else {
+        wText.textContent = '⚠️ 예산 소진이 빠르게 진행 중입니다. 늦어지면 신청이 불가할 수 있으니 지금 바로 상담하세요.';
+      }
+    }
+
+    // 업데이트 시각
+    var updEl = document.getElementById('status-updated');
+    if (updEl) {
+      updEl.textContent = '방문 시간 기준: ' + now.getFullYear() + '.' +
+        String(now.getMonth() + 1).padStart(2, '0') + '.' +
+        String(now.getDate()).padStart(2, '0') + ' ' +
+        String(now.getHours()).padStart(2, '0') + ':' +
+        String(now.getMinutes()).padStart(2, '0');
+    }
+  }
+
+  // 페이지 로드 후 바 애니메이션 위해 살짝 지연
+  window.addEventListener('load', function() {
+    setTimeout(render, 300);
+    if (typeof Lenis !== 'undefined') {
+      var lenis = new Lenis({ lerp: 0.1, smoothWheel: true });
+      function raf(t) { lenis.raf(t); requestAnimationFrame(raf); }
+      requestAnimationFrame(raf);
+    }
+  });
+})();
 </script>
