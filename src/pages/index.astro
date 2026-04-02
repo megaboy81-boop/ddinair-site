@@ -16,7 +16,7 @@ const storyPanels = [
     isHero: true,
   },
   {
-    bg: `${base}/images/bg/h2.jpg`,
+    bg: `${base}/images/bg/h1_cand1.jpg`,
     eyebrow: 'System AC Installation',
     title: '시스템에어컨\n직영 시공',
     desc: '천장형 4WAY·스탠드·벽걸이 전 기종 설치. LG·삼성·캐리어·위니아 전 브랜드 취급. 자체 기술팀 직영시공으로 책임 시공을 보장합니다.',
@@ -24,7 +24,7 @@ const storyPanels = [
     statLabel: '시공 실적',
   },
   {
-    bg: `${base}/images/bg/h3.jpg`,
+    bg: `${base}/images/bg/h2.jpg`,
     eyebrow: 'Repair · Relocation · Gas Charge',
     title: '수리·\n이전설치',
     desc: '냉매충전, 부품 교체, 소음·누수 원인 정밀 진단. 이전설치 시 배관 재정리·드레인 레벨링까지 원스톱 처리.',
@@ -32,7 +32,7 @@ const storyPanels = [
     statLabel: 'AS 보장',
   },
   {
-    bg: `${base}/images/bg/h4.jpg`,
+    bg: `${base}/images/bg/h1_bedroom_ac.jpg`,
     eyebrow: 'Same-Day Field Service',
     title: '당일\n출장 가능',
     desc: '남양주·구리·하남·의정부·수원·용인 등 경기 전역. 전화 한 통으로 당일 연결. 이전설치·배관 정리·냉매 충전 현장 즉시 처리.',
@@ -87,11 +87,19 @@ const stats = [
 
 <!-- ══════ 스크롤 스토리텔링 배경 (데스크탑) ════════════════════════════ -->
 <div id="story-fixed-bg" style="position:fixed;inset:0;z-index:0;pointer-events:none;display:none;">
-  {storyPanels.map((panel, i) => (
+  <!-- 히어로 패널 0: 비디오 프레임 캔버스 -->
+  <canvas
+    id="hero-canvas"
+    class="story-bg-slide"
+    data-index="0"
+    style="position:absolute;inset:0;width:100%;height:100%;opacity:1;transition:opacity 1s ease;"
+  ></canvas>
+  <!-- 패널 1–3: 일반 배경 이미지 -->
+  {storyPanels.slice(1).map((panel, i) => (
     <div
       class="story-bg-slide"
-      data-index={i}
-      style={`position:absolute;inset:0;background-image:url('${panel.bg}');background-size:cover;background-position:center top;opacity:${i===0?1:0};transition:opacity 1s ease;`}
+      data-index={i + 1}
+      style={`position:absolute;inset:0;background-image:url('${panel.bg}');background-size:cover;background-position:center top;opacity:0;transition:opacity 1s ease;`}
     ></div>
   ))}
   <!-- 다층 오버레이 -->
@@ -529,11 +537,9 @@ const stats = [
       const heroTitle = document.getElementById('hero-title');
       if (!heroTitle) return;
 
-      // overflow:hidden 래퍼 → visible
       heroTitle.querySelectorAll('div').forEach((d: any) => { d.style.overflow = 'visible'; });
       heroTitle.style.overflow = 'visible';
 
-      // 각 span의 텍스트를 개별 <span class=sc>글자</span> 로 분리
       const spans = heroTitle.querySelectorAll<HTMLElement>('span.title-slide-up');
       const allChars: HTMLElement[] = [];
 
@@ -553,7 +559,6 @@ const stats = [
 
       if (!allChars.length) return;
 
-      // 랜덤값 미리 계산 (gsap function 형태로 scrub에 안정적)
       const rx = allChars.map(() => (Math.random() - 0.5) * window.innerWidth * 2.6);
       const ry = allChars.map(() => (Math.random() - 0.5) * window.innerHeight * 2.6);
       const rr = allChars.map(() => Math.random() * 720 - 360);
@@ -578,7 +583,62 @@ const stats = [
         },
       });
     })();
-    // ────────────────────────────────────────────────────────────────────────
+
+    // ── 히어로 캔버스 스크롤 프레임 애니메이션 ─────────────────────────────
+    const heroCanvas = document.getElementById('hero-canvas') as HTMLCanvasElement | null;
+    if (heroCanvas && window.innerWidth > 900) {
+      const ctx = heroCanvas.getContext('2d')!;
+      const FRAME_COUNT = 100;
+      const siteBase = document.querySelector('meta[name="site-base"]')?.getAttribute('content') || '';
+      const frames: HTMLImageElement[] = new Array(FRAME_COUNT);
+      let currentFrame = 0;
+
+      function resizeCanvas() {
+        heroCanvas.width = window.innerWidth;
+        heroCanvas.height = window.innerHeight;
+        drawFrame(currentFrame);
+      }
+
+      function drawFrame(idx: number) {
+        const img = frames[idx];
+        if (!img?.complete || !img.naturalWidth) return;
+        const W = heroCanvas.width, H = heroCanvas.height;
+        const scale = Math.max(W / img.naturalWidth, H / img.naturalHeight);
+        const x = (W - img.naturalWidth * scale) / 2;
+        const y = (H - img.naturalHeight * scale) / 2;
+        ctx.clearRect(0, 0, W, H);
+        ctx.drawImage(img, x, y, img.naturalWidth * scale, img.naturalHeight * scale);
+      }
+
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+
+      for (let i = 0; i < FRAME_COUNT; i++) {
+        const img = new Image();
+        img.src = `${siteBase}/images/hero-frames/frame_${String(i + 1).padStart(3, '0')}.webp`;
+        img.onload = () => { if (i === 0) { resizeCanvas(); } };
+        frames[i] = img;
+      }
+
+      const scrubObj = { frame: 0 };
+      gsap.to(scrubObj, {
+        frame: FRAME_COUNT - 1,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '.story-panel[data-index="0"]',
+          start: 'top top',
+          end: 'bottom top',
+          scrub: 0.5,
+        },
+        onUpdate() {
+          const f = Math.round(scrubObj.frame);
+          if (f !== currentFrame) {
+            currentFrame = f;
+            drawFrame(f);
+          }
+        },
+      });
+    }
 
     ScrollTrigger.refresh();
   });
