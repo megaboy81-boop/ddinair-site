@@ -6,8 +6,8 @@ export interface Props {
   ogImage?: string;
 }
 const {
-  title = 'DD에어컨 | 남양주 에어컨 전문 설치·판매·청소',
-  description = '남양주·다산신도시 에어컨 전문 업체 DD에어컨. 천장형 4WAY·스탠드·벽걸이 설치, 에어컨 청소·수리·이전. 당일 출장 가능. 70건+ 시공 실적.',
+  title = '디디에어컨 | 남양주 에어컨 설치·판매·수리 전문',
+  description = '남양주·다산신도시 에어컨 전문 설치 업체. 천장형 4WAY·스탠드·벽걸이 설치, 에어컨 수리·이전. 당일 출장 가능. 70건+ 시공 실적.',
   ogImage = '/images/bg/h1.jpg'
 } = Astro.props;
 const canonicalURL = Astro.site ? new URL(Astro.url.pathname, Astro.site) : null;
@@ -60,300 +60,223 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
   <link rel='preconnect' href='https://fonts.googleapis.com' />
   <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin />
-  <link href='https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Black+Han+Sans&family=Bebas+Neue&display=swap' rel='stylesheet' />
+  <link href='https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap' rel='stylesheet' />
   <link rel='stylesheet' href='https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css' />
-  <!-- CDN — GSAP + Lenis + SplitType -->
-  <Fragment set:html={'<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"><\/script><script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"><\/script><script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"><\/script><script src="https://unpkg.com/split-type@0.3.4/umd/index.min.js"><\/script>'} />
+  <!-- CDN — GSAP + Lenis -->
+  <Fragment set:html={'<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"><\/script><script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"><\/script><script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"><\/script>'} />
 
   <style is:global>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --bg: #fafafa;
-      --bg2: #ffffff;
-      --text: #09090b;
-      --text-muted: #71717a;
-      --text-light: #a1a1aa;
-      --border: #e4e4e7;
-      --surface: #f4f4f5;
-      /* keep for hero/dark sections */
-      --dark: #09090b;
-      --dark2: #18181b;
-      /* blue accents */
-      --blue: #2563eb;
-      --blue-deep: #1d4ed8;
-      --blue-light: #93c5fd;
-      --blue-glow: rgba(37,99,235,0.12);
-      /* keep cream */
-      --cream: #f0f4f8;
-      --black: #09090b;
-    }
     html { scroll-behavior: auto; }
     body {
       font-family: 'Pretendard Variable','Pretendard',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
-      background: var(--bg);
-      color: var(--text);
+      background: #ffffff;
+      color: #09090b;
       overflow-x: hidden;
     }
     .font-display { font-family: 'Cormorant Garamond', Georgia, serif; }
-    .font-impact { font-family: 'Black Han Sans', 'Pretendard Variable', sans-serif; }
-    .font-bebas { font-family: 'Bebas Neue', 'Cormorant Garamond', serif; }
-    .blue-gradient {
-      background: linear-gradient(90deg, var(--blue), var(--blue-light), var(--blue));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    }
-    .section-label {
-      display: block; font-size: 10px; letter-spacing: 0.5em; text-transform: uppercase;
-      color: var(--text-light); margin-bottom: 16px;
-    }
-    .section-label-blue { color: var(--blue); }
-    .section-divider {
-      width: 40px; height: 1px;
-      background: var(--border);
-      margin: 20px auto;
-    }
-    .btn-primary {
-      display: inline-block;
-      background: var(--dark);
-      color: white; padding: 16px 40px;
-      font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase;
-      text-decoration: none; transition: all 0.3s ease; border: none; cursor: pointer;
-      font-family: inherit; position: relative; overflow: hidden;
-    }
-    .btn-primary::after {
-      content:''; position:absolute; inset:0;
-      background: linear-gradient(135deg,rgba(255,255,255,0.15),transparent);
-      opacity:0; transition: opacity 0.3s;
-    }
-    .btn-primary:hover::after { opacity:1; }
-    .btn-primary:hover { box-shadow: 0 16px 40px rgba(0,0,0,0.2); }
-    .btn-outline {
-      display: inline-block; border: 1px solid rgba(255,255,255,0.45);
-      color: rgba(255,255,255,0.85); padding: 16px 40px;
-      font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase;
-      text-decoration: none; transition: all 0.3s;
-    }
-    .btn-outline:hover { border-color: white; color: white; background: rgba(255,255,255,0.06); }
-    .btn-outline-dark {
-      display: inline-block; border: 1px solid var(--border);
-      color: var(--text-muted); padding: 16px 40px;
-      font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase;
-      text-decoration: none; transition: all 0.3s;
-    }
-    .btn-outline-dark:hover { border-color: var(--text-muted); color: var(--text); }
-    .btn-blue {
-      display: inline-block; border: 1px solid rgba(37,99,235,0.4); color: var(--blue);
-      padding: 16px 40px; font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase;
-      text-decoration: none; transition: all 0.3s; background: transparent;
-    }
-    .btn-blue:hover { background: rgba(37,99,235,0.06); border-color: var(--blue); }
 
-    /* ── 마키 ── */
-    .marquee-outer { overflow: hidden; background: var(--dark2); border-top: 1px solid rgba(79,195,247,0.08); border-bottom: 1px solid rgba(79,195,247,0.08); }
-    .marquee-track { display: flex; white-space: nowrap; animation: marqueeAnim 28s linear infinite; }
-    .marquee-item { font-family: 'Cormorant Garamond',serif; font-size: 13px; font-style: italic; letter-spacing: 0.3em; color: rgba(79,195,247,0.5); padding: 13px 36px; flex-shrink: 0; }
-    @keyframes marqueeAnim { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-
-    /* ── 네비 ── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      padding: 20px 8vw;
+    /* ── Header/Nav (NOVA style) ── */
+    header#main-header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+      padding: 20px 48px;
       display: flex; align-items: center; justify-content: space-between;
-      transition: background 0.5s ease, padding 0.3s ease;
+      transition: background 0.3s ease, border-color 0.3s ease;
+      border-bottom: 1px solid transparent;
+      color: white;
     }
-    nav.scrolled {
-      background: rgba(250,250,250,0.95);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      padding: 14px 8vw;
-      border-bottom: 1px solid var(--border);
+    header#main-header.scrolled {
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom-color: #e4e4e7;
+      color: #09090b;
     }
-    .nav-logo {
-      display: flex; align-items: center; gap: 10px;
-      text-decoration: none; color: white;
+    .header-logo {
+      font-size: 22px; font-weight: 900; letter-spacing: -0.04em;
+      text-decoration: none; color: inherit; transition: color 0.3s;
     }
-    .nav-logo img { height: 40px; width: auto; object-fit: contain; filter: drop-shadow(0 0 8px rgba(79,195,247,0.3)); }
-    .nav-logo span { font-size: 15px; font-weight: 600; letter-spacing: 0.05em; color: white; }
-    .nav-links { display: flex; gap: 36px; list-style: none; }
-    .nav-links a {
-      text-decoration: none; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
-      color: rgba(255,255,255,0.8); transition: color 0.3s;
+    .header-nav {
+      display: none;
     }
-    .nav-links a:hover, .nav-links a.active { color: white; }
-    .nav-cta {
-      font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
-      text-decoration: none; color: rgba(255,255,255,0.9);
-      border: 1px solid rgba(255,255,255,0.4); padding: 9px 22px;
-      transition: all 0.3s;
+    @media (min-width: 768px) {
+      .header-nav {
+        display: flex; gap: 40px; list-style: none; align-items: center;
+      }
     }
-    .nav-cta:hover { background: rgba(255,255,255,0.1); border-color: white; }
-    /* scrolled state — dark text */
-    nav.scrolled .nav-links a { color: var(--text-muted); }
-    nav.scrolled .nav-links a:hover, nav.scrolled .nav-links a.active { color: var(--text); }
-    nav.scrolled .nav-cta { color: var(--blue); border-color: rgba(37,99,235,0.4); }
-    nav.scrolled .nav-cta:hover { background: rgba(37,99,235,0.06); border-color: var(--blue); }
-    nav.scrolled .nav-logo span { color: var(--text); }
-    nav.scrolled .nav-hamburger span { background: var(--text); }
-    .nav-hamburger {
-      display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px;
+    .header-nav a {
+      font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+      text-decoration: none; color: inherit; opacity: 0.8;
+      transition: opacity 0.2s;
     }
-    .nav-hamburger span { display: block; width: 24px; height: 1.5px; background: white; transition: all 0.3s; }
+    .header-nav a:hover { opacity: 1; }
+    .header-cta {
+      display: none;
+      font-size: 13px; font-weight: 600; letter-spacing: 0.08em;
+      text-decoration: none; color: inherit; opacity: 0.8; transition: opacity 0.2s;
+    }
+    @media (min-width: 768px) { .header-cta { display: block; } }
+    .header-cta:hover { opacity: 1; }
+    .header-hamburger {
+      display: flex; flex-direction: column; gap: 5px; cursor: pointer;
+      background: none; border: none; padding: 4px;
+    }
+    @media (min-width: 768px) { .header-hamburger { display: none; } }
+    .header-hamburger span {
+      display: block; width: 24px; height: 1.5px;
+      background: currentColor; transition: all 0.3s;
+    }
 
-    /* ── 모바일 메뉴 ── */
+    /* ── Mobile Nav Overlay ── */
     .nav-mobile {
-      display: none; position: fixed; inset: 0; z-index: 99;
-      background: rgba(5,9,15,0.97); backdrop-filter: blur(20px);
-      flex-direction: column; align-items: center; justify-content: center; gap: 36px;
+      display: none; position: fixed; inset: 0; z-index: 49;
+      background: rgba(255,255,255,0.98); backdrop-filter: blur(20px);
+      flex-direction: column; align-items: center; justify-content: center; gap: 32px;
     }
     .nav-mobile.open { display: flex; }
     .nav-mobile a {
-      font-size: 20px; letter-spacing: 0.15em; text-transform: uppercase;
-      text-decoration: none; color: rgba(255,255,255,0.8); transition: color 0.2s;
+      font-size: 22px; font-weight: 700; letter-spacing: -0.02em;
+      text-decoration: none; color: #09090b; transition: color 0.2s;
     }
-    .nav-mobile a:hover { color: var(--blue); }
+    .nav-mobile a:hover { color: #71717a; }
 
-    /* ── 갤러리 그리드 ── */
-    .hgal-item { position: relative; aspect-ratio: 4/3; overflow: hidden; }
-    .hgal-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; display: block; }
-    .hgal-item:hover img { transform: scale(1.06); }
-    .hgal-label { position: absolute; bottom: 0; left: 0; right: 0; padding: 12px 14px; background: linear-gradient(to top, rgba(5,9,15,0.85), transparent); color: rgba(255,255,255,0.8); font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase; transform: translateY(4px); opacity: 0; transition: all 0.3s; }
-    .hgal-item:hover .hgal-label { opacity: 1; transform: translateY(0); }
-    @media (max-width: 768px) {
-      .hgal-item { aspect-ratio: 1/1; }
+    /* ── Buttons (NOVA style) ── */
+    .btn-dark {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #09090b; color: white;
+      padding: 14px 28px; border-radius: 9999px;
+      font-size: 13px; font-weight: 600; letter-spacing: 0.04em;
+      text-decoration: none; border: none; cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
     }
+    .btn-dark:hover { background: #27272a; transform: translateY(-1px); }
 
-    /* ── Stats ── */
-    .stat-item { text-align: center; padding: 40px 20px; position: relative; }
-    .stat-item + .stat-item::before {
-      content:''; position:absolute; left:0; top:50%; transform:translateY(-50%);
-      width:1px; height:40px; background:rgba(0,0,0,0.1);
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: transparent; color: inherit;
+      padding: 14px 28px; border-radius: 9999px;
+      font-size: 13px; font-weight: 600; letter-spacing: 0.04em;
+      text-decoration: none; border: 1px solid rgba(255,255,255,0.3); cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
     }
-    .stat-num {
-      font-family: 'Cormorant Garamond',serif;
-      font-size: clamp(52px, 8vw, 80px);
-      font-weight: 300;
-      background: linear-gradient(135deg, var(--text), var(--text-muted));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-      line-height: 1; display: block;
-    }
-    .stat-label {
-      font-size: 10px; letter-spacing: 0.4em; text-transform: uppercase;
-      color: var(--text-light); margin-top: 10px; display: block;
-    }
+    .btn-outline:hover { border-color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.08); }
 
-    /* ── 리뷰 카드 ── */
-    .review-card {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      padding: 36px;
-      transition: border-color 0.4s, background 0.4s, box-shadow 0.4s;
-      opacity: 0; transform: translateY(40px);
+    .btn-outline-dark {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: transparent; color: #09090b;
+      padding: 14px 28px; border-radius: 9999px;
+      font-size: 13px; font-weight: 600; letter-spacing: 0.04em;
+      text-decoration: none; border: 1px solid #e4e4e7; cursor: pointer;
+      transition: border-color 0.2s;
     }
-    .review-card:hover {
-      border-color: var(--blue);
-      background: var(--bg2);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    .btn-outline-dark:hover { border-color: #09090b; }
+
+    /* ── Section common ── */
+    .section-container { max-width: 1400px; margin: 0 auto; }
+    .section-label-sm {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase;
+      color: #a1a1aa; display: block; margin-bottom: 12px;
     }
+    .section-label-sm.light { color: rgba(255,255,255,0.5); }
 
-    /* ── GSAP 애니메이션 초기 상태 ── */
-    .gsap-fade { opacity: 0; transform: translateY(30px); }
-    .gsap-fade-left { opacity: 0; transform: translateX(-30px); }
-    .clip-reveal { clip-path: inset(0 100% 0 0); }
-    .char { display: inline-block; }
-    .magnetic { transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.3s; }
-
-    /* ── 히어로 타이틀 애니메이션 ── */
-    .title-slide-up {
-      transform: translateY(110%);
-      animation: titleSlideUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    /* ── Cards ── */
+    .card-image-wrap {
+      position: relative; overflow: hidden; border-radius: 16px; background: #f4f4f5;
     }
-    @keyframes titleSlideUp { to { transform: translateY(0); } }
-
-    /* ── 스크롤 유도 바운스 ── */
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(6px); }
+    .card-image-wrap img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.6s ease;
     }
+    .card-image-wrap:hover img { transform: scale(1.04); }
 
-    /* ── 푸터 ── */
-    footer {
-      background: var(--dark2);
+    /* ── Reveal animations ── */
+    .reveal { opacity: 0; transform: translateY(24px); }
+    .reveal-left { opacity: 0; transform: translateX(-40px); }
+    .reveal-scale { opacity: 0; transform: scale(0.95); }
+
+    /* ── Stats (dark section) ── */
+    .stat-row {
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding: 32px 0;
+      display: flex; justify-content: space-between; align-items: center;
+      transition: border-color 0.3s; cursor: default;
+    }
+    .stat-row:hover { border-bottom-color: rgba(255,255,255,0.4); }
+
+    /* ── Marquee ── */
+    .marquee-outer {
+      overflow: hidden; background: #09090b;
       border-top: 1px solid rgba(255,255,255,0.06);
-      padding: 60px 8vw 40px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
     }
-    footer a { color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.3s; }
-    footer a:hover { color: var(--blue); }
-    .footer-inner {
-      max-width: 1100px; margin: 0 auto;
-      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px; margin-bottom: 50px;
+    .marquee-track { display: flex; white-space: nowrap; animation: marqueeAnim 30s linear infinite; }
+    .marquee-item {
+      font-family: 'Cormorant Garamond', serif; font-size: 13px; font-style: italic;
+      letter-spacing: 0.3em; color: rgba(255,255,255,0.4); padding: 14px 40px; flex-shrink: 0;
     }
-    .footer-logo { font-family: 'Cormorant Garamond',serif; font-size: 24px; font-weight: 300; color: white; margin-bottom: 12px; }
-    .footer-desc { font-size: 13px; color: rgba(255,255,255,0.4); line-height: 1.8; }
-    .footer-heading { font-size: 10px; letter-spacing: 0.4em; text-transform: uppercase; color: var(--blue); margin-bottom: 16px; }
-    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-    .footer-links a { font-size: 13px; }
-    .footer-bottom {
-      max-width: 1100px; margin: 0 auto;
-      padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.06);
-      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
-    }
-    .footer-copy { font-size: 11px; color: rgba(255,255,255,0.25); }
+    @keyframes marqueeAnim { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-    /* ── 플로팅 CTA ── */
+    /* ── Float CTA ── */
     .float-cta {
       position: fixed; bottom: 28px; right: 24px; z-index: 200;
       display: flex; flex-direction: column; align-items: flex-end; gap: 10px;
     }
     .float-btn {
-      width: 52px; height: 52px; border-radius: 50%;
+      width: 50px; height: 50px; border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
       text-decoration: none; transition: all 0.3s;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
     }
-    .float-tel { background: linear-gradient(135deg, var(--blue-deep), #0D47A1); }
-    .float-tel:hover { transform: scale(1.1); box-shadow: 0 12px 32px rgba(79,195,247,0.4); }
-    .float-blog { background: #03C75A; }
-    .float-blog:hover { transform: scale(1.1); }
+    .float-btn:hover { transform: scale(1.1); }
 
-    /* ── 모바일 bg show ── */
-    @media (max-width: 900px) {
-      .mobile-bg { display: block !important; }
+    /* ── Footer ── */
+    footer {
+      background: #ffffff;
+      border-top: 1px solid #e4e4e7;
+      padding: 80px 48px 40px;
     }
+    .footer-grid {
+      max-width: 1400px; margin: 0 auto;
+      display: grid; grid-template-columns: 3fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 60px;
+    }
+    .footer-logo { font-size: 22px; font-weight: 900; letter-spacing: -0.04em; color: #09090b; margin-bottom: 12px; }
+    .footer-desc { font-size: 13px; color: #71717a; line-height: 1.8; }
+    .footer-heading { font-size: 11px; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: #09090b; margin-bottom: 16px; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a { font-size: 13px; color: #71717a; text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: #09090b; }
+    .footer-bottom {
+      max-width: 1400px; margin: 0 auto;
+      padding-top: 24px; border-top: 1px solid #e4e4e7;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+    }
+    .footer-copy { font-size: 11px; color: #a1a1aa; }
 
-    /* ── 반응형 ── */
+    /* ── Responsive ── */
     @media (max-width: 768px) {
-      .stats-grid { grid-template-columns: repeat(2,1fr) !important; }
-      .stats-grid .stat-item + .stat-item::before { display: none; }
-      .stats-grid .stat-item:nth-child(3),
-      .stats-grid .stat-item:nth-child(4) { border-top: 1px solid rgba(0,0,0,0.06); }
-      .gallery-grid { grid-template-columns: repeat(2,1fr) !important; grid-template-rows: auto !important; }
-      .nav-links, .nav-cta { display: none; }
-      .nav-hamburger { display: flex; }
-      .footer-inner { grid-template-columns: 1fr; gap: 32px; }
-      .stat-item + .stat-item::before { display: none; }
-      .stat-item { padding: 28px 16px; border-bottom: 1px solid rgba(0,0,0,0.06); }
+      header#main-header { padding: 16px 20px; }
+      footer { padding: 60px 20px 32px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
     }
   </style>
 </head>
 <body>
-  <!-- NAV -->
-  <nav id="main-nav">
-    <a href={`${base}/`} class="nav-logo">
-      <img src={`${base}/images/logo.png`} alt="DD에어컨 로고" />
-      <span>디디에어컨</span>
-    </a>
-    <ul class="nav-links">
-      <li><a href={`${base}/`}>홈</a></li>
+  <!-- HEADER -->
+  <header id="main-header">
+    <a href={`${base}/`} class="header-logo">디디에어컨</a>
+    <ul class="header-nav">
       <li><a href={`${base}/cases`}>시공사례</a></li>
       <li><a href={`${base}/pricing`}>설치비용</a></li>
       <li><a href={`${base}/info`}>에어컨정보</a></li>
-      <li><a href={`${base}/subsidy`} style="color:var(--blue);font-weight:600;">정부지원사업</a></li>
+      <li><a href={`${base}/subsidy`} style="color:#2563eb;opacity:1;">지원사업</a></li>
       <li><a href={`${base}/contact`}>상담신청</a></li>
     </ul>
-    <a href="tel:010-7237-2122" class="nav-cta">010-7237-2122</a>
-    <button class="nav-hamburger" id="hamburger" aria-label="메뉴 열기">
+    <a href="tel:010-7237-2122" class="header-cta">010-7237-2122</a>
+    <button class="header-hamburger" id="hamburger" aria-label="메뉴">
       <span></span><span></span><span></span>
     </button>
-  </nav>
+  </header>
 
   <!-- 모바일 메뉴 -->
   <div class="nav-mobile" id="mobile-nav">
@@ -361,9 +284,9 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     <a href={`${base}/cases`} onclick="closeMobileNav()">시공사례</a>
     <a href={`${base}/pricing`} onclick="closeMobileNav()">설치비용</a>
     <a href={`${base}/info`} onclick="closeMobileNav()">에어컨정보</a>
-    <a href={`${base}/subsidy`} onclick="closeMobileNav()" style="color:var(--blue);">정부지원사업</a>
+    <a href={`${base}/subsidy`} onclick="closeMobileNav()">지원사업</a>
     <a href={`${base}/contact`} onclick="closeMobileNav()">상담신청</a>
-    <a href="tel:010-7237-2122" style="color:var(--blue);font-size:22px;letter-spacing:0.1em;">010-7237-2122</a>
+    <a href="tel:010-7237-2122" onclick="closeMobileNav()" style="color:#2563eb;">010-7237-2122</a>
   </div>
 
   <slot />
@@ -371,39 +294,43 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   <!-- 플로팅 CTA -->
   <div class="float-cta">
     <a href="https://open.kakao.com/o/ddinair" target="_blank" rel="noopener" class="float-btn" style="background:#FEE500;" title="카카오톡 문의">
-      <svg width="22" height="22" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 3C7.03 3 3 6.36 3 10.5c0 2.7 1.67 5.07 4.2 6.53l-.88 3.28c-.08.29.22.52.48.36L11.07 18c.3.03.61.04.93.04 4.97 0 9-3.36 9-7.54C21 6.36 16.97 3 12 3z" fill="#3B1E1E"/>
-      </svg>
+      <svg width="20" height="20" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 5.85 2 10.6c0 2.956 1.768 5.558 4.444 7.18-.165.615-.597 2.23-.684 2.576-.108.432.158.426.332.31.136-.092 2.168-1.47 3.046-2.065.609.087 1.232.133 1.862.133 5.523 0 10-3.85 10-8.6C22 5.85 17.523 2 12 2z" fill="#3C1E1E"/></svg>
     </a>
-    <a href="https://blog.naver.com/ddinair" target="_blank" rel="noopener" class="float-btn float-blog" title="네이버 블로그">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
-        <path d="M16.273 12.845L7.376 0H0v24h7.727V11.155L16.624 24H24V0h-7.727z"/>
-      </svg>
+    <a href="https://blog.naver.com/ddinair" target="_blank" rel="noopener" class="float-btn" style="background:#03C75A;" title="네이버 블로그">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M16.273 12.845L7.376 0H0v24h7.727V11.155L16.624 24H24V0h-7.727z"/></svg>
     </a>
-    <a href="tel:010-7237-2122" class="float-btn float-tel" title="전화 문의">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-        <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.83 10.8 19.79 19.79 0 01.77 2.18 2 2 0 012.77 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.78a16 16 0 006.29 6.29l1.15-1.15a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
-      </svg>
+    <a href="tel:010-7237-2122" class="float-btn" style="background:#09090b;" title="전화 문의">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.83 10.8 19.79 19.79 0 01.77 2.18 2 2 0 012.77 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.78a16 16 0 006.29 6.29l1.15-1.15a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
     </a>
   </div>
 
+  <!-- FOOTER -->
   <footer>
-    <div class="footer-inner">
+    <div class="footer-grid">
       <div>
         <div class="footer-logo">디디에어컨</div>
         <p class="footer-desc">남양주·다산신도시 에어컨 전문<br/>설치·판매·수리·이전</p>
-        <p style="font-size:12px;color:rgba(255,255,255,0.3);margin-top:16px;line-height:1.8;">
-          경기도 남양주시 진건읍 고재로 186 1층<br/>
-          TEL: 010-7237-2122
+        <p style="font-size:12px;color:#a1a1aa;margin-top:16px;line-height:1.8;">
+          경기도 남양주시 진건읍 고재로 186 1층<br/>TEL: 010-7237-2122
         </p>
+        <div style="margin-top:20px;display:flex;gap:8px;">
+          <a href="https://blog.naver.com/ddinair" target="_blank" rel="noopener"
+             style="width:34px;height:34px;border-radius:50%;background:#f4f4f5;display:flex;align-items:center;justify-content:center;" title="네이버 블로그">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#09090b"><path d="M16.273 12.845L7.376 0H0v24h7.727V11.155L16.624 24H24V0h-7.727z"/></svg>
+          </a>
+          <a href="https://open.kakao.com/o/ddinair" target="_blank" rel="noopener"
+             style="width:34px;height:34px;border-radius:50%;background:#FEE500;display:flex;align-items:center;justify-content:center;" title="카카오톡">
+            <svg width="16" height="16" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 5.85 2 10.6c0 2.956 1.768 5.558 4.444 7.18-.165.615-.597 2.23-.684 2.576-.108.432.158.426.332.31.136-.092 2.168-1.47 3.046-2.065.609.087 1.232.133 1.862.133 5.523 0 10-3.85 10-8.6C22 5.85 17.523 2 12 2z" fill="#3C1E1E"/></svg>
+          </a>
+        </div>
       </div>
       <div>
         <div class="footer-heading">서비스</div>
         <ul class="footer-links">
-          <li><a href={`${base}/`}>시스템 에어컨 설치</a></li>
-          <li><a href={`${base}/`}>에어컨 수리·이전</a></li>
-          <li><a href={`${base}/`}>에어컨 이전설치</a></li>
           <li><a href={`${base}/cases`}>시공사례</a></li>
+          <li><a href={`${base}/pricing`}>설치비용</a></li>
+          <li><a href={`${base}/info`}>에어컨정보</a></li>
+          <li><a href={`${base}/subsidy`}>지원사업</a></li>
         </ul>
       </div>
       <div>
@@ -411,29 +338,17 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         <ul class="footer-links">
           <li><a href="https://blog.naver.com/ddinair" target="_blank" rel="noopener">네이버 블로그</a></li>
           <li><a href="https://map.naver.com/v5/search/DD에어컨" target="_blank" rel="noopener">네이버 플레이스</a></li>
-          <li><a href={`${base}/contact`}>서비스 신청</a></li>
+          <li><a href={`${base}/contact`}>상담신청</a></li>
         </ul>
-        <div style="margin-top:20px;">
-          <p style="font-size:10px;letter-spacing:0.3em;color:rgba(79,195,247,0.6);text-transform:uppercase;margin-bottom:8px;">서비스 권역</p>
-          <p style="font-size:12px;color:rgba(255,255,255,0.4);line-height:1.8;">
-            남양주 · 다산신도시 · 구리 · 하남<br/>의정부 · 노원 · 서울 전역
-          </p>
-        </div>
-        <div style="margin-top:24px;display:flex;gap:10px;align-items:center;">
-          <p style="font-size:10px;letter-spacing:0.3em;color:rgba(79,195,247,0.6);text-transform:uppercase;">소셜</p>
-          <a href="https://blog.naver.com/ddinair" target="_blank" rel="noopener"
-             style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:6px;background:#03C75A;" title="네이버 블로그">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
-              <path d="M16.273 12.845L7.376 0H0v24h7.727V11.155L16.624 24H24V0h-7.727z"/>
-            </svg>
-          </a>
-          <a href="tel:010-7237-2122"
-             style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:6px;background:#FEE500;" title="카카오톡 문의">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="#3C1E1E">
-              <path d="M12 2C6.477 2 2 5.85 2 10.6c0 2.956 1.768 5.558 4.444 7.18-.165.615-.597 2.23-.684 2.576-.108.432.158.426.332.31.136-.092 2.168-1.47 3.046-2.065.609.087 1.232.133 1.862.133 5.523 0 10-3.85 10-8.6C22 5.85 17.523 2 12 2z"/>
-            </svg>
-          </a>
-        </div>
+      </div>
+      <div>
+        <div class="footer-heading">권역</div>
+        <p style="font-size:13px;color:#71717a;line-height:2.2;">
+          남양주 · 다산신도시<br/>
+          구리 · 하남<br/>
+          의정부 · 노원<br/>
+          서울 전역
+        </p>
       </div>
     </div>
     <div class="footer-bottom">
@@ -443,21 +358,22 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   </footer>
 
   <script is:inline>
-    // Lenis smooth scroll (기본 raf — GSAP 페이지는 load 후 재연결)
+    // Lenis smooth scroll
     window.addEventListener('load', function() {
-      var LenisClass = window.Lenis;
-      if (!LenisClass || window.__lenis) return;
-      var lenis = new LenisClass({ lerp: 0.08, smoothWheel: true });
+      if (!window.Lenis || window.__lenis) return;
+      var lenis = new window.Lenis({ lerp: 0.08, smoothWheel: true });
       window.__lenis = lenis;
-      function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+      function raf(t) { lenis.raf(t); requestAnimationFrame(raf); }
       requestAnimationFrame(raf);
     });
 
-    // Nav 스크롤
-    const nav = document.getElementById('main-nav');
-    window.addEventListener('scroll', () => nav?.classList.toggle('scrolled', window.scrollY > 60), { passive: true });
+    // Header scroll
+    const header = document.getElementById('main-header');
+    window.addEventListener('scroll', () => {
+      header?.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
 
-    // 햄버거 메뉴
+    // Hamburger
     const hamburger = document.getElementById('hamburger');
     const mobileNav = document.getElementById('mobile-nav');
     hamburger?.addEventListener('click', () => {
@@ -465,19 +381,10 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
     });
     function closeMobileNav() {
-      mobileNav.classList.remove('open');
+      mobileNav?.classList.remove('open');
       document.body.style.overflow = '';
     }
     window.closeMobileNav = closeMobileNav;
-
-    // Active nav link
-    const currentPath = window.location.pathname;
-    document.querySelectorAll('.nav-links a').forEach(a => {
-      const href = a.getAttribute('href') || '';
-      if (href === currentPath || (href !== '/' && currentPath.includes(href.split('/').pop() || ''))) {
-        a.classList.add('active');
-      }
-    });
   </script>
 </body>
 </html>

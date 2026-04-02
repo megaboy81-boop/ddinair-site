@@ -1,604 +1,418 @@
 ---
 import Layout from '../layouts/Layout.astro';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-
 const title = '디디에어컨 | 남양주 에어컨 설치·판매·수리 전문';
 const description = '남양주·다산신도시 에어컨 전문 설치 업체. 천장형 4WAY·스탠드·벽걸이 설치, 에어컨 수리·이전. 당일 출장 가능. 70건+ 시공 실적.';
-
-const storyPanels = [
-  {
-    bg: `${base}/images/bg/h1.jpg`,
-    eyebrow: '남양주 시스템에어컨 전문 시공팀 · 자체 기술팀 직영',
-    title: '디디',
-    titleSub: '에어컨',
-    titleItalic: true,
-    desc: '정확한 설계 · 깔끔한 배관 · 섬세한 마감',
-    isHero: true,
-  },
-  {
-    bg: `${base}/images/bg/h2.jpg`,
-    eyebrow: 'Repair · Relocation · Gas Charge',
-    title: '수리·\n이전설치',
-    desc: '냉매충전, 부품 교체, 소음·누수 원인 정밀 진단. 이전설치 시 배관 재정리·드레인 레벨링까지 원스톱 처리.',
-    stat: '100%',
-    statLabel: 'AS 보장',
-  },
-  {
-    bg: `${base}/images/bg/h1_bedroom_ac.jpg`,
-    eyebrow: 'Same-Day Field Service',
-    title: '당일\n출장 가능',
-    desc: '남양주·구리·하남·의정부·수원·용인 등 경기 전역. 전화 한 통으로 당일 연결. 이전설치·배관 정리·냉매 충전 현장 즉시 처리.',
-    stat: '1일',
-    statLabel: '당일 출장',
-  },
-];
-
-const galleryItems = [
-  { src: `${base}/images/gallery/case01.jpg`, label: '요양병원 벽걸이 설치' },
-  { src: `${base}/images/gallery/case02.jpg`, label: '셀렉샵 4WAY 설치' },
-  { src: `${base}/images/gallery/case03.jpg`, label: '네일샵 4WAY 설치' },
-  { src: `${base}/images/gallery/case04.jpg`, label: '마포 4WAY 설치' },
-  { src: `${base}/images/gallery/case05.jpg`, label: '치과 4WAY 설치' },
-  { src: `${base}/images/gallery/case06.jpg`, label: '헤어샵 4WAY 설치' },
-  { src: `${base}/images/gallery/case07.jpg`, label: '관리실 스탠드 설치' },
-  { src: `${base}/images/gallery/case08.jpg`, label: '사무실 벽걸이 설치' },
-];
-
-const reviews = [
-  {
-    text: '천장형 4WAY 설치인데 배관 정리랑 마감이 정말 깔끔했어요. 개업 전 일정에 맞춰 당일 완료해 주셔서 감사합니다.',
-    name: '성수 셀렉샵 사장님',
-    date: '2026년 2월 시공',
-    img: `${base}/images/gallery/case02.jpg`,
-  },
-  {
-    text: '치과 특성상 환자 환경이 중요한데, 현장 진단부터 시공까지 전문적으로 처리해 주셨어요. 소음도 없고 마감도 완벽합니다.',
-    name: '강변 치과·피부과',
-    date: '2026년 2월 시공',
-    img: `${base}/images/gallery/case05.jpg`,
-  },
-  {
-    text: '이전설치라 걱정했는데 배관 재정리부터 냉매 충전까지 하루 만에 깔끔하게 끝냈습니다. 역시 전문 시공팀이네요.',
-    name: '수원 인계동 카페',
-    date: '2026년 1월 시공',
-    img: `${base}/images/gallery/case04.jpg`,
-  },
-];
-
-const stats = [
-  { num: 70,  suffix: '+',  label: '시공 실적' },
-  { num: 5,   suffix: '년+', label: '현장 경력' },
-  { num: 100, suffix: '%',  label: 'AS 보장'   },
-  { num: 1,   suffix: '일', label: '당일 출장'  },
-];
 ---
+
 <Layout title={title} description={description}>
 
-<!-- ══════ 파티클 캔버스 ══════════════════════════════════════════════════ -->
-<canvas id="particle-canvas" style="position:fixed;inset:0;z-index:1;pointer-events:none;opacity:0.5;"></canvas>
-
-<!-- ══════ 스크롤 스토리텔링 배경 (데스크탑) ════════════════════════════ -->
-<div id="story-fixed-bg" style="position:fixed;inset:0;z-index:0;pointer-events:none;display:none;">
-  <!-- 히어로 패널 0: 비디오 자동재생 + 스크롤 캔버스 오버레이 -->
-  <div id="hero-media" class="story-bg-slide" data-index="0" style="position:absolute;inset:0;opacity:1;transition:opacity 1s ease;">
-    <video
-      id="hero-video"
-      autoplay muted loop playsinline
-      style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"
-    >
+  <!-- ══════════════════════════════════════════
+       SECTION 1: HERO (full-screen dark, centered)
+  ══════════════════════════════════════════ -->
+  <section id="hero" style="position:relative;height:100dvh;min-height:600px;background:#09090b;overflow:hidden;display:flex;align-items:center;justify-content:center;">
+    <!-- bg video -->
+    <video id="hero-video" autoplay muted loop playsinline
+      style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.7;">
       <source src={`${base}/images/hero-bg.mp4`} type="video/mp4" />
     </video>
-    <canvas
-      id="hero-canvas"
-      style="position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity 0.4s ease;"
-    ></canvas>
-  </div>
-  <!-- 패널 1–3: 일반 배경 이미지 -->
-  {storyPanels.slice(1).map((panel, i) => (
-    <div
-      class="story-bg-slide"
-      data-index={i + 1}
-      style={`position:absolute;inset:0;background-image:url('${panel.bg}');background-size:cover;background-position:center top;opacity:0;transition:opacity 1s ease;`}
-    ></div>
-  ))}
-  <!-- 다층 오버레이 -->
-  <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(5,9,15,0.45) 0%,rgba(5,9,15,0.05) 40%,rgba(5,9,15,0.05) 60%,rgba(5,9,15,0.9) 100%);"></div>
-  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 40%,rgba(5,9,15,0.5) 100%);"></div>
-</div>
+    <!-- canvas overlay for WebP scroll animation -->
+    <canvas id="hero-canvas"
+      style="position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity 0.4s ease;"></canvas>
+    <!-- dark gradient overlay -->
+    <div style="position:absolute;inset:0;background:linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.5) 100%);z-index:1;"></div>
 
-<!-- ══════ 스크롤 스토리텔링 섹션들 ══════════════════════════════════════ -->
-<div id="story-container">
-
-  <!-- 패널 0: 히어로 -->
-  {storyPanels.slice(0, 1).map((panel, i) => (
-    <section
-      class="story-panel"
-      data-index={i}
-      style={`position:relative;height:100dvh;min-height:600px;display:flex;flex-direction:column;justify-content:flex-end;padding:0 8vw 12vh;z-index:2;`}
-    >
-      <!-- 모바일용 배경: 영상 자동재생 -->
-      <video class="mobile-bg" autoplay muted loop playsinline style="display:none;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;"><source src={`${base}/images/hero-bg.mp4`} type="video/mp4" /></video>
-      <div class="mobile-bg" style="display:none;position:absolute;inset:0;background:linear-gradient(to bottom,rgba(5,9,15,0.35) 0%,rgba(5,9,15,0.0) 35%,rgba(5,9,15,0.75) 85%,rgba(5,9,15,0.92) 100%);z-index:1;"></div>
-
-      <!-- 콘텐츠 -->
-      <div class={`story-content${i===0?' hero-content':''}`} style="position:relative;z-index:3;max-width:750px;">
-        {i === 0 ? (
-          <>
-            <!-- 아이브로우 라인 -->
-            <div id="hero-eyebrow" style="display:flex;align-items:center;gap:16px;margin-bottom:28px;overflow:hidden;">
-              <span id="eyebrow-line" style="display:block;height:1px;width:0;background:linear-gradient(90deg,transparent,rgba(79,195,247,0.6));transition:width 1.2s ease 0.5s;"></span>
-              <span style="font-size:10px;letter-spacing:0.55em;text-transform:uppercase;color:rgba(255,255,255,0.45);opacity:0;transition:opacity 0.8s ease 0.9s;" id="eyebrow-text">{panel.eyebrow}</span>
-            </div>
-            <!-- 히어로 타이틀 -->
-            <h1 id="hero-title" style="font-size:clamp(72px,13vw,160px);line-height:0.9;letter-spacing:-0.01em;margin-bottom:30px;">
-              <div style="overflow:hidden;display:block;">
-                <span class="title-slide-up font-impact" style="display:block;animation-delay:0.4s;color:white;">{panel.title}</span>
-              </div>
-              <div style="overflow:hidden;display:block;">
-                <span class="title-slide-up font-impact blue-gradient" style="display:block;animation-delay:0.65s;">{panel.titleSub}</span>
-              </div>
-            </h1>
-            <!-- 서브타이틀 -->
-            <p id="hero-sub" style="font-size:clamp(14px,1.8vw,19px);color:rgba(255,255,255,0.58);font-weight:300;letter-spacing:0.08em;margin-bottom:40px;opacity:0;transform:translateY(16px);">
-              {panel.desc}
-            </p>
-            <!-- CTA 버튼 -->
-            <div id="hero-cta" style="display:flex;gap:14px;flex-wrap:wrap;opacity:0;transform:translateY(16px);">
-              <a href={`${base}/contact`} class="btn-primary magnetic">서비스 신청하기</a>
-              <a href={`${base}/cases`} class="btn-outline magnetic">시공사례 보기</a>
-            </div>
-          </>
-        ) : (
-          <>
-            <p style="font-size:10px;letter-spacing:0.5em;text-transform:uppercase;color:rgba(79,195,247,0.75);margin-bottom:16px;">{panel.eyebrow}</p>
-            <div style="display:flex;align-items:flex-end;gap:28px;margin-bottom:20px;flex-wrap:wrap;">
-              <h2 class="font-display" style="font-size:clamp(44px,8vw,100px);font-weight:300;color:white;line-height:0.92;letter-spacing:0.02em;white-space:pre-line;">{panel.title}</h2>
-              {panel.stat && (
-                <div style="padding-bottom:8px;">
-                  <span class="font-display" style="font-size:clamp(36px,5vw,60px);font-weight:300;background:linear-gradient(90deg,#4FC3F7,#81D4FA);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;display:block;">{panel.stat}</span>
-                  <p style="font-size:9px;letter-spacing:0.45em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-top:5px;">{panel.statLabel}</p>
-                </div>
-              )}
-            </div>
-            <p style="font-size:clamp(14px,1.6vw,17px);color:rgba(255,255,255,0.55);font-weight:300;max-width:480px;line-height:1.75;">{panel.desc}</p>
-          </>
-        )}
-      </div>
-
-      <!-- 패널 번호 -->
-      <div style="position:absolute;bottom:40px;right:8vw;z-index:3;text-align:right;">
-        <p style="font-family:'Cormorant Garamond',serif;font-size:11px;color:rgba(255,255,255,0.25);letter-spacing:0.2em;">{String(i+1).padStart(2,'0')} / {String(storyPanels.length).padStart(2,'0')}</p>
-      </div>
-
-      <!-- 첫 패널 스크롤 유도 -->
-      {i === 0 && (
-        <div id="scroll-arrow" style="position:absolute;bottom:40px;left:50%;transform:translateX(-50%);z-index:3;display:flex;flex-direction:column;align-items:center;gap:8px;">
-          <span style="font-size:11px;letter-spacing:0.2em;color:rgba(255,255,255,0.45);font-family:'Pretendard Variable',sans-serif;">아래로 내려보세요</span>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(79,195,247,0.7)" stroke-width="1.5" style="animation:bounce 1.8s ease-in-out infinite;"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
-        </div>
-      )}
-    </section>
-  ))}
-
-  <!-- ══ 지원사업 배너 패널 (히어로 바로 뒤, 전체화면 덮기) ══ -->
-  <section
-    id="subsidy-panel"
-    style="position:relative;padding:56px 8vw;display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:2;overflow:hidden;text-align:center;"
-  >
-    <!-- 불투명 파란 배경 — 뒤의 fixed bg 이미지를 완전히 덮음 -->
-    <div style="position:absolute;inset:0;background:linear-gradient(135deg,#0D47A1 0%,#1565C0 45%,#1E88E5 100%);"></div>
-    <!-- 미묘한 격자 오버레이 -->
-    <div style="position:absolute;inset:0;opacity:0.04;background-image:repeating-linear-gradient(0deg,transparent,transparent 60px,rgba(255,255,255,0.5) 60px,rgba(255,255,255,0.5) 61px),repeating-linear-gradient(90deg,transparent,transparent 60px,rgba(255,255,255,0.5) 60px,rgba(255,255,255,0.5) 61px);"></div>
-    <!-- 장식 원 -->
-    <div style="position:absolute;top:-120px;left:-120px;width:400px;height:400px;border-radius:50%;background:rgba(255,255,255,0.04);pointer-events:none;"></div>
-    <div style="position:absolute;bottom:-160px;right:-160px;width:500px;height:500px;border-radius:50%;background:rgba(255,255,255,0.03);pointer-events:none;"></div>
-    <!-- 상단 라인 -->
-    <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.15),transparent);"></div>
-
-    <!-- 콘텐츠 (중앙 정렬) -->
-    <div style="max-width:800px;padding:0;position:relative;z-index:1;width:100%;text-align:center;">
-      <p id="sub-eyebrow" style="font-size:10px;letter-spacing:0.55em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-bottom:16px;opacity:0;transform:translateY(16px);">2026 KEPCO Support Program</p>
-
-      <!-- 타이틀 -->
-      <h2 id="sub-title" class="font-impact" style="font-size:clamp(32px,5.5vw,64px);color:white;line-height:1.1;letter-spacing:0.02em;margin-bottom:16px;opacity:0;transform:translateY(32px);">
-        한전 고효율기기 지원사업
-      </h2>
-
-      <!-- 구분선 -->
-      <div id="sub-line" style="width:0;height:1px;background:rgba(255,255,255,0.3);margin:0 auto 20px;"></div>
-
-      <!-- 설명 + 예산 가로 카드 -->
-      <div style="display:flex;gap:20px;align-items:stretch;justify-content:center;flex-wrap:wrap;margin-bottom:28px;">
-        <!-- 설명 텍스트 -->
-        <p id="sub-desc" style="font-size:clamp(14px,1.6vw,17px);color:rgba(255,255,255,0.75);font-weight:300;line-height:1.9;opacity:0;transform:translateY(20px);text-align:left;flex:1;min-width:200px;max-width:340px;">
-          1등급 에어컨 설치 시 구매가의<br/>
-          <strong style="color:#81D4FA;font-weight:600;">40% 현금 환급</strong> · <strong style="color:white;font-weight:600;">최대 160만원</strong>
-        </p>
-        <!-- 예산 현황 박스 -->
-        <div id="budget-box" style="flex:0 0 auto;min-width:200px;max-width:280px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.2);border-radius:4px;padding:18px 22px;opacity:0;transform:translateY(20px);text-align:left;">
-          <p style="font-size:9px;letter-spacing:0.4em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:10px;">예산 현황 · 실시간</p>
-          <div id="budget-loading" style="font-size:12px;color:rgba(255,255,255,0.4);">불러오는 중...</div>
-          <div id="budget-data" style="display:none;">
-            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;">
-              <span style="font-size:11px;color:rgba(255,255,255,0.6);">잔여예산</span>
-              <span id="budget-remaining" style="font-size:26px;font-family:'Cormorant Garamond',serif;font-weight:600;color:#81D4FA;line-height:1;">—%</span>
-            </div>
-            <div style="height:4px;background:rgba(255,255,255,0.15);border-radius:2px;overflow:hidden;margin-bottom:7px;">
-              <div id="budget-bar" style="height:100%;background:linear-gradient(90deg,#81D4FA,#4FC3F7);border-radius:2px;width:0%;transition:width 1.2s ease;"></div>
-            </div>
-            <div style="display:flex;justify-content:space-between;">
-              <span style="font-size:10px;color:rgba(255,255,255,0.4);">소진 <span id="budget-used">—</span>%</span>
-              <span id="budget-updated" style="font-size:9px;color:rgba(255,255,255,0.3);">—</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 버튼 -->
-      <div id="sub-btns" style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;opacity:0;transform:translateY(20px);">
-        <a href={`${base}/contact`}
-           style="display:inline-block;background:white;color:#1E88E5;padding:13px 36px;font-size:11px;letter-spacing:0.25em;text-transform:uppercase;text-decoration:none;font-family:inherit;transition:opacity 0.3s;"
-           onmouseover="this.style.opacity='0.88'" onmouseout="this.style.opacity='1'">지원금 신청하기</a>
-        <a href={`${base}/subsidy`}
-           style="display:inline-block;border:1px solid rgba(255,255,255,0.45);color:white;padding:13px 36px;font-size:11px;letter-spacing:0.25em;text-transform:uppercase;text-decoration:none;transition:all 0.3s;"
-           onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='transparent'">지원사업 안내</a>
+    <!-- centered content -->
+    <div id="hero-content" style="position:relative;z-index:2;text-align:center;padding:0 24px;max-width:900px;">
+      <!-- badge pill -->
+      <span id="hero-badge" style="display:inline-block;padding:6px 16px;border-radius:9999px;background:rgba(255,255,255,0.1);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.9);font-size:11px;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;margin-bottom:28px;opacity:0;transform:scale(0.95);">
+        남양주 에어컨 전문 시공팀
+      </span>
+      <!-- h1 -->
+      <h1 id="hero-h1" style="font-size:clamp(60px,11vw,140px);font-weight:900;letter-spacing:-0.03em;line-height:1;color:white;margin-bottom:24px;opacity:0;transform:translateY(30px);">
+        완벽한 설치<br/><span style="color:rgba(255,255,255,0.7);">디디에어컨</span>
+      </h1>
+      <!-- tagline -->
+      <p id="hero-p" style="font-size:clamp(15px,2vw,20px);color:rgba(255,255,255,0.7);font-weight:300;letter-spacing:0.02em;margin-bottom:40px;opacity:0;transform:translateY(20px);">
+        정확한 설계 · 깔끔한 배관 · 섬세한 마감
+      </p>
+      <!-- CTAs -->
+      <div id="hero-cta" style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;opacity:0;transform:translateY(20px);">
+        <a href={`${base}/contact`} class="btn-dark">상담신청 →</a>
+        <a href={`${base}/cases`} class="btn-outline">시공사례 보기</a>
       </div>
     </div>
 
+    <!-- scroll indicator -->
+    <div id="scroll-indicator" style="position:absolute;bottom:40px;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:10px;opacity:0;">
+      <span style="font-size:10px;letter-spacing:0.3em;color:rgba(255,255,255,0.4);text-transform:uppercase;">Scroll</span>
+      <div style="width:1px;height:40px;background:linear-gradient(to bottom,rgba(255,255,255,0.4),transparent);animation:scrollPulse 2s ease-in-out infinite;"></div>
+    </div>
   </section>
 
-  <!-- 패널 1–3: 나머지 스토리 패널 -->
-  {storyPanels.slice(1).map((panel, i) => (
-    <section
-      class="story-panel"
-      data-index={i + 1}
-      style={`position:relative;height:100dvh;min-height:600px;display:flex;flex-direction:column;justify-content:flex-end;padding:0 8vw 12vh;z-index:2;`}
-    >
-      <div class="mobile-bg" style={`display:none;position:absolute;inset:0;background-image:url('${panel.bg}');background-size:cover;background-position:center top;z-index:0;`}></div>
-      <div class="mobile-bg" style="display:none;position:absolute;inset:0;background:linear-gradient(to bottom,rgba(5,9,15,0.35) 0%,rgba(5,9,15,0.0) 35%,rgba(5,9,15,0.75) 85%,rgba(5,9,15,0.92) 100%);z-index:1;"></div>
-      <div class="story-content" style="position:relative;z-index:3;max-width:750px;">
-        <p style="font-size:10px;letter-spacing:0.5em;text-transform:uppercase;color:rgba(79,195,247,0.75);margin-bottom:16px;">{panel.eyebrow}</p>
-        <div style="display:flex;align-items:flex-end;gap:28px;margin-bottom:20px;flex-wrap:wrap;">
-          <h2 class="font-display" style="font-size:clamp(44px,8vw,100px);font-weight:300;color:white;line-height:0.92;letter-spacing:0.02em;white-space:pre-line;">{panel.title}</h2>
-          {panel.stat && (
-            <div style="padding-bottom:8px;">
-              <span class="font-display" style="font-size:clamp(36px,5vw,60px);font-weight:300;background:linear-gradient(90deg,#4FC3F7,#81D4FA);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;display:block;">{panel.stat}</span>
-              <p style="font-size:9px;letter-spacing:0.45em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-top:5px;">{panel.statLabel}</p>
-            </div>
-          )}
+  <!-- ══════════════════════════════════════════
+       SECTION 2: BRAND STORY (2-col text + image)
+  ══════════════════════════════════════════ -->
+  <section style="padding:128px 48px;background:#ffffff;">
+    <div class="section-container">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;" class="brand-grid">
+        <!-- text col -->
+        <div class="reveal-left">
+          <span class="section-label-sm">About DD에어컨</span>
+          <h2 style="font-size:clamp(36px,5vw,64px);font-weight:900;letter-spacing:-0.03em;line-height:1.1;margin-bottom:32px;color:#09090b;">
+            전문 기술팀<br/>직영 운영
+          </h2>
+          <p style="font-size:17px;color:#71717a;line-height:1.9;font-weight:300;margin-bottom:40px;">
+            디디에어컨은 남양주·다산신도시를 기반으로 한 에어컨 전문 직영 시공팀입니다.
+            천장형 4WAY 카세트부터 스탠드·벽걸이까지, 현장 진단부터 배관 정리·드레인 레벨링까지 원스톱으로 처리합니다.
+          </p>
+          <a href={`${base}/cases`} style="display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#09090b;text-decoration:none;padding-bottom:4px;border-bottom:2px solid #09090b;transition:opacity 0.2s;" onmouseover="this.style.opacity='0.5'" onmouseout="this.style.opacity='1'">
+            시공사례 보기 →
+          </a>
         </div>
-        <p style="font-size:clamp(14px,1.6vw,17px);color:rgba(255,255,255,0.55);font-weight:300;max-width:480px;line-height:1.75;">{panel.desc}</p>
-      </div>
-      <div style="position:absolute;bottom:40px;right:8vw;z-index:3;text-align:right;">
-        <p style="font-family:'Cormorant Garamond',serif;font-size:11px;color:rgba(255,255,255,0.25);letter-spacing:0.2em;">{String(i+2).padStart(2,'0')} / {String(storyPanels.length).padStart(2,'0')}</p>
-      </div>
-    </section>
-  ))}
-
-</div>
-
-<!-- ══════ STATS 섹션 ══════════════════════════════════════════════════════ -->
-<section id="stats-section" style="background:var(--bg2);position:relative;z-index:2;overflow:hidden;">
-  <div style="max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);position:relative;" class="stats-grid">
-    {stats.map((s) => (
-      <div class="stat-item">
-        <span class="stat-num counter-num" data-target={s.num} data-suffix={s.suffix}>0{s.suffix}</span>
-        <span class="stat-label">{s.label}</span>
-      </div>
-    ))}
-  </div>
-  <div style="position:absolute;top:0;left:0;right:0;height:1px;background:rgba(0,0,0,0.08);"></div>
-  <div style="position:absolute;bottom:0;left:0;right:0;height:1px;background:rgba(0,0,0,0.08);"></div>
-</section>
-
-<!-- ══════ MARQUEE ══════════════════════════════════════════════════════════ -->
-<div class="marquee-outer" style="position:relative;z-index:2;">
-  <div class="marquee-track">
-    {[1,2].map(() => (
-      ['DD에어컨','천장형 4WAY 전문','직영 시공팀','70건+ 시공','당일 출장 가능','이전설치 1등','NAMYANGJU HVAC','한전 지원사업 160만원'].map(t => (
-        <span class="marquee-item">{t} ·</span>
-      ))
-    ))}
-  </div>
-</div>
-
-<!-- ══════ 갤러리 섹션 ══════════════════════════════════════════════════════ -->
-<section style="background:var(--bg);padding:80px 0 60px;position:relative;z-index:2;">
-  <div style="max-width:1100px;margin:0 auto;padding:0 8vw;margin-bottom:40px;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;">
-    <div>
-      <span class="section-label gsap-fade">Installation Cases</span>
-      <h2 class="font-display gsap-fade" style="font-size:clamp(32px,5vw,56px);font-weight:300;color:var(--text);letter-spacing:0.04em;">시공 갤러리</h2>
-    </div>
-    <a href={`${base}/cases`} class="gsap-fade" style="font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:var(--text-muted);text-decoration:none;border-bottom:1px solid var(--border);padding-bottom:3px;transition:all 0.3s;white-space:nowrap;"
-       onmouseover="this.style.borderBottomColor='var(--text)';this.style.color='var(--text)';" onmouseout="this.style.borderBottomColor='var(--border)';this.style.color='var(--text-muted)';">
-      전체 갤러리 →
-    </a>
-  </div>
-  <div style="max-width:1100px;margin:0 auto;padding:0 8vw;display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(2,1fr);gap:4px;" class="gallery-grid">
-    {galleryItems.map((item) => (
-      <div class="hgal-item" style="width:100%;">
-        <img src={item.src} alt={`디디에어컨 ${item.label}`} loading="lazy" />
-        <div class="hgal-label">{item.label}</div>
-      </div>
-    ))}
-  </div>
-</section>
-
-
-<!-- ══════ 리뷰 ══════════════════════════════════════════════════════════════ -->
-<section style="background:var(--bg2);padding:80px 8vw 100px;position:relative;z-index:2;border-top:1px solid rgba(0,0,0,0.06);">
-  <div style="max-width:1100px;margin:0 auto;">
-    <div style="text-align:center;margin-bottom:60px;">
-      <span class="section-label gsap-fade">Customer Reviews</span>
-      <h2 class="font-display gsap-fade" style="font-size:clamp(30px,4vw,52px);font-weight:300;color:var(--text);letter-spacing:0.04em;">고객들의 이야기</h2>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;">
-      {reviews.map((rv, idx) => (
-        <div class="review-card" data-delay={idx * 0.15}>
-          <div style="font-family:'Cormorant Garamond',serif;font-size:60px;line-height:1;color:rgba(37,99,235,0.08);margin-bottom:14px;font-weight:300;">"</div>
-          <div style="display:flex;gap:2px;margin-bottom:18px;">
-            {'★★★★★'.split('').map(s => <span style="color:#2563eb;font-size:12px;">{s}</span>)}
+        <!-- image col -->
+        <div class="reveal-scale">
+          <div class="card-image-wrap" style="aspect-ratio:4/5;border-radius:24px;">
+            <img src={`${base}/images/bg/h1_bedroom_ac.jpg`} alt="에어컨 시공 현장" loading="lazy" />
           </div>
-          <p style="font-size:14px;line-height:1.85;color:var(--text-muted);font-weight:300;font-style:italic;margin-bottom:24px;">"{rv.text}"</p>
-          <div style="display:flex;align-items:center;gap:12px;border-top:1px solid rgba(0,0,0,0.06);padding-top:18px;">
-            <div style="width:40px;height:40px;border-radius:50%;overflow:hidden;flex-shrink:0;border:1px solid rgba(37,99,235,0.2);">
-              <img src={rv.img} alt="고객 시공사례" style="width:100%;height:100%;object-fit:cover;" loading="lazy" />
-            </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       SECTION 3: SERVICES (3-col × 2-row product grid)
+  ══════════════════════════════════════════ -->
+  <section style="padding:128px 48px;background:#ffffff;border-top:1px solid #f4f4f5;">
+    <div class="section-container">
+      <!-- section header -->
+      <div class="reveal" style="display:flex;flex-direction:row;justify-content:space-between;align-items:flex-end;margin-bottom:80px;gap:24px;flex-wrap:wrap;">
+        <div>
+          <h2 style="font-size:clamp(32px,4.5vw,56px);font-weight:900;letter-spacing:-0.03em;margin-bottom:8px;color:#09090b;">시공 서비스</h2>
+          <p style="font-size:16px;color:#71717a;">전문 직영팀의 에어컨 설치·수리·관리</p>
+        </div>
+        <a href={`${base}/cases`} class="btn-outline-dark" style="white-space:nowrap;">전체보기 →</a>
+      </div>
+
+      <!-- row 1 -->
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;" class="services-grid">
+        <!-- card 1 -->
+        <div class="reveal service-card" style="cursor:default;">
+          <div class="card-image-wrap" style="aspect-ratio:4/3;margin-bottom:20px;border-radius:16px;">
+            <img src={`${base}/images/gallery/case01.jpg`} alt="천장형 4WAY 시스템에어컨 설치" loading="lazy" />
+          </div>
+          <span style="font-size:11px;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:#a1a1aa;display:block;margin-bottom:8px;">System AC</span>
+          <h3 style="font-size:20px;font-weight:700;letter-spacing:-0.02em;margin-bottom:8px;color:#09090b;">천장형 4WAY 설치</h3>
+          <p style="font-size:14px;color:#71717a;line-height:1.7;">카세트형·덕트형 시스템에어컨 정밀 설계·시공. 배관 정리와 드레인 레벨링까지 완벽 처리.</p>
+        </div>
+        <!-- card 2 -->
+        <div class="reveal service-card" style="cursor:default;">
+          <div class="card-image-wrap" style="aspect-ratio:4/3;margin-bottom:20px;border-radius:16px;">
+            <img src={`${base}/images/gallery/case02.jpg`} alt="에어컨 수리 이전설치" loading="lazy" />
+          </div>
+          <span style="font-size:11px;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:#a1a1aa;display:block;margin-bottom:8px;">Repair · Relocation</span>
+          <h3 style="font-size:20px;font-weight:700;letter-spacing:-0.02em;margin-bottom:8px;color:#09090b;">수리·이전설치</h3>
+          <p style="font-size:14px;color:#71717a;line-height:1.7;">냉매충전, 소음·누수 정밀 진단, 이전설치 시 배관 재정리까지. 100% AS 보장.</p>
+        </div>
+        <!-- card 3 (한전 지원사업) -->
+        <div class="reveal service-card" style="cursor:default;">
+          <div class="card-image-wrap" style="aspect-ratio:4/3;margin-bottom:20px;border-radius:16px;">
+            <img src={`${base}/images/bg/h1.jpg`} alt="한전 고효율기기 지원사업" loading="lazy" />
+            <div style="position:absolute;top:12px;left:12px;padding:4px 10px;background:#09090b;color:white;font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;border-radius:4px;">지원금 160만원</div>
+          </div>
+          <span style="font-size:11px;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:#2563eb;display:block;margin-bottom:8px;">KEPCO 2026</span>
+          <h3 style="font-size:20px;font-weight:700;letter-spacing:-0.02em;margin-bottom:8px;color:#09090b;">한전 지원사업</h3>
+          <p style="font-size:14px;color:#71717a;line-height:1.7;">1등급 에어컨 설치 시 구매가의 40% 현금 환급. 최대 160만원 지원.</p>
+        </div>
+      </div>
+
+      <!-- row 2 -->
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:24px;" class="services-grid">
+        <div class="reveal service-card" style="cursor:default;">
+          <div class="card-image-wrap" style="aspect-ratio:4/3;margin-bottom:20px;border-radius:16px;">
+            <img src={`${base}/images/gallery/case05.jpg`} alt="당일 출장 서비스" loading="lazy" />
+          </div>
+          <span style="font-size:11px;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:#a1a1aa;display:block;margin-bottom:8px;">Same Day</span>
+          <h3 style="font-size:20px;font-weight:700;letter-spacing:-0.02em;margin-bottom:8px;color:#09090b;">당일 출장</h3>
+          <p style="font-size:14px;color:#71717a;line-height:1.7;">남양주·구리·하남·의정부 등 경기 전역 당일 출장. 전화 한 통으로 즉시 연결.</p>
+        </div>
+        <div class="reveal service-card" style="cursor:default;">
+          <div class="card-image-wrap" style="aspect-ratio:4/3;margin-bottom:20px;border-radius:16px;">
+            <img src={`${base}/images/gallery/case03.jpg`} alt="스탠드 벽걸이 에어컨 설치" loading="lazy" />
+          </div>
+          <span style="font-size:11px;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:#a1a1aa;display:block;margin-bottom:8px;">Wall · Floor</span>
+          <h3 style="font-size:20px;font-weight:700;letter-spacing:-0.02em;margin-bottom:8px;color:#09090b;">스탠드·벽걸이</h3>
+          <p style="font-size:14px;color:#71717a;line-height:1.7;">가정용 스탠드형·벽걸이형 에어컨 설치. 배관 정리와 전기 작업 포함.</p>
+        </div>
+        <div class="reveal service-card" style="cursor:default;">
+          <div class="card-image-wrap" style="aspect-ratio:4/3;margin-bottom:20px;border-radius:16px;">
+            <img src={`${base}/images/gallery/case06.jpg`} alt="가스충전 에어컨 청소" loading="lazy" />
+          </div>
+          <span style="font-size:11px;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:#a1a1aa;display:block;margin-bottom:8px;">Maintenance</span>
+          <h3 style="font-size:20px;font-weight:700;letter-spacing:-0.02em;margin-bottom:8px;color:#09090b;">가스충전·청소</h3>
+          <p style="font-size:14px;color:#71717a;line-height:1.7;">냉매 부족 진단 및 충전. 에어컨 실내기·실외기 전문 청소 서비스.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       SECTION 4: CASES / JOURNAL (3-col grid)
+  ══════════════════════════════════════════ -->
+  <section style="padding:128px 48px;background:#fafafa;border-top:1px solid #f4f4f5;">
+    <div class="section-container">
+      <div class="reveal" style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:64px;flex-wrap:wrap;gap:16px;">
+        <div>
+          <span class="section-label-sm">Installation Cases</span>
+          <h2 style="font-size:clamp(32px,4.5vw,56px);font-weight:900;letter-spacing:-0.03em;color:#09090b;">시공사례</h2>
+        </div>
+        <a href={`${base}/cases`} style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#09090b;text-decoration:none;display:flex;align-items:center;gap:8px;opacity:0.6;transition:opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.6'">
+          전체보기 →
+        </a>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap-x:32px;gap-y:64px;" class="cases-grid">
+        <!-- case 1 -->
+        <div class="reveal" style="display:flex;flex-direction:column;gap:20px;cursor:pointer;" onclick={`location.href='${base}/cases'`}>
+          <div class="card-image-wrap" style="aspect-ratio:4/3;border-radius:16px;">
+            <img src={`${base}/images/gallery/case02.jpg`} alt="셀렉샵 4WAY 설치" loading="lazy" />
+          </div>
+          <div>
+            <p style="font-size:11px;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:#a1a1aa;margin-bottom:8px;">Commercial</p>
+            <h3 style="font-size:20px;font-weight:700;letter-spacing:-0.02em;margin-bottom:8px;color:#09090b;transition:color 0.2s;">셀렉샵 4WAY 설치</h3>
+            <p style="font-size:14px;color:#71717a;line-height:1.7;">성수 셀렉샵 천장형 카세트 에어컨. 개업 일정에 맞춰 당일 시공 완료.</p>
+          </div>
+        </div>
+        <!-- case 2 -->
+        <div class="reveal" style="display:flex;flex-direction:column;gap:20px;cursor:pointer;" onclick={`location.href='${base}/cases'`}>
+          <div class="card-image-wrap" style="aspect-ratio:4/3;border-radius:16px;">
+            <img src={`${base}/images/gallery/case05.jpg`} alt="치과 4WAY 설치" loading="lazy" />
+          </div>
+          <div>
+            <p style="font-size:11px;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:#a1a1aa;margin-bottom:8px;">Medical</p>
+            <h3 style="font-size:20px;font-weight:700;letter-spacing:-0.02em;margin-bottom:8px;color:#09090b;">치과 4WAY 설치</h3>
+            <p style="font-size:14px;color:#71717a;line-height:1.7;">강변 치과·피부과 시스템에어컨. 진료 환경을 고려한 소음 최소화 시공.</p>
+          </div>
+        </div>
+        <!-- case 3 -->
+        <div class="reveal" style="display:flex;flex-direction:column;gap:20px;cursor:pointer;" onclick={`location.href='${base}/cases'`}>
+          <div class="card-image-wrap" style="aspect-ratio:4/3;border-radius:16px;">
+            <img src={`${base}/images/gallery/case04.jpg`} alt="카페 이전설치" loading="lazy" />
+          </div>
+          <div>
+            <p style="font-size:11px;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:#a1a1aa;margin-bottom:8px;">Relocation</p>
+            <h3 style="font-size:20px;font-weight:700;letter-spacing:-0.02em;margin-bottom:8px;color:#09090b;">카페 이전설치</h3>
+            <p style="font-size:14px;color:#71717a;line-height:1.7;">수원 인계동 카페 이전설치. 배관 재정리·냉매충전 포함 하루 완료.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       SECTION 5: STATS + SERVICE AREA (dark — NOVA Experience Centers)
+  ══════════════════════════════════════════ -->
+  <section style="padding:128px 48px;background:#09090b;color:white;">
+    <div class="section-container">
+      <h2 class="reveal" style="font-size:clamp(32px,5vw,64px);font-weight:900;letter-spacing:-0.03em;color:white;margin-bottom:80px;">
+        서비스 권역 &amp; 실적
+      </h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;" class="stats-area-grid">
+        <!-- left: location list -->
+        <div>
+          <div class="stat-row reveal">
             <div>
-              <p style="font-size:11px;color:var(--blue);letter-spacing:0.15em;">{rv.name}</p>
-              <p style="font-size:10px;color:var(--text-light);margin-top:2px;">{rv.date}</p>
+              <p style="font-size:18px;font-weight:700;color:white;margin-bottom:4px;">남양주 · 다산신도시</p>
+              <p style="font-size:13px;color:rgba(255,255,255,0.4);">주요 서비스 권역</p>
             </div>
+            <span style="font-size:13px;font-weight:600;letter-spacing:0.1em;color:rgba(255,255,255,0.3);">MAIN</span>
+          </div>
+          <div class="stat-row reveal">
+            <div>
+              <p style="font-size:18px;font-weight:700;color:white;margin-bottom:4px;">구리 · 하남 · 의정부</p>
+              <p style="font-size:13px;color:rgba(255,255,255,0.4);">당일 출장 가능</p>
+            </div>
+            <span style="font-size:13px;font-weight:600;letter-spacing:0.1em;color:rgba(255,255,255,0.3);">SAME DAY</span>
+          </div>
+          <div class="stat-row reveal">
+            <div>
+              <p style="font-size:18px;font-weight:700;color:white;margin-bottom:4px;">서울 전역 · 경기 전역</p>
+              <p style="font-size:13px;color:rgba(255,255,255,0.4);">예약 상담 후 방문</p>
+            </div>
+            <span style="font-size:13px;font-weight:600;letter-spacing:0.1em;color:rgba(255,255,255,0.3);">BY APPT</span>
+          </div>
+          <div class="stat-row reveal" style="border-bottom:none;">
+            <div>
+              <p style="font-size:18px;font-weight:700;color:white;margin-bottom:4px;">전화 한 통으로 즉시 연결</p>
+              <p style="font-size:13px;color:rgba(255,255,255,0.4);">010-7237-2122</p>
+            </div>
+            <a href="tel:010-7237-2122" style="font-size:13px;font-weight:600;letter-spacing:0.1em;color:#93c5fd;text-decoration:none;">전화하기 →</a>
           </div>
         </div>
+        <!-- right: big numbers -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,0.08);">
+          <div style="padding:40px;background:#09090b;text-align:center;" class="reveal">
+            <span style="display:block;font-size:clamp(48px,6vw,80px);font-weight:900;letter-spacing:-0.04em;color:white;line-height:1;">70<span style="font-size:0.5em;font-weight:300;">+</span></span>
+            <span style="font-size:11px;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-top:8px;display:block;">시공 실적</span>
+          </div>
+          <div style="padding:40px;background:#09090b;text-align:center;" class="reveal">
+            <span style="display:block;font-size:clamp(48px,6vw,80px);font-weight:900;letter-spacing:-0.04em;color:white;line-height:1;">5<span style="font-size:0.5em;font-weight:300;">년+</span></span>
+            <span style="font-size:11px;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-top:8px;display:block;">현장 경력</span>
+          </div>
+          <div style="padding:40px;background:#09090b;text-align:center;" class="reveal">
+            <span style="display:block;font-size:clamp(48px,6vw,80px);font-weight:900;letter-spacing:-0.04em;color:white;line-height:1;">100<span style="font-size:0.5em;font-weight:300;">%</span></span>
+            <span style="font-size:11px;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-top:8px;display:block;">AS 보장</span>
+          </div>
+          <div style="padding:40px;background:#09090b;text-align:center;" class="reveal">
+            <span style="display:block;font-size:clamp(48px,6vw,80px);font-weight:900;letter-spacing:-0.04em;color:white;line-height:1;">1<span style="font-size:0.5em;font-weight:300;">일</span></span>
+            <span style="font-size:11px;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-top:8px;display:block;">당일 출장</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       MARQUEE STRIP
+  ══════════════════════════════════════════ -->
+  <div class="marquee-outer">
+    <div class="marquee-track">
+      {[1,2].map(() => (
+        ['디디에어컨','천장형 4WAY 전문','직영 시공팀','70건+ 시공','당일 출장 가능','에어컨 전문 설치','DDINAIR','한전 지원사업'].map(t => (
+          <span class="marquee-item">{t} ·</span>
+        ))
       ))}
     </div>
   </div>
-</section>
 
-<!-- ══════ 최종 CTA ══════════════════════════════════════════════════════════ -->
-<section style="padding:120px 8vw;text-align:center;position:relative;overflow:hidden;background:#18181b;z-index:2;">
-  <div style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at center,rgba(37,99,235,0.06) 0%,transparent 70%);"></div>
-  <p class="section-label gsap-fade" style="margin-bottom:20px;color:rgba(255,255,255,0.4);">Quick Service</p>
-  <h2 class="font-display gsap-fade" style="font-size:clamp(36px,6vw,72px);font-weight:300;color:white;line-height:1.1;margin-bottom:24px;letter-spacing:0.02em;">
-    지금 바로 상담 신청하세요<br/>
-    <span class="blue-gradient" style="font-style:italic;">당일 출장 가능합니다</span>
-  </h2>
-  <div class="section-divider gsap-fade" style="margin-bottom:32px;"></div>
-  <p class="gsap-fade" style="font-size:17px;color:rgba(255,255,255,0.5);font-weight:300;line-height:1.75;margin-bottom:44px;">
-    남양주·구리·하남 전역 당일 출장 가능합니다.<br/>
-    전화 한 통으로 바로 연결됩니다.
-  </p>
-  <div class="gsap-fade" style="display:flex;flex-direction:column;align-items:center;gap:14px;">
-    <a href="tel:010-7237-2122" class="btn-primary magnetic" style="font-size:13px;padding:18px 48px;letter-spacing:0.2em;">
-      010-7237-2122 전화하기
-    </a>
-    <a href={`${base}/contact`} class="btn-blue magnetic">온라인 신청</a>
-  </div>
-</section>
+  <!-- ══════════════════════════════════════════
+       SECTION 6: FINAL CTA (minimal, white)
+  ══════════════════════════════════════════ -->
+  <section style="padding:160px 48px;background:#ffffff;text-align:center;border-top:1px solid #f4f4f5;">
+    <div class="section-container" style="max-width:700px;">
+      <span class="section-label-sm reveal" style="text-align:center;display:block;">Quick Service</span>
+      <h2 class="reveal" style="font-size:clamp(36px,6vw,80px);font-weight:900;letter-spacing:-0.04em;line-height:1;margin:24px 0;color:#09090b;">
+        지금 바로<br/>상담하세요
+      </h2>
+      <p class="reveal" style="font-size:18px;color:#71717a;font-weight:300;line-height:1.8;margin-bottom:48px;">
+        남양주·구리·하남 전역 당일 출장 가능합니다.<br/>전화 한 통으로 바로 연결됩니다.
+      </p>
+      <div class="reveal" style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+        <a href="tel:010-7237-2122" class="btn-dark" style="padding:16px 40px;font-size:15px;">010-7237-2122 전화하기</a>
+        <a href={`${base}/contact`} class="btn-outline-dark" style="padding:16px 40px;font-size:15px;">온라인 신청</a>
+      </div>
+    </div>
+  </section>
 
 </Layout>
 
-<script>
-  // ══════════════════════════════════════════════════════════════════════════
-  // 1. 파티클 캔버스
-  // ══════════════════════════════════════════════════════════════════════════
-  const canvas = document.getElementById('particle-canvas') as HTMLCanvasElement;
-  if (canvas) {
-    const ctx = canvas.getContext('2d')!;
-    let W = canvas.width = window.innerWidth;
-    let H = canvas.height = window.innerHeight;
-    window.addEventListener('resize', () => { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; });
-
-    const pts = Array.from({ length: 55 }, () => ({
-      x: Math.random() * W, y: Math.random() * H,
-      vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3,
-      r: Math.random() * 1.2 + 0.3,
-    }));
-
-    function drawParticles() {
-      ctx.clearRect(0, 0, W, H);
-      pts.forEach(p => {
-        p.x += p.vx; p.y += p.vy;
-        if (p.x < 0) p.x = W; if (p.x > W) p.x = 0;
-        if (p.y < 0) p.y = H; if (p.y > H) p.y = 0;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(79,195,247,0.5)';
-        ctx.fill();
-      });
-      for (let i = 0; i < pts.length; i++) {
-        for (let j = i + 1; j < pts.length; j++) {
-          const dx = pts[i].x - pts[j].x, dy = pts[i].y - pts[j].y;
-          const d = Math.sqrt(dx * dx + dy * dy);
-          if (d < 120) {
-            ctx.beginPath();
-            ctx.strokeStyle = `rgba(79,195,247,${0.08 * (1 - d / 120)})`;
-            ctx.lineWidth = 0.5;
-            ctx.moveTo(pts[i].x, pts[i].y);
-            ctx.lineTo(pts[j].x, pts[j].y);
-            ctx.stroke();
-          }
-        }
-      }
-      requestAnimationFrame(drawParticles);
-    }
-    drawParticles();
+<style>
+  @keyframes scrollPulse {
+    0%,100% { opacity:0.4; transform:scaleY(1); }
+    50% { opacity:1; transform:scaleY(1.3); }
   }
+  @media (max-width: 768px) {
+    .brand-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
+    .services-grid { grid-template-columns: 1fr 1fr !important; gap: 16px !important; }
+    .cases-grid { grid-template-columns: 1fr !important; gap-y: 48px !important; }
+    .stats-area-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
+    section[style*="padding:128px"] { padding: 80px 20px !important; }
+    section[style*="padding:160px"] { padding: 100px 20px !important; }
+  }
+  @media (max-width: 480px) {
+    .services-grid { grid-template-columns: 1fr !important; }
+  }
+</style>
 
-  // ══════════════════════════════════════════════════════════════════════════
-  // 2. GSAP 스크롤 스토리텔링 (window.load 후 실행 — CDN 스크립트 보장)
-  // ══════════════════════════════════════════════════════════════════════════
+<script>
   window.addEventListener('load', () => {
     const gsap = (window as any).gsap;
     const ScrollTrigger = (window as any).ScrollTrigger;
     const LenisLib = (window as any).Lenis;
-
     if (!gsap || !ScrollTrigger) return;
     gsap.registerPlugin(ScrollTrigger);
 
-    // ── Lenis + ScrollTrigger 올바른 연결 ────────────────────────────────
-    // Layout.astro가 만든 인스턴스는 raf 방식이므로 교체
-    if ((window as any).__lenis) { try { (window as any).__lenis.destroy(); } catch(_) {} }
+    // Lenis — destroy old, create new with ScrollTrigger integration
+    if ((window as any).__lenis) {
+      try { (window as any).__lenis.destroy(); } catch(_) {}
+    }
     if (LenisLib) {
       const lenis = new LenisLib({ lerp: 0.08, smoothWheel: true });
       (window as any).__lenis = lenis;
       lenis.on('scroll', ScrollTrigger.update);
-      gsap.ticker.add((time: number) => { lenis.raf(time * 1000); });
+      gsap.ticker.add((t: number) => { lenis.raf(t * 1000); });
       gsap.ticker.lagSmoothing(0);
     }
 
-    // 데스크탑: 고정 배경 + 패널 전환
-    const fixedBg = document.getElementById('story-fixed-bg');
-    const bgSlides = document.querySelectorAll<HTMLElement>('.story-bg-slide');
-    const panels = document.querySelectorAll<HTMLElement>('.story-panel');
+    // ── Hero entrance animations ──
+    const badge = document.getElementById('hero-badge');
+    const h1 = document.getElementById('hero-h1');
+    const heroP = document.getElementById('hero-p');
+    const heroCta = document.getElementById('hero-cta');
+    const scrollInd = document.getElementById('scroll-indicator');
 
-    if (window.innerWidth > 900 && fixedBg) {
-      fixedBg.style.display = 'block';
+    if (badge) gsap.to(badge, { opacity: 1, scale: 1, duration: 1, delay: 0.3, ease: 'power3.out' });
+    if (h1) gsap.to(h1, { opacity: 1, y: 0, duration: 1, delay: 0.5, ease: 'power3.out' });
+    if (heroP) gsap.to(heroP, { opacity: 1, y: 0, duration: 1, delay: 0.7, ease: 'power3.out' });
+    if (heroCta) gsap.to(heroCta, { opacity: 1, y: 0, duration: 1, delay: 0.9, ease: 'power3.out' });
+    if (scrollInd) gsap.to(scrollInd, { opacity: 1, duration: 1, delay: 1.5, ease: 'power2.out' });
 
-      panels.forEach((panel, i) => {
-        ScrollTrigger.create({
-          trigger: panel,
-          start: 'top 55%',
-          onEnter: () => {
-            bgSlides.forEach((s, si) => { s.style.opacity = si === i ? '1' : '0'; });
-          },
-          onEnterBack: () => {
-            bgSlides.forEach((s, si) => { s.style.opacity = si === i ? '1' : '0'; });
-          },
-        });
-      });
-
-      ScrollTrigger.create({
-        trigger: '#story-container',
-        start: 'top top',
-        end: 'bottom bottom',
-        onLeave: () => { if (fixedBg) fixedBg.style.opacity = '0'; },
-        onEnterBack: () => { if (fixedBg) fixedBg.style.opacity = '1'; },
+    // ── Hero content parallax on scroll ──
+    const heroContent = document.getElementById('hero-content');
+    if (heroContent) {
+      gsap.to(heroContent, {
+        y: -80, ease: 'none',
+        scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true }
       });
     }
 
-    // GSAP fade 요소들
-    document.querySelectorAll('.gsap-fade').forEach(el => {
-      gsap.to(el, {
-        opacity: 1, y: 0, duration: 0.9, ease: 'power2.out',
-        scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' },
-      });
+    // ── Reveal animations ──
+    document.querySelectorAll('.reveal').forEach(el => {
+      gsap.fromTo(el,
+        { opacity: 0, y: 24 },
+        {
+          opacity: 1, y: 0, duration: 0.8, ease: 'power2.out',
+          scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' }
+        }
+      );
+    });
+    document.querySelectorAll('.reveal-left').forEach(el => {
+      gsap.fromTo(el,
+        { opacity: 0, x: -40 },
+        {
+          opacity: 1, x: 0, duration: 1, ease: 'power2.out',
+          scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' }
+        }
+      );
+    });
+    document.querySelectorAll('.reveal-scale').forEach(el => {
+      gsap.fromTo(el,
+        { opacity: 0, scale: 0.95 },
+        {
+          opacity: 1, scale: 1, duration: 1, ease: 'power2.out',
+          scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' }
+        }
+      );
     });
 
-    // 리뷰 카드 순차 등장
-    document.querySelectorAll<HTMLElement>('.review-card').forEach((card) => {
-      const delay = parseFloat(card.dataset.delay || '0');
-      gsap.to(card, {
-        opacity: 1, y: 0, duration: 0.8, delay, ease: 'power2.out',
-        scrollTrigger: { trigger: card, start: 'top 85%', toggleActions: 'play none none none' },
-      });
-    });
-
-    // ── 지원사업 패널: 한번에 빠르게 등장 ───────────────────────────────
-    const subEyebrow = document.getElementById('sub-eyebrow');
-    const subTitle   = document.getElementById('sub-title');
-    const subLine    = document.getElementById('sub-line');
-    const subDesc    = document.getElementById('sub-desc');
-    const subBtns    = document.getElementById('sub-btns');
-    const budgetBox  = document.getElementById('budget-box');
-
-    if (subTitle) {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: '#subsidy-panel',
-          start: 'top 70%',
-          toggleActions: 'play none none none',
-        },
-      });
-      // 모든 요소 동시에 빠르게
-      const items = [subEyebrow, subTitle, subDesc, subBtns, budgetBox].filter(Boolean);
-      tl.to(items, { opacity: 1, y: 0, duration: 0.35, ease: 'power3.out', stagger: 0 }, 0)
-        .to(subLine, { width: '40px', duration: 0.4, ease: 'power2.out' }, 0);
-    }
-
-    // 마그네틱 버튼
-    document.querySelectorAll('.magnetic').forEach(btn => {
-      btn.addEventListener('mousemove', (e: any) => {
-        const rect = (btn as HTMLElement).getBoundingClientRect();
-        const x = e.clientX - rect.left - rect.width / 2;
-        const y = e.clientY - rect.top - rect.height / 2;
-        gsap.to(btn, { x: x * 0.18, y: y * 0.18, duration: 0.4, ease: 'power2.out' });
-      });
-      btn.addEventListener('mouseleave', () => {
-        gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: 'elastic.out(1, 0.4)' });
-      });
-    });
-
-
-    // ── 히어로 글자 폭발 ─────────────────────────────────────────────────────
-    (function scatterHeroTitle() {
-      const heroTitle = document.getElementById('hero-title');
-      if (!heroTitle) return;
-
-      heroTitle.querySelectorAll('div').forEach((d: any) => { d.style.overflow = 'visible'; });
-      heroTitle.style.overflow = 'visible';
-
-      const spans = heroTitle.querySelectorAll<HTMLElement>('span.title-slide-up');
-      const allChars: HTMLElement[] = [];
-
-      spans.forEach(span => {
-        const text = span.textContent || '';
-        span.textContent = '';
-        span.style.cssText += ';-webkit-text-fill-color:white;background:none;';
-        text.split('').forEach(ch => {
-          const el = document.createElement('span');
-          el.className = 'sc';
-          el.textContent = ch;
-          el.style.cssText = 'display:inline-block;will-change:transform,opacity;';
-          span.appendChild(el);
-          allChars.push(el);
-        });
-      });
-
-      if (!allChars.length) return;
-
-      const rx = allChars.map(() => (Math.random() - 0.5) * window.innerWidth * 2.6);
-      const ry = allChars.map(() => (Math.random() - 0.5) * window.innerHeight * 2.6);
-      const rr = allChars.map(() => Math.random() * 720 - 360);
-      const rs = allChars.map(() => Math.random() * 0.4 + 0.05);
-
-      const heroPanel = document.querySelector<HTMLElement>('.story-panel[data-index=0]');
-      if (!heroPanel) return;
-
-      gsap.to(allChars, {
-        x: (i: number) => rx[i],
-        y: (i: number) => ry[i],
-        rotation: (i: number) => rr[i],
-        opacity: 0,
-        scale: (i: number) => rs[i],
-        ease: 'power3.in',
-        stagger: { each: 0.025, from: 'center' },
-        scrollTrigger: {
-          trigger: heroPanel,
-          start: 'top top',
-          end: 'bottom top',
-          scrub: 1.0,
-        },
-      });
-    })();
-
-    // ── 히어로 캔버스 스크롤 프레임 애니메이션 ─────────────────────────────
+    // ── WebP canvas scroll animation (desktop only) ──
     const heroCanvas = document.getElementById('hero-canvas') as HTMLCanvasElement | null;
-    if (heroCanvas && window.innerWidth > 900) {
+    if (heroCanvas && window.innerWidth > 768) {
       const ctx = heroCanvas.getContext('2d')!;
       const FRAME_COUNT = 100;
       const siteBase = document.querySelector('meta[name="site-base"]')?.getAttribute('content') || '';
       const frames: HTMLImageElement[] = new Array(FRAME_COUNT);
       let currentFrame = 0;
+      let canvasReady = false;
 
       function resizeCanvas() {
+        if (!heroCanvas) return;
         heroCanvas.width = window.innerWidth;
         heroCanvas.height = window.innerHeight;
         drawFrame(currentFrame);
       }
 
-      let canvasReady = false;
       function drawFrame(idx: number) {
+        if (!heroCanvas) return;
         const img = frames[idx];
         if (!img?.complete || !img.naturalWidth) return;
         const W = heroCanvas.width, H = heroCanvas.height;
@@ -607,8 +421,10 @@ const stats = [
         const y = (H - img.naturalHeight * scale) / 2;
         ctx.clearRect(0, 0, W, H);
         ctx.drawImage(img, x, y, img.naturalWidth * scale, img.naturalHeight * scale);
-        // 첫 프레임 그려지면 캔버스를 video 위에 페이드인
-        if (!canvasReady) { canvasReady = true; heroCanvas.style.opacity = '1'; }
+        if (!canvasReady) {
+          canvasReady = true;
+          heroCanvas.style.opacity = '0.85';
+        }
       }
 
       resizeCanvas();
@@ -617,131 +433,21 @@ const stats = [
       for (let i = 0; i < FRAME_COUNT; i++) {
         const img = new Image();
         img.src = `${siteBase}/images/hero-frames/frame_${String(i + 1).padStart(3, '0')}.webp`;
-        img.onload = () => { if (i === 0) { resizeCanvas(); } };
+        img.onload = () => { if (i === 0) resizeCanvas(); };
         frames[i] = img;
       }
 
       const scrubObj = { frame: 0 };
       gsap.to(scrubObj, {
-        frame: FRAME_COUNT - 1,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: '.story-panel[data-index="0"]',
-          start: 'top top',
-          end: 'bottom top',
-          scrub: 0.5,
-        },
+        frame: FRAME_COUNT - 1, ease: 'none',
+        scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: 0.5 },
         onUpdate() {
           const f = Math.round(scrubObj.frame);
-          if (f !== currentFrame) {
-            currentFrame = f;
-            drawFrame(f);
-          }
-        },
+          if (f !== currentFrame) { currentFrame = f; drawFrame(f); }
+        }
       });
     }
 
     ScrollTrigger.refresh();
   });
-
-  // ══════════════════════════════════════════════════════════════════════════
-  // 3. 히어로 진입 애니메이션
-  // ══════════════════════════════════════════════════════════════════════════
-  window.addEventListener('load', () => {
-    const eyebrowLine = document.getElementById('eyebrow-line');
-    const eyebrowText = document.getElementById('eyebrow-text');
-    const heroSub = document.getElementById('hero-sub');
-    const heroCta = document.getElementById('hero-cta');
-
-    setTimeout(() => {
-      if (eyebrowLine) eyebrowLine.style.width = '48px';
-      if (eyebrowText) eyebrowText.style.opacity = '1';
-    }, 100);
-    setTimeout(() => {
-      if (heroSub) { heroSub.style.opacity = '1'; heroSub.style.transform = 'translateY(0)'; heroSub.style.transition = 'opacity 0.9s ease, transform 0.9s ease'; }
-    }, 1100);
-    setTimeout(() => {
-      if (heroCta) { heroCta.style.opacity = '1'; heroCta.style.transform = 'translateY(0)'; heroCta.style.transition = 'opacity 0.9s ease, transform 0.9s ease'; }
-    }, 1350);
-  });
-
-  // ══════════════════════════════════════════════════════════════════════════
-  // 4. 카운터 애니메이션
-  // ══════════════════════════════════════════════════════════════════════════
-  const counterObs = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      const el = entry.target as HTMLElement;
-      const target = parseInt(el.dataset.target || '0');
-      const suffix = el.dataset.suffix || '';
-      const duration = 1800;
-      const start = performance.now();
-      function update(now: number) {
-        const t = Math.min((now - start) / duration, 1);
-        const eased = 1 - Math.pow(1 - t, 3);
-        el.textContent = Math.round(eased * target) + suffix;
-        if (t < 1) requestAnimationFrame(update);
-      }
-      requestAnimationFrame(update);
-      counterObs.unobserve(el);
-    });
-  }, { threshold: 0.5 });
-  document.querySelectorAll('.counter-num').forEach(el => counterObs.observe(el));
-
-  // ══════════════════════════════════════════════════════════════════════════
-  // 5. 가로 갤러리 드래그
-  // ══════════════════════════════════════════════════════════════════════════
-  const track = document.getElementById('hgal-track');
-  if (track) {
-    let isDown = false, startX = 0, scrollLeft = 0;
-    track.addEventListener('mousedown', e => {
-      isDown = true; (track as HTMLElement).style.cursor = 'grabbing';
-      startX = e.pageX - (track as HTMLElement).offsetLeft; scrollLeft = (track as HTMLElement).scrollLeft;
-    });
-    track.addEventListener('mouseleave', () => { isDown = false; (track as HTMLElement).style.cursor = 'grab'; });
-    track.addEventListener('mouseup', () => { isDown = false; (track as HTMLElement).style.cursor = 'grab'; });
-    track.addEventListener('mousemove', e => {
-      if (!isDown) return;
-      e.preventDefault();
-      const x = (e as MouseEvent).pageX - (track as HTMLElement).offsetLeft;
-      (track as HTMLElement).scrollLeft = scrollLeft - (x - startX) * 1.5;
-    });
-  }
-
-  // ══════════════════════════════════════════════════════════════════════════
-  // 6. 한전 지원사업 예산 실시간 표시
-  // ══════════════════════════════════════════════════════════════════════════
-  (async function loadBudget() {
-    const base = document.querySelector('meta[name="site-base"]')?.getAttribute('content') || '';
-    try {
-      const r = await fetch(`${base}/data/subsidy.json`);
-      if (!r.ok) throw new Error('fetch failed');
-      const d = await r.json();
-      const remaining = typeof d.remaining === 'number' ? d.remaining : 67;
-      const used = typeof d.used === 'number' ? d.used : (100 - remaining);
-
-      const elLoading = document.getElementById('budget-loading');
-      const elData = document.getElementById('budget-data');
-      const elRemaining = document.getElementById('budget-remaining');
-      const elBar = document.getElementById('budget-bar');
-      const elUsed = document.getElementById('budget-used');
-      const elUpdated = document.getElementById('budget-updated');
-
-      if (elRemaining) elRemaining.textContent = remaining + '%';
-      if (elUsed) elUsed.textContent = String(used);
-      if (elUpdated) elUpdated.textContent = d.updated_label || d.updated || '';
-
-      if (elLoading) elLoading.style.display = 'none';
-      if (elData) elData.style.display = 'block';
-
-      // 프로그레스 바 애니메이션 (잔여예산 %)
-      setTimeout(() => {
-        if (elBar) elBar.style.width = remaining + '%';
-      }, 300);
-    } catch (_) {
-      // 조용히 실패 — 기본 텍스트 유지
-      const elLoading = document.getElementById('budget-loading');
-      if (elLoading) elLoading.textContent = '잔여예산 확인 중';
-    }
-  })();
 </script>
