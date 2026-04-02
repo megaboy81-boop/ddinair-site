@@ -10,7 +10,7 @@ const description = '남양주·다산신도시 에어컨 전문 설치 업체. 
   <!-- ══════════════════════════════════════════
        SECTION 1: HERO — WebP 스크롤 캔버스 애니메이션
   ══════════════════════════════════════════ -->
-  <section id="hero" style="position:relative;height:100dvh;min-height:640px;background:#09090b;overflow:hidden;display:flex;align-items:center;justify-content:center;">
+  <section id="hero" style="position:relative;height:100dvh;min-height:640px;background:#09090b;overflow:hidden;display:flex;align-items:center;justify-content:center;perspective:1200px;">
 
     <!-- 정적 fallback 이미지 (캔버스 로드 전 / 모바일) -->
     <img
@@ -60,21 +60,23 @@ const description = '남양주·다산신도시 에어컨 전문 설치 업체. 
     </div>
 
     <!-- 스크롤 유도 -->
-    <div id="scroll-indicator" style="position:absolute;bottom:40px;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:10px;opacity:0;">
+    <div id="scroll-indicator" style="position:absolute;bottom:96px;left:50%;transform:translateX(-50%);z-index:3;display:flex;flex-direction:column;align-items:center;gap:10px;opacity:0;">
       <span style="font-size:10px;letter-spacing:0.35em;color:rgba(255,255,255,0.38);text-transform:uppercase;">Scroll</span>
       <div style="width:1px;height:44px;background:linear-gradient(to bottom,rgba(255,255,255,0.38),transparent);animation:scrollPulse 2.2s ease-in-out infinite;"></div>
     </div>
-  </section>
 
-  <!-- ══════════════════════════════════════════
-       NOTICE STRIP — 한전 지원사업 (slim banner)
-  ══════════════════════════════════════════ -->
-  <div style="background:#1d4ed8;padding:14px 24px;text-align:center;position:relative;z-index:2;">
-    <p style="font-size:13px;font-weight:600;color:white;letter-spacing:0.04em;">
-      📋 &nbsp;2026년 한전 고효율기기 지원사업 — 1등급 에어컨 설치 시 최대 <strong>160만원</strong> 현금 환급 &nbsp;
-      <a href={`${base}/subsidy`} style="color:rgba(255,255,255,0.8);text-decoration:underline;font-size:12px;letter-spacing:0.1em;">자세히 보기 →</a>
-    </p>
-  </div>
+    <!-- 한전 지원사업 배너 — 히어로 하단 고정 -->
+    <div id="subsidy-banner" style="position:absolute;bottom:0;left:0;right:0;z-index:4;background:rgba(0,0,0,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid rgba(37,99,235,0.3);padding:14px 24px;">
+      <div style="max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span style="display:inline-block;padding:3px 10px;background:rgba(37,99,235,0.2);border:1px solid rgba(37,99,235,0.5);font-size:9px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#93c5fd;">정부 지원</span>
+          <span style="font-size:14px;font-weight:700;color:#3b82f6;letter-spacing:0.02em;">2026 한전고효율기기 지원사업</span>
+          <span style="font-size:13px;color:rgba(255,255,255,0.65);">— 1등급 설치 시 최대 <strong style="color:white;">160만원</strong> 현금 환급</span>
+        </div>
+        <a href={`${base}/subsidy`} style="font-size:11px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#93c5fd;text-decoration:none;white-space:nowrap;border:1px solid rgba(37,99,235,0.4);padding:7px 16px;transition:all 0.2s;" onmouseover="this.style.background='rgba(37,99,235,0.2)'" onmouseout="this.style.background='transparent'">자세히 보기 →</a>
+      </div>
+    </div>
+  </section>
 
   <!-- ══════════════════════════════════════════
        SECTION 2: BRAND STORY — 2컬럼 (텍스트 + 이미지)
@@ -331,7 +333,7 @@ const description = '남양주·다산신도시 에어컨 전문 설치 업체. 
         <!-- review 1 -->
         <div class="reveal" style="background:#fff;border:1px solid #e4e4e7;border-radius:20px;padding:36px;transition:box-shadow 0.3s;" onmouseover="this.style.boxShadow='0 8px 32px rgba(0,0,0,0.08)'" onmouseout="this.style.boxShadow='none'">
           <div style="display:flex;gap:2px;margin-bottom:20px;">
-            {'★★★★★'.split('').map((s: string) => `<span style="color:#09090b;font-size:13px;">${s}</span>`).join('')}
+            <span style="color:#09090b;font-size:14px;letter-spacing:2px;">★★★★★</span>
           </div>
           <p style="font-size:15px;line-height:1.85;color:#52525b;font-weight:300;margin-bottom:24px;">
             "천장형 4WAY 설치인데 배관 정리와 마감이 정말 깔끔했어요. 개업 전 일정에 맞춰 당일 완료해 주셔서 감사합니다. 직원분들도 친절하고 뒷정리까지 완벽하게 해주셨어요."
@@ -345,7 +347,7 @@ const description = '남양주·다산신도시 에어컨 전문 설치 업체. 
         <!-- review 2 -->
         <div class="reveal" style="background:#fff;border:1px solid #e4e4e7;border-radius:20px;padding:36px;transition:box-shadow 0.3s;" onmouseover="this.style.boxShadow='0 8px 32px rgba(0,0,0,0.08)'" onmouseout="this.style.boxShadow='none'">
           <div style="display:flex;gap:2px;margin-bottom:20px;">
-            {'★★★★★'.split('').map((s: string) => `<span style="color:#09090b;font-size:13px;">${s}</span>`).join('')}
+            <span style="color:#09090b;font-size:14px;letter-spacing:2px;">★★★★★</span>
           </div>
           <p style="font-size:15px;line-height:1.85;color:#52525b;font-weight:300;margin-bottom:24px;">
             "치과 특성상 환자 환경이 중요한데, 진단부터 시공까지 정말 전문적으로 처리해 주셨어요. 소음 처리도 완벽하고 마감도 깔끔합니다. 다음에도 꼭 다시 부탁드릴게요."
@@ -359,7 +361,7 @@ const description = '남양주·다산신도시 에어컨 전문 설치 업체. 
         <!-- review 3 -->
         <div class="reveal" style="background:#fff;border:1px solid #e4e4e7;border-radius:20px;padding:36px;transition:box-shadow 0.3s;" onmouseover="this.style.boxShadow='0 8px 32px rgba(0,0,0,0.08)'" onmouseout="this.style.boxShadow='none'">
           <div style="display:flex;gap:2px;margin-bottom:20px;">
-            {'★★★★★'.split('').map((s: string) => `<span style="color:#09090b;font-size:13px;">${s}</span>`).join('')}
+            <span style="color:#09090b;font-size:14px;letter-spacing:2px;">★★★★★</span>
           </div>
           <p style="font-size:15px;line-height:1.85;color:#52525b;font-weight:300;margin-bottom:24px;">
             "이전설치라 걱정했는데 배관 재정리부터 냉매 충전까지 하루 만에 깔끔하게 끝냈어요. 한전 지원사업 신청도 같이 도와주셔서 실제로 환급까지 받았습니다!"
@@ -540,12 +542,33 @@ const description = '남양주·다산신도시 에어컨 전문 설치 업체. 
     if (cta)   gsap.to(cta,   { opacity:1, y:0,     duration:1.0, delay:0.85, ease:'power3.out' });
     if (ind)   gsap.to(ind,   { opacity:1,           duration:1.0, delay:1.6,  ease:'power2.out' });
 
-    // ── 히어로 콘텐츠 패럴랙스 ──
+    // ── 히어로 콘텐츠 패럴랙스 + 3D 회전 ──
     const heroContent = document.getElementById('hero-content');
     if (heroContent) {
+      heroContent.style.transformOrigin = 'center bottom';
+      heroContent.style.willChange = 'transform';
       gsap.to(heroContent, {
-        y: -90, ease: 'none',
+        y: -80,
+        rotateX: 12,
+        scale: 0.93,
+        ease: 'none',
+        scrollTrigger: { trigger: '#hero', start: 'top top', end: '60% top', scrub: 0.8 }
+      });
+    }
+    // 히어로 배경 이미지/캔버스 살짝 확대
+    const heroBg = document.getElementById('hero-bg-img');
+    if (heroBg) {
+      gsap.to(heroBg, {
+        scale: 1.08, ease: 'none',
         scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true }
+      });
+    }
+    // 지원사업 배너 스크롤 시 페이드아웃
+    const subsidyBanner = document.getElementById('subsidy-banner');
+    if (subsidyBanner) {
+      gsap.to(subsidyBanner, {
+        opacity: 0, y: 10, ease: 'none',
+        scrollTrigger: { trigger: '#hero', start: '30% top', end: '70% top', scrub: true }
       });
     }
 

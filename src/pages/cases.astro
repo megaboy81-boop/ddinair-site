@@ -28,10 +28,10 @@ const cases = [
 ];
 
 const typeColors: Record<string, string> = {
-  '4WAY': 'rgba(79,195,247,0.8)',
-  '스탠드': 'rgba(30,136,229,0.8)',
-  '벽걸이': 'rgba(129,212,250,0.8)',
-  '멀티': 'rgba(0,188,212,0.8)',
+  '4WAY': '#4fc3f7',
+  '스탠드': '#1e88e5',
+  '벽걸이': '#81d4fa',
+  '멀티': '#00bcd4',
 };
 ---
 <Layout title={title} description={description}>
@@ -52,7 +52,7 @@ const typeColors: Record<string, string> = {
 </section>
 
 <!-- 필터 탭 -->
-<section style="background:var(--dark);position:sticky;top:60px;z-index:10;border-bottom:1px solid rgba(255,255,255,0.05);">
+<section style="background:var(--dark);position:sticky;top:60px;z-index:10;border-bottom:1px solid rgba(255,255,255,0.07);">
   <div style="max-width:1100px;margin:0 auto;padding:0 8vw;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;">
     {['전체', '4WAY', '스탠드', '벽걸이', '멀티'].map(f => (
       <button
@@ -64,20 +64,29 @@ const typeColors: Record<string, string> = {
   </div>
 </section>
 
-<!-- 케이스 그리드 -->
-<section style="background:var(--dark);padding:48px 8vw 100px;position:relative;z-index:2;">
+<!-- 케이스 3×3 그리드 -->
+<section style="background:var(--dark);padding:48px 8vw 100px;">
   <div style="max-width:1100px;margin:0 auto;">
-    <div class="case-grid" id="case-grid">
+    <div class="case-grid-3" id="case-grid">
       {cases.map((c, i) => (
-        <div class="case-card gsap-fade" data-type={c.type} data-delay={Math.min(i*0.04, 0.5)}>
-          <img src={`${base}/images/gallery/${c.img}`} alt={`DD에어컨 ${c.place} ${c.spec}`} loading='lazy' />
-          <div class="case-overlay">
-            <div class="case-date">{c.date}</div>
-            <div class="case-place">{c.place}</div>
-            <div class="case-spec">{c.spec}</div>
-            <div style="margin-top:10px;">
-              <span style={`font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:${typeColors[c.type]||'rgba(79,195,247,0.8)'};border:1px solid ${typeColors[c.type]||'rgba(79,195,247,0.4)'};padding:2px 8px;`}>{c.type}</span>
+        <div class="case-card-item gsap-fade" data-type={c.type} data-delay={Math.min(i*0.04, 0.48)}>
+          <!-- 이미지 영역 -->
+          <div class="case-img-wrap">
+            <img
+              src={`${base}/images/gallery/${c.img}`}
+              alt={`DD에어컨 ${c.place} ${c.spec}`}
+              loading="lazy"
+            />
+            <!-- 호버 오버레이 -->
+            <div class="case-hover-overlay">
+              <span style={`font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:${typeColors[c.type]||'#4fc3f7'};border:1px solid ${typeColors[c.type]||'rgba(79,195,247,0.4)'};padding:3px 10px;`}>{c.type}</span>
             </div>
+          </div>
+          <!-- 이미지 하단 텍스트 -->
+          <div class="case-caption">
+            <span class="case-caption-date">{c.date}</span>
+            <h3 class="case-caption-place">{c.place}</h3>
+            <p class="case-caption-spec">{c.spec}</p>
           </div>
         </div>
       ))}
@@ -101,6 +110,87 @@ const typeColors: Record<string, string> = {
 
 </Layout>
 
+<style>
+  /* ── 3×3 그리드 ── */
+  .case-grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+  @media (max-width: 900px) {
+    .case-grid-3 { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  }
+  @media (max-width: 560px) {
+    .case-grid-3 { grid-template-columns: 1fr; gap: 28px; }
+  }
+
+  /* ── 카드 ── */
+  .case-card-item {
+    opacity: 0;
+    transform: translateY(24px);
+    cursor: pointer;
+  }
+
+  /* ── 이미지 래퍼 — 고정 비율 ── */
+  .case-img-wrap {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: #1a1a1a;
+  }
+  .case-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+    display: block;
+  }
+  .case-card-item:hover .case-img-wrap img {
+    transform: scale(1.06);
+  }
+
+  /* ── 호버 오버레이 ── */
+  .case-hover-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .case-card-item:hover .case-hover-overlay {
+    opacity: 1;
+  }
+
+  /* ── 이미지 하단 캡션 ── */
+  .case-caption {
+    padding: 14px 4px 0;
+  }
+  .case-caption-date {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 5px;
+    text-transform: uppercase;
+  }
+  .case-caption-place {
+    font-size: 15px;
+    font-weight: 600;
+    color: white;
+    margin: 0 0 4px;
+    letter-spacing: -0.01em;
+  }
+  .case-caption-spec {
+    font-size: 12px;
+    color: rgba(255,255,255,0.45);
+    margin: 0;
+    line-height: 1.5;
+  }
+</style>
+
 <script is:inline>
 window.addEventListener('load', function() {
   // Lenis
@@ -113,30 +203,30 @@ window.addEventListener('load', function() {
   // GSAP
   if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
-    gsap.utils.toArray('.gsap-fade').forEach(el => {
-      const delay = parseFloat(el.dataset.delay || 0);
+    gsap.utils.toArray('.gsap-fade').forEach(function(el) {
+      var delay = parseFloat(el.dataset.delay || 0);
       gsap.to(el, {
-        opacity: 1, y: 0, duration: 0.7, delay,
+        opacity: 1, y: 0, duration: 0.7, delay: delay,
         ease: 'power2.out',
-        scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' }
+        scrollTrigger: { trigger: el, start: 'top 90%', toggleActions: 'play none none none' }
       });
     });
   }
 
   // 필터
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  const cards = document.querySelectorAll('.case-card');
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      filterBtns.forEach(b => {
+  var filterBtns = document.querySelectorAll('.filter-btn');
+  var cards = document.querySelectorAll('.case-card-item');
+  filterBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      filterBtns.forEach(function(b) {
         b.style.color = 'rgba(255,255,255,0.45)';
         b.style.borderBottomColor = 'transparent';
       });
       btn.style.color = 'var(--blue)';
       btn.style.borderBottomColor = 'var(--blue)';
-      const filter = btn.dataset.filter;
-      let visible = 0;
-      cards.forEach(card => {
+      var filter = btn.dataset.filter;
+      var visible = 0;
+      cards.forEach(function(card) {
         if (filter === '전체' || card.dataset.type === filter) {
           card.style.display = '';
           visible++;
