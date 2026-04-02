@@ -4,19 +4,13 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const title = '에어컨 설치비용 안내 — 디디에어컨';
 const description = '남양주·다산신도시 시스템에어컨 설치비용 안내. 벽걸이·스탠드·천장형 4WAY·이전설치 기종별 상세 가격 및 무료 방문 견적 신청.';
 
-const priceTable = [
-  { size: '소형', range: '10평 이하', price: '100~150만원', desc: '소형 벽걸이·천장형 1way' },
-  { size: '중형', range: '10~20평', price: '150~250만원', desc: '중형 천장형 4way, 스탠드' },
-  { size: '대형', range: '20~30평', price: '250~400만원', desc: '대형 시스템 에어컨' },
-  { size: '대형+', range: '30평 이상', price: '별도 견적', desc: '현장 확인 후 안내' },
-];
-
 const typeCards = [
   {
     name: '벽걸이형',
     range: '10~16평',
-    price: '70~120만원',
-    label: '재료비 포함',
+    device: '60~100만원',
+    install: '25~40만원',
+    total: '90~140만원',
     includes: ['기본 5m 배관 자재 포함', '실외기 설치 및 냉매 충전', '전기 연결 및 시운전'],
     recommend: '소형 사무실, 원룸, 침실',
     highlight: false,
@@ -24,8 +18,9 @@ const typeCards = [
   {
     name: '스탠드형',
     range: '16~23평',
-    price: '90~140만원',
-    label: '재료비 포함',
+    device: '90~140만원',
+    install: '20~30만원',
+    total: '110~170만원',
     includes: ['기본 5m 배관 자재 포함', '실외기 설치 및 냉매 충전', '전기 연결 및 시운전'],
     recommend: '거실, 중형 사무실, 매장',
     highlight: false,
@@ -33,59 +28,61 @@ const typeCards = [
   {
     name: '천장형 4WAY',
     range: '15~40평',
-    price: '180~450만원',
-    label: '재료비 포함',
+    device: '150~330만원',
+    install: '45~100만원',
+    total: '200~450만원',
     includes: ['천장 매립 및 마감 포함', '기본 5m 배관 자재 포함', '4방향 기류 설계 시공'],
     recommend: '카페, 치과, 사무실, 셀렉샵',
     highlight: true,
   },
   {
-    name: '에어컨 이전설치',
+    name: '이전설치',
     range: '기종·거리 따라 상이',
-    price: '50~130만원',
-    label: '별도 견적',
+    device: '—',
+    install: '—',
+    total: '40~80만원',
     includes: ['실내기·실외기 분리 및 이전', '냉매 보충 및 재충전', '이전 현장 설치 및 시운전'],
     recommend: '이사, 매장 이전, 기기 재활용',
     highlight: false,
   },
 ];
 
+const ceilingSizes = [
+  { size: '15평', device: '150~190만원', install: '45~60만원', total: '200~270만원' },
+  { size: '23평', device: '190~230만원', install: '50~70만원', total: '250~320만원' },
+  { size: '30평', device: '230~280만원', install: '60~80만원', total: '300~380만원' },
+  { size: '40평', device: '280~330만원', install: '70~100만원', total: '360~450만원' },
+];
+
 const brands = [
   {
     name: 'LG',
-    price: '고급',
+    tier: '프리미엄',
     energy: '1등급',
     feature: '휘센 인버터, DUALCOOL 기술, 자가세척',
     as: '직영 서비스센터 전국망',
   },
   {
     name: '삼성',
-    price: '고급',
+    tier: '프리미엄',
     energy: '1등급',
     feature: 'WindFree 무풍, AI 절전 모드',
     as: '삼성전자서비스 전국 직영',
   },
   {
     name: '캐리어',
-    price: '중고급',
+    tier: '중고급',
     energy: '1등급',
     feature: '글로벌 냉난방 전문 브랜드, 상업용 강점',
     as: '캐리어 전국 협력점 네트워크',
   },
-  {
-    name: '위니아',
-    price: '중급',
-    energy: '1등급',
-    feature: '합리적 가격, 국내 생산, 실용 설계',
-    as: '위니아 서비스 전국 접수',
-  },
 ];
 
 const extraCosts = [
-  { item: '배관 연장', desc: '기본 5m 초과 시 1m당 약 1.5만원 추가' },
+  { item: '배관 연장', desc: '기본 5m 초과 시 1m당 약 15,000~23,000원 추가' },
   { item: '코어 타공', desc: '층간 관통 1개소당 약 5~8만원' },
   { item: '배전반 공사', desc: '분기 차단기 추가 약 5~10만원' },
-  { item: '냉매 추가 충전', desc: 'R32/R410A 종류 및 양에 따라 별도' },
+  { item: '냉매 추가 충전', desc: 'R32/R410A 종류 및 양에 따라 별도 산정' },
   { item: '기존 에어컨 철거', desc: '기존 기기 철거·처리 약 3~7만원' },
 ];
 
@@ -104,549 +101,758 @@ const faqs = [
   },
 ];
 ---
+
 <Layout title={title} description={description}>
 
-<!-- 페이지 헤더 -->
-<section style="background:var(--dark);padding:160px 8vw 80px;position:relative;overflow:hidden;">
-  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(79,195,247,0.06),transparent 60%);pointer-events:none;"></div>
-  <div style="position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(79,195,247,0.15),transparent);"></div>
-  <div style="max-width:1100px;margin:0 auto;position:relative;">
-    <span class="section-label">Pricing Guide</span>
-    <h1 class="font-display" style="font-size:clamp(38px,6vw,80px);font-weight:300;color:white;line-height:1.05;letter-spacing:0.02em;margin-bottom:24px;">
-      설치비용 안내<br/><span class="blue-gradient" style="font-style:italic;">투명한 견적</span>
-    </h1>
-    <p style="font-size:16px;color:rgba(255,255,255,0.55);font-weight:300;line-height:1.9;max-width:560px;">
-      시스템에어컨은 설치 환경에 따라 비용이 달라집니다.<br/>무료 방문 견적 후 정확한 금액 안내드립니다.
-    </p>
-  </div>
-</section>
+<style>
+  /* ── 페이지 전체 라이트 배경 기본값 ── */
+  .pricing-page-wrap {
+    background: #ffffff;
+    color: #09090b;
+  }
 
-<!-- 정부지원 배너 -->
-<section style="background:var(--dark);padding:0 8vw 60px;position:relative;z-index:2;">
-  <div style="max-width:1100px;margin:0 auto;">
-    <div style="border:1px solid rgba(79,195,247,0.4);background:rgba(79,195,247,0.05);padding:20px 28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+  /* ── 페이지 헤더 (다크 유지) ── */
+  .page-header {
+    background: #09090b;
+    padding: 160px 8vw 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .page-header-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  .page-header h1 {
+    font-size: clamp(38px, 6vw, 80px);
+    font-weight: 300;
+    color: #ffffff;
+    line-height: 1.05;
+    letter-spacing: 0.02em;
+    margin-bottom: 24px;
+  }
+  .page-header p {
+    font-size: 16px;
+    color: rgba(255,255,255,0.55);
+    font-weight: 300;
+    line-height: 1.9;
+    max-width: 560px;
+  }
+  .page-header-bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 30% 50%, rgba(37,99,235,0.08), transparent 60%);
+    pointer-events: none;
+  }
+  .page-header-line {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(37,99,235,0.2), transparent);
+  }
+
+  /* ── 정부지원 배너 ── */
+  .subsidy-banner {
+    background: #2563eb;
+    padding: 20px 8vw;
+  }
+  .subsidy-banner-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .subsidy-banner-text {
+    font-size: 14px;
+    color: #ffffff;
+    font-weight: 500;
+  }
+  .subsidy-banner-label {
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 4px;
+  }
+  .subsidy-banner-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    font-weight: 600;
+    color: #ffffff;
+    border: 1px solid rgba(255,255,255,0.5);
+    padding: 10px 20px;
+    white-space: nowrap;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .subsidy-banner-link:hover {
+    background: rgba(255,255,255,0.15);
+    border-color: rgba(255,255,255,0.9);
+  }
+
+  /* ── 공통 섹션 ── */
+  .section-white {
+    background: #ffffff;
+    padding: 80px 8vw;
+  }
+  .section-gray {
+    background: #f8f8f8;
+    padding: 80px 8vw;
+  }
+  .section-dark-cta {
+    background: #09090b;
+    padding: 80px 8vw;
+  }
+  .section-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .section-head {
+    text-align: center;
+    margin-bottom: 52px;
+  }
+  .section-head h2 {
+    font-size: clamp(24px, 3.5vw, 44px);
+    font-weight: 300;
+    color: #09090b;
+    margin-bottom: 8px;
+  }
+  .section-head p {
+    font-size: 14px;
+    color: #71717a;
+    margin-top: 16px;
+    line-height: 1.8;
+  }
+
+  /* ── 기종 카드 그리드 ── */
+  .type-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  .type-card {
+    background: #ffffff;
+    border: 1px solid #e4e4e7;
+    border-radius: 12px;
+    padding: 28px 24px;
+    transition: box-shadow 0.25s, transform 0.25s;
+    display: flex;
+    flex-direction: column;
+  }
+  .type-card:hover {
+    box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+    transform: translateY(-2px);
+  }
+  .type-card.highlight {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 1px rgba(37,99,235,0.2);
+  }
+  .type-card-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #ffffff;
+    background: #2563eb;
+    padding: 3px 10px;
+    border-radius: 9999px;
+    margin-bottom: 16px;
+  }
+  .type-card-name {
+    font-size: 18px;
+    font-weight: 700;
+    color: #09090b;
+    margin-bottom: 4px;
+    letter-spacing: -0.02em;
+  }
+  .type-card-range {
+    font-size: 12px;
+    color: #71717a;
+    margin-bottom: 20px;
+  }
+  .type-card-price-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #52525b;
+    margin-bottom: 6px;
+  }
+  .type-card-price-total {
+    font-size: 22px;
+    font-weight: 800;
+    color: #2563eb;
+    letter-spacing: -0.03em;
+    margin: 12px 0 20px;
+    border-top: 1px solid #e4e4e7;
+    padding-top: 14px;
+  }
+  .type-card-includes {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+    flex: 1;
+  }
+  .type-card-includes li {
+    font-size: 12px;
+    color: #52525b;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    line-height: 1.5;
+  }
+  .type-card-includes li::before {
+    content: '✓';
+    color: #2563eb;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .type-card-recommend {
+    font-size: 11px;
+    color: #a1a1aa;
+    border-top: 1px solid #f4f4f5;
+    padding-top: 14px;
+    line-height: 1.6;
+  }
+  .type-card-recommend strong {
+    color: #71717a;
+    font-weight: 600;
+  }
+
+  /* ── 브랜드 테이블 ── */
+  .brand-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  .brand-table th {
+    text-align: left;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #a1a1aa;
+    padding: 14px 20px;
+    border-bottom: 2px solid #e4e4e7;
+  }
+  .brand-table td {
+    padding: 18px 20px;
+    border-bottom: 1px solid #f4f4f5;
+    color: #09090b;
+    vertical-align: top;
+    line-height: 1.6;
+  }
+  .brand-table tr:last-child td {
+    border-bottom: none;
+  }
+  .brand-table tr:hover td {
+    background: #fafafa;
+  }
+  .brand-name-cell {
+    font-weight: 800;
+    font-size: 16px;
+    letter-spacing: -0.02em;
+  }
+  .brand-tier-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: #2563eb;
+    background: rgba(37,99,235,0.08);
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+  .energy-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    color: #ffffff;
+    background: #16a34a;
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+
+  /* ── 평수별 테이블 ── */
+  .size-table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border: 1px solid #e4e4e7;
+    border-radius: 12px;
+  }
+  .size-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    min-width: 480px;
+  }
+  .size-table thead {
+    background: #f4f4f5;
+  }
+  .size-table th {
+    text-align: center;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #52525b;
+    padding: 14px 20px;
+    border-bottom: 1px solid #e4e4e7;
+  }
+  .size-table td {
+    text-align: center;
+    padding: 18px 20px;
+    border-bottom: 1px solid #f4f4f5;
+    color: #09090b;
+    font-size: 15px;
+  }
+  .size-table tr:last-child td {
+    border-bottom: none;
+  }
+  .size-table tr:hover td {
+    background: #fafafa;
+  }
+  .size-table .total-cell {
+    font-weight: 800;
+    color: #2563eb;
+    font-size: 17px;
+  }
+  .size-table .size-cell {
+    font-weight: 700;
+    color: #09090b;
+  }
+  .size-table td:first-child,
+  .size-table th:first-child {
+    text-align: left;
+    padding-left: 28px;
+  }
+
+  /* ── 추가비용 그리드 ── */
+  .extra-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .extra-card {
+    background: #ffffff;
+    border: 1px solid #e4e4e7;
+    border-radius: 10px;
+    padding: 22px 20px;
+    transition: box-shadow 0.2s;
+  }
+  .extra-card:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+  }
+  .extra-card-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #2563eb;
+    margin-bottom: 8px;
+  }
+  .extra-card-desc {
+    font-size: 13px;
+    color: #52525b;
+    line-height: 1.7;
+  }
+
+  /* ── FAQ 아코디언 ── */
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border: 1px solid #e4e4e7;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .faq-item {
+    border-bottom: 1px solid #e4e4e7;
+  }
+  .faq-item:last-child {
+    border-bottom: none;
+  }
+  .faq-q {
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 22px 28px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #09090b;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    font-family: inherit;
+    line-height: 1.5;
+    transition: background 0.15s;
+  }
+  .faq-q:hover {
+    background: #fafafa;
+  }
+  .faq-icon {
+    font-size: 20px;
+    font-weight: 300;
+    color: #2563eb;
+    flex-shrink: 0;
+    line-height: 1;
+    transition: transform 0.2s;
+  }
+  .faq-item.open .faq-icon {
+    transform: rotate(45deg);
+  }
+  .faq-a {
+    display: none;
+    padding: 0 28px 22px;
+    font-size: 14px;
+    color: #52525b;
+    line-height: 1.85;
+  }
+  .faq-item.open .faq-a {
+    display: block;
+  }
+
+  /* ── CTA 섹션 ── */
+  .cta-section {
+    background: #09090b;
+    padding: 80px 8vw;
+    text-align: center;
+  }
+  .cta-section h2 {
+    font-size: clamp(26px, 4vw, 52px);
+    font-weight: 300;
+    color: #ffffff;
+    margin-bottom: 16px;
+  }
+  .cta-section p {
+    font-size: 15px;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 40px;
+    line-height: 1.8;
+  }
+  .cta-btn-row {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* ── 모바일 반응형 ── */
+  @media (max-width: 900px) {
+    .type-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .extra-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 768px) {
+    .page-header {
+      padding: 120px 6vw 60px;
+    }
+    .section-white,
+    .section-gray,
+    .section-dark-cta,
+    .cta-section {
+      padding: 60px 6vw;
+    }
+    .subsidy-banner {
+      padding: 16px 6vw;
+    }
+    .type-grid {
+      grid-template-columns: 1fr;
+    }
+    .extra-grid {
+      grid-template-columns: 1fr;
+    }
+    .brand-table th,
+    .brand-table td {
+      padding: 12px 14px;
+    }
+    .faq-q {
+      padding: 18px 20px;
+      font-size: 14px;
+    }
+    .faq-a {
+      padding: 0 20px 18px;
+    }
+    .cta-btn-row {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+</style>
+
+<div class="pricing-page-wrap">
+
+  <!-- 1. 페이지 헤더 (다크 배경) -->
+  <section class="page-header">
+    <div class="page-header-bg"></div>
+    <div class="page-header-line"></div>
+    <div class="page-header-inner">
+      <span class="section-label">Pricing Guide</span>
+      <h1 class="font-display">
+        설치비용 안내<br/><span class="blue-gradient" style="font-style:italic;">투명한 견적</span>
+      </h1>
+      <p>시스템에어컨은 설치 환경에 따라 비용이 달라집니다.<br/>무료 방문 견적 후 정확한 금액 안내드립니다.</p>
+    </div>
+  </section>
+
+  <!-- 2. 정부지원 배너 (파란 배경) -->
+  <div class="subsidy-banner">
+    <div class="subsidy-banner-inner">
       <div>
-        <div style="font-size:10px;letter-spacing:0.4em;text-transform:uppercase;color:var(--blue);margin-bottom:6px;">Government Support</div>
-        <p style="font-size:14px;color:white;">정부지원 시 최대 40% 할인 가능 — 한전 고효율기기 보급사업</p>
+        <div class="subsidy-banner-label">Government Support</div>
+        <div class="subsidy-banner-text">정부지원 시 최대 40% 할인 가능 — 한전 고효율기기 보급사업</div>
       </div>
-      <a href={`${base}/subsidy`} class="subsidy-btn" style="display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:var(--blue);border:1px solid rgba(79,195,247,0.5);padding:10px 20px;white-space:nowrap;transition:all 0.3s;background:transparent;">
+      <a href={`${base}/subsidy`} class="subsidy-banner-link">
         정부지원사업 보기 →
       </a>
     </div>
   </div>
-</section>
 
-<!-- 기종별 상세 설치비용 -->
-<section style="background:var(--dark2);padding:80px 8vw;border-top:1px solid rgba(79,195,247,0.08);">
-  <div style="max-width:1100px;margin:0 auto;">
-    <div style="text-align:center;margin-bottom:52px;">
-      <span class="section-label">Type by Cost</span>
-      <h2 class="font-display" style="font-size:clamp(26px,3.5vw,48px);font-weight:300;color:white;">기종별 상세 설치비용</h2>
-      <div class="section-divider"></div>
-      <p style="font-size:14px;color:rgba(255,255,255,0.45);margin-top:16px;line-height:1.8;">재료비(배관·부속품) 포함 기준 참고가격 — 현장 실측 후 정확한 견적 제공</p>
+  <!-- 3. 기종별 상세 설치비용 (흰 배경) -->
+  <section class="section-white">
+    <div class="section-inner">
+      <div class="section-head">
+        <span class="section-label">Type by Cost</span>
+        <h2 class="font-display">기종별 상세 설치비용</h2>
+        <div class="section-divider"></div>
+        <p>재료비(배관·부속품) 포함 기준 참고가격 — 현장 실측 후 정확한 견적 제공</p>
+      </div>
+
+      <div class="type-grid">
+        {typeCards.map(card => (
+          <div class={`type-card${card.highlight ? ' highlight' : ''}`}>
+            {card.highlight && <div class="type-card-badge">인기</div>}
+            <div class="type-card-name">{card.name}</div>
+            <div class="type-card-range">{card.range}</div>
+
+            {card.name !== '이전설치' ? (
+              <>
+                <div class="type-card-price-row">
+                  <span>기기비</span>
+                  <span style="font-weight:600;">{card.device}</span>
+                </div>
+                <div class="type-card-price-row">
+                  <span>공사비</span>
+                  <span style="font-weight:600;">{card.install}</span>
+                </div>
+              </>
+            ) : (
+              <div class="type-card-price-row">
+                <span>분리 + 이전 포함</span>
+              </div>
+            )}
+
+            <div class="type-card-price-total">{card.total}</div>
+
+            <ul class="type-card-includes">
+              {card.includes.map(item => (
+                <li>{item}</li>
+              ))}
+            </ul>
+
+            <div class="type-card-recommend">
+              <strong>추천:</strong> {card.recommend}
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
+  </section>
 
-    <div class="type-grid">
-      {typeCards.map((card) => (
-        <div class={`type-card${card.highlight ? ' type-card--highlight' : ''}`}>
-          {card.highlight && (
-            <div style="position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:linear-gradient(90deg,var(--blue-deep),var(--blue));padding:4px 20px;font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:white;white-space:nowrap;">주력 상품</div>
-          )}
-          <div style="margin-bottom:20px;">
-            <div style={`font-size:10px;letter-spacing:0.4em;text-transform:uppercase;margin-bottom:8px;color:${card.highlight ? 'var(--blue)' : 'rgba(255,255,255,0.4)'};`}>{card.label}</div>
-            <h3 class="font-display" style="font-size:clamp(22px,2.5vw,30px);font-weight:300;color:white;margin-bottom:4px;">{card.name}</h3>
-            <p style="font-size:12px;color:rgba(255,255,255,0.4);">{card.range}</p>
-          </div>
-          <div style="margin-bottom:24px;">
-            <span class="font-display" style={`font-size:clamp(28px,3vw,40px);font-weight:300;line-height:1;${card.highlight ? 'background:linear-gradient(90deg,var(--blue),var(--blue-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;' : 'color:white;'}`}>{card.price}</span>
-          </div>
-          <ul style="list-style:none;padding:0;margin-bottom:24px;display:flex;flex-direction:column;gap:8px;">
-            {card.includes.map((inc) => (
-              <li style="display:flex;align-items:flex-start;gap:10px;font-size:12px;color:rgba(255,255,255,0.6);line-height:1.6;">
-                <span style={`flex-shrink:0;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;margin-top:1px;${card.highlight ? 'background:rgba(79,195,247,0.2);color:var(--blue);' : 'background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.5);'}`}>✓</span>
-                {inc}
-              </li>
+  <!-- 4. 브랜드별 비교 테이블 (흰 배경) -->
+  <section class="section-white" style="padding-top:0;">
+    <div class="section-inner">
+      <div class="section-head">
+        <span class="section-label">Brand Comparison</span>
+        <h2 class="font-display">주요 브랜드 비교</h2>
+        <div class="section-divider"></div>
+        <p>동일한 평수·기종이라도 브랜드에 따라 기기 가격이 달라집니다</p>
+      </div>
+
+      <div style="border:1px solid #e4e4e7;border-radius:12px;overflow:hidden;">
+        <table class="brand-table">
+          <thead>
+            <tr style="background:#f4f4f5;">
+              <th>브랜드</th>
+              <th>등급</th>
+              <th>에너지</th>
+              <th>주요 기술</th>
+              <th>A/S</th>
+            </tr>
+          </thead>
+          <tbody>
+            {brands.map(brand => (
+              <tr>
+                <td>
+                  <span class="brand-name-cell">{brand.name}</span>
+                  <span class="brand-tier-badge">{brand.tier}</span>
+                </td>
+                <td>{brand.tier}</td>
+                <td><span class="energy-badge">{brand.energy}</span></td>
+                <td style="color:#52525b;font-size:13px;">{brand.feature}</td>
+                <td style="color:#52525b;font-size:13px;">{brand.as}</td>
+              </tr>
             ))}
-          </ul>
-          <div style={`padding:12px 14px;font-size:11px;color:rgba(255,255,255,0.5);line-height:1.6;border-top:1px solid ${card.highlight ? 'rgba(79,195,247,0.2)' : 'rgba(255,255,255,0.06)'};`}>
-            <span style={`font-size:9px;letter-spacing:0.3em;text-transform:uppercase;display:block;margin-bottom:4px;${card.highlight ? 'color:var(--blue);' : 'color:rgba(255,255,255,0.3);'}`}>추천 공간</span>
-            {card.recommend}
-          </div>
-        </div>
-      ))}
+          </tbody>
+        </table>
+      </div>
+
+      <p style="font-size:12px;color:#a1a1aa;margin-top:16px;text-align:center;">
+        * 위 정보는 참고용이며, 실제 가격은 시기·모델에 따라 달라질 수 있습니다.
+      </p>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- 브랜드별 비교 -->
-<section style="background:var(--dark);padding:80px 8vw;border-top:1px solid rgba(79,195,247,0.08);">
-  <div style="max-width:1100px;margin:0 auto;">
-    <div style="text-align:center;margin-bottom:52px;">
-      <span class="section-label">Brand Comparison</span>
-      <h2 class="font-display" style="font-size:clamp(26px,3.5vw,48px);font-weight:300;color:white;">브랜드별 비교</h2>
-      <div class="section-divider"></div>
-      <p style="font-size:14px;color:rgba(255,255,255,0.45);margin-top:16px;">LG · 삼성 · 캐리어 · 위니아 — 모든 브랜드 공식 시공 가능</p>
-    </div>
+  <!-- 5. 평수별 천장형 4WAY 상세표 (흰 배경) -->
+  <section class="section-white" style="padding-top:0;">
+    <div class="section-inner">
+      <div class="section-head">
+        <span class="section-label">Ceiling 4WAY — Size Guide</span>
+        <h2 class="font-display">천장형 4WAY 평수별 설치비용</h2>
+        <div class="section-divider"></div>
+        <p>가장 많이 문의 주시는 천장형 카세트 기준 상세 금액 안내</p>
+      </div>
 
-    <div style="border:1px solid rgba(79,195,247,0.1);overflow:hidden;">
-      <!-- 헤더 -->
-      <div class="brand-table-row brand-table-header">
-        <div class="brand-table-label" style="font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:rgba(255,255,255,0.3);">항목</div>
-        {brands.map((b) => (
-          <div style="padding:16px 20px;font-size:13px;font-weight:600;color:white;text-align:center;">
-            <span class="font-display" style="font-size:18px;font-weight:300;">{b.name}</span>
-          </div>
-        ))}
+      <div class="size-table-wrap">
+        <table class="size-table">
+          <thead>
+            <tr>
+              <th>적용 평수</th>
+              <th>기기비</th>
+              <th>공사비</th>
+              <th>총 예상 비용</th>
+            </tr>
+          </thead>
+          <tbody>
+            {ceilingSizes.map(row => (
+              <tr>
+                <td class="size-cell">{row.size}</td>
+                <td>{row.device}</td>
+                <td>{row.install}</td>
+                <td class="total-cell">{row.total}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
-      <!-- 가격대 -->
-      <div class="brand-table-row">
-        <div class="brand-table-label">가격대</div>
-        {brands.map((b) => (
-          <div class="brand-table-cell">
-            <span style={`font-size:12px;padding:3px 10px;border-radius:2px;${b.price === '고급' ? 'background:rgba(79,195,247,0.15);color:var(--blue);' : b.price === '중고급' ? 'background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.7);' : 'background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.5);'}`}>{b.price}</span>
-          </div>
-        ))}
-      </div>
-      <!-- 에너지효율 -->
-      <div class="brand-table-row">
-        <div class="brand-table-label">에너지효율</div>
-        {brands.map((b) => (
-          <div class="brand-table-cell">
-            <span style="font-size:12px;color:rgba(79,195,247,0.9);">{b.energy}</span>
-          </div>
-        ))}
-      </div>
-      <!-- 주요 특징 -->
-      <div class="brand-table-row">
-        <div class="brand-table-label">주요 특징</div>
-        {brands.map((b) => (
-          <div class="brand-table-cell" style="font-size:11px;color:rgba(255,255,255,0.55);line-height:1.6;text-align:center;">{b.feature}</div>
-        ))}
-      </div>
-      <!-- AS -->
-      <div class="brand-table-row" style="border-bottom:none;">
-        <div class="brand-table-label">A/S</div>
-        {brands.map((b) => (
-          <div class="brand-table-cell" style="font-size:11px;color:rgba(255,255,255,0.45);line-height:1.6;text-align:center;">{b.as}</div>
-        ))}
-      </div>
-    </div>
 
-    <p style="font-size:12px;color:rgba(255,255,255,0.3);margin-top:16px;line-height:1.7;">
-      * 최종 브랜드·모델 선택은 현장 환경·예산·용도에 맞춰 전문가 상담 후 결정하시길 권장드립니다.
-    </p>
-  </div>
-</section>
-
-<!-- 용량별 가격표 (기존) -->
-<section style="background:var(--dark2);padding:80px 8vw;border-top:1px solid rgba(79,195,247,0.08);">
-  <div style="max-width:1100px;margin:0 auto;">
-
-    <div style="margin-bottom:40px;">
-      <span class="section-label">용량별 참고 가격</span>
-      <h2 class="font-display" style="font-size:clamp(26px,3.5vw,48px);font-weight:300;color:white;">평수별 설치 비용</h2>
-      <div class="section-divider" style="margin-left:0;"></div>
-    </div>
-
-    <div style="border:1px solid rgba(79,195,247,0.1);overflow:hidden;">
-      <div class="price-table-header">
-        <div class="price-th">구분</div>
-        <div class="price-th">용량</div>
-        <div class="price-th">참고가격 (재료비 포함)</div>
-        <div class="price-th price-th-hide">비고</div>
-      </div>
-      {priceTable.map((row, i) => (
-        <div class={`price-table-row${i % 2 === 0 ? '' : ' price-row-alt'}`}>
-          <div class="price-td price-td-name">{row.size}</div>
-          <div class="price-td price-td-range">{row.range}</div>
-          <div class="price-td price-td-price font-display">{row.price}</div>
-          <div class="price-td price-td-desc price-th-hide">{row.desc}</div>
-        </div>
-      ))}
-    </div>
-
-    <p style="font-size:12px;color:rgba(255,255,255,0.3);margin-top:16px;line-height:1.7;">
-      * 위 금액은 참고용이며 실제 비용은 현장 확인 후 결정됩니다.<br/>
-      * 배관 길이, 층간 관통, 추가 자재 등에 따라 변동될 수 있습니다.
-    </p>
-  </div>
-</section>
-
-<!-- 비용 결정 요소 -->
-<section style="background:var(--dark);padding:80px 8vw;border-top:1px solid rgba(79,195,247,0.08);">
-  <div style="max-width:1100px;margin:0 auto;">
-    <div style="text-align:center;margin-bottom:52px;">
-      <span class="section-label">Cost Factors</span>
-      <h2 class="font-display" style="font-size:clamp(26px,3.5vw,48px);font-weight:300;color:white;">이런 요소들로 비용이 달라집니다</h2>
-      <div class="section-divider"></div>
-    </div>
-    <div class="factor-grid">
-      <div class="factor-card">
-        <div style="font-size:28px;margin-bottom:16px;">📐</div>
-        <div style="font-size:13px;font-weight:600;color:white;margin-bottom:8px;">공간 면적</div>
-        <div style="font-size:12px;color:rgba(255,255,255,0.4);line-height:1.7;">설치 공간의 평수에 따라 에어컨 용량과 비용이 달라집니다.</div>
-      </div>
-      <div class="factor-card">
-        <div style="font-size:28px;margin-bottom:16px;">🔧</div>
-        <div style="font-size:13px;font-weight:600;color:white;margin-bottom:8px;">배관 길이</div>
-        <div style="font-size:12px;color:rgba(255,255,255,0.4);line-height:1.7;">실내기~실외기 간 거리가 길수록 배관 자재비가 추가됩니다.</div>
-      </div>
-      <div class="factor-card">
-        <div style="font-size:28px;margin-bottom:16px;">🏢</div>
-        <div style="font-size:13px;font-weight:600;color:white;margin-bottom:8px;">설치 환경</div>
-        <div style="font-size:12px;color:rgba(255,255,255,0.4);line-height:1.7;">층간 관통, 외벽 타공, 천장 구조에 따라 공임이 달라집니다.</div>
-      </div>
-      <div class="factor-card">
-        <div style="font-size:28px;margin-bottom:16px;">❄️</div>
-        <div style="font-size:13px;font-weight:600;color:white;margin-bottom:8px;">에어컨 종류</div>
-        <div style="font-size:12px;color:rgba(255,255,255,0.4);line-height:1.7;">천장형 4WAY, 스탠드, 벽걸이 등 기종별로 설치 난이도가 다릅니다.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 추가 발생 가능 비용 -->
-<section style="background:var(--dark2);padding:80px 8vw;border-top:1px solid rgba(79,195,247,0.08);">
-  <div style="max-width:1100px;margin:0 auto;">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;" class="extra-grid">
-      <div>
-        <span class="section-label">Additional Costs</span>
-        <h2 class="font-display" style="font-size:clamp(24px,3vw,42px);font-weight:300;color:white;margin-bottom:16px;">추가 발생 가능 비용</h2>
-        <div class="section-divider" style="margin-left:0;"></div>
-        <p style="font-size:13px;color:rgba(255,255,255,0.45);margin-top:20px;line-height:1.8;">
-          기본 설치 외 현장 상황에 따라 아래 항목이 추가될 수 있습니다. 방문 견적 시 사전 안내드립니다.
+      <div style="margin-top:20px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:16px 20px;">
+        <p style="font-size:13px;color:#1d4ed8;line-height:1.7;">
+          <strong>안내:</strong> 위 금액은 기본 배관(5m) 포함 기준입니다.
+          배관 연장·타공·배전반 공사 등 현장 조건에 따라 추가 비용이 발생할 수 있으며,
+          정확한 금액은 무료 방문 견적 후 안내드립니다.
         </p>
       </div>
-      <div style="display:flex;flex-direction:column;gap:0;">
-        {extraCosts.map((ec, i) => (
-          <div style={`display:flex;align-items:flex-start;gap:16px;padding:18px 0;${i < extraCosts.length - 1 ? 'border-bottom:1px solid rgba(79,195,247,0.07);' : ''}`}>
-            <span style="flex-shrink:0;width:28px;height:28px;border:1px solid rgba(79,195,247,0.3);display:flex;align-items:center;justify-content:center;font-size:9px;letter-spacing:0.1em;color:var(--blue);margin-top:1px;">{String(i+1).padStart(2,'0')}</span>
-            <div>
-              <div style="font-size:13px;font-weight:600;color:white;margin-bottom:4px;">{ec.item}</div>
-              <div style="font-size:12px;color:rgba(255,255,255,0.45);line-height:1.6;">{ec.desc}</div>
-            </div>
+    </div>
+  </section>
+
+  <!-- 6. 추가 발생 가능 비용 (연회색 배경) -->
+  <section class="section-gray">
+    <div class="section-inner">
+      <div class="section-head">
+        <span class="section-label">Additional Costs</span>
+        <h2 class="font-display">추가 발생 가능 비용</h2>
+        <div class="section-divider"></div>
+        <p>기본 설치 외 현장 조건에 따라 아래 항목이 추가될 수 있습니다</p>
+      </div>
+
+      <div class="extra-grid">
+        {extraCosts.map(item => (
+          <div class="extra-card">
+            <div class="extra-card-label">{item.item}</div>
+            <div class="extra-card-desc">{item.desc}</div>
           </div>
         ))}
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- FAQ -->
-<section style="background:var(--dark);padding:80px 8vw;border-top:1px solid rgba(79,195,247,0.08);">
-  <div style="max-width:800px;margin:0 auto;">
-    <div style="text-align:center;margin-bottom:52px;">
-      <span class="section-label">FAQ</span>
-      <h2 class="font-display" style="font-size:clamp(26px,3.5vw,48px);font-weight:300;color:white;">자주 묻는 질문</h2>
-      <div class="section-divider"></div>
-    </div>
+  <!-- 7. FAQ (흰 배경) -->
+  <section class="section-white">
+    <div class="section-inner">
+      <div class="section-head">
+        <span class="section-label">FAQ</span>
+        <h2 class="font-display">자주 묻는 질문</h2>
+        <div class="section-divider"></div>
+      </div>
 
-    <div style="display:flex;flex-direction:column;gap:0;">
-      {faqs.map((faq, i) => (
-        <div class="faq-item" id={`faq-${i}`}>
-          <button
-            class="faq-trigger"
-            onclick={`toggleFaq(${i})`}
-            aria-expanded="false"
-          >
-            <span style="display:flex;align-items:center;gap:14px;">
-              <span style="flex-shrink:0;font-family:'Cormorant Garamond',serif;font-size:13px;color:var(--blue);letter-spacing:0.1em;">Q{i+1}</span>
-              <span style="font-size:14px;font-weight:500;color:white;text-align:left;">{faq.q}</span>
-            </span>
-            <span class="faq-icon" id={`faq-icon-${i}`} style="flex-shrink:0;width:20px;height:20px;border:1px solid rgba(79,195,247,0.3);display:flex;align-items:center;justify-content:center;color:var(--blue);font-size:14px;transition:transform 0.3s;">+</span>
-          </button>
-          <div class="faq-body" id={`faq-body-${i}`} style="max-height:0;overflow:hidden;transition:max-height 0.4s ease;">
-            <div style="padding:0 20px 20px 48px;">
-              <p style="font-size:13px;color:rgba(255,255,255,0.6);line-height:1.9;">{faq.a}</p>
-            </div>
+      <div class="faq-list" id="faq-list">
+        {faqs.map((faq, i) => (
+          <div class="faq-item" data-faq={i}>
+            <button class="faq-q">
+              <span>{faq.q}</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-a">{faq.a}</div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- CTA -->
-<section style="background:var(--dark2);padding:80px 8vw;border-top:1px solid rgba(79,195,247,0.08);">
-  <div style="max-width:700px;margin:0 auto;text-align:center;">
-    <span class="section-label">Free Estimate</span>
-    <h2 class="font-display" style="font-size:clamp(28px,4vw,52px);font-weight:300;color:white;margin-bottom:16px;">
-      현장 방문 견적<br/><span class="blue-gradient" style="font-style:italic;">무료로 제공합니다</span>
-    </h2>
-    <div class="section-divider"></div>
-    <p style="font-size:14px;color:rgba(255,255,255,0.45);margin-top:20px;margin-bottom:36px;line-height:1.8;">
-      정확한 견적은 현장 확인 후에만 가능합니다.<br/>방문 견적은 완전 무료이며 부담 없이 신청하세요.
-    </p>
-    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
-      <a href="tel:010-7237-2122" class="btn-primary" style="padding:18px 48px;font-size:11px;">전화로 견적 신청</a>
-      <a href={`${base}/contact`} class="btn-outline" style="padding:17px 40px;font-size:11px;">온라인 문의</a>
+  <!-- 8. CTA (다크 배경) -->
+  <section class="cta-section">
+    <div class="section-inner">
+      <span class="section-label" style="color:rgba(255,255,255,0.4);">Free Estimate</span>
+      <h2 class="font-display">
+        무료 방문 견적<br/>
+        <span class="blue-gradient" style="font-style:italic;">지금 신청하세요</span>
+      </h2>
+      <p>
+        현장을 직접 확인한 후 정확한 금액을 안내드립니다.<br/>
+        견적 후 시공 여부와 무관하게 아무런 부담이 없습니다.
+      </p>
+      <div class="cta-btn-row">
+        <a href={`${base}/contact`} class="btn-primary">무료 견적 신청</a>
+        <a href="tel:010-7237-2122" class="btn-outline-dark" style="color:#ffffff;border-color:rgba(255,255,255,0.3);">
+          010-7237-2122 전화하기
+        </a>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-</Layout>
-
-<style>
-/* 기종별 카드 그리드 */
-.type-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1px;
-  background: rgba(79,195,247,0.08);
-  border: 1px solid rgba(79,195,247,0.08);
-}
-.type-card {
-  position: relative;
-  padding: 36px 28px 0;
-  background: var(--dark2);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-.type-card--highlight {
-  background: rgba(79,195,247,0.04);
-  border: 1px solid rgba(79,195,247,0.25);
-  margin: -1px;
-  z-index: 1;
-}
-
-/* 브랜드 비교 테이블 */
-.brand-table-row {
-  display: grid;
-  grid-template-columns: 120px repeat(4, 1fr);
-  border-bottom: 1px solid rgba(79,195,247,0.07);
-}
-.brand-table-header {
-  background: rgba(79,195,247,0.06);
-  border-bottom: 1px solid rgba(79,195,247,0.15);
-}
-.brand-table-label {
-  padding: 16px 20px;
-  font-size: 11px;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.35);
-  display: flex;
-  align-items: center;
-  border-right: 1px solid rgba(79,195,247,0.07);
-}
-.brand-table-cell {
-  padding: 14px 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-right: 1px solid rgba(79,195,247,0.04);
-}
-.brand-table-cell:last-child {
-  border-right: none;
-}
-
-/* 평수별 가격 테이블 */
-.price-table-header {
-  display: grid;
-  grid-template-columns: 80px 1fr 1fr 1.5fr;
-  background: rgba(79,195,247,0.08);
-  border-bottom: 1px solid rgba(79,195,247,0.15);
-}
-.price-th {
-  padding: 14px 20px;
-  font-size: 10px;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--blue);
-}
-.price-table-row {
-  display: grid;
-  grid-template-columns: 80px 1fr 1fr 1.5fr;
-  border-bottom: 1px solid rgba(79,195,247,0.06);
-  transition: background 0.25s;
-}
-.price-table-row:hover {
-  background: rgba(79,195,247,0.04);
-}
-.price-row-alt {
-  background: rgba(255,255,255,0.01);
-}
-.price-td {
-  padding: 18px 20px;
-}
-.price-td-name { font-size: 13px; font-weight: 600; color: white; }
-.price-td-range { font-size: 13px; color: rgba(255,255,255,0.65); }
-.price-td-price { font-size: 15px; font-style: italic; font-weight: 400; color: var(--blue); }
-.price-td-desc { font-size: 12px; color: rgba(255,255,255,0.4); }
-
-/* 비용 결정 요소 */
-.factor-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-}
-.factor-card {
-  padding: 32px 24px;
-  border: 1px solid rgba(79,195,247,0.1);
-  background: rgba(79,195,247,0.02);
-  text-align: center;
-  transition: border-color 0.3s, background 0.3s;
-}
-.factor-card:hover {
-  border-color: rgba(79,195,247,0.25);
-  background: rgba(79,195,247,0.05);
-}
-
-/* FAQ */
-.faq-item {
-  border-bottom: 1px solid rgba(79,195,247,0.08);
-}
-.faq-item:first-child {
-  border-top: 1px solid rgba(79,195,247,0.08);
-}
-.faq-trigger {
-  width: 100%;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  text-align: left;
-  transition: background 0.25s;
-}
-.faq-trigger:hover {
-  background: rgba(79,195,247,0.03);
-}
-.faq-item.open .faq-trigger {
-  background: rgba(79,195,247,0.04);
-}
-
-/* 추가비용 그리드 */
-.extra-grid {
-  grid-template-columns: 1fr 1fr;
-}
-
-/* 정부지원 배너 호버 */
-.subsidy-btn:hover {
-  background: rgba(79,195,247,0.1) !important;
-}
-
-/* 반응형 */
-@media (max-width: 900px) {
-  .brand-table-row {
-    grid-template-columns: 90px repeat(4, 1fr);
-  }
-  .brand-table-label {
-    padding: 12px 10px;
-    font-size: 9px;
-  }
-  .brand-table-cell {
-    padding: 10px 8px;
-    font-size: 10px;
-  }
-}
-
-@media (max-width: 768px) {
-  .type-grid {
-    grid-template-columns: 1fr;
-  }
-  .type-card--highlight {
-    margin: 0;
-    border-left: none;
-    border-right: none;
-  }
-  .factor-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .extra-grid {
-    grid-template-columns: 1fr !important;
-    gap: 32px !important;
-  }
-  .brand-table-row {
-    grid-template-columns: 70px repeat(4, 1fr);
-  }
-  .price-table-header,
-  .price-table-row {
-    grid-template-columns: 70px 1fr 1fr;
-  }
-  .price-th-hide {
-    display: none;
-  }
-  .price-td-desc {
-    display: none;
-  }
-}
-
-@media (max-width: 480px) {
-  .factor-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-  .brand-table-row {
-    grid-template-columns: 60px repeat(2, 1fr);
-  }
-  .brand-table-row > *:nth-child(4),
-  .brand-table-row > *:nth-child(5) {
-    display: none;
-  }
-}
-</style>
+</div>
 
 <script is:inline>
-// FAQ 아코디언
-function toggleFaq(index) {
-  var body = document.getElementById('faq-body-' + index);
-  var icon = document.getElementById('faq-icon-' + index);
-  var item = document.getElementById('faq-' + index);
-  var isOpen = item.classList.contains('open');
-
-  // 모두 닫기
-  document.querySelectorAll('.faq-item').forEach(function(el, i) {
-    el.classList.remove('open');
-    var b = document.getElementById('faq-body-' + i);
-    var ic = document.getElementById('faq-icon-' + i);
-    if (b) b.style.maxHeight = '0';
-    if (ic) { ic.textContent = '+'; ic.style.transform = 'rotate(0deg)'; }
-    var trigger = el.querySelector('.faq-trigger');
-    if (trigger) trigger.setAttribute('aria-expanded', 'false');
+  // FAQ 아코디언
+  document.addEventListener('DOMContentLoaded', function () {
+    var items = document.querySelectorAll('.faq-item');
+    items.forEach(function (item) {
+      var btn = item.querySelector('.faq-q');
+      btn.addEventListener('click', function () {
+        var isOpen = item.classList.contains('open');
+        items.forEach(function (el) { el.classList.remove('open'); });
+        if (!isOpen) item.classList.add('open');
+      });
+    });
   });
 
-  if (!isOpen) {
-    item.classList.add('open');
-    body.style.maxHeight = body.scrollHeight + 'px';
-    icon.textContent = '−';
-    icon.style.transform = 'rotate(0deg)';
-    item.querySelector('.faq-trigger').setAttribute('aria-expanded', 'true');
-  }
-}
-
-// Lenis smooth scroll
-window.addEventListener('load', function() {
-  var LenisClass = window.Lenis;
-  if (LenisClass) {
-    var lenis = new LenisClass({ lerp: 0.1, smoothWheel: true });
-    var gsapLib = window.gsap;
-    var STLib = window.ScrollTrigger;
-    if (gsapLib && STLib) {
-      gsapLib.ticker.add(function(time) { lenis.raf(time * 1000); });
-      gsapLib.ticker.lagSmoothing(0);
-      lenis.on('scroll', STLib.update);
-    } else {
-      function raf(t) { lenis.raf(t); requestAnimationFrame(raf); }
-      requestAnimationFrame(raf);
-    }
-  }
-
-  // GSAP fade-in on scroll
-  if (window.gsap && window.ScrollTrigger) {
-    gsap.registerPlugin(ScrollTrigger);
-    gsap.utils.toArray('.type-card, .factor-card, .faq-item, .brand-table-row').forEach(function(el) {
-      gsap.fromTo(el,
-        { opacity: 0, y: 20 },
-        {
-          opacity: 1, y: 0, duration: 0.6, ease: 'power2.out',
-          scrollTrigger: { trigger: el, start: 'top 88%', once: true }
-        }
-      );
-    });
-  }
-});
+  // Lenis smooth scroll (레이아웃에서 이미 초기화된 경우 스킵)
+  window.addEventListener('load', function () {
+    if (!window.Lenis || window.__lenis) return;
+    var lenis = new window.Lenis({ lerp: 0.08, smoothWheel: true });
+    window.__lenis = lenis;
+    function raf(t) { lenis.raf(t); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+  });
 </script>
+
+</Layout>

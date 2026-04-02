@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const title = '에어컨 정보 | 전문가 가이드 — 디디에어컨';
-const description = '천장형 4WAY 카세트 에어컨 완전 가이드, 이전설치 안내, 시스템에어컨 vs 일반에어컨 비교, 냉매 종류, 에너지효율등급. 디디에어컨 전문가 가이드.';
+const description = '천장형 4WAY 카세트 에어컨 완전 가이드, LG·삼성 제품 비교, 에너지등급별 가격, 이전설치 안내, 냉매 종류. 디디에어컨 전문가 가이드.';
 
 const compareTable = [
   { item: '설치 위치', system: '천장·벽 매립형', normal: '벽걸이·바닥형' },
@@ -13,6 +13,28 @@ const compareTable = [
   { item: '유지보수', system: '전문가 청소 권장', normal: '필터 자가 청소 가능' },
   { item: '에너지 효율', system: '대용량 공간에 유리', normal: '소형 공간에 유리' },
   { item: '적합 공간', system: '거실·사무실·음식점', normal: '침실·소형 공간' },
+];
+
+const lgProducts = [
+  { model: 'FH07JVS2W', space: '7평형', grade: '1등급', cooling: '2.6kW', price: '문의', desc: '소형 공간용 입문 모델. 저소음 39dB 이하.' },
+  { model: 'FQ15BK2WA', space: '15평형', grade: '1등급', cooling: '5.0kW', price: '140~160만원', desc: '1인실·소규모 사무실에 최적.' },
+  { model: 'FQ22BK2WA', space: '23평형', grade: '1등급', cooling: '7.5kW', price: '190~220만원', desc: '중형 거실·카페에 적합한 주력 모델.' },
+  { model: 'FQ31BK2WA', space: '30평형', grade: '1등급', cooling: '10.0kW', price: '230~260만원', desc: '대형 공간·상업시설 전용 고용량.' },
+];
+
+const samsungProducts = [
+  { model: 'AC060AN4FBH1', space: '18평형', grade: '1등급', cooling: '6.0kW', price: '150~170만원', desc: '무풍쾌적 기술 적용. 중형 공간용.' },
+  { model: 'AC090AN4FBH1', space: '25평형', grade: '1등급', cooling: '9.0kW', price: '190~210만원', desc: 'AI 절전 모드 탑재. 거실·사무실 최적.' },
+  { model: 'AC110AN4FBH1', space: '30평형', grade: '1등급', cooling: '11.0kW', price: '230~250만원', desc: '대용량 상업 공간 전용 무풍 모델.' },
+  { model: 'AC145BS4PHH7', space: '40평형', grade: '1등급', cooling: '14.5kW', price: '280~330만원', desc: '초대형 공간 최고 용량 프리미엄 모델.' },
+];
+
+const spaceGuide = [
+  { range: '10평 이하', lg: '벽걸이 권장', samsung: '벽걸이 권장', note: '천장형 불필요' },
+  { range: '15~20평', lg: 'FQ15BK2WA', samsung: 'AC060AN4FBH1', note: '가장 많이 선택' },
+  { range: '22~28평', lg: 'FQ22BK2WA', samsung: 'AC090AN4FBH1', note: '디디에어컨 주력' },
+  { range: '28~35평', lg: 'FQ31BK2WA', samsung: 'AC110AN4FBH1', note: '고용량 상업 공간' },
+  { range: '35평 이상', lg: '멀티형 별도 설계', samsung: '멀티형 별도 설계', note: '현장 실사 필수' },
 ];
 
 const spaceCards = [
@@ -99,8 +121,326 @@ const installSteps = [
   </div>
 </section>
 
+<!-- LG vs 삼성 제품 카드 그리드 -->
+<section style="background:var(--dark);padding:0 8vw 80px;border-top:1px solid rgba(79,195,247,0.08);">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:52px;">
+      <span class="section-label">Product Guide</span>
+      <h2 class="font-display" style="font-size:clamp(26px,3.5vw,48px);font-weight:300;color:white;">LG · 삼성 주요 제품</h2>
+      <div class="section-divider"></div>
+      <p style="font-size:14px;color:rgba(255,255,255,0.4);margin-top:12px;line-height:1.8;">1등급 냉난방 인버터 기준 / 공급가 기준 (설치비 별도)</p>
+    </div>
+
+    <!-- LG 제품 -->
+    <div style="margin-bottom:48px;">
+      <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;color:white;letter-spacing:0.05em;">LG</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.4);letter-spacing:0.2em;text-transform:uppercase;">휘센 4WAY 카세트</div>
+        <div style="flex:1;height:1px;background:rgba(79,195,247,0.15);"></div>
+        <div style="font-size:10px;color:var(--blue);border:1px solid rgba(79,195,247,0.4);padding:4px 12px;letter-spacing:0.15em;">인버터 1등급</div>
+      </div>
+      <div class="product-grid">
+        {lgProducts.map((p, i) => (
+          <div class="product-card" style={i === 2 ? 'border-color:rgba(79,195,247,0.45);background:rgba(79,195,247,0.05);' : ''}>
+            {i === 2 && (
+              <div style="position:absolute;top:14px;right:14px;font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:var(--blue);border:1px solid rgba(79,195,247,0.4);padding:3px 8px;">인기</div>
+            )}
+            <div style="font-size:10px;letter-spacing:0.2em;color:rgba(255,255,255,0.3);margin-bottom:6px;text-transform:uppercase;">모델명</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:white;font-weight:500;margin-bottom:16px;letter-spacing:0.05em;">LG {p.model}</div>
+            <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;">
+              <span style="font-size:11px;padding:4px 10px;border:1px solid rgba(79,195,247,0.25);color:var(--blue);">{p.space}</span>
+              <span style="font-size:11px;padding:4px 10px;border:1px solid rgba(79,195,247,0.25);color:var(--blue);">냉방 {p.cooling}</span>
+              <span style="font-size:11px;padding:4px 10px;border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.5);">{p.grade}</span>
+            </div>
+            <p style="font-size:12px;color:rgba(255,255,255,0.45);line-height:1.7;margin:0 0 16px;">{p.desc}</p>
+            <div style="border-top:1px solid rgba(79,195,247,0.1);padding-top:14px;">
+              <div style="font-size:10px;color:rgba(255,255,255,0.3);letter-spacing:0.1em;margin-bottom:4px;">공급가 기준</div>
+              <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:{p.price === '문의' ? 'rgba(255,255,255,0.5)' : 'white'};">{p.price}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- 삼성 제품 -->
+    <div>
+      <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;color:white;letter-spacing:0.05em;">Samsung</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.4);letter-spacing:0.2em;text-transform:uppercase;">무풍 4WAY 카세트</div>
+        <div style="flex:1;height:1px;background:rgba(79,195,247,0.15);"></div>
+        <div style="font-size:10px;color:var(--blue);border:1px solid rgba(79,195,247,0.4);padding:4px 12px;letter-spacing:0.15em;">인버터 1등급</div>
+      </div>
+      <div class="product-grid">
+        {samsungProducts.map((p, i) => (
+          <div class="product-card" style={i === 1 ? 'border-color:rgba(79,195,247,0.45);background:rgba(79,195,247,0.05);' : ''}>
+            {i === 1 && (
+              <div style="position:absolute;top:14px;right:14px;font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:var(--blue);border:1px solid rgba(79,195,247,0.4);padding:3px 8px;">인기</div>
+            )}
+            <div style="font-size:10px;letter-spacing:0.2em;color:rgba(255,255,255,0.3);margin-bottom:6px;text-transform:uppercase;">모델명</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:white;font-weight:500;margin-bottom:16px;letter-spacing:0.05em;">Samsung {p.model}</div>
+            <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;">
+              <span style="font-size:11px;padding:4px 10px;border:1px solid rgba(79,195,247,0.25);color:var(--blue);">{p.space}</span>
+              <span style="font-size:11px;padding:4px 10px;border:1px solid rgba(79,195,247,0.25);color:var(--blue);">냉방 {p.cooling}</span>
+              <span style="font-size:11px;padding:4px 10px;border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.5);">{p.grade}</span>
+            </div>
+            <p style="font-size:12px;color:rgba(255,255,255,0.45);line-height:1.7;margin:0 0 16px;">{p.desc}</p>
+            <div style="border-top:1px solid rgba(79,195,247,0.1);padding-top:14px;">
+              <div style="font-size:10px;color:rgba(255,255,255,0.3);letter-spacing:0.1em;margin-bottom:4px;">공급가 기준</div>
+              <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:white;">{p.price}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+    <p style="font-size:12px;color:rgba(255,255,255,0.3);margin-top:20px;text-align:center;line-height:1.7;">
+      * 공급가 기준 가격으로 설치비·부자재비 별도. 정확한 견적은 현장 실사 후 안내드립니다.
+    </p>
+  </div>
+</section>
+
+<!-- 브랜드별 장단점 비교 -->
+<section style="background:var(--dark2);padding:80px 8vw;border-top:1px solid rgba(79,195,247,0.08);">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:52px;">
+      <span class="section-label">Brand Compare</span>
+      <h2 class="font-display" style="font-size:clamp(26px,3.5vw,48px);font-weight:300;color:white;">LG vs 삼성 — 장단점 비교</h2>
+      <div class="section-divider"></div>
+      <p style="font-size:14px;color:rgba(255,255,255,0.4);margin-top:12px;line-height:1.8;">어떤 브랜드가 내 공간에 맞는지 핵심만 정리했습니다.</p>
+    </div>
+    <div class="brand-compare-grid">
+      <!-- LG -->
+      <div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:600;color:white;margin-bottom:4px;">LG 휘센</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.35);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:24px;">4WAY 카세트</div>
+        <div style="padding:28px 32px;border:1px solid rgba(79,195,247,0.25);background:rgba(79,195,247,0.03);margin-bottom:16px;">
+          <div style="font-size:10px;letter-spacing:0.25em;text-transform:uppercase;color:var(--blue);margin-bottom:16px;">장점</div>
+          <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px;">
+            <li style="font-size:13px;color:rgba(255,255,255,0.65);display:flex;align-items:flex-start;gap:10px;">
+              <span style="color:var(--blue);flex-shrink:0;margin-top:2px;">+</span>
+              <span><strong style="color:white;">듀얼베인 기류 제어</strong> — 4방향 베인 독립 제어로 기류 정밀 설정</span>
+            </li>
+            <li style="font-size:13px;color:rgba(255,255,255,0.65);display:flex;align-items:flex-start;gap:10px;">
+              <span style="color:var(--blue);flex-shrink:0;margin-top:2px;">+</span>
+              <span><strong style="color:white;">자동 청소 기능</strong> 내장 — 사용 후 자동 건조로 위생 관리</span>
+            </li>
+            <li style="font-size:13px;color:rgba(255,255,255,0.65);display:flex;align-items:flex-start;gap:10px;">
+              <span style="color:var(--blue);flex-shrink:0;margin-top:2px;">+</span>
+              <span><strong style="color:white;">에너지 효율 우수</strong> — 1등급 기준 연간 전기요금 절감 탁월</span>
+            </li>
+            <li style="font-size:13px;color:rgba(255,255,255,0.65);display:flex;align-items:flex-start;gap:10px;">
+              <span style="color:var(--blue);flex-shrink:0;margin-top:2px;">+</span>
+              <span><strong style="color:white;">저소음 39dB 이하</strong> — 상업 공간 쾌적도 우수</span>
+            </li>
+            <li style="font-size:13px;color:rgba(255,255,255,0.65);display:flex;align-items:flex-start;gap:10px;">
+              <span style="color:var(--blue);flex-shrink:0;margin-top:2px;">+</span>
+              <span><strong style="color:white;">LG전자 직영 A/S망</strong> 전국 강력 서비스 네트워크</span>
+            </li>
+          </ul>
+        </div>
+        <div style="padding:28px 32px;border:1px solid rgba(255,100,100,0.15);background:rgba(255,80,80,0.02);">
+          <div style="font-size:10px;letter-spacing:0.25em;text-transform:uppercase;color:rgba(255,140,140,0.7);margin-bottom:16px;">단점</div>
+          <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px;">
+            <li style="font-size:13px;color:rgba(255,255,255,0.5);display:flex;align-items:flex-start;gap:10px;">
+              <span style="color:rgba(255,140,140,0.6);flex-shrink:0;margin-top:2px;">-</span>
+              <span>B2B 중심 판매로 온라인 <strong style="color:rgba(255,255,255,0.7);">가격 비교 어려움</strong></span>
+            </li>
+            <li style="font-size:13px;color:rgba(255,255,255,0.5);display:flex;align-items:flex-start;gap:10px;">
+              <span style="color:rgba(255,140,140,0.6);flex-shrink:0;margin-top:2px;">-</span>
+              <span>일부 모델 <strong style="color:rgba(255,255,255,0.7);">리모컨 별도 구매</strong> 필요</span>
+            </li>
+            <li style="font-size:13px;color:rgba(255,255,255,0.5);display:flex;align-items:flex-start;gap:10px;">
+              <span style="color:rgba(255,140,140,0.6);flex-shrink:0;margin-top:2px;">-</span>
+              <span>일반 소비자 구매 시 <strong style="color:rgba(255,255,255,0.7);">대리점 경유 필수</strong></span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 삼성 -->
+      <div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:600;color:white;margin-bottom:4px;">Samsung 무풍</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.35);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:24px;">4WAY 카세트</div>
+        <div style="padding:28px 32px;border:1px solid rgba(79,195,247,0.25);background:rgba(79,195,247,0.03);margin-bottom:16px;">
+          <div style="font-size:10px;letter-spacing:0.25em;text-transform:uppercase;color:var(--blue);margin-bottom:16px;">장점</div>
+          <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px;">
+            <li style="font-size:13px;color:rgba(255,255,255,0.65);display:flex;align-items:flex-start;gap:10px;">
+              <span style="color:var(--blue);flex-shrink:0;margin-top:2px;">+</span>
+              <span><strong style="color:white;">무풍쾌적 기술</strong> — 마이크로홀 2.6mm, 0.4m/s 부드러운 바람</span>
+            </li>
+            <li style="font-size:13px;color:rgba(255,255,255,0.65);display:flex;align-items:flex-start;gap:10px;">
+              <span style="color:var(--blue);flex-shrink:0;margin-top:2px;">+</span>
+              <span><strong style="color:white;">AI 절전 모드</strong> — 사용 패턴 학습으로 자동 에너지 절감</span>
+            </li>
+            <li style="font-size:13px;color:rgba(255,255,255,0.65);display:flex;align-items:flex-start;gap:10px;">
+              <span style="color:var(--blue);flex-shrink:0;margin-top:2px;">+</span>
+              <span><strong style="color:white;">온라인 가격 비교 쉬움</strong> — 공개 유통으로 시장가 투명</span>
+            </li>
+            <li style="font-size:13px;color:rgba(255,255,255,0.65);display:flex;align-items:flex-start;gap:10px;">
+              <span style="color:var(--blue);flex-shrink:0;margin-top:2px;">+</span>
+              <span><strong style="color:white;">삼성전자서비스</strong> 전국 직영 A/S 센터 다수</span>
+            </li>
+          </ul>
+        </div>
+        <div style="padding:28px 32px;border:1px solid rgba(255,100,100,0.15);background:rgba(255,80,80,0.02);">
+          <div style="font-size:10px;letter-spacing:0.25em;text-transform:uppercase;color:rgba(255,140,140,0.7);margin-bottom:16px;">단점</div>
+          <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px;">
+            <li style="font-size:13px;color:rgba(255,255,255,0.5);display:flex;align-items:flex-start;gap:10px;">
+              <span style="color:rgba(255,140,140,0.6);flex-shrink:0;margin-top:2px;">-</span>
+              <span>무풍 모드 시 <strong style="color:rgba(255,255,255,0.7);">냉방 속도 느림</strong> — 초기 급냉 불리</span>
+            </li>
+            <li style="font-size:13px;color:rgba(255,255,255,0.5);display:flex;align-items:flex-start;gap:10px;">
+              <span style="color:rgba(255,140,140,0.6);flex-shrink:0;margin-top:2px;">-</span>
+              <span>동급 LG 대비 <strong style="color:rgba(255,255,255,0.7);">약 10~15% 높은 가격</strong></span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 에너지 등급 상세 설명 -->
+<section style="background:var(--dark);padding:80px 8vw;border-top:1px solid rgba(79,195,247,0.08);">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:52px;">
+      <span class="section-label">Energy Rating</span>
+      <h2 class="font-display" style="font-size:clamp(26px,3.5vw,48px);font-weight:300;color:white;">에너지 등급 비교</h2>
+      <div class="section-divider"></div>
+      <p style="font-size:14px;color:rgba(255,255,255,0.4);margin-top:12px;line-height:1.8;">
+        등급이 낮을수록(1등급 최고) 전기료 절약 + 정부지원 혜택이 큽니다.
+      </p>
+    </div>
+
+    <!-- 등급 비교 표 -->
+    <div style="border:1px solid rgba(79,195,247,0.1);overflow:hidden;margin-bottom:32px;">
+      <div style="display:grid;grid-template-columns:80px 1fr 1fr 1fr 1fr;background:rgba(79,195,247,0.08);border-bottom:1px solid rgba(79,195,247,0.15);">
+        <div style="padding:14px 16px;font-size:10px;letter-spacing:0.25em;text-transform:uppercase;color:rgba(255,255,255,0.4);">등급</div>
+        <div style="padding:14px 16px;font-size:10px;letter-spacing:0.25em;text-transform:uppercase;color:var(--blue);">특징</div>
+        <div style="padding:14px 16px;font-size:10px;letter-spacing:0.25em;text-transform:uppercase;color:rgba(255,255,255,0.4);">연간 절감액</div>
+        <div style="padding:14px 16px;font-size:10px;letter-spacing:0.25em;text-transform:uppercase;color:rgba(255,255,255,0.4);">정부지원</div>
+        <div style="padding:14px 16px;font-size:10px;letter-spacing:0.25em;text-transform:uppercase;color:rgba(255,255,255,0.4);">대표 모델</div>
+      </div>
+      <div class="energy-row" style="background:rgba(79,195,247,0.08);border-bottom:1px solid rgba(79,195,247,0.1);">
+        <div style="padding:18px 16px;display:flex;align-items:center;justify-content:center;">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--blue);line-height:1;">1</div>
+        </div>
+        <div style="padding:18px 16px;">
+          <div style="font-size:13px;font-weight:600;color:white;margin-bottom:3px;">최고 효율 인버터</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.45);">연속 가변 속도 제어</div>
+        </div>
+        <div style="padding:18px 16px;font-size:13px;color:var(--blue);">12~18만원/년<br/><span style="font-size:11px;color:rgba(79,195,247,0.6);">(vs 3등급 비교)</span></div>
+        <div style="padding:18px 16px;">
+          <span style="font-size:11px;color:var(--blue);border:1px solid rgba(79,195,247,0.5);padding:4px 10px;">최대 160만원</span>
+        </div>
+        <div style="padding:18px 16px;font-size:12px;color:rgba(255,255,255,0.5);">LG FQ22BK2WA<br/>Samsung AC090AN4</div>
+      </div>
+      <div class="energy-row" style="border-bottom:1px solid rgba(79,195,247,0.06);">
+        <div style="padding:18px 16px;display:flex;align-items:center;justify-content:center;">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:rgba(79,195,247,0.6);line-height:1;">2</div>
+        </div>
+        <div style="padding:18px 16px;">
+          <div style="font-size:13px;font-weight:600;color:white;margin-bottom:3px;">고효율 인버터</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.45);">약 12,000원/월 절약</div>
+        </div>
+        <div style="padding:18px 16px;font-size:13px;color:rgba(255,255,255,0.5);">약 8~10만원/년</div>
+        <div style="padding:18px 16px;">
+          <span style="font-size:11px;color:rgba(255,255,255,0.5);border:1px solid rgba(255,255,255,0.2);padding:4px 10px;">최대 120만원</span>
+        </div>
+        <div style="padding:18px 16px;font-size:12px;color:rgba(255,255,255,0.4);">구형 인버터 일부</div>
+      </div>
+      <div class="energy-row" style="border-bottom:1px solid rgba(79,195,247,0.06);">
+        <div style="padding:18px 16px;display:flex;align-items:center;justify-content:center;">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:rgba(255,255,255,0.35);line-height:1;">3</div>
+        </div>
+        <div style="padding:18px 16px;">
+          <div style="font-size:13px;font-weight:600;color:rgba(255,255,255,0.6);margin-bottom:3px;">중효율 (기준)</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.35);">논인버터 또는 구형 인버터</div>
+        </div>
+        <div style="padding:18px 16px;font-size:13px;color:rgba(255,255,255,0.35);">기준</div>
+        <div style="padding:18px 16px;font-size:12px;color:rgba(255,100,100,0.6);">미해당</div>
+        <div style="padding:18px 16px;font-size:12px;color:rgba(255,255,255,0.3);">구형 제품 다수</div>
+      </div>
+      <div class="energy-row">
+        <div style="padding:18px 16px;display:flex;align-items:center;justify-content:center;">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:rgba(255,255,255,0.2);line-height:1;">4~5</div>
+        </div>
+        <div style="padding:18px 16px;">
+          <div style="font-size:13px;font-weight:600;color:rgba(255,255,255,0.4);margin-bottom:3px;">저효율</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.25);">판매 중단 또는 노후 제품</div>
+        </div>
+        <div style="padding:18px 16px;font-size:13px;color:rgba(255,100,100,0.5);">전기료 증가</div>
+        <div style="padding:18px 16px;font-size:12px;color:rgba(255,100,100,0.6);">미해당</div>
+        <div style="padding:18px 16px;font-size:12px;color:rgba(255,255,255,0.25);">단계적 단종</div>
+      </div>
+    </div>
+
+    <div style="padding:20px 28px;border:1px solid rgba(79,195,247,0.15);background:rgba(79,195,247,0.03);display:flex;align-items:flex-start;gap:16px;">
+      <div style="color:var(--blue);font-size:18px;flex-shrink:0;margin-top:2px;">i</div>
+      <p style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.8;margin:0;">
+        에너지효율 <strong style="color:white;">1~2등급 제품은 정부지원 대상</strong>입니다. 1등급 최대 160만원, 2등급 최대 120만원 지원.
+        디디에어컨은 정부지원 신청 절차를 함께 도와드립니다.
+        <a href={`${base}/subsidy`} style="color:var(--blue);text-decoration:none;margin-left:6px;">정부지원사업 자세히 보기 →</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- 공간별 추천 제품 가이드 (표) -->
+<section style="background:var(--dark2);padding:80px 8vw;border-top:1px solid rgba(79,195,247,0.08);">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:52px;">
+      <span class="section-label">Space Guide</span>
+      <h2 class="font-display" style="font-size:clamp(26px,3.5vw,48px);font-weight:300;color:white;">공간별 추천 제품</h2>
+      <div class="section-divider"></div>
+      <p style="font-size:14px;color:rgba(255,255,255,0.4);margin-top:12px;line-height:1.8;">공간 규모에 맞는 LG·삼성 추천 모델을 바로 확인하세요.</p>
+    </div>
+
+    <!-- 추천 표 -->
+    <div style="border:1px solid rgba(79,195,247,0.1);overflow:hidden;margin-bottom:40px;">
+      <div style="display:grid;grid-template-columns:130px 1fr 1fr 1fr;background:rgba(79,195,247,0.08);border-bottom:1px solid rgba(79,195,247,0.15);">
+        <div style="padding:14px 20px;font-size:10px;letter-spacing:0.25em;text-transform:uppercase;color:rgba(255,255,255,0.4);">공간 크기</div>
+        <div style="padding:14px 20px;font-size:10px;letter-spacing:0.25em;text-transform:uppercase;color:var(--blue);">LG 추천</div>
+        <div style="padding:14px 20px;font-size:10px;letter-spacing:0.25em;text-transform:uppercase;color:rgba(79,195,247,0.7);">삼성 추천</div>
+        <div style="padding:14px 20px;font-size:10px;letter-spacing:0.25em;text-transform:uppercase;color:rgba(255,255,255,0.4);">비고</div>
+      </div>
+      {spaceGuide.map((row, i) => (
+        <div
+          class="compare-row"
+          style={`display:grid;grid-template-columns:130px 1fr 1fr 1fr;border-bottom:1px solid rgba(79,195,247,0.06);${i % 2 === 0 ? '' : 'background:rgba(255,255,255,0.01);'}${i === 2 ? 'border-left:2px solid var(--blue);' : ''}`}
+        >
+          <div style="padding:16px 20px;font-size:13px;font-weight:600;color:white;">{row.range}</div>
+          <div style="padding:16px 20px;font-size:13px;color:var(--blue);">{row.lg}</div>
+          <div style="padding:16px 20px;font-size:13px;color:rgba(79,195,247,0.7);">{row.samsung}</div>
+          <div style="padding:16px 20px;font-size:12px;color:rgba(255,255,255,0.4);">{row.note}</div>
+        </div>
+      ))}
+    </div>
+
+    <!-- 공간별 카드 (기존) -->
+    <div class="space-grid">
+      {spaceCards.map((card) => (
+        <div
+          class="space-card"
+          style={card.highlight
+            ? 'padding:36px 32px;border:1px solid rgba(79,195,247,0.5);background:rgba(79,195,247,0.06);position:relative;'
+            : 'padding:36px 32px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.02);position:relative;'}
+        >
+          {card.highlight && (
+            <div style="position:absolute;top:16px;right:16px;font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:var(--blue);border:1px solid rgba(79,195,247,0.4);padding:4px 10px;">디디에어컨 주력</div>
+          )}
+          <div style="font-size:28px;margin-bottom:12px;">{card.icon}</div>
+          <div style={`font-size:10px;letter-spacing:0.25em;text-transform:uppercase;margin-bottom:6px;${card.highlight ? 'color:var(--blue);' : 'color:rgba(255,255,255,0.35);'}`}>{card.range}</div>
+          <div style="font-size:16px;font-weight:600;color:white;margin-bottom:8px;">{card.label}</div>
+          <div style={`font-size:13px;font-weight:500;margin-bottom:12px;${card.highlight ? 'color:var(--blue);' : 'color:rgba(79,195,247,0.6);'}`}>{card.rec}</div>
+          <p style="font-size:13px;color:rgba(255,255,255,0.45);line-height:1.7;margin:0;">{card.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
 <!-- 시스템에어컨 vs 일반 비교 -->
-<section style="background:var(--dark);padding:0 8vw 80px;position:relative;z-index:2;">
+<section style="background:var(--dark);padding:80px 8vw;border-top:1px solid rgba(79,195,247,0.08);">
   <div style="max-width:1100px;margin:0 auto;">
     <div style="margin-bottom:40px;">
       <span class="section-label">비교 분석</span>
@@ -130,39 +470,8 @@ const installSteps = [
   </div>
 </section>
 
-<!-- 공간별 용량 선택 가이드 -->
-<section style="background:var(--dark2);padding:80px 8vw;border-top:1px solid rgba(79,195,247,0.08);">
-  <div style="max-width:1100px;margin:0 auto;">
-    <div style="text-align:center;margin-bottom:52px;">
-      <span class="section-label">Space Guide</span>
-      <h2 class="font-display" style="font-size:clamp(26px,3.5vw,48px);font-weight:300;color:white;">공간별 용량 선택 가이드</h2>
-      <div class="section-divider"></div>
-      <p style="font-size:14px;color:rgba(255,255,255,0.4);margin-top:12px;line-height:1.8;">공간 규모와 용도에 맞는 에어컨 타입을 선택하세요.</p>
-    </div>
-    <div class="space-grid">
-      {spaceCards.map((card) => (
-        <div
-          class="space-card"
-          style={card.highlight
-            ? 'padding:36px 32px;border:1px solid rgba(79,195,247,0.5);background:rgba(79,195,247,0.06);position:relative;'
-            : 'padding:36px 32px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.02);position:relative;'}
-        >
-          {card.highlight && (
-            <div style="position:absolute;top:16px;right:16px;font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:var(--blue);border:1px solid rgba(79,195,247,0.4);padding:4px 10px;">디디에어컨 주력</div>
-          )}
-          <div style="font-size:28px;margin-bottom:12px;">{card.icon}</div>
-          <div style={`font-size:10px;letter-spacing:0.25em;text-transform:uppercase;margin-bottom:6px;${card.highlight ? 'color:var(--blue);' : 'color:rgba(255,255,255,0.35);'}`}>{card.range}</div>
-          <div style="font-size:16px;font-weight:600;color:white;margin-bottom:8px;">{card.label}</div>
-          <div style={`font-size:13px;font-weight:500;margin-bottom:12px;${card.highlight ? 'color:var(--blue);' : 'color:rgba(79,195,247,0.6);'}`}>{card.rec}</div>
-          <p style="font-size:13px;color:rgba(255,255,255,0.45);line-height:1.7;margin:0;">{card.desc}</p>
-        </div>
-      ))}
-    </div>
-  </div>
-</section>
-
 <!-- 천장형 4WAY 카세트 완전 가이드 -->
-<section style="background:var(--dark);padding:80px 8vw;border-top:1px solid rgba(79,195,247,0.08);">
+<section style="background:var(--dark2);padding:80px 8vw;border-top:1px solid rgba(79,195,247,0.08);">
   <div style="max-width:1100px;margin:0 auto;">
     <div style="text-align:center;margin-bottom:52px;">
       <span class="section-label">4WAY Cassette</span>
@@ -233,7 +542,6 @@ const installSteps = [
 
     <!-- 4WAY 설치 조건 + 장점 -->
     <div class="fourway-bottom-grid">
-      <!-- 설치 조건 -->
       <div style="padding:36px;border:1px solid rgba(79,195,247,0.15);background:rgba(79,195,247,0.02);">
         <div style="font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:var(--blue);margin-bottom:16px;">Installation Requirements</div>
         <h3 style="font-size:18px;font-weight:600;color:white;margin-bottom:20px;">4WAY 설치 조건</h3>
@@ -260,8 +568,6 @@ const installSteps = [
           </li>
         </ul>
       </div>
-
-      <!-- 장점 -->
       <div style="padding:36px;border:1px solid rgba(79,195,247,0.15);background:rgba(79,195,247,0.02);">
         <div style="font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:var(--blue);margin-bottom:16px;">Advantages</div>
         <h3 style="font-size:18px;font-weight:600;color:white;margin-bottom:20px;">4WAY 장점</h3>
@@ -308,7 +614,7 @@ const installSteps = [
 </section>
 
 <!-- 에어컨 이전설치 완전 안내 -->
-<section style="background:var(--dark2);padding:80px 8vw;border-top:1px solid rgba(79,195,247,0.08);">
+<section style="background:var(--dark);padding:80px 8vw;border-top:1px solid rgba(79,195,247,0.08);">
   <div style="max-width:1100px;margin:0 auto;">
     <div style="text-align:center;margin-bottom:52px;">
       <span class="section-label">Relocation Service</span>
@@ -316,7 +622,6 @@ const installSteps = [
       <div class="section-divider"></div>
     </div>
 
-    <!-- 언제 필요한가 + 비용 -->
     <div class="reloc-top-grid" style="margin-bottom:24px;">
       <div style="padding:36px;border:1px solid rgba(79,195,247,0.15);background:rgba(79,195,247,0.02);">
         <div style="font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:var(--blue);margin-bottom:16px;">When needed</div>
@@ -360,7 +665,6 @@ const installSteps = [
       </div>
     </div>
 
-    <!-- 이전 과정 -->
     <div style="padding:36px;border:1px solid rgba(79,195,247,0.1);margin-bottom:20px;">
       <div style="font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:var(--blue);margin-bottom:20px;">이전설치 과정</div>
       <div class="reloc-steps-grid">
@@ -382,7 +686,6 @@ const installSteps = [
       </div>
     </div>
 
-    <!-- 이전 시 주의사항 -->
     <div style="padding:28px 36px;border:1px solid rgba(255,195,0,0.2);background:rgba(255,180,0,0.02);">
       <div style="font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:rgba(255,200,0,0.7);margin-bottom:16px;">이전 시 주의사항</div>
       <div style="display:flex;flex-direction:column;gap:10px;">
@@ -402,7 +705,7 @@ const installSteps = [
 </section>
 
 <!-- 냉매 종류 -->
-<section style="background:var(--dark);padding:80px 8vw;border-top:1px solid rgba(79,195,247,0.08);">
+<section style="background:var(--dark2);padding:80px 8vw;border-top:1px solid rgba(79,195,247,0.08);">
   <div style="max-width:1100px;margin:0 auto;">
     <div style="text-align:center;margin-bottom:52px;">
       <span class="section-label">Refrigerant</span>
@@ -448,62 +751,6 @@ const installSteps = [
         </ul>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- 에너지효율등급 -->
-<section style="background:var(--dark2);padding:80px 8vw;border-top:1px solid rgba(79,195,247,0.08);">
-  <div style="max-width:1100px;margin:0 auto;">
-    <div style="text-align:center;margin-bottom:52px;">
-      <span class="section-label">Energy Rating</span>
-      <h2 class="font-display" style="font-size:clamp(26px,3.5vw,48px);font-weight:300;color:white;">에너지효율등급 안내</h2>
-      <div class="section-divider"></div>
-      <p style="font-size:14px;color:rgba(255,255,255,0.4);margin-top:12px;line-height:1.8;">
-        등급이 낮을수록(1등급이 최고) 전기료 절약 + 정부지원 혜택이 큽니다.
-      </p>
-    </div>
-    <div style="display:flex;flex-direction:column;gap:10px;max-width:700px;margin:0 auto;">
-      <div style="display:flex;align-items:center;gap:20px;padding:16px 24px;background:rgba(79,195,247,0.15);border:1px solid rgba(79,195,247,0.5);">
-        <div style="font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:600;color:var(--blue);width:40px;text-align:center;">1</div>
-        <div style="flex:1;">
-          <div style="font-size:13px;font-weight:600;color:white;margin-bottom:2px;">최고 효율 — 전기료 최저, 정부지원 40%</div>
-          <div style="font-size:12px;color:rgba(255,255,255,0.5);">에너지 소비효율 최상위 10% 제품</div>
-        </div>
-        <div style="font-size:10px;letter-spacing:0.2em;color:var(--blue);border:1px solid rgba(79,195,247,0.5);padding:4px 10px;">추천</div>
-      </div>
-      <div style="display:flex;align-items:center;gap:20px;padding:16px 24px;background:rgba(79,195,247,0.07);border:1px solid rgba(79,195,247,0.25);">
-        <div style="font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:600;color:rgba(79,195,247,0.7);width:40px;text-align:center;">2</div>
-        <div style="flex:1;">
-          <div style="font-size:13px;font-weight:600;color:white;margin-bottom:2px;">고효율 — 정부지원 30%</div>
-          <div style="font-size:12px;color:rgba(255,255,255,0.5);">평균 대비 에너지 소비 20% 이상 절약</div>
-        </div>
-        <div style="font-size:10px;letter-spacing:0.2em;color:rgba(79,195,247,0.7);border:1px solid rgba(79,195,247,0.3);padding:4px 10px;">지원가능</div>
-      </div>
-      <div style="display:flex;align-items:center;gap:20px;padding:16px 24px;border:1px solid rgba(255,255,255,0.08);">
-        <div style="font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:600;color:rgba(255,255,255,0.4);width:40px;text-align:center;">3</div>
-        <div style="flex:1;">
-          <div style="font-size:13px;font-weight:600;color:rgba(255,255,255,0.7);margin-bottom:2px;">중효율 — 정부지원 미해당</div>
-          <div style="font-size:12px;color:rgba(255,255,255,0.4);">평균 수준의 에너지 소비</div>
-        </div>
-      </div>
-      <div style="display:flex;align-items:center;gap:20px;padding:16px 24px;border:1px solid rgba(255,255,255,0.06);">
-        <div style="font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:600;color:rgba(255,255,255,0.25);width:40px;text-align:center;">4</div>
-        <div style="flex:1;">
-          <div style="font-size:13px;font-weight:600;color:rgba(255,255,255,0.5);margin-bottom:2px;">저효율 — 전기료 부담 증가</div>
-          <div style="font-size:12px;color:rgba(255,255,255,0.3);">평균 대비 에너지 소비 높음</div>
-        </div>
-      </div>
-      <div style="display:flex;align-items:center;gap:20px;padding:16px 24px;border:1px solid rgba(255,255,255,0.04);opacity:0.7;">
-        <div style="font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:600;color:rgba(255,255,255,0.2);width:40px;text-align:center;">5</div>
-        <div style="flex:1;">
-          <div style="font-size:13px;font-weight:600;color:rgba(255,255,255,0.4);margin-bottom:2px;">최저 효율 — 전기료 가장 높음</div>
-          <div style="font-size:12px;color:rgba(255,255,255,0.25);">판매 중단 또는 구형 제품</div>
-        </div>
-      </div>
-    </div>
-    <p style="text-align:center;font-size:12px;color:rgba(255,255,255,0.3);margin-top:20px;">
-      * 에너지효율 1~2등급 제품은 정부지원 대상 — <a href={`${base}/subsidy`} style="color:var(--blue);text-decoration:none;">정부지원사업 자세히 보기</a>
-    </p>
   </div>
 </section>
 
@@ -557,6 +804,45 @@ const installSteps = [
 </Layout>
 
 <style>
+/* 제품 카드 그리드 */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.product-card {
+  padding: 28px 24px;
+  border: 1px solid rgba(79, 195, 247, 0.15);
+  background: rgba(255, 255, 255, 0.02);
+  position: relative;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.product-card:hover {
+  border-color: rgba(79, 195, 247, 0.35);
+  background: rgba(79, 195, 247, 0.04);
+}
+
+/* 브랜드 비교 2컬럼 */
+.brand-compare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+/* 에너지 등급 표 row */
+.energy-row {
+  display: grid;
+  grid-template-columns: 80px 1fr 1fr 1fr 1fr;
+  border-bottom: 1px solid rgba(79, 195, 247, 0.06);
+  transition: background 0.15s;
+}
+
+.energy-row:hover {
+  background: rgba(79, 195, 247, 0.03);
+}
+
 /* 공간별 용량 선택 */
 .space-grid {
   display: grid;
@@ -608,10 +894,14 @@ const installSteps = [
 
 /* 비교 테이블 row */
 .compare-row {
-  display: grid;
-  grid-template-columns: 140px 1fr 1fr;
   border-bottom: 1px solid rgba(79, 195, 247, 0.06);
   transition: background 0.15s;
+}
+
+@media (max-width: 1200px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (max-width: 1024px) {
@@ -624,9 +914,22 @@ const installSteps = [
   .steps-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+  .energy-row {
+    grid-template-columns: 60px 1fr 1fr 1fr;
+  }
+  .energy-row > div:last-child {
+    display: none;
+  }
 }
 
 @media (max-width: 768px) {
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
+  .brand-compare-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
   .space-grid {
     grid-template-columns: 1fr;
   }
@@ -649,12 +952,22 @@ const installSteps = [
     grid-template-columns: 1fr;
   }
   .compare-row {
-    grid-template-columns: 100px 1fr 1fr;
+    grid-template-columns: 100px 1fr 1fr !important;
+  }
+  .energy-row {
+    grid-template-columns: 50px 1fr 1fr;
+  }
+  .energy-row > div:nth-child(4),
+  .energy-row > div:nth-child(5) {
+    display: none;
   }
 }
 
 @media (max-width: 480px) {
   .reloc-steps-grid {
+    grid-template-columns: 1fr;
+  }
+  .product-grid {
     grid-template-columns: 1fr;
   }
 }
