@@ -12,6 +12,14 @@ const {
 } = Astro.props;
 const canonicalURL = Astro.site ? new URL(Astro.url.pathname, Astro.site) : null;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const currentPath = Astro.url.pathname.replace(/\/$/, '');
+const navLinks = [
+  { href: `${base}/cases`,   label: '시공사례' },
+  { href: `${base}/pricing`, label: '설치비용' },
+  { href: `${base}/info`,    label: '에어컨정보' },
+  { href: `${base}/subsidy`, label: '지원사업' },
+  { href: `${base}/contact`, label: '상담신청' },
+];
 ---
 <!DOCTYPE html>
 <html lang='ko'>
@@ -107,9 +115,10 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     .header-nav a {
       font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
       text-decoration: none; color: inherit; opacity: 0.8;
-      transition: opacity 0.2s;
+      transition: opacity 0.2s, color 0.2s;
     }
     .header-nav a:hover { opacity: 1; }
+    .header-nav a.nav-active { color: #2563eb; opacity: 1; }
     .header-cta {
       display: none;
       font-size: 13px; font-weight: 600; letter-spacing: 0.08em;
@@ -139,6 +148,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       text-decoration: none; color: #09090b; transition: color 0.2s;
     }
     .nav-mobile a:hover { color: #71717a; }
+    .nav-mobile a.nav-active { color: #2563eb; }
 
     /* ── Buttons (NOVA style) ── */
     .btn-dark {
@@ -252,6 +262,40 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     }
     .footer-copy { font-size: 11px; color: #a1a1aa; }
 
+    /* ══ 서브페이지 호환 CSS (기존 스타일 복원) ══ */
+    :root {
+      --dark: #09090b;
+      --dark2: #18181b;
+      --black: #09090b;
+      --blue: #2563eb;
+      --blue-deep: #1d4ed8;
+      --blue-light: #93c5fd;
+      --blue-glow: rgba(37,99,235,0.12);
+      --cream: #f0f4f8;
+      --text-dim: rgba(255,255,255,0.55);
+      --text-muted: rgba(255,255,255,0.35);
+    }
+    .section-label {
+      display: block; font-size: 10px; letter-spacing: 0.5em; text-transform: uppercase;
+      color: #2563eb; margin-bottom: 16px;
+    }
+    .section-divider {
+      width: 40px; height: 1px;
+      background: linear-gradient(90deg, #2563eb, #93c5fd);
+      margin: 20px auto;
+    }
+    .blue-gradient {
+      background: linear-gradient(90deg, #2563eb, #93c5fd, #2563eb);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .btn-primary {
+      display: inline-block; background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      color: white; padding: 16px 40px; font-size: 11px; letter-spacing: 0.25em;
+      text-transform: uppercase; text-decoration: none; transition: all 0.3s;
+      border: none; cursor: pointer; font-family: inherit;
+    }
+    .btn-primary:hover { box-shadow: 0 12px 32px rgba(37,99,235,0.4); }
+
     /* ── Responsive ── */
     @media (max-width: 768px) {
       header#main-header { padding: 16px 20px; }
@@ -266,11 +310,9 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   <header id="main-header">
     <a href={`${base}/`} class="header-logo">디디에어컨</a>
     <ul class="header-nav">
-      <li><a href={`${base}/cases`}>시공사례</a></li>
-      <li><a href={`${base}/pricing`}>설치비용</a></li>
-      <li><a href={`${base}/info`}>에어컨정보</a></li>
-      <li><a href={`${base}/subsidy`} style="color:#2563eb;opacity:1;">지원사업</a></li>
-      <li><a href={`${base}/contact`}>상담신청</a></li>
+      {navLinks.map(({ href, label }) => (
+        <li><a href={href} class={currentPath === href ? 'nav-active' : ''}>{label}</a></li>
+      ))}
     </ul>
     <a href="tel:010-7237-2122" class="header-cta">010-7237-2122</a>
     <button class="header-hamburger" id="hamburger" aria-label="메뉴">
@@ -280,12 +322,10 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
   <!-- 모바일 메뉴 -->
   <div class="nav-mobile" id="mobile-nav">
-    <a href={`${base}/`} onclick="closeMobileNav()">홈</a>
-    <a href={`${base}/cases`} onclick="closeMobileNav()">시공사례</a>
-    <a href={`${base}/pricing`} onclick="closeMobileNav()">설치비용</a>
-    <a href={`${base}/info`} onclick="closeMobileNav()">에어컨정보</a>
-    <a href={`${base}/subsidy`} onclick="closeMobileNav()">지원사업</a>
-    <a href={`${base}/contact`} onclick="closeMobileNav()">상담신청</a>
+    <a href={`${base}/`} onclick="closeMobileNav()" class={currentPath === base || currentPath === `${base}/` ? 'nav-active' : ''}>홈</a>
+    {navLinks.map(({ href, label }) => (
+      <a href={href} onclick="closeMobileNav()" class={currentPath === href ? 'nav-active' : ''}>{label}</a>
+    ))}
     <a href="tel:010-7237-2122" onclick="closeMobileNav()" style="color:#2563eb;">010-7237-2122</a>
   </div>
 
