@@ -37,9 +37,17 @@ const typeColors: Record<string, string> = {
 <Layout title={title} description={description}>
 
 <style>
+  @keyframes heroImgIn {
+    from { opacity: 0; transform: translateX(50px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+  .hero-img-anim {
+    animation: heroImgIn 1.1s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+  }
   @media (max-width: 768px) {
     .header-grid { grid-template-columns: 1fr !important; }
     .header-grid > div:last-child { display: none; }
+    .hero-img-anim { animation: none; }
   }
 </style>
 
@@ -57,7 +65,7 @@ const typeColors: Record<string, string> = {
         식당·헤어샵·의원·학교·사무실 등<br/>다양한 업종의 실제 시공 현장입니다.
       </p>
     </div>
-    <div id="cases-hero-img" style="position:relative;opacity:0;transform:translateX(50px);">
+    <div id="cases-hero-img" class="hero-img-anim" style="position:relative;">
       <div style="position:relative;border-radius:4px;overflow:hidden;">
         <img
           src="https://images.unsplash.com/photo-1633098096918-f12258de36f1?q=85&w=1000&auto=format&fit=crop"
@@ -74,16 +82,6 @@ const typeColors: Record<string, string> = {
     </div>
   </div>
 </section>
-<script is:inline>
-  (function() {
-    var el = document.getElementById('cases-hero-img');
-    if (el && window.innerWidth > 768) {
-      if (typeof gsap !== 'undefined') {
-        gsap.to(el, { opacity:1, x:0, duration:1.1, delay:0.4, ease:'power3.out' });
-      }
-    }
-  })();
-</script>
 
 <!-- 필터 탭 -->
 <section style="background:#ffffff;position:sticky;top:60px;z-index:10;border-bottom:1px solid #e4e4e7;">
