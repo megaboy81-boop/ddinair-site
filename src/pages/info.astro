@@ -111,15 +111,52 @@ const installSteps = [
 <section style="background:#09090b;padding:160px 8vw 80px;position:relative;overflow:hidden;">
   <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 70% 50%,rgba(79,195,247,0.05),transparent 60%);"></div>
   <div style="max-width:1100px;margin:0 auto;position:relative;">
-    <span class="section-label">AC Knowledge</span>
-    <h1 class="font-display" style="font-size:clamp(38px,6vw,80px);font-weight:300;color:white;line-height:1;letter-spacing:0.02em;margin-bottom:24px;">
-      에어컨 정보<br/><span class="blue-gradient" style="font-style:italic;">전문가 가이드</span>
-    </h1>
-    <p style="font-size:16px;color:rgba(255,255,255,0.55);font-weight:300;line-height:1.9;max-width:560px;">
-      천장형 4WAY 카세트 시스템에어컨 설치·이전에 필요한<br/>핵심 정보를 디디에어컨 전문가가 쉽게 정리했습니다.
-    </p>
+    <div class="header-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;">
+      <div>
+        <span class="section-label">AC Knowledge</span>
+        <h1 class="font-display" style="font-size:clamp(38px,6vw,80px);font-weight:300;color:white;line-height:1;letter-spacing:0.02em;margin-bottom:24px;">
+          에어컨 정보<br/><span class="blue-gradient" style="font-style:italic;">전문가 가이드</span>
+        </h1>
+        <p style="font-size:16px;color:rgba(255,255,255,0.55);font-weight:300;line-height:1.9;max-width:560px;">
+          천장형 4WAY 카세트 시스템에어컨 설치·이전에 필요한<br/>핵심 정보를 디디에어컨 전문가가 쉽게 정리했습니다.
+        </p>
+      </div>
+      <div id="info-hero-img" style="position:relative;opacity:0;transform:translateX(50px);">
+        <div style="position:relative;border-radius:4px;overflow:hidden;">
+          <img
+            src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=85&w=1000&auto=format&fit=crop"
+            alt="시스템에어컨 에너지효율등급 안내"
+            style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;"
+            loading="eager"
+          />
+          <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(37,99,235,0.12),transparent);"></div>
+          <div style="position:absolute;bottom:0;left:0;right:0;padding:20px 24px;background:linear-gradient(to top,rgba(0,0,0,0.7),transparent);">
+            <p style="font-size:11px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#93c5fd;margin-bottom:4px;">AC KNOWLEDGE</p>
+            <p style="font-size:14px;font-weight:600;color:white;">삼성·LG 시스템에어컨 · 1등급 전문</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
+
+<script is:inline>
+  (function() {
+    var el = document.getElementById('info-hero-img');
+    if (el && window.innerWidth > 768) {
+      if (typeof gsap !== 'undefined') {
+        gsap.to(el, { opacity:1, x:0, duration:1.1, delay:0.4, ease:'power3.out' });
+      }
+    }
+  })();
+</script>
+
+<style>
+  @media (max-width: 768px) {
+    .header-grid { grid-template-columns: 1fr !important; }
+    .header-grid > div:last-child { display: none; }
+  }
+</style>
 
 <!-- LG vs 삼성 제품 카드 그리드 -->
 <section style="background:#ffffff;padding:0 8vw 80px;border-top:1px solid #e4e4e7;">
