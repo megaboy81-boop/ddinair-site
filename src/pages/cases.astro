@@ -257,7 +257,9 @@ const typeColors: Record<string, string> = {
 <script is:inline>
 // ── 시공사례 상세 모달 ──
 function openCaseModal(el) {
-  var img     = el.dataset.blogImg;
+  // 카드에 이미 로드된 이미지 src 그대로 사용
+  var cardImg = el.querySelector('.case-img-wrap img');
+  var img     = cardImg ? cardImg.src : '';
   var excerpt = el.dataset.excerpt;
   var link    = el.dataset.blogLink;
   var place   = el.dataset.place;
