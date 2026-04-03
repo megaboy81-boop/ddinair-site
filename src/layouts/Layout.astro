@@ -68,10 +68,13 @@ const navLinks = [
 
   <link rel='preconnect' href='https://fonts.googleapis.com' />
   <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin />
-  <link href='https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap' rel='stylesheet' />
-  <link rel='stylesheet' href='https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css' />
-  <!-- CDN — GSAP + Lenis -->
-  <Fragment set:html={'<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"><\/script><script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"><\/script><script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"><\/script>'} />
+  <!-- 폰트: 비블로킹 로드 -->
+  <link rel='preload' as='style' href='https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap' onload="this.rel='stylesheet'" />
+  <noscript><link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap' /></noscript>
+  <link rel='preload' as='style' href='https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css' onload="this.rel='stylesheet'" />
+  <noscript><link rel='stylesheet' href='https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css' /></noscript>
+  <!-- CDN — GSAP + Lenis (defer: 렌더 블로킹 없음) -->
+  <Fragment set:html={'<script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"><\/script><script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"><\/script><script defer src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"><\/script>'} />
 
   <style is:global>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
