@@ -8,7 +8,10 @@ const description = 'DD에어컨의 실제 시공 현장 사례. 식당, 헤어�
 const cases = [
   { img: 'case01.jpg', date: '2026.03', place: '수유 노원솔요양병원', spec: '삼성 벽걸이 9평 냉난방', type: '벽걸이' },
   { img: 'case02.jpg', date: '2026.02', place: '성수 셀렉샵', spec: 'LG 4WAY 25평 1등급', type: '4WAY' },
-  { img: 'case03.jpg', date: '2026.02', place: '안산 네일아트샵', spec: 'LG 4WAY 25평 1등급', type: '4WAY' },
+  { img: 'case03.jpg', date: '2026.02', place: '안산 네일아트샵', spec: 'LG 4WAY 25평 1등급', type: '4WAY',
+    blogImg: 'https://blogthumb.pstatic.net/MjAyNjAzMjNfMTI3/MDAxNzc0MjQ5MDQzMDU4.2i_plPjGMwPnMqxGpgek2sRzugTWW-ytzqKgMDlBm7gg.xcYgRqWMv3hi9QkeV2zdoJrHCPREwrQLYkROFlG3bAog.JPEG/%BE%C8%BB%EA%B3%D7%C0%CF%BC%A5_.jpg?type=w800',
+    excerpt: '안산 원타상가 1층에 위치한 네일아트샵 현장에 도착했을 때, 가장 먼저 눈에 들어온 것은 완성도 높은 인테리어였다. 화이트 톤 벽면에 LED 간접조명, 타원형 백라이트 거울, 라운드 선반까지 — 신규 오픈을 앞둔 매장 특유의 깔끔한 마감이 인상적이었다. 천장에 LG 4WAY 카세트형 25평 1등급 냉난방기를 신규 설치, 한전 고효율기기 지원사업 서류까지 DD에어컨이 대행 완료.',
+    blogLink: 'https://blog.naver.com/ddinair/224226700322' },
   { img: 'case04.jpg', date: '2026.02', place: '마포 사무실', spec: 'LG 4WAY 25평 + 벽걸이 16평', type: '4WAY' },
   { img: 'case05.jpg', date: '2026.02', place: '강변 치과', spec: '삼성 4WAY 30평 1등급', type: '4WAY' },
   { img: 'case06.jpg', date: '2025.11', place: '에이바헤어 건대점', spec: 'LG 4WAY 40평 1등급 + 28평', type: '4WAY' },
@@ -86,7 +89,19 @@ const typeColors: Record<string, string> = {
   <div style="max-width:1100px;margin:0 auto;">
     <div class="case-grid-3" id="case-grid">
       {cases.map((c, i) => (
-        <div class="case-card-item gsap-fade" data-type={c.type} data-delay={Math.min(i*0.04, 0.48)}>
+        <div
+          class="case-card-item gsap-fade"
+          data-type={c.type}
+          data-delay={Math.min(i*0.04, 0.48)}
+          data-blog-img={c.blogImg || ''}
+          data-excerpt={c.excerpt || ''}
+          data-blog-link={c.blogLink || ''}
+          data-place={c.place}
+          data-spec={c.spec}
+          data-date={c.date}
+          onclick={c.blogLink ? 'openCaseModal(this)' : ''}
+          style={c.blogLink ? 'cursor:pointer;' : ''}
+        >
           <!-- 이미지 영역 -->
           <div class="case-img-wrap">
             <img
@@ -96,12 +111,15 @@ const typeColors: Record<string, string> = {
             />
             <!-- 호버 오버레이 -->
             <div class="case-hover-overlay">
-              <span style={`font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:${typeColors[c.type]||'#4fc3f7'};border:1px solid ${typeColors[c.type]||'rgba(79,195,247,0.4)'};padding:3px 10px;`}>{c.type}</span>
+              {c.blogLink
+                ? <span style="font-size:11px;font-weight:600;color:white;letter-spacing:0.1em;">자세히 보기 →</span>
+                : <span style={`font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:${typeColors[c.type]||'#4fc3f7'};border:1px solid ${typeColors[c.type]||'rgba(79,195,247,0.4)'};padding:3px 10px;`}>{c.type}</span>
+              }
             </div>
           </div>
           <!-- 이미지 하단 텍스트 -->
           <div class="case-caption">
-            <span class="case-caption-date">{c.date}</span>
+            <span class="case-caption-date">{c.date}{c.blogLink ? <span style="margin-left:8px;font-size:9px;color:#2563eb;border:1px solid #bfdbfe;padding:1px 6px;border-radius:2px;">블로그</span> : ''}</span>
             <h3 class="case-caption-place">{c.place}</h3>
             <p class="case-caption-spec">{c.spec}</p>
           </div>
@@ -112,6 +130,34 @@ const typeColors: Record<string, string> = {
     <div id="no-results" style="display:none;text-align:center;padding:80px 0;color:#a1a1aa;font-size:14px;">해당 타입의 시공사례가 없습니다.</div>
   </div>
 </section>
+
+<!-- 시공사례 상세 모달 -->
+<div id="case-modal" style="display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:20px;">
+  <div style="background:#ffffff;max-width:560px;width:100%;position:relative;max-height:90vh;overflow-y:auto;">
+    <!-- 닫기 -->
+    <button onclick="closeCaseModal()" style="position:absolute;top:12px;right:12px;z-index:10;background:rgba(0,0,0,0.4);border:none;cursor:pointer;color:white;width:32px;height:32px;border-radius:50%;font-size:16px;line-height:1;display:flex;align-items:center;justify-content:center;">✕</button>
+    <!-- 이미지 -->
+    <div style="aspect-ratio:16/9;overflow:hidden;background:#1a1a1a;">
+      <img id="modal-img" src="" alt="" style="width:100%;height:100%;object-fit:cover;display:block;" />
+    </div>
+    <!-- 내용 -->
+    <div style="padding:28px 32px 32px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+        <span id="modal-date" style="font-size:10px;letter-spacing:0.2em;color:#a1a1aa;text-transform:uppercase;"></span>
+        <span style="font-size:10px;color:#2563eb;border:1px solid #bfdbfe;padding:1px 8px;">블로그 연동</span>
+      </div>
+      <h3 id="modal-place" class="font-display" style="font-size:26px;font-weight:400;color:#09090b;margin-bottom:6px;"></h3>
+      <p id="modal-spec" style="font-size:12px;color:#2563eb;letter-spacing:0.1em;margin-bottom:20px;"></p>
+      <p id="modal-excerpt" style="font-size:14px;color:#52525b;line-height:1.9;margin-bottom:28px;"></p>
+      <a id="modal-link" href="" target="_blank" rel="noopener"
+        style="display:inline-flex;align-items:center;gap:8px;background:#03C75A;color:white;text-decoration:none;padding:13px 24px;font-size:12px;font-weight:700;letter-spacing:0.05em;transition:background 0.2s;"
+        onmouseover="this.style.background='#02a84e'" onmouseout="this.style.background='#03C75A'">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="4" fill="white" fill-opacity="0.3"/><path d="M13.5 12.3L10.2 7H7v10h3.5v-5.3L13.8 17H17V7h-3.5v5.3z" fill="white"/></svg>
+        네이버 블로그에서 전체 글 보기
+      </a>
+    </div>
+  </div>
+</div>
 
 <!-- CTA -->
 <section style="background:#09090b;padding:80px 8vw;text-align:center;">
@@ -209,6 +255,40 @@ const typeColors: Record<string, string> = {
 </style>
 
 <script is:inline>
+// ── 시공사례 상세 모달 ──
+function openCaseModal(el) {
+  var img     = el.dataset.blogImg;
+  var excerpt = el.dataset.excerpt;
+  var link    = el.dataset.blogLink;
+  var place   = el.dataset.place;
+  var spec    = el.dataset.spec;
+  var date    = el.dataset.date;
+
+  document.getElementById('modal-img').src = img;
+  document.getElementById('modal-img').alt = place;
+  document.getElementById('modal-place').textContent = place;
+  document.getElementById('modal-spec').textContent = spec;
+  document.getElementById('modal-date').textContent = date;
+  document.getElementById('modal-excerpt').textContent = excerpt;
+  document.getElementById('modal-link').href = link;
+
+  var modal = document.getElementById('case-modal');
+  modal.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+function closeCaseModal() {
+  document.getElementById('case-modal').style.display = 'none';
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeCaseModal();
+});
+document.getElementById('case-modal').addEventListener('click', function(e) {
+  if (e.target === this) closeCaseModal();
+});
+window.openCaseModal = openCaseModal;
+window.closeCaseModal = closeCaseModal;
+
 window.addEventListener('load', function() {
   // Lenis
   if (typeof Lenis !== 'undefined') {
