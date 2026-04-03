@@ -440,15 +440,15 @@ const description = '한전 고효율기기 보급사업으로 에어컨 구매 
 
 </Layout>
 
-<style>
+<style is:global>
 @keyframes pulse-dot {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.35; }
 }
 @media (max-width: 768px) {
   .status-grid-3 { grid-template-columns: 1fr !important; }
-  section > div[style*="grid-template-columns:repeat(3"] { grid-template-columns: 1fr !important; }
-  section > div[style*="grid-template-columns:1fr 1fr"] { grid-template-columns: 1fr !important; }
+  .subsidy-cases-grid { grid-template-columns: 1fr !important; }
+  .docs-grid { grid-template-columns: 1fr !important; }
 }
 </style>
 
