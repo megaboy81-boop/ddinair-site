@@ -12,12 +12,12 @@ const description = '남양주·다산신도시 에어컨 전문 설치 업체. 
   ══════════════════════════════════════════ -->
   <section id="hero" style="position:relative;height:100dvh;min-height:640px;background:#09090b;overflow:hidden;display:flex;align-items:center;justify-content:center;perspective:1200px;">
 
-    <!-- 정적 fallback 이미지 (캔버스 로드 전 / 모바일) -->
+    <!-- 정적 fallback 이미지 (모바일 전용 / 데스크탑은 WebP 캔버스만 사용) -->
     <img
       id="hero-bg-img"
       src="https://images.unsplash.com/photo-1633098096918-f12258de36f1?q=85&w=2400&auto=format&fit=crop"
       alt="천장형 4WAY 카세트 에어컨"
-      style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;"
+      style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:0;"
       fetchpriority="high"
     />
 
@@ -600,6 +600,11 @@ const description = '남양주·다산신도시 에어컨 전문 설치 업체. 
     // ── WebP 캔버스 스크롤 애니메이션 (데스크탑 전용) ──
     const heroCanvas = document.getElementById('hero-canvas') as HTMLCanvasElement | null;
     const heroBgImg  = document.getElementById('hero-bg-img') as HTMLImageElement | null;
+
+    // 모바일: 캔버스 대신 fallback 이미지 표시
+    if (heroBgImg && window.innerWidth <= 768) {
+      heroBgImg.style.opacity = '1';
+    }
 
     if (heroCanvas && window.innerWidth > 768) {
       const ctx = heroCanvas.getContext('2d')!;
