@@ -296,12 +296,25 @@ const navLinks = [
     }
     .btn-primary:hover { box-shadow: 0 12px 32px rgba(37,99,235,0.4); }
 
+    /* ── 페이지 헤더 이미지 애니메이션 ── */
+    @keyframes heroImgIn {
+      from { opacity: 0; transform: translateX(50px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    .hero-img-anim {
+      animation: heroImgIn 1.1s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+    }
+
     /* ── Responsive ── */
     @media (max-width: 768px) {
       header#main-header { padding: 16px 20px; }
       footer { padding: 60px 20px 32px; }
       .footer-grid { grid-template-columns: 1fr; gap: 32px; }
       .footer-bottom { flex-direction: column; align-items: flex-start; }
+      /* 페이지 헤더 그리드: 모바일 1컬럼, 이미지 숨김 */
+      .header-grid { grid-template-columns: 1fr !important; }
+      .header-grid > div:last-child { display: none !important; }
+      .hero-img-anim { animation: none; }
     }
   </style>
 </head>
