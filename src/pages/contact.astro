@@ -197,36 +197,57 @@ const KAKAO_URL = 'https://open.kakao.com/o/ddinair';
   </div>
 </section>
 
-<!-- 미리보기 모달 -->
+<!-- 미리보기 + 제출 모달 -->
 <div id="preview-modal" style="display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.6);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:20px;">
   <div style="background:#ffffff;max-width:520px;width:100%;padding:40px;position:relative;max-height:90vh;overflow-y:auto;">
-    <!-- 닫기 -->
     <button onclick="closeModal()" style="position:absolute;top:16px;right:16px;background:none;border:none;cursor:pointer;color:#71717a;font-size:20px;line-height:1;padding:4px 8px;">✕</button>
 
-    <div style="font-size:10px;letter-spacing:0.4em;text-transform:uppercase;color:#2563eb;margin-bottom:8px;">미리보기</div>
-    <h3 class="font-display" style="font-size:22px;font-weight:300;color:#09090b;margin-bottom:20px;">전송할 내용 확인</h3>
+    <!-- 미리보기 상태 -->
+    <div id="modal-preview">
+      <div style="font-size:10px;letter-spacing:0.4em;text-transform:uppercase;color:#2563eb;margin-bottom:8px;">제출 전 확인</div>
+      <h3 class="font-display" style="font-size:22px;font-weight:300;color:#09090b;margin-bottom:20px;">신청 내용 확인</h3>
+      <div id="preview-content" style="background:#f8f8f8;border:1px solid #e4e4e7;padding:20px 24px;font-size:13px;color:#09090b;line-height:2;white-space:pre-wrap;font-family:monospace;margin-bottom:20px;"></div>
+      <p style="font-size:12px;color:#71717a;margin-bottom:24px;line-height:1.7;">
+        내용이 맞으면 제출하기를 눌러주세요.<br/>사장님 이메일로 즉시 전달됩니다.
+      </p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <button id="submit-btn" onclick="submitToFormspree()"
+          class="btn-primary" style="padding:14px 32px;font-size:11px;border:none;cursor:pointer;">
+          제출하기
+        </button>
+        <button onclick="closeModal()"
+          style="padding:14px 20px;background:none;border:1px solid #d1d5db;color:#52525b;font-size:12px;cursor:pointer;font-family:inherit;transition:border-color 0.2s;"
+          onmouseover="this.style.borderColor='#09090b'" onmouseout="this.style.borderColor='#d1d5db'">
+          수정하기
+        </button>
+      </div>
+    </div>
 
-    <!-- 포맷된 메시지 박스 -->
-    <div id="preview-content" style="background:#f8f8f8;border:1px solid #e4e4e7;padding:20px 24px;font-size:13px;color:#09090b;line-height:2;white-space:pre-wrap;font-family:monospace;margin-bottom:24px;"></div>
-
-    <p style="font-size:12px;color:#71717a;margin-bottom:20px;line-height:1.7;">
-      위 내용을 클립보드에 복사한 후 카카오톡 채팅창에 붙여넣기 하세요.
-    </p>
-
-    <div style="display:flex;gap:10px;flex-wrap:wrap;">
-      <!-- 복사 버튼 -->
-      <button id="copy-btn" onclick="copyAndOpenKakao()"
-        style="display:inline-flex;align-items:center;gap:8px;background:#FEE500;color:#3a2e00;border:none;padding:14px 24px;font-size:12px;font-weight:700;letter-spacing:0.05em;cursor:pointer;transition:background 0.2s;font-family:inherit;"
-        onmouseover="this.style.background='#FDD700'" onmouseout="this.style.background='#FEE500'">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="#3a2e00">
-          <path d="M12 2C6.477 2 2 5.85 2 10.6c0 2.956 1.768 5.558 4.444 7.18-.165.615-.597 2.23-.684 2.576-.108.432.158.426.332.31.136-.092 2.168-1.47 3.046-2.065.609.087 1.232.133 1.862.133 5.523 0 10-3.85 10-8.6C22 5.85 17.523 2 12 2z"/>
-        </svg>
-        복사 후 카카오톡 열기
-      </button>
+    <!-- 제출 성공 상태 -->
+    <div id="modal-success" style="display:none;text-align:center;padding:20px 0;">
+      <div style="font-size:48px;margin-bottom:16px;">✓</div>
+      <h3 class="font-display" style="font-size:26px;font-weight:300;color:#09090b;margin-bottom:12px;">접수 완료</h3>
+      <p style="font-size:14px;color:#52525b;line-height:1.9;margin-bottom:24px;">
+        신청 내용이 이메일로 전달되었습니다.<br/>
+        보통 <strong style="color:#09090b;">30분~1시간 내</strong>에 연락드립니다.<br/>
+        급하시면 <a href="tel:010-7237-2122" style="color:#2563eb;">010-7237-2122</a>로 전화주세요.
+      </p>
       <button onclick="closeModal()"
-        style="padding:14px 20px;background:none;border:1px solid #d1d5db;color:#52525b;font-size:12px;cursor:pointer;font-family:inherit;transition:border-color 0.2s;"
-        onmouseover="this.style.borderColor='#09090b'" onmouseout="this.style.borderColor='#d1d5db'">
+        class="btn-primary" style="padding:14px 32px;font-size:11px;border:none;cursor:pointer;">
         닫기
+      </button>
+    </div>
+
+    <!-- 제출 오류 상태 -->
+    <div id="modal-error" style="display:none;text-align:center;padding:20px 0;">
+      <div style="font-size:40px;margin-bottom:16px;">⚠️</div>
+      <p style="font-size:14px;color:#52525b;line-height:1.8;margin-bottom:20px;">
+        일시적인 오류가 발생했습니다.<br/>
+        전화로 문의해 주세요: <a href="tel:010-7237-2122" style="color:#2563eb;">010-7237-2122</a>
+      </p>
+      <button onclick="resetModal()"
+        style="padding:12px 24px;background:none;border:1px solid #d1d5db;color:#52525b;font-size:12px;cursor:pointer;font-family:inherit;">
+        다시 시도
       </button>
     </div>
   </div>
@@ -244,19 +265,32 @@ const KAKAO_URL = 'https://open.kakao.com/o/ddinair';
 </style>
 
 <script is:inline>
-var KAKAO_URL = 'https://open.kakao.com/o/ddinair';
+// ── Formspree 엔드포인트 (가입 후 ID 교체) ──
+// 1. formspree.io 가입
+// 2. New Form 생성 후 아래 YOUR_FORM_ID 자리에 ID 입력
+var FORMSPREE_URL = 'https://formspree.io/f/YOUR_FORM_ID';
+
+var _formData = null;
 var _previewText = '';
 
 function handleSubmit(e) {
   e.preventDefault();
   var form = e.target;
-  var name       = form.name.value.trim();
-  var tel        = form.tel.value.trim();
-  var address    = form.address.value.trim();
-  var acType     = form.ac_type.value || '미선택';
-  var serviceType= form.service_type.value || '미선택';
-  var memo       = form.memo.value.trim() || '없음';
+  var name        = form.name.value.trim();
+  var tel         = form.tel.value.trim();
+  var address     = form.address.value.trim();
+  var acType      = form.ac_type.value || '미선택';
+  var serviceType = form.service_type.value || '미선택';
+  var memo        = form.memo.value.trim() || '없음';
 
+  // Formspree로 보낼 데이터 저장
+  _formData = {
+    name: name, tel: tel, address: address,
+    ac_type: acType, service_type: serviceType, memo: memo,
+    _subject: '[DD에어컨 신규 문의] ' + name + ' · ' + serviceType
+  };
+
+  // 미리보기 텍스트
   _previewText =
     '[DD에어컨 서비스 신청]\n' +
     '━━━━━━━━━━━━━━━━━━━\n' +
@@ -270,39 +304,62 @@ function handleSubmit(e) {
     '※ DD에어컨 사이트를 통해 접수된 문의입니다.';
 
   document.getElementById('preview-content').textContent = _previewText;
+  showModalState('preview');
   document.getElementById('preview-modal').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
 
-function copyAndOpenKakao() {
-  var btn = document.getElementById('copy-btn');
-  navigator.clipboard.writeText(_previewText).then(function() {
-    btn.textContent = '✓ 복사 완료! 카카오톡 열기...';
-    setTimeout(function() {
-      window.open(KAKAO_URL, '_blank');
-    }, 600);
-  }).catch(function() {
-    // clipboard API 실패 시 fallback
-    window.open(KAKAO_URL, '_blank');
+function submitToFormspree() {
+  var btn = document.getElementById('submit-btn');
+  btn.textContent = '전송 중...';
+  btn.disabled = true;
+
+  fetch(FORMSPREE_URL, {
+    method: 'POST',
+    headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+    body: JSON.stringify(_formData)
+  })
+  .then(function(res) {
+    if (res.ok) {
+      showModalState('success');
+      // 폼 초기화
+      document.getElementById('contact-form').reset();
+    } else {
+      showModalState('error');
+    }
+  })
+  .catch(function() {
+    showModalState('error');
   });
+}
+
+function showModalState(state) {
+  document.getElementById('modal-preview').style.display  = state === 'preview'  ? 'block' : 'none';
+  document.getElementById('modal-success').style.display  = state === 'success'  ? 'block' : 'none';
+  document.getElementById('modal-error').style.display    = state === 'error'    ? 'block' : 'none';
+}
+
+function resetModal() {
+  var btn = document.getElementById('submit-btn');
+  if (btn) { btn.textContent = '제출하기'; btn.disabled = false; }
+  showModalState('preview');
 }
 
 function closeModal() {
   document.getElementById('preview-modal').classList.remove('open');
   document.body.style.overflow = '';
+  resetModal();
 }
 
-// ESC 닫기
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') closeModal();
 });
-
-// 모달 배경 클릭 닫기
 document.getElementById('preview-modal').addEventListener('click', function(e) {
   if (e.target === this) closeModal();
 });
 
 window.handleSubmit = handleSubmit;
+window.submitToFormspree = submitToFormspree;
 window.closeModal = closeModal;
-window.copyAndOpenKakao = copyAndOpenKakao;
+window.resetModal = resetModal;
 </script>
