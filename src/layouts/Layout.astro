@@ -120,8 +120,12 @@ const navLinks = [
       text-decoration: none; color: inherit; opacity: 0.8;
       transition: opacity 0.2s, color 0.2s;
     }
-    .header-nav a:hover { opacity: 1; }
+    .header-nav a:hover { opacity: 1; color: #71717a; }
     .header-nav a.nav-active { color: #2563eb; opacity: 1; }
+    .header-nav a.nav-active:hover { color: #2563eb; }
+    .header-nav a.nav-subsidy { color: #2563eb; opacity: 1; }
+    .scrolled .header-nav a.nav-subsidy { color: #2563eb; }
+    .header-nav a.nav-subsidy:hover { color: #71717a; }
     .header-cta {
       display: none;
       font-size: 13px; font-weight: 600; letter-spacing: 0.08em;
@@ -327,7 +331,7 @@ const navLinks = [
     <a href={`${base}/`} class="header-logo">디디에어컨</a>
     <ul class="header-nav">
       {navLinks.map(({ href, label }) => (
-        <li><a href={href} class={currentPath === href ? 'nav-active' : ''}>{label}</a></li>
+        <li><a href={href} class={currentPath === href ? 'nav-active' : (href.includes('/subsidy') ? 'nav-subsidy' : '')}>{label}</a></li>
       ))}
     </ul>
     <a href="tel:010-7237-2122" class="header-cta">010-7237-2122</a>
