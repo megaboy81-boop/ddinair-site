@@ -52,20 +52,20 @@ const typeColors: Record<string, string> = {
 </section>
 
 <!-- 필터 탭 -->
-<section style="background:var(--dark);position:sticky;top:60px;z-index:10;border-bottom:1px solid rgba(255,255,255,0.07);">
+<section style="background:#ffffff;position:sticky;top:60px;z-index:10;border-bottom:1px solid #e4e4e7;">
   <div style="max-width:1100px;margin:0 auto;padding:0 8vw;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;">
     {['전체', '4WAY', '스탠드', '벽걸이', '멀티'].map(f => (
       <button
         class="filter-btn"
         data-filter={f}
-        style={`flex-shrink:0;padding:16px 20px;background:none;border:none;cursor:pointer;font-size:11px;letter-spacing:0.25em;text-transform:uppercase;color:rgba(255,255,255,0.45);transition:all 0.2s;border-bottom:2px solid transparent;font-family:inherit;${f==='전체'?'color:var(--blue);border-bottom-color:var(--blue);':''}`}
+        style={`flex-shrink:0;padding:16px 20px;background:none;border:none;cursor:pointer;font-size:11px;letter-spacing:0.25em;text-transform:uppercase;color:#a1a1aa;transition:all 0.2s;border-bottom:2px solid transparent;font-family:inherit;${f==='전체'?'color:#2563eb;border-bottom-color:#2563eb;':''}`}
       >{f}</button>
     ))}
   </div>
 </section>
 
 <!-- 케이스 3×3 그리드 -->
-<section style="background:var(--dark);padding:48px 8vw 100px;">
+<section style="background:#f8f8f8;padding:48px 8vw 100px;">
   <div style="max-width:1100px;margin:0 auto;">
     <div class="case-grid-3" id="case-grid">
       {cases.map((c, i) => (
@@ -92,18 +92,18 @@ const typeColors: Record<string, string> = {
       ))}
     </div>
     <!-- 결과 없음 -->
-    <div id="no-results" style="display:none;text-align:center;padding:80px 0;color:rgba(255,255,255,0.35);font-size:14px;">해당 타입의 시공사례가 없습니다.</div>
+    <div id="no-results" style="display:none;text-align:center;padding:80px 0;color:#a1a1aa;font-size:14px;">해당 타입의 시공사례가 없습니다.</div>
   </div>
 </section>
 
 <!-- CTA -->
-<section style="background:var(--dark2);padding:80px 8vw;text-align:center;border-top:1px solid rgba(79,195,247,0.08);">
+<section style="background:#09090b;padding:80px 8vw;text-align:center;">
   <div style="max-width:500px;margin:0 auto;">
     <h2 class="font-display" style="font-size:clamp(28px,4vw,48px);font-weight:300;color:white;margin-bottom:16px;">견적 문의하기</h2>
     <p style="font-size:14px;color:rgba(255,255,255,0.45);line-height:1.8;margin-bottom:32px;">시공 전 무료 현장 방문 견적을 제공합니다.</p>
     <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
       <a href="tel:010-7237-2122" class="btn-primary">전화 문의하기</a>
-      <a href={`${base}/contact`} class="btn-outline">온라인 신청</a>
+      <a href={`${base}/contact`} style="display:inline-flex;align-items:center;gap:8px;padding:14px 28px;font-size:13px;font-weight:600;letter-spacing:0.04em;color:rgba(255,255,255,0.8);border:1px solid rgba(255,255,255,0.25);text-decoration:none;border-radius:9999px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='rgba(255,255,255,0.6)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.25)'">온라인 신청</a>
     </div>
   </div>
 </section>
@@ -172,20 +172,20 @@ const typeColors: Record<string, string> = {
     display: block;
     font-size: 10px;
     letter-spacing: 0.2em;
-    color: rgba(255,255,255,0.35);
+    color: #a1a1aa;
     margin-bottom: 5px;
     text-transform: uppercase;
   }
   .case-caption-place {
     font-size: 15px;
     font-weight: 600;
-    color: white;
+    color: #09090b;
     margin: 0 0 4px;
     letter-spacing: -0.01em;
   }
   .case-caption-spec {
     font-size: 12px;
-    color: rgba(255,255,255,0.45);
+    color: #71717a;
     margin: 0;
     line-height: 1.5;
   }
@@ -219,11 +219,11 @@ window.addEventListener('load', function() {
   filterBtns.forEach(function(btn) {
     btn.addEventListener('click', function() {
       filterBtns.forEach(function(b) {
-        b.style.color = 'rgba(255,255,255,0.45)';
+        b.style.color = '#a1a1aa';
         b.style.borderBottomColor = 'transparent';
       });
-      btn.style.color = 'var(--blue)';
-      btn.style.borderBottomColor = 'var(--blue)';
+      btn.style.color = '#2563eb';
+      btn.style.borderBottomColor = '#2563eb';
       var filter = btn.dataset.filter;
       var visible = 0;
       cards.forEach(function(card) {
