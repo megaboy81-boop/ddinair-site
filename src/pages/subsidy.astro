@@ -78,6 +78,9 @@ const description = '한전 고효율기기 보급사업으로 에어컨 구매 
 
     <!-- 프로그레스 바 -->
     <div style="margin-bottom:16px;">
+      <div style="text-align:center;font-size:11px;color:#71717a;margin-bottom:6px;">
+        <span id="bar-top-forecast">예상소진일 —</span>
+      </div>
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
         <span style="font-size:11px;color:#71717a;">2026.02.09 접수 시작</span>
         <span id="bar-label" style="font-size:11px;font-weight:700;color:#2563eb;"></span>
@@ -489,25 +492,27 @@ const description = '한전 고효율기기 보급사업으로 에어컨 구매 
     if (barLabel) barLabel.textContent = remainingPct + '% 잔여';
 
     // 예상 소진일 (사업 시작일 ~ 오늘 사용률 → 선형 외삽)
-    var endEl = document.getElementById('bar-end-label');
-    if (endEl) {
-      var startDate = new Date('2026-02-09T00:00:00+09:00');
-      var elapsedDays = Math.max(1, (now - startDate) / 86400000);
-      var dailyBurn = pct / elapsedDays; // %/day
-      var officialEnd = new Date('2026-12-31T23:59:59+09:00');
-      var depletion;
-      if (dailyBurn > 0 && remainingPct > 0) {
-        var daysLeft = remainingPct / dailyBurn;
-        depletion = new Date(now.getTime() + daysLeft * 86400000);
-        if (depletion > officialEnd) depletion = officialEnd;
-      } else {
-        depletion = officialEnd;
-      }
-      var label = depletion.getFullYear() + '.' +
-        String(depletion.getMonth() + 1).padStart(2, '0') + '.' +
-        String(depletion.getDate()).padStart(2, '0') + ' 예상소진일';
-      endEl.textContent = label;
+    var startDate = new Date('2026-02-09T00:00:00+09:00');
+    var elapsedDays = Math.max(1, (now - startDate) / 86400000);
+    var dailyBurn = pct / elapsedDays; // %/day
+    var officialEnd = new Date('2026-12-31T23:59:59+09:00');
+    var depletion;
+    if (dailyBurn > 0 && remainingPct > 0) {
+      var daysLeft = remainingPct / dailyBurn;
+      depletion = new Date(now.getTime() + daysLeft * 86400000);
+      if (depletion > officialEnd) depletion = officialEnd;
+    } else {
+      depletion = officialEnd;
     }
+    var depletionLabel = depletion.getFullYear() + '.' +
+      String(depletion.getMonth() + 1).padStart(2, '0') + '.' +
+      String(depletion.getDate()).padStart(2, '0');
+
+    var endEl = document.getElementById('bar-end-label');
+    if (endEl) endEl.textContent = depletionLabel + ' 예상소진일';
+
+    var topEl = document.getElementById('bar-top-forecast');
+    if (topEl) topEl.textContent = '예상소진일 ' + depletionLabel;
 
     // 상태 뱃지 & 도트
     var dot = document.getElementById('status-dot');
