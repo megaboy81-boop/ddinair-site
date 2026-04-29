@@ -693,10 +693,10 @@ const description = '남양주·다산신도시 에어컨 전문 설치 업체. 
           var bar = document.getElementById('hero-budget-bar');
           var lbl = document.getElementById('hero-budget-pct');
           var fc = document.getElementById('hero-budget-forecast');
-          if (bar) bar.style.width = Math.min(pct, 100) + '%';
+          if (bar) bar.style.width = Math.min(remainingPct, 100) + '%';
           if (lbl) lbl.textContent = remainingPct + '% 잔여';
           if (fc) fc.textContent = '· ' + depletionLabel + ' 예상소진';
-          if (bar && pct >= 75) bar.style.background = 'linear-gradient(90deg,#1d4ed8,#fbbf24)';
+          if (bar && remainingPct <= 25) bar.style.background = 'linear-gradient(90deg,#1d4ed8,#fbbf24)';
         }, 800);
       }
       fetch('/data/subsidy.json', { cache: 'no-store' })

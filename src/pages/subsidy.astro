@@ -476,13 +476,13 @@ const description = '한전 고효율기기 보급사업으로 에어컨 구매 
       remEl.style.color = pct < 50 ? '#22c55e' : pct < 80 ? '#fbbf24' : '#f87171';
     }
 
-    // 프로그레스 바
+    // 프로그레스 바 (잔여율 기준 채움 — 잔여 많을수록 녹색, 적을수록 빨강)
     var bar = document.getElementById('progress-bar');
     if (bar) {
-      bar.style.width = Math.min(pct, 100) + '%';
-      bar.style.background = pct < 50
+      bar.style.width = Math.min(remainingPct, 100) + '%';
+      bar.style.background = remainingPct > 50
         ? 'linear-gradient(90deg,#1d4ed8,#22c55e)'
-        : pct < 80
+        : remainingPct > 20
           ? 'linear-gradient(90deg,#1d4ed8,#fbbf24)'
           : 'linear-gradient(90deg,#1d4ed8,#f87171)';
     }
