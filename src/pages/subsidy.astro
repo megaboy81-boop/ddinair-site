@@ -464,55 +464,80 @@ const description = '한전 고효율기기 보급사업으로 에어컨 구매 
     var pct = Math.max(0, Math.min(100, 100 - remainingPct)); // 사용예산 = 100 - 잔여
     var remaining = Math.round(BUDGET_BILLION * remainingPct / 100);
     var pctRound = Math.round(pct * 10) / 10;
+    var isDepleted = remainingPct <= 0;
+    var nextStart = (data && data.next_start_date) ? new Date(data.next_start_date + 'T00:00:00+09:00') : null;
 
     // 퍼센트 표시 (한전 사이트와 동일하게 잔여 비율)
     var pctEl = document.getElementById('pct-display');
-    if (pctEl) pctEl.textContent = remainingPct + '%';
+    if (pctEl) pctEl.textContent = isDepleted ? '소진' : remainingPct + '%';
 
     // 잔여 예산
     var remEl = document.getElementById('remaining-display');
     if (remEl) {
-      remEl.textContent = remaining > 0 ? '약 ' + remaining + '억원' : '소진';
-      remEl.style.color = pct < 50 ? '#22c55e' : pct < 80 ? '#fbbf24' : '#f87171';
+      if (isDepleted) {
+        remEl.textContent = '소진 완료';
+        remEl.style.color = '#a1a1aa';
+      } else {
+        remEl.textContent = remaining > 0 ? '약 ' + remaining + '억원' : '소진';
+        remEl.style.color = pct < 50 ? '#22c55e' : pct < 80 ? '#fbbf24' : '#f87171';
+      }
     }
 
-    // 프로그레스 바 (잔여율 기준 채움 — 잔여 많을수록 녹색, 적을수록 빨강)
+    // 프로그레스 바
     var bar = document.getElementById('progress-bar');
     if (bar) {
-      bar.style.width = Math.min(remainingPct, 100) + '%';
-      bar.style.background = remainingPct > 50
-        ? 'linear-gradient(90deg,#1d4ed8,#22c55e)'
-        : remainingPct > 20
-          ? 'linear-gradient(90deg,#1d4ed8,#fbbf24)'
-          : 'linear-gradient(90deg,#1d4ed8,#f87171)';
+      if (isDepleted) {
+        bar.style.width = '100%';
+        bar.style.background = 'linear-gradient(90deg,#a1a1aa,#71717a)';
+      } else {
+        bar.style.width = Math.min(remainingPct, 100) + '%';
+        bar.style.background = remainingPct > 50
+          ? 'linear-gradient(90deg,#1d4ed8,#22c55e)'
+          : remainingPct > 20
+            ? 'linear-gradient(90deg,#1d4ed8,#fbbf24)'
+            : 'linear-gradient(90deg,#1d4ed8,#f87171)';
+      }
     }
 
-    // 바 레이블 (잔여 기준)
+    // 바 레이블
     var barLabel = document.getElementById('bar-label');
-    if (barLabel) barLabel.textContent = remainingPct + '% 잔여';
+    if (barLabel) barLabel.textContent = isDepleted ? '소진 완료' : remainingPct + '% 잔여';
 
-    // 예상 소진일 (사업 시작일 ~ 오늘 사용률 → 선형 외삽)
-    var startDate = new Date('2026-02-09T00:00:00+09:00');
-    var elapsedDays = Math.max(1, (now - startDate) / 86400000);
-    var dailyBurn = pct / elapsedDays; // %/day
-    var officialEnd = new Date('2026-12-31T23:59:59+09:00');
-    var depletion;
-    if (dailyBurn > 0 && remainingPct > 0) {
-      var daysLeft = remainingPct / dailyBurn;
-      depletion = new Date(now.getTime() + daysLeft * 86400000);
-      if (depletion > officialEnd) depletion = officialEnd;
-    } else {
-      depletion = officialEnd;
-    }
-    var depletionLabel = depletion.getFullYear() + '.' +
-      String(depletion.getMonth() + 1).padStart(2, '0') + '.' +
-      String(depletion.getDate()).padStart(2, '0');
-
-    var endEl = document.getElementById('bar-end-label');
-    if (endEl) endEl.textContent = depletionLabel + ' 예상소진일';
-
+    // 그래프 위/우측 라벨 분기 — 소진 시 D-day, 그 외 예상소진일
     var topEl = document.getElementById('bar-top-forecast');
-    if (topEl) topEl.textContent = '예상소진일 ' + depletionLabel;
+    var endEl = document.getElementById('bar-end-label');
+    if (isDepleted) {
+      if (nextStart && nextStart > now) {
+        var ddays = Math.ceil((nextStart - now) / 86400000);
+        var ns = nextStart.getFullYear() + '.' +
+          String(nextStart.getMonth() + 1).padStart(2, '0') + '.' +
+          String(nextStart.getDate()).padStart(2, '0');
+        if (topEl) topEl.textContent = '지원사업 시작 D-' + ddays + '일 전';
+        if (endEl) endEl.textContent = ns + ' 사업 시작';
+      } else {
+        if (topEl) topEl.textContent = '소진 완료 — 다음 사업 일정 추후 공지';
+        if (endEl) endEl.textContent = '다음 사업 일정 미정';
+      }
+    } else {
+      // 예상 소진일 (사업 시작일 ~ 오늘 사용률 → 선형 외삽)
+      var startDate = new Date('2026-02-09T00:00:00+09:00');
+      var elapsedDays = Math.max(1, (now - startDate) / 86400000);
+      var dailyBurn = pct / elapsedDays;
+      var officialEnd = new Date('2026-12-31T23:59:59+09:00');
+      var depletion;
+      if (dailyBurn > 0 && remainingPct > 0) {
+        var daysLeft = remainingPct / dailyBurn;
+        depletion = new Date(now.getTime() + daysLeft * 86400000);
+        if (depletion > officialEnd) depletion = officialEnd;
+      } else {
+        depletion = officialEnd;
+      }
+      var depletionLabel = depletion.getFullYear() + '.' +
+        String(depletion.getMonth() + 1).padStart(2, '0') + '.' +
+        String(depletion.getDate()).padStart(2, '0');
+      if (topEl) topEl.textContent = '예상소진일 ' + depletionLabel;
+      if (endEl) endEl.textContent = depletionLabel + ' 예상소진일';
+    }
 
     // 상태 뱃지 & 도트
     var dot = document.getElementById('status-dot');

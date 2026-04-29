@@ -669,40 +669,56 @@ const description = '남양주·다산신도시 에어컨 전문 설치 업체. 
       });
     }
 
-    // ── 히어로 배너 잔여예산 + 예상소진일 (한전 실값 fetch) ──
+    // ── 히어로 배너 잔여예산 + 예상소진일 / 소진 완료 + D-day (한전 실값 fetch) ──
     (function() {
-      function render(remainingPct) {
+      function render(data) {
+        var remainingPct = (data && typeof data.remaining === 'number') ? data.remaining : 43;
         var pct = Math.max(0, Math.min(100, 100 - remainingPct));
-        // 예상소진일
-        var startDate = new Date('2026-02-09T00:00:00+09:00');
+        var isDepleted = remainingPct <= 0;
+        var nextStart = (data && data.next_start_date) ? new Date(data.next_start_date + 'T00:00:00+09:00') : null;
         var now = new Date();
-        var elapsedDays = Math.max(1, (now - startDate) / 86400000);
-        var dailyBurn = pct / elapsedDays;
-        var officialEnd = new Date('2026-12-31T23:59:59+09:00');
-        var depletion;
-        if (dailyBurn > 0 && remainingPct > 0) {
-          var daysLeft = remainingPct / dailyBurn;
-          depletion = new Date(now.getTime() + daysLeft * 86400000);
-          if (depletion > officialEnd) depletion = officialEnd;
+
+        var lblText, fcText, barWidth, barBg;
+        if (isDepleted) {
+          lblText = '소진 완료';
+          if (nextStart && nextStart > now) {
+            var ddays = Math.ceil((nextStart - now) / 86400000);
+            fcText = '· D-' + ddays + '일';
+          } else {
+            fcText = '· 다음 사업 추후 공지';
+          }
+          barWidth = '100%';
+          barBg = 'linear-gradient(90deg,#a1a1aa,#71717a)';
         } else {
-          depletion = officialEnd;
+          var startDate = new Date('2026-02-09T00:00:00+09:00');
+          var elapsedDays = Math.max(1, (now - startDate) / 86400000);
+          var dailyBurn = pct / elapsedDays;
+          var officialEnd = new Date('2026-12-31T23:59:59+09:00');
+          var depletion = (dailyBurn > 0 && remainingPct > 0)
+            ? new Date(Math.min(now.getTime() + (remainingPct / dailyBurn) * 86400000, officialEnd.getTime()))
+            : officialEnd;
+          lblText = remainingPct + '% 잔여';
+          fcText = '· ' + (depletion.getMonth() + 1) + '.' + depletion.getDate() + ' 예상소진';
+          barWidth = Math.min(remainingPct, 100) + '%';
+          barBg = remainingPct > 25 ? null : 'linear-gradient(90deg,#1d4ed8,#fbbf24)';
         }
-        var depletionLabel = (depletion.getMonth() + 1) + '.' + depletion.getDate();
 
         setTimeout(function() {
           var bar = document.getElementById('hero-budget-bar');
           var lbl = document.getElementById('hero-budget-pct');
           var fc = document.getElementById('hero-budget-forecast');
-          if (bar) bar.style.width = Math.min(remainingPct, 100) + '%';
-          if (lbl) lbl.textContent = remainingPct + '% 잔여';
-          if (fc) fc.textContent = '· ' + depletionLabel + ' 예상소진';
-          if (bar && remainingPct <= 25) bar.style.background = 'linear-gradient(90deg,#1d4ed8,#fbbf24)';
+          if (bar) {
+            bar.style.width = barWidth;
+            if (barBg) bar.style.background = barBg;
+          }
+          if (lbl) lbl.textContent = lblText;
+          if (fc) fc.textContent = fcText;
         }, 800);
       }
       fetch('/data/subsidy.json', { cache: 'no-store' })
         .then(function(r) { return r.json(); })
-        .then(function(d) { render(typeof d.remaining === 'number' ? d.remaining : 43); })
-        .catch(function() { render(43); });
+        .then(function(d) { render(d); })
+        .catch(function() { render({ remaining: 43 }); });
     })();
 
     ScrollTrigger.refresh();

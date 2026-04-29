@@ -83,6 +83,9 @@ jobs:
               "source": "en-ter.co.kr",
               "year": now.year
           }
+          # 다음 해 사업 시작일은 사람이 박는 필드 — cron 갱신 시 보존
+          if existing.get("next_start_date"):
+              data["next_start_date"] = existing["next_start_date"]
           with open("public/data/subsidy.json", "w", encoding="utf-8") as f:
               json.dump(data, f, ensure_ascii=False, indent=2)
           print(f"Written: remaining={remaining}%, used={used}%")
