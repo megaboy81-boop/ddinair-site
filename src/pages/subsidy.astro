@@ -81,7 +81,7 @@ const description = '한전 고효율기기 보급사업으로 에어컨 구매 
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
         <span style="font-size:11px;color:#71717a;">2026.02.09 접수 시작</span>
         <span id="bar-label" style="font-size:11px;font-weight:700;color:#2563eb;"></span>
-        <span style="font-size:11px;color:#71717a;">2026.12.31 (조기마감 가능)</span>
+        <span id="bar-end-label" style="font-size:11px;color:#71717a;">2026.12.31 (조기마감 가능)</span>
       </div>
       <div style="width:100%;height:8px;background:#dbeafe;border-radius:4px;overflow:hidden;">
         <div id="progress-bar" style="height:100%;width:0%;background:linear-gradient(90deg,#1d4ed8,#3b82f6);border-radius:4px;transition:width 1.2s cubic-bezier(0.4,0,0.2,1);"></div>
@@ -487,6 +487,27 @@ const description = '한전 고효율기기 보급사업으로 에어컨 구매 
     // 바 레이블 (잔여 기준)
     var barLabel = document.getElementById('bar-label');
     if (barLabel) barLabel.textContent = remainingPct + '% 잔여';
+
+    // 예상 소진일 (사업 시작일 ~ 오늘 사용률 → 선형 외삽)
+    var endEl = document.getElementById('bar-end-label');
+    if (endEl) {
+      var startDate = new Date('2026-02-09T00:00:00+09:00');
+      var elapsedDays = Math.max(1, (now - startDate) / 86400000);
+      var dailyBurn = pct / elapsedDays; // %/day
+      var officialEnd = new Date('2026-12-31T23:59:59+09:00');
+      var depletion;
+      if (dailyBurn > 0 && remainingPct > 0) {
+        var daysLeft = remainingPct / dailyBurn;
+        depletion = new Date(now.getTime() + daysLeft * 86400000);
+        if (depletion > officialEnd) depletion = officialEnd;
+      } else {
+        depletion = officialEnd;
+      }
+      var label = depletion.getFullYear() + '.' +
+        String(depletion.getMonth() + 1).padStart(2, '0') + '.' +
+        String(depletion.getDate()).padStart(2, '0') + ' 예상소진일';
+      endEl.textContent = label;
+    }
 
     // 상태 뱃지 & 도트
     var dot = document.getElementById('status-dot');
