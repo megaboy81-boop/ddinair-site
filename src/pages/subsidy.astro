@@ -63,7 +63,7 @@ const description = '한전 고효율기기 보급사업으로 에어컨 구매 
         <div style="font-size:11px;color:#a1a1aa;margin-top:6px;">2026년 전체 배정 예산</div>
       </div>
       <div style="background:#ffffff;padding:28px 24px;">
-        <div style="font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:#71717a;margin-bottom:8px;">사용예산</div>
+        <div style="font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:#71717a;margin-bottom:8px;">잔여예산</div>
         <div id="pct-display" style="font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:300;line-height:1;color:#2563eb;">—</div>
         <div style="font-size:11px;color:#a1a1aa;margin-top:6px;">한전 공식 사이트 기준</div>
       </div>
@@ -462,9 +462,9 @@ const description = '한전 고효율기기 보급사업으로 에어컨 구매 
     var remaining = Math.round(BUDGET_BILLION * remainingPct / 100);
     var pctRound = Math.round(pct * 10) / 10;
 
-    // 퍼센트 표시
+    // 퍼센트 표시 (한전 사이트와 동일하게 잔여 비율)
     var pctEl = document.getElementById('pct-display');
-    if (pctEl) pctEl.textContent = pctRound.toFixed(1) + '%';
+    if (pctEl) pctEl.textContent = remainingPct + '%';
 
     // 잔여 예산
     var remEl = document.getElementById('remaining-display');
@@ -484,9 +484,9 @@ const description = '한전 고효율기기 보급사업으로 에어컨 구매 
           : 'linear-gradient(90deg,#1d4ed8,#f87171)';
     }
 
-    // 바 레이블
+    // 바 레이블 (잔여 기준)
     var barLabel = document.getElementById('bar-label');
-    if (barLabel) barLabel.textContent = pctRound.toFixed(1) + '% 소진';
+    if (barLabel) barLabel.textContent = remainingPct + '% 잔여';
 
     // 상태 뱃지 & 도트
     var dot = document.getElementById('status-dot');
